@@ -1,5 +1,6 @@
 - clean: ['~']
 
+
 - link:
     # ~/.dotfiles: ''
     ~/.tmux.conf: tmux.conf

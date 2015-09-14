@@ -25,4 +25,4 @@ let xml_syntax_folding=1	" XML
  set shiftwidth=4
  set expandtab
 
-
+set shell=/bin/bash
