@@ -3,4 +3,4 @@ fish/fishd.*
 tmux/resurrect/
 tmux/plugins/*
 !tmux/plugins/tpm/
-
+vim/.netrwhist
