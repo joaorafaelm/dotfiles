@@ -1,2 +1,6 @@
 fish/fish_history
 fish/fishd.*
+tmux/ressurect/
+tmux/plugins/*
+!tmux/plugins/tpm/
+
