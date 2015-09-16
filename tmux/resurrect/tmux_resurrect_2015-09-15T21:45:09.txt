@@ -1,0 +1,6 @@
+pane	0	0	:fish	1	:*	0	:/Users/joaorafael/.dotfiles	0	fish	:
+pane	0	0	:fish	1	:*	1	:/Users/joaorafael	1	fish	:
+pane	0	1	:teste	0	:-	0	:/Users/joaorafael	1	fish	:
+window	0	0	1	:*	8105,83x38,0,0[83x19,0,0,13,83x18,0,20,15]
+window	0	1	0	:-	6323,83x38,0,0,14
+state	0	
