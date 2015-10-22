@@ -7,7 +7,7 @@
 #                - wget
 
 # define versions
-tmux_version="2.0"
+tmux_version="2.1"
 tmux_patch_version="" # leave empty for stable releases
 
 libevent_version="2.0.21"
@@ -26,8 +26,9 @@ target_dir="/usr/local"
 # save them in /tmp
 
 cd /tmp
-
-wget -O $tmux_name.tar.gz http://sourceforge.net/projects/tmux/files/tmux/$tmux_relative_url.tar.gz/download
+#https://github.com/tmux/tmux/releases/download/2.1/tmux-2.1.tar.gz
+# wget -O $tmux_name.tar.gz http://sourceforge.net/projects/tmux/files/tmux/$tmux_relative_url.tar.gz/download
+wget -O $tmux_name.tar.gz https://github.com/tmux/tmux/releases/download/$tmux_version/$tmux_name.tar.gz
 wget -O $libevent_name.tar.gz https://github.com/downloads/libevent/libevent/$libevent_name.tar.gz
 wget -O $ncurses_name.tar.gz ftp://ftp.gnu.org/gnu/ncurses/$ncurses_name.tar.gz
 

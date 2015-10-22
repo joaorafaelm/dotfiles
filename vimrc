@@ -20,9 +20,11 @@ let vimyn_folding='af'		" Vim script
 let xml_syntax_folding=1	" XML
 
  " space as tabs
- filetype plugin indent on
- set tabstop=4
- set shiftwidth=4
- set expandtab
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 set shell=/bin/bash
+
+let g:indentLine_char = '│'
