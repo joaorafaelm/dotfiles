@@ -1,4 +1,0 @@
-- cmd: function fish_prompt --description 'Write out the prompt'\n\nset -l last_status $status\n\nif not set -q __fish_prompt_normal\nset -g __fish_prompt_normal (set_color normal)\nend\n\n# PWD\nset_color $fish_color_cwd\necho -n (prompt_pwd)\nset_color normal\n\nprintf '%s ' (__fish_git_prompt)\n\nif not test $last_status -eq 0\nset_color $fish_color_error\nend\n\necho -n '$ '\n\nend
-   when: 1438606257
-- cmd: function N_ --description No-op\nprintf "%s" $argv\nend
-   when: 1443937106
