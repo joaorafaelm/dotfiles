@@ -1,8 +1,7 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/joaorafael/.oh-my-zsh
+export GOPATH=$HOME/.golang
+export PATH=$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -28,7 +27,7 @@ ZSH_THEME="simple"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
