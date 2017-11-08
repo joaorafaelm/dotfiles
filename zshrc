@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/joaorafael/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 export GOPATH=$HOME/.golang
 export PATH=$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH
 
@@ -49,7 +49,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -82,4 +82,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+export PROMPT='%{$fg[yellow]%}%~%{$fg_bold[blue]%}$(git_prompt_info)%{$reset_color%} $ '
 export ZSH_THEME_GIT_PROMPT_PREFIX=" ("
+
