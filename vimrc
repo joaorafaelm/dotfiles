@@ -12,9 +12,6 @@ call plug#begin('~/.vim/plugins')
 
     " Git pluggin
     Plug 'airblade/vim-gitgutter'
-    
-    " Distraction free plugin
-    Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
