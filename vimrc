@@ -27,7 +27,7 @@ set shell=$SHELL
 syntax on
 set number
 set backspace=indent,eol,start
-
+set nowrap
 
 "theme config
 colorscheme gruvbox
