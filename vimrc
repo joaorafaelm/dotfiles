@@ -23,8 +23,10 @@ set shell=$SHELL
 " enable pretty syntax, line numbers and bksp
 syntax on
 set number
+set relativenumber
 set backspace=indent,eol,start
 set nowrap
+setlocal foldmethod=indent
 
 "theme config
 colorscheme gruvbox
