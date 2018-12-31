@@ -28,6 +28,14 @@ set backspace=indent,eol,start
 set nowrap
 setlocal foldmethod=indent
 
+if has("clipboard")
+  set clipboard=unnamed " copy to the system clipboard
+
+  if has("unnamedplus") " X11 support
+    set clipboard+=unnamedplus
+  endif
+endif
+
 "theme config
 colorscheme gruvbox
 let g:gruvbox_contrast_dark='medium'

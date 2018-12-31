@@ -3,3 +3,4 @@
 	email = joaoraf@me.com
 [core]
 	editor = vim
+	excludesfile = /Users/joaorafael/.gitignore_global
