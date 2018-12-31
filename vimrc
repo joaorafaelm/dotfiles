@@ -1,6 +1,9 @@
+scriptencoding utf-8
+set encoding=utf-8
+
 " Plugins section
 call plug#begin('~/.vim/plugins')
-    
+
     " Gruvbox theme
     Plug 'morhetz/gruvbox'
     
@@ -85,11 +88,6 @@ highlight GitGutterAdd ctermfg=green
 highlight GitGutterChange ctermfg=yellow
 highlight GitGutterDelete ctermfg=red
 highlight GitGutterChangeDelete ctermfg=yellow
-let g:gitgutter_sign_added = '█'
-let g:gitgutter_sign_modified = '█'
-let g:gitgutter_sign_removed = '█'
-let g:gitgutter_sign_removed_first_line = '█'
-let g:gitgutter_sign_modified_removed = '█'
 
 
 " line highlighting
