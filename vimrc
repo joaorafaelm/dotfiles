@@ -99,3 +99,6 @@ highlight cursorlinenr ctermbg=NONE
 " validator conf
 let g:validator_python_checkers = ['flake8']
 
+:" Map Ctrl-A -> Start of line, Ctrl-E -> End of line
+:map <C-a> <Home>
+:map <C-e> <End>

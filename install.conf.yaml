@@ -2,7 +2,6 @@
 
 
 - link:
-    # ~/.dotfiles: ''
     ~/.tmux.conf: tmux.conf
     ~/.vim: vim/
     ~/.vimrc: vimrc
@@ -10,5 +9,6 @@
     ~/.gitconfig: gitconfig
     ~/.zshrc: zshrc 
     ~/.gitignore_global: gitignore
+    ~/.config/flake8: flake8
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
