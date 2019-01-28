@@ -2,6 +2,7 @@
 export ZSH=$HOME/.oh-my-zsh
 export GOPATH=$HOME/.golang
 export PATH=$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH
+export PYTHONDONTWRITEBYTECODE=1
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
