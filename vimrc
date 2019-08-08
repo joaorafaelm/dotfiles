@@ -8,9 +8,6 @@ call plug#begin('~/.vim/plugins')
     " Gruvbox theme
     Plug 'morhetz/gruvbox'
 
-    " Add indent lines
-    Plug 'Yggdroot/indentLine'
-
     " Git pluggin
     Plug 'airblade/vim-gitgutter'
 
@@ -23,8 +20,11 @@ call plug#begin('~/.vim/plugins')
     " Auto Save
     Plug '907th/vim-auto-save'
 
-    " Auto Read
-    Plug 'djoshea/vim-autoread'
+    " Indent lines
+    Plug 'nathanaelkane/vim-indent-guides'
+
+    " highlight cursor word
+    Plug 'osyo-manga/vim-brightest'
 
 call plug#end()
 
@@ -39,7 +39,7 @@ set shell=$SHELL
 syntax on
 set number
 set relativenumber
-set backspace=indent,eol,start
+set backspace=eol,start
 set nowrap
 
 if has("clipboard")
@@ -64,17 +64,15 @@ set shiftwidth=4
 set expandtab
 au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
 
-" identLine config
-let g:indentLine_enabled = 1
-let g:indentLine_color_term = 239
-au BufReadPost,BufNewFile *.json let g:indentLine_conceallevel=0
-let g:indentLine_char = '┆'
-let g:indentLine_first_char = '┆'
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_setColors = 0
+" Indent config
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+hi IndentGuidesOdd ctermbg=234
+hi IndentGuidesEven ctermbg=234
 
 " show spaces
-set list lcs=space:·,eol:¬
+set list lcs=eol:¬
 
 " Fold
 highlight Folded ctermbg=233 ctermfg=239
@@ -95,12 +93,10 @@ let g:gitgutter_sign_modified_removed = '█'
 "Linters
 let g:ale_enabled = 1
 let b:ale_fixers = {
-\   'python': ['black', 'isort']
+\   'python': ['black', 'isort'],
+\   'javascript': ['eslint']
 \}
-let g:ale_pattern_options = {
-\   '\.js$': {'ale_enabled': 0}
-\}
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_set_highlights = 1
 let g:ale_sign_error = '█'
 let g:ale_sign_warning = '█'
@@ -115,3 +111,23 @@ highlight cursorlinenr ctermbg=NONE
 :" Map Ctrl-A -> Start of line, Ctrl-E -> End of line
 :map <C-a> <Home>
 :map <C-e> <End>
+
+" Highlight search matches
+set hlsearch 
+" Ignore case when searching
+set ignorecase
+" except when search string contains uppercase
+set smartcase
+" Jump to first match while entering search string
+set incsearch
+
+" Highlight word under the cursor
+let g:brightest#highlight = {
+\   "group" : "Question"
+\}
+
+"This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+" debugger shortcut
+ab ip import ipdb; ipdb.set_trace()
