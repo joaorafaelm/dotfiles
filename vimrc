@@ -41,6 +41,7 @@ set number
 set relativenumber
 set backspace=eol,start
 set nowrap
+filetype plugin on
 
 if has("clipboard")
   set clipboard=unnamed " copy to the system clipboard
@@ -123,7 +124,7 @@ set incsearch
 
 " Highlight word under the cursor
 let g:brightest#highlight = {
-\   "group" : "Question"
+\   "group" : "TabLineSel"
 \}
 
 "This unsets the "last search pattern" register by hitting return
@@ -131,3 +132,4 @@ nnoremap <CR> :noh<CR><CR>
 
 " debugger shortcut
 ab ip import ipdb; ipdb.set_trace()
+ab br breakpoint()
