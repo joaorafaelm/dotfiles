@@ -14,23 +14,7 @@ call plug#begin('~/.vim/plugins')
     " Linter
     Plug 'w0rp/ale'
 
-    " Fold
-    Plug 'vim-scripts/Efficient-python-folding'
-
-    " Auto Save
-    Plug '907th/vim-auto-save'
-
-    " Indent lines
-    Plug 'nathanaelkane/vim-indent-guides'
-
-    " highlight cursor word
-    Plug 'osyo-manga/vim-brightest'
-
 call plug#end()
-
-" enable auto save
-let g:auto_save = 1
-let g:auto_save_silent = 1
 
 " default shell
 set shell=$SHELL
@@ -64,13 +48,6 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
-
-" Indent config
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
-hi IndentGuidesOdd ctermbg=234
-hi IndentGuidesEven ctermbg=234
 
 " show spaces
 set list lcs=eol:¬

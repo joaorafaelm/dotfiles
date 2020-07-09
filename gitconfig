@@ -4,3 +4,6 @@
 [core]
 	editor = vim
 	excludesfile = /Users/joaorafael/.gitignore_global
+	page = 
+[pull]
+	rebase = true
