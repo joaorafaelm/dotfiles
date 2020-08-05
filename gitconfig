@@ -7,3 +7,5 @@
 	page = 
 [pull]
 	rebase = true
+[include]
+	path = /Users/joaorafael/.gitalias
