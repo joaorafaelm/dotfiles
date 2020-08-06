@@ -2,7 +2,11 @@
 
 # general space settings
 yabai -m config layout bsp
-yabai -m config window_gap 5
+yabai -m config top_padding    0
+yabai -m config bottom_padding 0
+yabai -m config left_padding   0
+yabai -m config right_padding  0
+yabai -m config window_gap     0
 
 # global settings
 yabai -m config window_shadow float
