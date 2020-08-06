@@ -9,6 +9,7 @@
     ~/.gitconfig: gitconfig
     ~/.gitalias: gitalias
     ~/.yabairc: yabairc
+    ~/.skhdrc: skhdrc
     ~/.zshrc: zshrc 
     ~/.gitignore_global: gitignore
     ~/.config/flake8: flake8
