@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+YABAI_CERT=yabai-cert sh -c "$(curl -sSL "https://git.io/update-yabai")" &
+
 # general space settings
 yabai -m config layout bsp
 yabai -m config top_padding    0

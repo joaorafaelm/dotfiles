@@ -7,7 +7,7 @@ alt - right : yabai -m window --focus east
 alt - down : yabai -m window --focus south
 alt - up : yabai -m window --focus north
 
-# swap focused window
+# move focused window
 shift + alt - up : yabai -m window --warp north
 shift + alt - down : yabai -m window --warp south
 shift + alt - left : yabai -m window --warp west
@@ -15,6 +15,7 @@ shift + alt - right : yabai -m window --warp east
 
 # toggle window zoom
 alt - z : yabai -m window --toggle zoom-fullscreen
+shift + alt - z : yabai -m window --toggle zoom-parent
 
 # toggle window split type
 alt - space : yabai -m window --toggle split
