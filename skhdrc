@@ -20,6 +20,9 @@ shift + alt - z : yabai -m window --toggle zoom-parent
 # toggle window split type
 alt - space : yabai -m window --toggle split
 
+# new term
+alt - t : osascript ~/.dotfiles/scripts/new_term.scpt
+
 # make floating window fill screen
 # shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
 
