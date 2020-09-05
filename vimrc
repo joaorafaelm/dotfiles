@@ -23,6 +23,7 @@ set shell=$SHELL
 syntax on
 set number
 set relativenumber
+set scrolloff=10
 set backspace=eol,start
 set nowrap
 filetype plugin on
@@ -62,11 +63,6 @@ highlight GitGutterAdd ctermfg=108
 highlight GitGutterChange ctermfg=108
 highlight GitGutterDelete ctermfg=108
 highlight GitGutterChangeDelete ctermfg=108
-let g:gitgutter_sign_added = '█'
-let g:gitgutter_sign_modified = '█'
-let g:gitgutter_sign_removed = '█'
-let g:gitgutter_sign_removed_first_line = '█'
-let g:gitgutter_sign_modified_removed = '█'
 
 "Linters
 let g:ale_enabled = 1
