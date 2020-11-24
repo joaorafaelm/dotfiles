@@ -23,6 +23,7 @@ yabai -m config window_topmost on
 yabai -m config window_opacity_duration 0.0
 
 yabai -m rule --add app="^FaceTime$" manage=off opacity=1
-yabai -m rule --add app="^Brave Browser$" title="^Picture in Picture$" manage=off opacity=1
+yabai -m rule --add app="^Brave Browser$" title="^Picture in Picture$" manage=off opacity=0.9
+
 
 echo "yabai configuration loaded.."

@@ -14,6 +14,13 @@ call plug#begin('~/.vim/plugins')
     " Linter
     Plug 'w0rp/ale'
 
+    " Auto complete
+    Plug 'zxqfl/tabnine-vim'
+
+    " Jump to definition
+    " brew install the_silver_searcher
+    Plug 'pechorin/any-jump.vim'
+
 call plug#end()
 
 " default shell
@@ -44,7 +51,7 @@ set background=dark
 highlight normal ctermbg=NONE
 
 " space as tabs
-filetype plugin indent on
+filetype plugin indent off
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -67,7 +74,7 @@ highlight GitGutterChangeDelete ctermfg=108
 "Linters
 let g:ale_enabled = 1
 let b:ale_fixers = {
-\   'python': ['black', 'isort'],
+\   'python': ['black', 'isort', 'flake8'],
 \   'javascript': ['eslint']
 \}
 let g:ale_fix_on_save = 0
@@ -103,6 +110,8 @@ let g:brightest#highlight = {
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
+"any jump
+hi Pmenu guibg=#1b1b1b ctermbg=235
+
 " debugger shortcut
-ab ip import ipdb; ipdb.set_trace()
-ab br breakpoint()
+ab ip import ipdb;ipdb.set_trace()
