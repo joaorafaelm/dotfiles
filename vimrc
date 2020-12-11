@@ -14,9 +14,6 @@ call plug#begin('~/.vim/plugins')
     " Linter
     Plug 'w0rp/ale'
 
-    " Auto complete
-    Plug 'zxqfl/tabnine-vim'
-
     " Jump to definition
     " brew install the_silver_searcher
     Plug 'pechorin/any-jump.vim'
