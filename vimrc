@@ -18,6 +18,9 @@ call plug#begin('~/.vim/plugins')
     " brew install the_silver_searcher
     Plug 'pechorin/any-jump.vim'
 
+    " gh link preview
+    Plug 'ruanyl/vim-gh-line'
+
 call plug#end()
 
 " default shell
