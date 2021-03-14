@@ -4,7 +4,6 @@ set encoding=utf-8
 " default shell
 set shell=$SHELL
 
-
 syntax on
 set number
 set relativenumber
@@ -114,11 +113,6 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-" Vim test settings
-let test#strategy = 'tmuxify'
-let test#python#runner = 'pytest'
-nmap <silent> t<C-n> :TestNearest<CR>
-
 :" Map Ctrl-A -> Start of line, Ctrl-E -> End of line
 map <C-a> <Home>
 map <C-e> <End>
@@ -175,4 +169,18 @@ nnoremap d "_d
 vnoremap d "_d
 
 " run rg + fzf command, open file in new pane
-nnoremap <silent> † :silent !fzf_grep_edit<CR>
+func! s:OpenFile()
+    exe 'silent! !fzf_grep_edit' |
+    redraw!
+endf
+nnoremap <silent> † :call <SID>OpenFile()<CR>
+
+" run test for current method
+fun! RunPytest()
+    let test_name = substitute(substitute(taghelper#curtag(), "\[", "", ""), "\]", "", "")
+    silent! exec '!tmux split-window -h -t $TMUX_PANE pipenv run pytest -k ' test_name
+endfun
+map f :call RunPytest() <CR>
+
+" quickly exit
+nnoremap ZZ :qa!<CR>
