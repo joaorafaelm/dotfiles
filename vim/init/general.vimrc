@@ -173,3 +173,6 @@ nnoremap <silent> <expr> O <SID>NewLineInsertExpr(1, 'O')
 " Dont copy to clipboard deleted text
 nnoremap d "_d
 vnoremap d "_d
+
+" run rg + fzf command, open file in new pane
+nnoremap <silent> † :silent !fzf_grep_edit<CR>
