@@ -1,7 +1,6 @@
 scriptencoding utf-8
 set encoding=utf-8
 
-
 " Plugins section
 call plug#begin('~/.vim/plugins')
     Plug 'morhetz/gruvbox'
@@ -12,6 +11,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'tmux-plugins/vim-tmux-focus-events'
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'jebaum/vim-tmuxify'
 call plug#end()
 
 " default shell
@@ -57,10 +58,15 @@ set expandtab
 au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
 
 " show spaces
-set list lcs=eol:¬
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
+set list
 
 " Fold
 highlight Folded ctermbg=233 ctermfg=239
+set foldmethod=indent
+set foldnestmax=2
+nnoremap <space> za
+vnoremap <space> zf
 
 " git gutter
 let g:gitgutter_override_sign_column_highlight = 0
@@ -111,8 +117,7 @@ let g:brightest#highlight = {
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
-"any jump
-hi Pmenu guibg=#1b1b1b ctermbg=235
+"fzf
 nnoremap <silent> <C-f> :Rg<CR>
 nnoremap <silent> <C-p> :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <silent> <C-s> :GFiles?<CR>
@@ -149,6 +154,7 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " Test settings
+let test#strategy = 'tmuxify'
 let test#python#runner = 'pytest'
 nmap <silent> t<C-n> :TestNearest<CR>
 
@@ -179,9 +185,8 @@ nnoremap <silent> <expr> O <SID>NewLineInsertExpr(1, 'O')
 nnoremap d "_d
 vnoremap d "_d
 
-" Vimspector
-fun GotoWindow(id)
-    call win_gotoid(a:id)
-    MaximizerToggle
-endfun
-nnoremap <leader>m :MaximizerToggle!<CR>
+" indent guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+hi IndentGuidesOdd  ctermbg=235
+hi IndentGuidesEven ctermbg=234
