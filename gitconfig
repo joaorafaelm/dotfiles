@@ -9,3 +9,9 @@
 	rebase = true
 [include]
 	path = /Users/joaorafael/.gitalias
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	d = difftool

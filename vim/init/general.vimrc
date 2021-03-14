@@ -4,12 +4,6 @@ set encoding=utf-8
 " default shell
 set shell=$SHELL
 
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \   exe "normal! zA`\"" |
-     \ endif
 
 syntax on
 set number
@@ -99,6 +93,13 @@ let g:ale_sign_error = '█'
 let g:ale_sign_warning = '█'
 highlight ALEErrorSign ctermbg=NONE ctermfg=131
 highlight ALEWarningSign ctermbg=NONE ctermfg=131
+
+" Return to last edit position when opening files
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   silent! exe "normal! g`\"" |
+     \   silent! exe "normal! zA`\"" |
+     \ endif
 
 " Auto reload file
 set autoread
