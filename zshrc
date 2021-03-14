@@ -57,19 +57,17 @@ export FZF_DEFAULT_OPTS='
 '
 # file search
 fzf_grep_edit(){
-    if [[ $# == 0 ]]; then
-        echo 'Error: search term was not provided.'
-        return
-    fi
     local match=$(
       rg --smart-case --color=never --line-number "$1" |
         fzf -i --no-multi --delimiter : \
-            --preview "bat --color=always --line-range {2}: {1}"
+            --preview "bat --color=always --line-range {2}: {1} --highlight-line {2}"
       )
     local file=$(echo "$match" | cut -d':' -f1)
     if [[ -n $file ]]; then
-        $EDITOR "$file" +$(echo "$match" | cut -d':' -f2)
+        tmux split-window -h -t $TMUX_PANE $EDITOR "$file" +$(echo "$match" | cut -d':' -f2) </dev/tty
     fi
 }
 
-alias f='fzf_grep_edit'
+zle -N fzf-grep-edit fzf_grep_edit
+bindkey "©" fzf-cd-widget
+bindkey "†" fzf-grep-edit

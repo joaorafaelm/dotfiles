@@ -4,27 +4,24 @@ set encoding=utf-8
 
 " Plugins section
 call plug#begin('~/.vim/plugins')
-
-    " Gruvbox theme
     Plug 'morhetz/gruvbox'
-
-    " Git pluggin
     Plug 'airblade/vim-gitgutter'
-
-    " Linter
     Plug 'w0rp/ale'
-
-    " Jump to definition
-    " brew install the_silver_searcher
-    Plug 'pechorin/any-jump.vim'
-
-    " gh link preview
     Plug 'ruanyl/vim-gh-line'
-
+    Plug 'vim-test/vim-test'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    Plug 'tmux-plugins/vim-tmux-focus-events'
 call plug#end()
 
 " default shell
 set shell=$SHELL
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
 
 " enable pretty syntax, line numbers and bksp
 syntax on
@@ -34,6 +31,8 @@ set scrolloff=10
 set backspace=eol,start
 set nowrap
 filetype plugin on
+
+set regexpengine=1
 
 if has("clipboard")
   set clipboard=unnamed " copy to the system clipboard
@@ -86,8 +85,10 @@ highlight ALEWarningSign ctermbg=NONE ctermfg=131
 
 " line highlighting
 set cursorline
-highlight clear cursorline
-highlight cursorlinenr ctermbg=NONE
+"highlight clear cursorline
+highlight cursorlinenr ctermbg=None
+highlight cursorline ctermbg=235 gui=reverse
+highlight cursorcolumn ctermbg=235
 
 :" Map Ctrl-A -> Start of line, Ctrl-E -> End of line
 :map <C-a> <Home>
@@ -112,17 +113,75 @@ nnoremap <CR> :noh<CR><CR>
 
 "any jump
 hi Pmenu guibg=#1b1b1b ctermbg=235
+nnoremap <silent> <C-f> :Rg<CR>
+nnoremap <silent> <C-p> :Rg <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent> <C-s> :GFiles?<CR>
+
+let mapleader = ','
 
 " debugger shortcut
 ab ip import ipdb;ipdb.set_trace()
+func! s:SetBreakpoint()
+    cal append('.', repeat(' ', strlen(matchstr(getline('.'), '^\s*'))) . 'breakpoint()')
+    exec ':w'
+endf
 
+func! s:RemoveBreakpoint()
+    exe 'silent! g/^\s*breakpoint()/d'
+endf
+
+func! s:ToggleBreakpoint()
+    if getline('.')=~#'^\s*breakpoint' | cal s:RemoveBreakpoint() | el | cal s:SetBreakpoint() | en
+endf
+nnoremap <leader>p :call <SID>ToggleBreakpoint()<CR>
+
+" reload file
+set autoread
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
             \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
 
 " Notification after file change
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+" Test settings
+let test#python#runner = 'pytest'
+nmap <silent> t<C-n> :TestNearest<CR>
+
+" o/O                   Start insert mode with [count] blank lines.
+"                       The default behavior repeats the insertion [count]
+"                       times, which is not so useful.
+function! s:NewLineInsertExpr( isUndoCount, command )
+    if ! v:count
+        return a:command
+    endif
+
+    let l:reverse = { 'o': 'O', 'O' : 'o' }
+    " First insert a temporary '$' marker at the next line (which is necessary
+    " to keep the indent from the current line), then insert <count> empty lines
+    " in between. Finally, go back to the previously inserted temporary '$' and
+    " enter insert mode by substituting this character.
+    " Note: <C-\><C-n> prevents a move back into insert mode when triggered via
+    " |i_CTRL-O|.
+    return (a:isUndoCount && v:count ? "\<C-\>\<C-n>" : '') .
+    \   a:command . "$\<Esc>m`" .
+    \   v:count . l:reverse[a:command] . "\<Esc>" .
+    \   'g``"_s'
+endfunction
+nnoremap <silent> <expr> o <SID>NewLineInsertExpr(1, 'o')
+nnoremap <silent> <expr> O <SID>NewLineInsertExpr(1, 'O')
+
+" Dont copy to clipboard deleted text
+nnoremap d "_d
+vnoremap d "_d
+
+" Vimspector
+fun GotoWindow(id)
+    call win_gotoid(a:id)
+    MaximizerToggle
+endfun
+nnoremap <leader>m :MaximizerToggle!<CR>
