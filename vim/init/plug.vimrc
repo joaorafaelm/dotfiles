@@ -8,4 +8,5 @@ call plug#begin('~/.vim/plugins')
     Plug 'tmux-plugins/vim-tmux-focus-events'
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'mgedmin/taghelper.vim'
+    Plug 'codota/tabnine-vim'
 call plug#end()

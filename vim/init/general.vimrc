@@ -199,3 +199,7 @@ map <silent> f :call RunPytest() <CR>
 
 " quickly exit
 nnoremap ZZ :qa!<CR>
+
+" Auto complete menu
+hi Pmenu ctermfg=15 ctermbg=236
+hi PmenuSel ctermfg=233 ctermbg=108
