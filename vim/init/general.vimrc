@@ -20,7 +20,7 @@ set softtabstop=4
 set tabstop=4
 set shiftwidth=4
 set expandtab
-au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+au FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
 set updatetime=100
 
 if has("clipboard")
@@ -54,7 +54,7 @@ highlight normal ctermbg=NONE
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
-hi IndentGuidesOdd  ctermbg=235
+hi IndentGuidesOdd  ctermbg=234
 hi IndentGuidesEven ctermbg=234
 
 " line highlighting
@@ -133,7 +133,7 @@ noremap U <C-R>
 " debugger shortcut
 ab br breakpoint()<CR>
 func! s:SetBreakpoint()
-    cal append('.', repeat(' ', strlen(matchstr(getline('.'), '^\s*'))) . 'breakpoint()')
+    cal append('.', repeat(' ', strlen(matchstr(getline(line(".")-1), '^\s*'))) . 'breakpoint()')
     exec ':w'
 endf
 

@@ -23,7 +23,7 @@ fzf_grep_edit(){
       )
     local file=$(echo "$match" | cut -d':' -f1)
     if [[ -n $file ]]; then
-        tmux split-window -h -t $TMUX_PANE $EDITOR "$file" +$(echo "$match" | cut -d':' -f2) </dev/tty
+        tmux split-window -t $TMUX_PANE $EDITOR "$file" +$(echo "$match" | cut -d':' -f2) </dev/tty
     fi
 }
 
