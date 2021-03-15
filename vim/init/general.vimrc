@@ -21,6 +21,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+set updatetime=100
 
 if has("clipboard")
   set clipboard=unnamed " copy to the system clipboard
