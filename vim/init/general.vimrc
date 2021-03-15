@@ -103,6 +103,7 @@ autocmd BufReadPost *
 
 " Auto reload file
 set autoread
+
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
@@ -145,9 +146,7 @@ func! s:ToggleBreakpoint()
 endf
 nnoremap <leader>p :call <SID>ToggleBreakpoint()<CR>
 
-" o/O                   Start insert mode with [count] blank lines.
-"                       The default behavior repeats the insertion [count]
-"                       times, which is not so useful.
+"o/O Start insert mode with [count] blank lines.
 function! s:NewLineInsertExpr( isUndoCount, command )
     if ! v:count
         return a:command
@@ -203,3 +202,25 @@ nnoremap ZZ :qa!<CR>
 " Auto complete menu
 hi Pmenu ctermfg=15 ctermbg=236
 hi PmenuSel ctermfg=233 ctermbg=108
+
+" paste in next line
+nmap p :pu<CR>
+
+" Auto update plugins every week
+function! OnVimEnter() abort
+    " Run PlugUpdate every week automatically when entering Vim.
+    if exists('g:plug_home')
+        let l:filename = printf('%s/.vim_plug_update', g:plug_home)
+        if filereadable(l:filename) == 0
+            call writefile([], l:filename)
+        endif
+        let l:this_week = strftime('%Y_%V')
+        let l:contents = readfile(l:filename)
+        if index(l:contents, l:this_week) < 0
+            call execute('PlugUpdate')
+            call writefile([l:this_week], l:filename, 'a')
+        endif
+    endif
+endfunction
+
+autocmd VimEnter * call OnVimEnter()
