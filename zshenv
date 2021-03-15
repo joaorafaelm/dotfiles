@@ -17,7 +17,7 @@ export FZF_DEFAULT_OPTS='
 # file search
 fzf_grep_edit(){
     local match=$(
-      rg --smart-case --color=never --line-number "$1" |
+      rg --sortr=modified --smart-case --color=never --line-number "$1" |
         fzf -i --no-multi --delimiter : \
             --preview "bat --color=always --line-range {2}: {1} --highlight-line {2}"
       )

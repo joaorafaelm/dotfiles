@@ -122,8 +122,11 @@ nnoremap <CR> :noh<CR><CR>
 
 "fzf
 nnoremap <silent> <C-f> :Rg<CR>
-nnoremap <silent> <C-p> :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <silent> <C-s> :GFiles?<CR>
+nnoremap <silent> <C-r> :History:<CR>
+
+" Redo with U instead of Ctrl+R
+noremap U <C-R>
 
 " debugger shortcut
 ab br breakpoint()<CR>
@@ -175,12 +178,23 @@ func! s:OpenFile()
 endf
 nnoremap <silent> † :call <SID>OpenFile()<CR>
 
+" Open fzf rg on word under cursor
+func! s:OpenCWord()
+    let word_under_cursor = expand("<cword>")
+    exe 'silent! !clear' |
+    exe 'silent! !fzf_grep_edit ' word_under_cursor |
+    redraw!
+endf
+nnoremap <silent> <C-p> :call <SID>OpenCWord()<CR>
+
 " run test for current method
 fun! RunPytest()
     let test_name = substitute(substitute(taghelper#curtag(), "\[", "", ""), "\]", "", "")
-    silent! exec '!tmux split-window -h -t $TMUX_PANE pipenv run pytest -k ' test_name
+    if test_name =~ "test_"
+        silent! exec '!tmux split-window -h -t $TMUX_PANE pipenv run pytest -k ' test_name
+    endif
 endfun
-map f :call RunPytest() <CR>
+map <silent> f :call RunPytest() <CR>
 
 " quickly exit
 nnoremap ZZ :qa!<CR>
