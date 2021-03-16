@@ -107,7 +107,7 @@ set autoread
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * silent!
             \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
 
 " Notification after file change
@@ -133,7 +133,11 @@ noremap U <C-R>
 " debugger shortcut
 ab br breakpoint()<CR>
 func! s:SetBreakpoint()
-    cal append('.', repeat(' ', strlen(matchstr(getline(line(".")-1), '^\s*'))) . 'breakpoint()')
+    let indent = strlen(matchstr(getline(line(".") - 1), '^\s*'))
+    if indent == 0
+        let indent = strlen(matchstr(getline(line(".")), '^\s*'))
+    endif
+    cal append('.', repeat(' ', indent). 'breakpoint()')
     exec ':w'
 endf
 
@@ -197,7 +201,7 @@ endfun
 map <silent> f :call RunPytest() <CR>
 
 " quickly exit
-nnoremap ZZ :qa!<CR>
+nnoremap <silent> ZZ :wqa!<CR>
 
 " Auto complete menu
 hi Pmenu ctermfg=15 ctermbg=236
