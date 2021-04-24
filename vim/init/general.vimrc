@@ -230,3 +230,6 @@ function! OnVimEnter() abort
 endfunction
 
 autocmd VimEnter * call OnVimEnter()
+
+noremap M `
+set viminfo='100,f1
