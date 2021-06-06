@@ -40,3 +40,16 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 source ~/.zshenv
+
+# Created by `pipx` on 2021-04-24 23:08:21
+export PATH="$PATH:/Users/joaorafael/.local/bin"
+
+export PIPENV_VENV_IN_PROJECT=1
+
+# make worktree
+unalias gg
+gg () {
+    git worktree add ./.features/$1
+    cp .env ./.features/$1/.env
+    cd ./.features/$1
+}

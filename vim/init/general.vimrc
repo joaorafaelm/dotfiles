@@ -21,8 +21,9 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 au FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
+autocmd FileType make setlocal noexpandtab
 set updatetime=100
-
+set mouse=a
 if has("clipboard")
   set clipboard=unnamed " copy to the system clipboard
   if has("unnamedplus") " X11 support
@@ -233,3 +234,16 @@ autocmd VimEnter * call OnVimEnter()
 
 noremap M `
 set viminfo='100,f1
+
+" persist undo
+set undodir=~/.vim/undodir
+set undofile
+
+function! s:DiffWithGITCheckedOut()
+  let filetype=&ft
+  diffthis
+  vnew | exe "%!git diff " . fnameescape( expand("#:p") ) . "| patch -p 1 -Rs -o /dev/stdout"
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+  diffthis
+endfunction
+com! D call s:DiffWithGITCheckedOut()

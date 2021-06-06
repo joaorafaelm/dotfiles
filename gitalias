@@ -1456,3 +1456,4 @@
 
   ull = pull
   ush = push
+  clean-worktree = !"cd .features; for i in $(ls); do cd $i; gh pr status | grep -i $i | grep -i merged && g worktree remove $i; cd ..; done"
