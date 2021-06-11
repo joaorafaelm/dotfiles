@@ -50,10 +50,23 @@ export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x --reuse-db -qqq --capture=no --log-cli-level=CRITICAL -p no:logging'
 
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
 # make worktree
 unalias gg
 gg () {
-    git worktree add ./.features/$1
-    cp .env ./.features/$1/.env
-    cd ./.features/$1
+    cd $(git worktree list | grep master | cut -f1 -d " ");
+    git worktree add .features/$1;
+    cp .env .features/$1/.env;
+    cd .features/$1;
+}
+
+# clean worktree
+gw () {
+    cd $(git worktree list | grep master | cut -f1 -d " ");
+    for i in $(ls .features);
+    do cd .features/$i;
+        git branch --merged master | grep $i$ && git worktree remove $i;
+        cd ~-;
+    done;
 }
