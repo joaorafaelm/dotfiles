@@ -18,7 +18,7 @@ source $ZSH/oh-my-zsh.sh
 export PROMPT='%{$fg[yellow]%}%~%{$fg_bold[blue]%}$(git_prompt_info)%{$reset_color%} '
 export ZSH_THEME_GIT_PROMPT_PREFIX=" ("
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
-
+export PYTHONWARNINGS="ignore"
 
 # Aliases
 alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
@@ -45,6 +45,10 @@ source ~/.zshenv
 export PATH="$PATH:/Users/joaorafael/.local/bin"
 
 export PIPENV_VENV_IN_PROJECT=1
+export PIPENV_VENV_IN_PROJECT=enabled
+export PYTHONWARNINGS="ignore"
+export PYTHONDONTWRITEBYTECODE=1
+export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x --reuse-db -qqq --capture=no --log-cli-level=CRITICAL -p no:logging'
 
 # make worktree
 unalias gg

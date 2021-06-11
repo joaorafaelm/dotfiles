@@ -1,3 +1,17 @@
+call plug#begin('~/.vim/plugins')
+    Plug 'morhetz/gruvbox'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'w0rp/ale'
+    Plug 'ruanyl/vim-gh-line'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    Plug 'tmux-plugins/vim-tmux-focus-events'
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'mgedmin/taghelper.vim'
+    Plug 'codota/tabnine-vim'
+    Plug 'zivyangll/git-blame.vim'
+call plug#end()
+
 scriptencoding utf-8
 set encoding=utf-8
 
@@ -7,7 +21,7 @@ set shell=$SHELL
 syntax on
 set number
 set relativenumber
-set scrolloff=10
+set scrolloff=5
 set backspace=indent,eol,start
 set nowrap
 set autoindent
@@ -247,3 +261,5 @@ function! s:DiffWithGITCheckedOut()
   diffthis
 endfunction
 com! D call s:DiffWithGITCheckedOut()
+
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
