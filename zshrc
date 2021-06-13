@@ -14,6 +14,9 @@ export PYTHONDONTWRITEBYTECODE=1
 # Zsh cmd
 ZSH_THEME="simple"
 plugins=(git zsh-autosuggestions)
+plugins+=(zsh-vi-mode)
+
+
 source $ZSH/oh-my-zsh.sh
 export PROMPT='%{$fg[yellow]%}%~%{$fg_bold[blue]%}$(git_prompt_info)%{$reset_color%} '
 export ZSH_THEME_GIT_PROMPT_PREFIX=" ("
@@ -70,3 +73,7 @@ gw () {
         cd ~-;
     done;
 }
+
+# vim mode fzf
+zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+ZVM_CURSOR_STYLE_ENABLED=false
