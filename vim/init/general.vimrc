@@ -265,3 +265,7 @@ endfunction
 com! D call s:DiffWithGITCheckedOut()
 
 nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+
+" split styling
+set fillchars+=vert:\ 
+highlight VertSplit cterm=NONE
