@@ -35,6 +35,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 au FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
+au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType make setlocal noexpandtab
 set updatetime=100
 set mouse=a
@@ -84,6 +85,7 @@ highlight cursorcolumn ctermbg=235
 highlight Folded ctermbg=233 ctermfg=239
 set foldmethod=indent
 set foldnestmax=2
+set fml=0
 nnoremap <space> za
 vnoremap <space> zf
 
