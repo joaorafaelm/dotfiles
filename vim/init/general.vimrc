@@ -84,7 +84,7 @@ highlight cursorcolumn ctermbg=235
 " Fold
 highlight Folded ctermbg=233 ctermfg=239
 set foldmethod=indent
-set foldnestmax=2
+set foldnestmax=3
 set fml=0
 nnoremap <space> za
 vnoremap <space> zf
