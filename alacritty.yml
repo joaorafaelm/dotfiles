@@ -29,6 +29,10 @@ font:
     family: Menlo
     style: Bold
 
+  italic:
+    family: Menlo
+    style: Italic
+
   size: 10
   offset:
     x: 0
