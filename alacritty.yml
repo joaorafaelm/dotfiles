@@ -9,7 +9,10 @@ mouse:
   unfocused_hollow: true
 
 cursor:
-  style: Beam
+  style:
+    shape: Block
+    blinking: Always
+  blink_interval: 500
   unfocused_hollow: true
 
 window:
@@ -38,6 +41,7 @@ font:
     x: 0
     y: 15
   scale_with_dpi: true
+  use_thin_strokes: true
 
 colors:
   primary:

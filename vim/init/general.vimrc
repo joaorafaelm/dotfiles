@@ -269,3 +269,12 @@ nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 " split styling
 set fillchars+=vert:\ 
 highlight VertSplit cterm=NONE
+
+" change cursor for mode
+" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+set ttimeout
+set ttimeoutlen=1
+set ttyfast
