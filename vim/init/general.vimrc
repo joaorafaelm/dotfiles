@@ -21,7 +21,7 @@ set shell=$SHELL
 syntax on
 set number
 set relativenumber
-set scrolloff=5
+set scrolloff=10
 set backspace=indent,eol,start
 set nowrap
 set autoindent
@@ -278,3 +278,7 @@ let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 set ttimeout
 set ttimeoutlen=1
 set ttyfast
+
+" scroll up/down paragraph
+nnoremap j }
+nnoremap k {
