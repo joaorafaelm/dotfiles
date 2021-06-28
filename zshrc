@@ -20,7 +20,9 @@ plugins+=(zsh-vi-mode)
 source $ZSH/oh-my-zsh.sh
 export PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_prompt_info)%{$reset_color%} '
 export RPROMPT="%{$fg[black]%}%D{%b %d, %Y - %T}%{$reset_color%}"
-export ZSH_THEME_GIT_PROMPT_PREFIX=" ("
+export ZSH_THEME_GIT_PROMPT_PREFIX=" "
+export ZSH_THEME_GIT_PROMPT_SUFFIX="" 
+
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 export PYTHONWARNINGS="ignore"
 
