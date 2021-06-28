@@ -196,17 +196,17 @@ vnoremap d "_d
 
 " run rg + fzf command, open file in new pane
 func! s:OpenFile()
-    exe 'silent! !fzf_grep_edit' |
-    redraw!
+exe 'silent! !fzf_grep_edit' |
+redraw!
 endf
 nnoremap <silent> † :call <SID>OpenFile()<CR>
 
 " Open fzf rg on word under cursor
 func! s:OpenCWord()
-    let word_under_cursor = expand("<cword>")
-    exe 'silent! !clear' |
-    exe 'silent! !fzf_grep_edit ' word_under_cursor |
-    redraw!
+let word_under_cursor = expand("<cword>")
+exe 'silent! !clear' |
+exe 'silent! !fzf_grep_edit ' word_under_cursor |
+redraw!
 endf
 nnoremap <silent> <C-p> :call <SID>OpenCWord()<CR>
 
@@ -217,7 +217,7 @@ fun! RunPytest()
         silent! exec '!tmux split-window -h -t $TMUX_PANE pipenv run pytest -k ' test_name
     endif
 endfun
-map <silent> f :call RunPytest() <CR>
+map <silent> t :call RunPytest() <CR>
 
 " quickly exit
 nnoremap <silent> ZZ :wqa!<CR>

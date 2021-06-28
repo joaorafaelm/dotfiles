@@ -14,6 +14,7 @@
     ~/.zshenv: zshenv 
     ~/.gitignore_global: gitignore
     ~/.config/flake8: flake8
+    ~/.config/alacritty.yml: alacritty.yml
     ~/.ipython/profile_default/ipython_config.py: ipython_config.py
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

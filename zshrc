@@ -77,4 +77,7 @@ gw () {
 
 # vim mode fzf
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-ZVM_CURSOR_STYLE_ENABLED=false
+if [ -z "$TMUX" ]
+then
+    tmux attach -t TMUX || tmux new -s TMUX
+fi
