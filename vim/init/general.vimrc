@@ -279,6 +279,4 @@ set ttimeout
 set ttimeoutlen=1
 set ttyfast
 
-" scroll up/down paragraph
-nnoremap j }
-nnoremap k {
+nnoremap s /
