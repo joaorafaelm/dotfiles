@@ -278,5 +278,10 @@ let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 set ttimeout
 set ttimeoutlen=1
 set ttyfast
+" reset the cursor on start
+augroup myCmds
+au!
+autocmd FocusGained,BufEnter,VimEnter * silent !echo -ne "\e[2 q"
+augroup END
 
 nnoremap s /
