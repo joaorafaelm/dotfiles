@@ -13,8 +13,12 @@ export PYTHONDONTWRITEBYTECODE=1
 
 # Zsh cmd
 ZSH_THEME="simple"
-plugins=(git zsh-autosuggestions)
-plugins+=(zsh-vi-mode)
+plugins=(
+    git
+    zsh-autosuggestions
+    zsh-vi-mode
+    git-auto-fetch
+)
 
 source $ZSH/oh-my-zsh.sh
 export PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_prompt_info)%{$reset_color%} '
@@ -23,16 +27,8 @@ export ZSH_THEME_GIT_PROMPT_PREFIX=" "
 export ZSH_THEME_GIT_PROMPT_SUFFIX="" 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 export PYTHONWARNINGS="ignore"
-
-# Aliases
-alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
-alias v='node ~/Dev/Other/crafty/main.js --watch'
-
-# shitty macbook keyboard
-alias lss='ls'
-alias lsss='ls'
-
 export EDITOR=vim
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(pyenv init -)"
@@ -40,9 +36,6 @@ eval "$(pyenv init -)"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 source ~/.zshenv
 
 # Created by `pipx` on 2021-04-24 23:08:21
@@ -53,8 +46,6 @@ export PIPENV_VENV_IN_PROJECT=enabled
 export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x --reuse-db -qqq --capture=no --log-cli-level=CRITICAL -p no:logging'
-
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # make worktree
 unalias gg
