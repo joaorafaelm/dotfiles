@@ -8,8 +8,16 @@ export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export PATH="/usr/local/bin/:$PATH"
 export PATH="/usr/local/opt/node@8/bin:$PATH"
 export PATH=$HOME/.cargo/bin:$PATH
-
+export PATH="$PATH:$HOME/.rvm/bin"
+export PYTHONWARNINGS="ignore"
+export EDITOR=vim
+export PATH="$PATH:/Users/joaorafael/.local/bin"
+export PIPENV_VENV_IN_PROJECT=1
+export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
+export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x --reuse-db -qqq --capture=no --log-cli-level=CRITICAL -p no:logging'
+eval "$(pyenv init -)"
+source ~/.zshenv
 
 # Zsh cmd
 ZSH_THEME="simple"
@@ -18,34 +26,26 @@ plugins=(
     zsh-autosuggestions
     zsh-vi-mode
     git-auto-fetch
+    git-prompt
 )
 
 source $ZSH/oh-my-zsh.sh
-export PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_prompt_info)%{$reset_color%} '
-export RPROMPT="%{$fg[black]%}%D{%b %d, %Y - %T}%{$reset_color%}"
-export ZSH_THEME_GIT_PROMPT_PREFIX=" "
-export ZSH_THEME_GIT_PROMPT_SUFFIX="" 
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
-export PYTHONWARNINGS="ignore"
-export EDITOR=vim
-
+PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_super_status)%{$reset_color%} '
+RPROMPT="%{$fg[black]%}%D{%b %d, %Y - %T}%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_PREFIX=" "
+ZSH_THEME_GIT_PROMPT_SUFFIX="" 
+ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
+ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[yellow]%}"
+ZSH_THEME_GIT_PROMPT_CHANGED=" %{$fg_bold[green]%}%{✚%G%}"
+ZSH_THEME_GIT_PROMPT_BEHIND=" %{$fg_bold[yellow]%}%{↓%G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD=" %{$fg_bold[yellow]%}%{↑%G%}"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[red]%}%{●%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{$fg_bold[cyan]%}%{…%G%}"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-eval "$(pyenv init -)"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-source ~/.zshenv
-
-# Created by `pipx` on 2021-04-24 23:08:21
-export PATH="$PATH:/Users/joaorafael/.local/bin"
-
-export PIPENV_VENV_IN_PROJECT=1
-export PIPENV_VENV_IN_PROJECT=enabled
-export PYTHONWARNINGS="ignore"
-export PYTHONDONTWRITEBYTECODE=1
-export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x --reuse-db -qqq --capture=no --log-cli-level=CRITICAL -p no:logging'
+# vim mode fzf
+zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 
 # make worktree
 unalias gg
@@ -66,8 +66,7 @@ gw () {
     done;
 }
 
-# vim mode fzf
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+# auto attach to tmux
 if [ -z "$TMUX" ]
 then
     tmux attach -t TMUX || tmux new -s TMUX
