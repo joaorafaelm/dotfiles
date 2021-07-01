@@ -41,6 +41,7 @@ ZSH_THEME_GIT_PROMPT_BEHIND=" %{$fg_bold[yellow]%}%{↓%G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD=" %{$fg_bold[yellow]%}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[red]%}%{●%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{$fg_bold[cyan]%}%{…%G%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[yellow]%}%{✔%G%}"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
