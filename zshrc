@@ -36,12 +36,13 @@ ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX="" 
 ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[yellow]%}"
-ZSH_THEME_GIT_PROMPT_CHANGED=" %{$fg_bold[green]%}%{✚%G%}"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[green]%}%{✚%G%}"
 ZSH_THEME_GIT_PROMPT_BEHIND=" %{$fg_bold[yellow]%}%{↓%G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD=" %{$fg_bold[yellow]%}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[red]%}%{●%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{$fg_bold[cyan]%}%{…%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[yellow]%}%{✔%G%}"
+ZSH_THEME_GIT_PROMPT_CACHE=1
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
