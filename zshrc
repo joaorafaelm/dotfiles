@@ -42,22 +42,50 @@ ZSH_THEME_GIT_PROMPT_AHEAD=" %{$fg_bold[yellow]%}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[red]%}%{●%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[cyan]%}%{?%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[yellow]%}%{✔%G%}"
-ZSH_THEME_GIT_PROMPT_CACHE=""
+ZSH_THEME_GIT_PROMPT_CACHE=1
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # vim mode fzf
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 
-# git abstraction
+# git abstraction, install gawk
 unalias g
 g () {
     if [ $# -eq 0 ]
       then
-        git status
+        gawk -vOFS='' '
+            NR==FNR {
+                all[i++] = $0;
+                difffiles[$1] = $0;
+                next;
+            }
+            ! ($2 in difffiles) {
+                print; next;
+            }
+            {
+                gsub($2, difffiles[$2]);
+                print;
+            }
+            END {
+                if (NR != FNR) {
+                    # Had diff output
+                    exit;
+                }
+                # Had no diff output, just print lines from git status -sb
+                for (i in all) {
+                    print all[i];
+                }
+            }
+        ' \
+            <(git diff --color --stat=$(($(tput cols) - 3)) HEAD | sed '$d; s/^ //')\
+            <(git -c color.status=always status -sb)
     else
         git $@
     fi
+
+    # update prompt
+    update_current_git_vars
 }
 
 # make worktree
