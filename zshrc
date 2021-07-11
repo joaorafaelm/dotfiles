@@ -107,6 +107,9 @@ gw () {
     done;
 }
 
+# update git prompt
+update_current_git_vars
+
 # auto attach to tmux
 if [ -z "$TMUX" ]
 then
