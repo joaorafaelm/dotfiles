@@ -31,7 +31,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_super_status)%{$reset_color%} '
-RPROMPT="%{$fg[black]%}%D{%b %d, %Y - %T}%{$reset_color%}"
+RPROMPT="%{$fg[yellow]%}%D{%b %d, %Y - %T}%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX="" 
 ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
