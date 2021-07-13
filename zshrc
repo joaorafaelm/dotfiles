@@ -19,6 +19,9 @@ export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings -s --pdb --pdbcls=IPython
 eval "$(pyenv init -)"
 source ~/.zshenv
 
+
+
+
 # Zsh cmd
 ZSH_THEME="simple"
 plugins=(
@@ -30,6 +33,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
 PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_super_status)%{$reset_color%} '
 RPROMPT="%{$fg[yellow]%}%D{%b %d, %Y - %T}%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
@@ -48,6 +52,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 
 # vim mode fzf
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+zvm_after_init_commands+=('source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh') 
+
 
 # git abstraction, install gawk
 unalias g
