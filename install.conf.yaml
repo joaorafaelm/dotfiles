@@ -1,5 +1,7 @@
 - clean: ['~']
-
+- defaults:
+    link:
+      force: true
 
 - link:
     ~/.tmux.conf: tmux.conf

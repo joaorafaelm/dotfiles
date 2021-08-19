@@ -11,4 +11,19 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
+# Install brew¬
+ruby \
+ -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" \
+  </dev/null
+
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/codespace/.profile
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+brew install tmux fzf rg
+chsh -s $(which zsh)
+git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+git clone https://github.com/jeffreytse/zsh-vi-mode \
+  $ZSH/custom/plugins/zsh-vi-mode
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
