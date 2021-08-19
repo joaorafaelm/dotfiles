@@ -20,7 +20,6 @@ echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/codespace
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 brew install tmux fzf rg
-chsh -s $(which zsh)
 git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
 git clone https://github.com/jeffreytse/zsh-vi-mode \
   $ZSH/custom/plugins/zsh-vi-mode
