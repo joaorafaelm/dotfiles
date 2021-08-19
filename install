@@ -13,7 +13,7 @@ git submodule update --init --recursive "${DOTBOT_DIR}"
 
 # Install brew¬
 ruby \
- -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" \
+ -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install)" \
   </dev/null
 
 echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/codespace/.profile
