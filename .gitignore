@@ -7,3 +7,4 @@ vim/.netrwhist
 vim/plugins/*
 !vim/plugins/.gitkeep
 *.swp
+vim/undodir

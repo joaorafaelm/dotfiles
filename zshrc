@@ -21,7 +21,6 @@ source ~/.zshenv
 
 
 
-
 # Zsh cmd
 ZSH_THEME="simple"
 plugins=(
@@ -40,7 +39,7 @@ ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX="" 
 ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[yellow]%}"
-ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[green]%}%{✚%G%}"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[green]%}%{+%G%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg_bold[yellow]%}%{↓%G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD=" %{$fg_bold[yellow]%}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[red]%}%{●%G%}"
@@ -53,6 +52,9 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 # vim mode fzf
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 zvm_after_init_commands+=('source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh') 
+alias l="exa -lha"
+alias ls="exa"
+alias vim="nvim"
 
 
 # git abstraction, install gawk
@@ -116,6 +118,7 @@ gw () {
 # update git prompt
 update_current_git_vars
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # auto attach to tmux
 if [ -z "$TMUX" ]
 then
