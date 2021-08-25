@@ -2,6 +2,7 @@
 - defaults:
     link:
       force: true
+      create: true
 
 - link:
     ~/.tmux.conf: tmux.conf
