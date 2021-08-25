@@ -20,7 +20,6 @@ eval "$(pyenv init -)"
 source ~/.zshenv
 
 
-
 # Zsh cmd
 ZSH_THEME="simple"
 plugins=(
@@ -55,6 +54,7 @@ zvm_after_init_commands+=('source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.pl
 alias l="exa -lha"
 alias ls="exa"
 alias vim="nvim"
+alias v="nvim"
 
 
 # git abstraction, install gawk
@@ -117,10 +117,11 @@ gw () {
 
 # update git prompt
 update_current_git_vars
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+  export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+else
+  export VISUAL="nvim"
+fi
+alias v="$VISUAL"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-# auto attach to tmux
-if [ -z "$TMUX" ]
-then
-    tmux attach -t TMUX || tmux new -s TMUX
-fi

@@ -11,9 +11,11 @@
 [include]
 	path = /Users/joaorafael/.gitalias
 [diff]
-	tool = vimdiff
+	tool = nvimdiff
 [difftool]
 	prompt = false
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [alias]
 	d = difftool
 [push]

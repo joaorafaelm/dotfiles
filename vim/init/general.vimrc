@@ -10,6 +10,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'mgedmin/taghelper.vim'
     Plug 'codota/tabnine-vim'
     Plug 'zivyangll/git-blame.vim'
+    Plug 'blueyed/vim-diminactive'
+    Plug 'caenrique/nvim-maximize-window-toggle'
 call plug#end()
 
 scriptencoding utf-8
@@ -268,7 +270,9 @@ nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
 " split styling
 set fillchars+=vert:\ 
-highlight VertSplit cterm=NONE
+hi VertSplit ctermfg=None ctermbg=None
+hi StatusLineNC ctermfg=233 ctermbg=233
+hi StatusLine ctermfg=234 ctermbg=245
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -286,3 +290,30 @@ augroup END
 
 nnoremap s /
 set laststatus=0
+
+tnoremap <Esc> <C-\><C-n>
+tnoremap <M-[> <Esc>
+tnoremap <C-v><Esc> <Esc>
+
+nnoremap <leader>o :ToggleOnly<Enter>
+" Background colors for active vs inactive windows
+hi ActiveWindow guibg=#17252c
+hi InactiveWindow guibg=#0D1B22
+hi ActiveTerminal guibg=#333333
+
+" Call method on window enter
+augroup WindowManagement
+  autocmd!
+  autocmd WinEnter * call Handle_Win_Enter()
+augroup END
+
+" Change highlight group of preview window when open
+function! Handle_Win_Enter()
+  if &previewwindow
+    setlocal winhighlight=Normal:MarkdownError
+  elseif &buftype ==# 'terminal'
+    setlocal winhighlight=Normal:ActiveTerminal
+  else
+    setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+  endif
+endfunction
