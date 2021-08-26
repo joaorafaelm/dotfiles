@@ -10,8 +10,9 @@ call plug#begin('~/.vim/plugins')
     Plug 'mgedmin/taghelper.vim'
     Plug 'codota/tabnine-vim'
     Plug 'zivyangll/git-blame.vim'
-    Plug 'blueyed/vim-diminactive'
     Plug 'caenrique/nvim-maximize-window-toggle'
+    Plug 'vimlab/split-term.vim'
+    Plug 'rmagatti/auto-session'
 call plug#end()
 
 scriptencoding utf-8
@@ -282,6 +283,7 @@ let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
 set ttimeout
 set ttimeoutlen=1
 set ttyfast
+
 " reset the cursor on start
 augroup myCmds
 au!
@@ -291,29 +293,5 @@ augroup END
 nnoremap s /
 set laststatus=0
 
-tnoremap <Esc> <C-\><C-n>
-tnoremap <M-[> <Esc>
-tnoremap <C-v><Esc> <Esc>
-
 nnoremap <leader>o :ToggleOnly<Enter>
-" Background colors for active vs inactive windows
-hi ActiveWindow guibg=#17252c
-hi InactiveWindow guibg=#0D1B22
-hi ActiveTerminal guibg=#333333
-
-" Call method on window enter
-augroup WindowManagement
-  autocmd!
-  autocmd WinEnter * call Handle_Win_Enter()
-augroup END
-
-" Change highlight group of preview window when open
-function! Handle_Win_Enter()
-  if &previewwindow
-    setlocal winhighlight=Normal:MarkdownError
-  elseif &buftype ==# 'terminal'
-    setlocal winhighlight=Normal:ActiveTerminal
-  else
-    setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
-  endif
-endfunction
+tnoremap <Esc> <C-\><C-n>
