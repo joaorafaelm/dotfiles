@@ -125,3 +125,4 @@ fi
 alias v="$VISUAL"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+DISABLE_MAGIC_FUNCTIONS=true
