@@ -9,10 +9,10 @@ call plug#begin('~/.vim/plugins')
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'mgedmin/taghelper.vim'
     Plug 'codota/tabnine-vim'
-    Plug 'zivyangll/git-blame.vim'
     Plug 'caenrique/nvim-maximize-window-toggle'
     Plug 'vimlab/split-term.vim'
     Plug 'rmagatti/auto-session'
+    Plug 'APZelos/blamer.nvim'
 call plug#end()
 
 scriptencoding utf-8
@@ -145,9 +145,33 @@ map <C-e> <End>
 nnoremap <CR> :noh<CR><CR>
 
 "fzf
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <C-f> :Rg<CR>
 nnoremap <silent> <C-s> :GFiles?<CR>
 nnoremap <silent> <C-r> :History:<CR>
+nnoremap <silent> K :call SearchWordWithAg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
+
+function! SearchWordWithAg()
+    execute 'Rg' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'Rg' selection
+endfunction
 
 " Redo with U instead of Ctrl+R
 noremap U <C-R>
@@ -267,8 +291,6 @@ function! s:DiffWithGITCheckedOut()
 endfunction
 com! D call s:DiffWithGITCheckedOut()
 
-nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
-
 " split styling
 set fillchars+=vert:\ 
 hi VertSplit ctermfg=None ctermbg=None
@@ -295,3 +317,6 @@ set laststatus=0
 
 nnoremap <leader>o :ToggleOnly<Enter>
 tnoremap <Esc> <C-\><C-n>
+
+"git blamer
+let g:blamer_enabled = 1
