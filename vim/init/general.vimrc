@@ -80,9 +80,15 @@ hi IndentGuidesEven ctermbg=234
 set cursorline
 
 "highlight clear cursorline
-highlight cursorlinenr ctermbg=None
-highlight cursorline ctermbg=235 gui=reverse
+highlight cursorlinenr ctermbg=NONE
+highlight cursorline ctermbg=235 ctermfg=NONE
 highlight cursorcolumn ctermbg=235
+
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
 
 " Fold
 highlight Folded ctermbg=233 ctermfg=239
