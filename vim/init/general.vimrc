@@ -83,6 +83,8 @@ set cursorline
 highlight cursorlinenr ctermbg=NONE
 highlight cursorline ctermbg=235 ctermfg=NONE
 highlight cursorcolumn ctermbg=235
+highlight Blamer ctermfg=240 ctermbg=235
+
 
 augroup CursorLine
   au!
@@ -324,5 +326,23 @@ set laststatus=0
 nnoremap <leader>o :ToggleOnly<Enter>
 tnoremap <Esc> <C-\><C-n>
 
-"git blamer
+" git blamer
 let g:blamer_enabled = 1
+
+" terminal binding
+nnoremap <silent> <leader>c :Term<CR>
+
+" quit vim window on term exit
+augroup terminal_settings
+autocmd!
+
+autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd BufLeave term://* stopinsert
+
+" Ignore various filetypes as those will close terminal automatically
+" Ignore fzf, ranger, coc
+autocmd TermClose term://*
+      \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
+      \   call nvim_input('<CR>')  |
+      \ endif
+augroup END
