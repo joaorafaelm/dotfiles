@@ -68,7 +68,7 @@ let g:gruvbox_contrast_dark='medium'
 set background=dark
 
 " Inherit background color from terminal
-highlight normal ctermbg=NONE
+highlight normal ctermbg=232
 
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -302,8 +302,8 @@ com! D call s:DiffWithGITCheckedOut()
 " split styling
 set fillchars+=vert:\ 
 hi VertSplit ctermfg=None ctermbg=None
-hi StatusLineNC ctermfg=233 ctermbg=233
-hi StatusLine ctermfg=234 ctermbg=245
+hi StatusLineNC ctermfg=232 ctermbg=NONE
+hi StatusLine ctermfg=232 ctermbg=None
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
