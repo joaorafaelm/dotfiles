@@ -346,3 +346,5 @@ autocmd TermClose term://*
       \   call nvim_input('<CR>')  |
       \ endif
 augroup END
+
+autocmd BufWinEnter,WinEnter term://* stopinsert
