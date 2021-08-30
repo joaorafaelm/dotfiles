@@ -348,7 +348,7 @@ autocmd TermClose term://*
       \ endif
 augroup END
 
-# disable split term default mappins
+" disable split term default mappins
 let g:disable_key_mappings = 1
 
 " hit esc twice to exit term mode
