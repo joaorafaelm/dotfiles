@@ -323,20 +323,21 @@ augroup END
 nnoremap s /
 set laststatus=0
 
+" zoom window
 nnoremap <leader>o :ToggleOnly<Enter>
-tnoremap <Esc> <C-\><C-n>
 
 " git blamer
 let g:blamer_enabled = 1
 
 " terminal binding
-nnoremap <silent> <leader>c :Term<CR>
+nnoremap <silent> <leader>h :Term<CR>
+nnoremap <silent> <leader>v :VTerm<CR>
 
 " quit vim window on term exit
 augroup terminal_settings
 autocmd!
 
-autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd BufWinEnter,WinEnter term://* stopinsert
 autocmd BufLeave term://* stopinsert
 
 " Ignore various filetypes as those will close terminal automatically
@@ -347,4 +348,8 @@ autocmd TermClose term://*
       \ endif
 augroup END
 
-autocmd BufWinEnter,WinEnter term://* stopinsert
+# disable split term default mappins
+let g:disable_key_mappings = 1
+
+" hit esc twice to exit term mode
+tnoremap <Esc><Esc> <C-\><C-n>
