@@ -14,6 +14,7 @@
     ~/.yabairc: yabairc
     ~/.skhdrc: skhdrc
     ~/.zshrc: zshrc 
+    ~/.bashrc: bashrc 
     ~/.zshenv: zshenv 
     ~/.gitignore_global: gitignore
     ~/.config/flake8: flake8

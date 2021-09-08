@@ -1,3 +1,4 @@
+export CI=1
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install tmux fzf rg pyenv neovim exa fd
 $(brew --prefix)/opt/fzf/install
