@@ -125,11 +125,13 @@ else
 fi
 alias v="$VISUAL"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 DISABLE_MAGIC_FUNCTIONS=true
 
 # Created by `pipx` on 2021-11-08 01:54:15
 export PATH="$PATH:/home/joao/.local/bin"
 
-. /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
 alias fd=fdfind
+if [ -z "$TMUX" ]
+then
+    tmux attach -t TMUX || tmux new -s TMUX
+fi
