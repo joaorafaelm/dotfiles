@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'vimlab/split-term.vim'
     Plug 'rmagatti/auto-session'
     Plug 'APZelos/blamer.nvim'
+    Plug 'tpope/vim-fugitive'
 call plug#end()
 
 scriptencoding utf-8
@@ -68,7 +69,7 @@ let g:gruvbox_contrast_dark='medium'
 set background=dark
 
 " Inherit background color from terminal
-highlight normal ctermbg=232
+highlight normal ctermbg=None
 
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -81,7 +82,7 @@ set cursorline
 
 "highlight clear cursorline
 highlight cursorlinenr ctermbg=NONE
-highlight cursorline ctermbg=235 ctermfg=NONE
+highlight cursorline ctermbg=235
 highlight cursorcolumn ctermbg=235
 highlight Blamer ctermfg=240 ctermbg=235
 
@@ -155,21 +156,20 @@ nnoremap <CR> :noh<CR><CR>
 "fzf
 let g:fzf_action = {
       \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit'
+      \ 'ctrl-d': 'vsplit'
       \ }
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <C-f> :Rg<CR>
 nnoremap <silent> <C-s> :GFiles?<CR>
 nnoremap <silent> <C-r> :History:<CR>
-nnoremap <silent> K :call SearchWordWithAg()<CR>
-vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
-nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
+nnoremap <silent> K :call SearchWordWithRg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 
-function! SearchWordWithAg()
+function! SearchWordWithRg()
     execute 'Rg' expand('<cword>')
 endfunction
 
-function! SearchVisualSelectionWithAg() range
+function! SearchVisualSelectionWithRg() range
     let old_reg = getreg('"')
     let old_regtype = getregtype('"')
     let old_clipboard = &clipboard
@@ -229,22 +229,6 @@ nnoremap <silent> <expr> O <SID>NewLineInsertExpr(1, 'O')
 nnoremap d "_d
 vnoremap d "_d
 
-" run rg + fzf command, open file in new pane
-func! s:OpenFile()
-exe 'silent! !fzf_grep_edit' |
-redraw!
-endf
-nnoremap <silent> † :call <SID>OpenFile()<CR>
-
-" Open fzf rg on word under cursor
-func! s:OpenCWord()
-let word_under_cursor = expand("<cword>")
-exe 'silent! !clear' |
-exe 'silent! !fzf_grep_edit ' word_under_cursor |
-redraw!
-endf
-nnoremap <silent> <C-p> :call <SID>OpenCWord()<CR>
-
 " run test for current method
 fun! RunPytest()
     let test_name = substitute(substitute(taghelper#curtag(), "\[", "", ""), "\]", "", "")
@@ -290,20 +274,11 @@ set viminfo='100,f1
 set undodir=~/.vim/undodir
 set undofile
 
-function! s:DiffWithGITCheckedOut()
-  let filetype=&ft
-  diffthis
-  vnew | exe "%!git diff " . fnameescape( expand("#:p") ) . "| patch -p 1 -Rs -o /dev/stdout"
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-  diffthis
-endfunction
-com! D call s:DiffWithGITCheckedOut()
-
 " split styling
 set fillchars+=vert:\ 
 hi VertSplit ctermfg=None ctermbg=None
-hi StatusLineNC ctermfg=232 ctermbg=NONE
-hi StatusLine ctermfg=232 ctermbg=None
+hi StatusLineNC ctermfg=233 ctermbg=237
+hi StatusLine ctermfg=235 ctermbg=239
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -353,3 +328,20 @@ let g:disable_key_mappings = 1
 
 " hit esc twice to exit term mode
 tnoremap <Esc><Esc> <C-\><C-n>
+
+" vimdiff in new tab
+function! GStatusGetFilenameUnderCursor()
+    return matchstr(getline('.'), '^[A-Z?] \zs.*')
+endfunction
+
+command! GdiffsplitTab call GdiffsplitTab(expand("%"))
+function! GdiffsplitTab(filename)
+    exe 'tabedit ' . a:filename
+    Gdiffsplit
+endfunction
+
+" custom mapping in fugitive window (:Git)
+augroup custom_fugitive_mappings
+    au!
+    au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<cr>
+augroup END

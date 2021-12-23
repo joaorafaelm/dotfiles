@@ -8,6 +8,7 @@ export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export PATH="/usr/local/bin/:$PATH"
 export PATH="/usr/local/opt/node@8/bin:$PATH"
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH="$PATH:$HOME/.rvm/bin"
 export PYTHONWARNINGS="ignore"
 export EDITOR=vim
@@ -53,8 +54,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 # vim mode fzf
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 zvm_after_init_commands+=('source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh') 
-alias l="exa -lha"
-alias ls="exa"
 alias vim="nvim"
 alias v="nvim"
 
@@ -128,3 +127,9 @@ alias v="$VISUAL"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 DISABLE_MAGIC_FUNCTIONS=true
+
+# Created by `pipx` on 2021-11-08 01:54:15
+export PATH="$PATH:/home/joao/.local/bin"
+
+. /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
+alias fd=fdfind
