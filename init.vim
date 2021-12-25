@@ -281,7 +281,7 @@ set undofile
 set fillchars+=vert:\ 
 hi VertSplit ctermfg=None ctermbg=None
 hi StatusLineNC ctermfg=233 ctermbg=237
-hi StatusLine ctermfg=235 ctermbg=239
+hi StatusLine ctermfg=235 ctermbg=2
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -348,6 +348,17 @@ augroup custom_fugitive_mappings
     au!
     au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<cr>
 augroup END
+
+" Your vimrc
+function! GitStatus()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    if a || m || r
+        return printf('+%d ~%d -%d', a, m, r)
+    else
+        return ""
+    endif
+endfunction
+set statusline=%F\ %{GitStatus()}
 
 " lua scripts
 lua <<EOF
