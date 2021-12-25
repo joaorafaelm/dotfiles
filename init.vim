@@ -72,7 +72,7 @@ let g:gruvbox_contrast_dark='medium'
 set background=dark
 
 " Inherit background color from terminal
-highlight normal ctermbg=None
+highlight normal ctermbg=232
 
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -91,9 +91,9 @@ highlight Blamer ctermfg=240 ctermbg=235
 
 
 augroup CursorLine
-  au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
 augroup END
 
 " Fold
@@ -280,7 +280,7 @@ set undofile
 " split styling
 set fillchars+=vert:\ 
 hi VertSplit ctermfg=None ctermbg=None
-hi StatusLineNC ctermfg=233 ctermbg=237
+hi StatusLineNC ctermfg=232 ctermbg=237
 hi StatusLine ctermfg=2 ctermbg=233 cterm=bold
 
 " change cursor for mode
@@ -363,3 +363,18 @@ set statusline=%F\ %{GitStatus()}
 " lua scripts
 lua <<EOF
 EOF
+
+" Background colors for active vs inactive windows
+hi ActiveWindow ctermbg=233
+hi InactiveWindow ctermbg=232
+
+" Call method on window enter
+augroup WindowManagement
+  autocmd!
+  autocmd BufWinEnter,WinEnter * call Handle_Win_Enter()
+augroup END
+
+" Change highlight group of active/inactive windows
+function! Handle_Win_Enter()
+  setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+endfunction
