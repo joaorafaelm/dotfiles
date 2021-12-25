@@ -281,7 +281,7 @@ set undofile
 set fillchars+=vert:\ 
 hi VertSplit ctermfg=None ctermbg=None
 hi StatusLineNC ctermfg=233 ctermbg=237
-hi StatusLine ctermfg=235 ctermbg=2
+hi StatusLine ctermfg=2 ctermbg=233 cterm=bold
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
