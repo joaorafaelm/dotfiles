@@ -36,7 +36,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_super_status)%{$reset_color%} '
-RPROMPT="%{$fg[yellow]%}%D{%b %d, %Y - %T}%{$reset_color%}"
+#RPROMPT="%{$fg[yellow]%}%D{%b %d, %Y - %T}%{$reset_color%}"
+RPROMPT=""
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX="" 
 ZSH_THEME_GIT_PROMPT_SEPARATOR=" "
@@ -127,7 +128,6 @@ alias v="$VISUAL"
 
 DISABLE_MAGIC_FUNCTIONS=true
 
-# Created by `pipx` on 2021-11-08 01:54:15
 export PATH="$PATH:/home/joao/.local/bin"
 
 alias fd=fdfind

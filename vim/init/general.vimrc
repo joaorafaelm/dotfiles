@@ -296,7 +296,7 @@ autocmd FocusGained,BufEnter,VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
 nnoremap s /
-set laststatus=0
+set laststatus=1
 
 " zoom window
 nnoremap <leader>o :ToggleOnly<Enter>

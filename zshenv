@@ -3,7 +3,7 @@ gdiff() {
   preview="git diff $@ --color=always -- {-1}"
   git diff $@ --name-only | fzf -m --ansi --preview $preview
 }
-export BAT_THEME="gruvbox"
+export BAT_THEME="gruvbox-dark"
 export PATH=export PATH=/Users/Shared/DBngin/postgresql/12.2/bin:$PATH:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -12,6 +12,7 @@ export FZF_DEFAULT_OPTS='
   --height 75% --multi --reverse
   --bind ctrl-f:page-down,ctrl-b:page-up
 '
+export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 
 # file search
 fzf_grep_edit(){
