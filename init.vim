@@ -281,7 +281,7 @@ set undofile
 set fillchars+=vert:\ 
 hi VertSplit ctermfg=None ctermbg=None
 hi StatusLineNC ctermfg=232 ctermbg=237
-hi StatusLine ctermfg=2 ctermbg=233 cterm=bold
+hi StatusLine ctermfg=232 ctermbg=237
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -376,5 +376,5 @@ augroup END
 
 " Change highlight group of active/inactive windows
 function! Handle_Win_Enter()
-  setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+    setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 endfunction
