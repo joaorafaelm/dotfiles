@@ -84,7 +84,7 @@ hi IndentGuidesEven ctermbg=234
 set cursorline
 
 "highlight clear cursorline
-highlight cursorlinenr ctermbg=NONE
+highlight cursorlinenr ctermbg=NONE cterm=bold
 highlight cursorline ctermbg=235
 highlight cursorcolumn ctermbg=235
 highlight Blamer ctermfg=240 ctermbg=235
@@ -281,7 +281,7 @@ set undofile
 set fillchars+=vert:\ 
 hi VertSplit ctermfg=None ctermbg=None
 hi StatusLineNC ctermfg=232 ctermbg=237
-hi StatusLine ctermfg=232 ctermbg=237
+hi StatusLine ctermfg=232 ctermbg=241
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -370,8 +370,8 @@ hi InactiveWindow ctermbg=232
 
 " Call method on window enter
 augroup WindowManagement
-  autocmd!
-  autocmd BufWinEnter,WinEnter * call Handle_Win_Enter()
+    autocmd!
+    autocmd BufWinEnter,WinEnter * call Handle_Win_Enter()
 augroup END
 
 " Change highlight group of active/inactive windows
