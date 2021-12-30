@@ -48,10 +48,10 @@ autocmd FileType make setlocal noexpandtab
 set updatetime=100
 set mouse=a
 if has("clipboard")
-  set clipboard=unnamed " copy to the system clipboard
-  if has("unnamedplus") " X11 support
-    set clipboard+=unnamedplus
-  endif
+    set clipboard=unnamed " copy to the system clipboard
+    if has("unnamedplus") " X11 support
+        set clipboard+=unnamedplus
+    endif
 endif
 
 " Highlight search matches
