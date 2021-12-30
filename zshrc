@@ -128,6 +128,9 @@ else
 fi
 alias v="$VISUAL"
 
+# vi mode
+ZVM_VI_EDITOR=nvim
+
 DISABLE_MAGIC_FUNCTIONS=true
 
 export PATH="$PATH:/home/joao/.local/bin"

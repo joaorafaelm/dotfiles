@@ -86,10 +86,9 @@ set cursorline
 
 "highlight clear cursorline
 highlight cursorlinenr ctermbg=NONE cterm=bold
-highlight cursorline ctermbg=235
+highlight cursorline ctermbg=235 ctermfg=NONE
 highlight cursorcolumn ctermbg=235
 highlight Blamer ctermfg=240 ctermbg=235
-
 
 augroup CursorLine
     au!
