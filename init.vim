@@ -408,3 +408,13 @@ au BufEnter *.md setlocal foldmethod=expr
 
 " print current date
 nnoremap <silent> <leader>d o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
+
+" buffer cycle
+nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+
+" tab styling
+hi TabLineFill ctermfg=235 ctermbg=234
+hi TabLine ctermfg=240 ctermbg=234 cterm=NONE
+hi TabLineSel ctermfg=214 ctermbg=236 cterm=bold
+hi Title ctermfg=214 cterm=bold
