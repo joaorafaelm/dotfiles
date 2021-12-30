@@ -404,3 +404,6 @@ endfunction
 
 au BufEnter *.md setlocal foldexpr=MarkdownLevel()
 au BufEnter *.md setlocal foldmethod=expr
+
+" print current date
+nnoremap <silent> <leader>d o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
