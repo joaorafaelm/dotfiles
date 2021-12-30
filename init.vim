@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'rmagatti/auto-session'
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
+    Plug 'jkramer/vim-checkbox'
 call plug#end()
 
 scriptencoding utf-8
@@ -378,3 +379,29 @@ augroup END
 function! Handle_Win_Enter()
     setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 endfunction
+
+" markdown fold
+function! MarkdownLevel()
+    if getline(v:lnum) =~ '^# .*$'
+        return ">1"
+    endif
+    if getline(v:lnum) =~ '^## .*$'
+        return ">2"
+    endif
+    if getline(v:lnum) =~ '^### .*$'
+        return ">3"
+    endif
+    if getline(v:lnum) =~ '^#### .*$'
+        return ">4"
+    endif
+    if getline(v:lnum) =~ '^##### .*$'
+        return ">5"
+    endif
+    if getline(v:lnum) =~ '^###### .*$'
+        return ">6"
+    endif
+    return "="
+endfunction
+
+au BufEnter *.md setlocal foldexpr=MarkdownLevel()
+au BufEnter *.md setlocal foldmethod=expr
