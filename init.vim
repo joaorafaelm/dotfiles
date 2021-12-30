@@ -162,6 +162,7 @@ let g:fzf_action = {
       \ 'ctrl-d': 'vsplit'
       \ }
 nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR>
 nnoremap <silent> <C-s> :GFiles?<CR>
 nnoremap <silent> <C-r> :History:<CR>
