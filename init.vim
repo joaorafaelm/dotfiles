@@ -415,6 +415,17 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 
 " tab styling
 hi TabLineFill ctermfg=235 ctermbg=234
-hi TabLine ctermfg=240 ctermbg=234 cterm=NONE
+hi TabLine ctermfg=240 ctermbg=234 cterm=NONE 
 hi TabLineSel ctermfg=214 ctermbg=236 cterm=bold
 hi Title ctermfg=214 cterm=bold
+
+" y behaves as other capital letters
+nnoremap Y y$
+
+" keep centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" move lines
+nnoremap <leader>k :m .-2<CR>==
+nnoremap <leader>j :m .+1<CR>==
