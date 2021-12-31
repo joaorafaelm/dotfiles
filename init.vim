@@ -18,6 +18,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
     Plug 'jkramer/vim-checkbox'
+    Plug 'simeji/winresizer'
+    Plug 'tpope/vim-commentary'
 call plug#end()
 
 scriptencoding utf-8
@@ -415,7 +417,7 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 
 " tab styling
 hi TabLineFill ctermfg=235 ctermbg=234
-hi TabLine ctermfg=240 ctermbg=234 cterm=NONE 
+hi TabLine ctermfg=240 ctermbg=234 cterm=NONE
 hi TabLineSel ctermfg=214 ctermbg=236 cterm=bold
 hi Title ctermfg=214 cterm=bold
 
