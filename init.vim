@@ -23,8 +23,9 @@ call plug#begin('~/.vim/plugins')
     Plug 'gcmt/taboo.vim'
 call plug#end()
 
-scriptencoding utf-8
 set encoding=utf-8
+scriptencoding utf-8
+
 
 " default shell
 set shell=$SHELL
@@ -45,14 +46,18 @@ set softtabstop=4
 set tabstop=4
 set shiftwidth=4
 set expandtab
-au FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
-au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType make setlocal noexpandtab
+augroup file_format
+    au!
+    au FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
+    au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    au FileType make setlocal noexpandtab
+augroup END
+
 set updatetime=100
 set mouse=a
-if has("clipboard")
+if has('clipboard')
     set clipboard=unnamed " copy to the system clipboard
-    if has("unnamedplus") " X11 support
+    if has('unnamedplus') " X11 support
         set clipboard+=unnamedplus
     endif
 endif
@@ -103,7 +108,7 @@ augroup END
 highlight Folded ctermbg=233 ctermfg=239
 set foldmethod=indent
 set foldnestmax=3
-set fml=0
+set foldminlines=0
 nnoremap <space> za
 vnoremap <space> zf
 
@@ -131,28 +136,31 @@ let g:ale_sign_warning = '█'
 highlight ALEErrorSign ctermbg=NONE ctermfg=131
 highlight ALEWarningSign ctermbg=NONE ctermfg=131
 
-" Return to last edit position when opening files
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   silent! exe "normal! g`\"" |
-     \   silent! exe "normal! zA`\"" |
-     \ endif
+augroup file_reload
+    au!
+    " Return to last edit position when opening files
+    au BufReadPost *
+         \ if line("'\"") > 0 && line("'\"") <= line("$") |
+         \   silent! exe "normal! g`\"" |
+         \   silent! exe "normal! zA`\"" |
+         \ endif
 
-" Auto reload file
-set autoread
+    " Auto reload file
+    set autoread
 
-" Triger `autoread` when files changes on disk
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * silent!
-            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | silent! checktime | endif
+    " Triger `autoread` when files changes on disk
+    " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+    " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+    au FocusGained,BufEnter,CursorHold,CursorHoldI * silent!
+                \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | silent! checktime | endif
 
-" Notification after file change
-" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-autocmd FileChangedShellPost *
-  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+    " Notification after file change
+    " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+    au FileChangedShellPost *
+      \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+augroup END
 
-:" Map Ctrl-A -> Start of line, Ctrl-E -> End of line
+" Map Ctrl-A -> Start of line, Ctrl-E -> End of line
 map <C-a> <Home>
 map <C-e> <End>
 
@@ -198,9 +206,9 @@ noremap U <C-R>
 " debugger shortcut
 ab br breakpoint()<CR>
 func! s:SetBreakpoint()
-    let indent = strlen(matchstr(getline(line(".") - 1), '^\s*'))
+    let indent = strlen(matchstr(getline(line('.') - 1), '^\s*'))
     if indent == 0
-        let indent = strlen(matchstr(getline(line(".")), '^\s*'))
+        let indent = strlen(matchstr(getline(line('.')), '^\s*'))
     endif
     cal append('.', repeat(' ', indent). 'breakpoint()')
     exec ':w'
@@ -239,9 +247,9 @@ nnoremap <silent> <expr> O <SID>NewLineInsertExpr(1, 'O')
 " tab rename
 set sessionoptions+=tabpages,globals
 set guioptions-=e
-let g:taboo_renamed_tab_format = " %N:%l%m "
-let g:taboo_tab_format = " %N:%f%m "
-let g:taboo_modified_tab_flag = " ~ "
+let g:taboo_renamed_tab_format = ' %N:%l%m '
+let g:taboo_tab_format = ' %N:%f%m '
+let g:taboo_modified_tab_flag = ' ~ '
 
 nnoremap <Leader>1 1gt
 nnoremap <Leader>2 2gt
@@ -260,8 +268,8 @@ vnoremap d "_d
 
 " run test for current method
 fun! RunPytest()
-    let test_name = substitute(substitute(taghelper#curtag(), "\[", "", ""), "\]", "", "")
-    if test_name =~ "test_"
+    let test_name = substitute(substitute(taghelper#curtag(), '\[', '', ''), '\]', '', '')
+    if test_name =~? 'test_'
         silent! exec '!tmux split-window -h -t $TMUX_PANE pipenv run pytest -k ' test_name
     endif
 endfun
@@ -294,7 +302,10 @@ function! OnVimEnter() abort
     endif
 endfunction
 
-autocmd VimEnter * call OnVimEnter()
+augroup update_plug
+    au!
+    au VimEnter * call OnVimEnter()
+augroup END
 
 noremap M `
 set viminfo='100,f1
@@ -408,29 +419,32 @@ endfunction
 
 " markdown fold
 function! MarkdownLevel()
-    if getline(v:lnum) =~ '^# .*$'
-        return ">1"
+    if getline(v:lnum) =~? '^# .*$'
+        return '>1'
     endif
-    if getline(v:lnum) =~ '^## .*$'
-        return ">2"
+    if getline(v:lnum) =~? '^## .*$'
+        return '>2'
     endif
-    if getline(v:lnum) =~ '^### .*$'
-        return ">3"
+    if getline(v:lnum) =~? '^### .*$'
+        return '>3'
     endif
-    if getline(v:lnum) =~ '^#### .*$'
-        return ">4"
+    if getline(v:lnum) =~? '^#### .*$'
+        return '>4'
     endif
-    if getline(v:lnum) =~ '^##### .*$'
-        return ">5"
+    if getline(v:lnum) =~? '^##### .*$'
+        return '>5'
     endif
-    if getline(v:lnum) =~ '^###### .*$'
-        return ">6"
+    if getline(v:lnum) =~? '^###### .*$'
+        return '>6'
     endif
-    return "="
+    return '='
 endfunction
 
-au BufEnter *.md setlocal foldexpr=MarkdownLevel()
-au BufEnter *.md setlocal foldmethod=expr
+augroup fold_formats
+    au!
+    au BufEnter *.md setlocal foldexpr=MarkdownLevel()
+    au BufEnter *.md setlocal foldmethod=expr
+augroup END
 
 " print current date
 nnoremap <silent> <leader>d o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
