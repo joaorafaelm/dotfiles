@@ -20,6 +20,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'jkramer/vim-checkbox'
     Plug 'simeji/winresizer'
     Plug 'tpope/vim-commentary'
+    Plug 'gcmt/taboo.vim'
 call plug#end()
 
 scriptencoding utf-8
@@ -172,6 +173,9 @@ nnoremap <silent> <C-r> :History:<CR>
 nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 
+" window resize
+nnoremap <silent> <leader>e :WinResizerStartResize<CR>
+
 function! SearchWordWithRg()
     execute 'Rg' expand('<cword>')
 endfunction
@@ -231,6 +235,24 @@ function! s:NewLineInsertExpr( isUndoCount, command )
 endfunction
 nnoremap <silent> <expr> o <SID>NewLineInsertExpr(1, 'o')
 nnoremap <silent> <expr> O <SID>NewLineInsertExpr(1, 'O')
+
+" tab rename
+set sessionoptions+=tabpages,globals
+set guioptions-=e
+let g:taboo_renamed_tab_format = " %N:%l%m "
+let g:taboo_tab_format = " %N:%f%m "
+let g:taboo_modified_tab_flag = " ~ "
+
+nnoremap <Leader>1 1gt
+nnoremap <Leader>2 2gt
+nnoremap <Leader>3 3gt
+nnoremap <Leader>4 4gt
+nnoremap <Leader>5 5gt
+nnoremap <Leader>6 6gt
+nnoremap <Leader>7 7gt
+nnoremap <Leader>8 8gt
+nnoremap <Leader>9 9gt
+nnoremap <leader><leader> :TabooRename 
 
 " Dont copy to clipboard deleted text
 nnoremap d "_d
@@ -348,6 +370,7 @@ function! GdiffsplitTab(filename)
 endfunction
 
 " custom mapping in fugitive window (:Git)
+nnoremap <silent> <leader>g :tab G<CR>
 augroup custom_fugitive_mappings
     au!
     au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<cr>
