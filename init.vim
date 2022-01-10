@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'simeji/winresizer'
     Plug 'tpope/vim-commentary'
     Plug 'gcmt/taboo.vim'
+    Plug 'unblevable/quick-scope'
 call plug#end()
 
 set encoding=utf-8
@@ -183,6 +184,7 @@ vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 
 " window resize
 nnoremap <silent> <leader>e :WinResizerStartResize<CR>
+let g:winresizer_start_key	= '<leader>e'
 
 function! SearchWordWithRg()
     execute 'Rg' expand('<cword>')
@@ -345,8 +347,8 @@ nnoremap <leader>o :ToggleOnly<Enter>
 let g:blamer_enabled = 1
 
 " terminal binding
-nnoremap <silent> <leader>h :Term<CR>
-nnoremap <silent> <leader>v :VTerm<CR>
+nnoremap <silent> <leader>s :Term<CR>
+nnoremap <silent> <leader>d :VTerm<CR>
 
 " quit vim window on term exit
 augroup terminal_settings
@@ -447,7 +449,7 @@ augroup fold_formats
 augroup END
 
 " print current date
-nnoremap <silent> <leader>d o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
+nnoremap <silent> <leader>dt o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
 
 " buffer cycle
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
@@ -469,3 +471,11 @@ nnoremap N Nzzzv
 " move lines
 nnoremap <leader>k :m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
+
+" f char highlight
+highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+
+" session config
+set sessionoptions-=options    " do not store global and local values in a session
+set sessionoptions-=folds      " do not store folds
