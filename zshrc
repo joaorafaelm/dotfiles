@@ -30,7 +30,6 @@ ZSH_THEME="simple"
 plugins=(
     git
     zsh-autosuggestions
-    zsh-vi-mode
     git-auto-fetch
     git-prompt
 )
@@ -130,8 +129,8 @@ else
 fi
 alias v="$VISUAL"
 
-# vi mode
-ZVM_VI_EDITOR=nvim
+EDITOR="$VISUAL"
+FCEDIT="$VISUAL"
 
 DISABLE_MAGIC_FUNCTIONS=true
 
