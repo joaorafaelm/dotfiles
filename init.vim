@@ -12,7 +12,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'mgedmin/taghelper.vim'
     Plug 'codota/tabnine-vim'
-    Plug 'caenrique/nvim-maximize-window-toggle'
     Plug 'vimlab/split-term.vim'
     Plug 'rmagatti/auto-session'
     Plug 'APZelos/blamer.nvim'
@@ -340,9 +339,6 @@ augroup END
 nnoremap s /
 set laststatus=1
 
-" zoom window
-nnoremap <leader>o :ToggleOnly<Enter>
-
 " git blamer
 let g:blamer_enabled = 1
 
@@ -370,6 +366,9 @@ let g:disable_key_mappings = 1
 
 " hit esc twice to exit term mode
 tnoremap <Esc> <C-\><C-n>
+
+" zoom
+nnoremap <C-W>z <C-W>\| <C-W>_
 
 " vimdiff in new tab
 function! GStatusGetFilenameUnderCursor()
