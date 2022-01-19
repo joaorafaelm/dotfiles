@@ -370,7 +370,6 @@ let g:disable_key_mappings = 1
 
 " hit esc twice to exit term mode
 tnoremap <Esc> <C-\><C-n>
-tnoremap <C-w> <C-\><C-n><C-w>
 
 " vimdiff in new tab
 function! GStatusGetFilenameUnderCursor()

@@ -16,7 +16,7 @@ export PATH="$PATH:/Users/joaorafael/.local/bin"
 export PIPENV_VENV_IN_PROJECT=1
 export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
-export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x -qqq --capture=no --log-cli-level=CRITICAL -p no:logging'
+export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings --ff -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x'
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export PATH="$PATH:/home/joao/.local/bin"
 if command -v pyenv 1>/dev/null 2>&1; then
