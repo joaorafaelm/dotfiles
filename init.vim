@@ -77,7 +77,7 @@ set list
 
 "theme config
 colorscheme gruvbox
-let g:gruvbox_contrast_dark='medium'
+let g:gruvbox_contrast_dark='hard'
 set background=dark
 
 " Inherit background color from terminal
@@ -89,26 +89,27 @@ let g:indent_guides_guide_size = 1
 hi IndentGuidesOdd  ctermbg=234
 hi IndentGuidesEven ctermbg=234
 
-" line highlighting
-set cursorline
-
-"highlight clear cursorline
-highlight cursorlinenr ctermbg=NONE cterm=bold
-highlight cursorline ctermbg=235 ctermfg=NONE
-highlight cursorcolumn ctermbg=235
-highlight Blamer ctermfg=240 ctermbg=235
-
 augroup CursorLine
     au!
     au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     au WinLeave * setlocal nocursorline
 augroup END
 
+" line highlighting
+set cursorline
+
+"highlight clear cursorline
+highlight cursorlinenr ctermbg=NONE cterm=bold
+highlight cursorline ctermbg=235
+highlight cursorcolumn ctermbg=235
+highlight Blamer ctermfg=240 ctermbg=NONE
+
+
 " Fold
-highlight Folded ctermbg=233 ctermfg=239
+highlight Folded ctermbg=NONE ctermfg=236
 set foldmethod=indent
 set foldnestmax=3
-set foldminlines=0
+set foldminlines=1
 nnoremap <space> za
 vnoremap <space> zf
 
@@ -126,9 +127,9 @@ set completeopt-=preview
 "Linters
 let g:ale_enabled = 1
 let b:ale_fixers = {
-\   'python': ['black', 'isort', 'flake8'],
-\   'javascript': ['eslint']
-\}
+    \   'python': ['black', 'isort', 'flake8'],
+    \   'javascript': ['eslint']
+    \}
 let g:ale_fix_on_save = 0
 let g:ale_set_highlights = 1
 let g:ale_sign_error = '█'
@@ -332,8 +333,8 @@ set ttyfast
 
 " reset the cursor on start
 augroup myCmds
-au!
-autocmd FocusGained,BufEnter,VimEnter * silent !echo -ne "\e[2 q"
+    au!
+    autocmd FocusGained,BufEnter,VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
 nnoremap s /
@@ -388,13 +389,13 @@ augroup custom_fugitive_mappings
     au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<cr>
 augroup END
 
-" Your vimrc
+" Git status
 function! GitStatus()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
         return printf('+%d ~%d -%d', a, m, r)
     else
-        return ""
+        return ''
     endif
 endfunction
 set statusline=%F\ %{GitStatus()}

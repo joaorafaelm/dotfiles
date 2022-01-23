@@ -17,6 +17,7 @@ export PIPENV_VENV_IN_PROJECT=1
 export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings --ff -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x'
+export PYTHONBREAKPOINT=ipdb.set_trace
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export PATH="$PATH:/home/joao/.local/bin"
 if command -v pyenv 1>/dev/null 2>&1; then
@@ -30,7 +31,6 @@ ZSH_THEME="simple"
 plugins=(
     git
     zsh-autosuggestions
-    git-auto-fetch
     git-prompt
 )
 
