@@ -39,6 +39,7 @@ set nowrap
 set autoindent
 filetype plugin on
 let mapleader = ','
+set winminheight=0
 
 " space as tabs
 filetype plugin indent off
@@ -162,8 +163,10 @@ augroup file_reload
 augroup END
 
 " Map Ctrl-A -> Start of line, Ctrl-E -> End of line
-map <C-a> <Home>
-map <C-e> <End>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+nnoremap <C-a> <Home>
+nnoremap <C-e> <End>
 
 "This unsets the "last search pattern" register by hitting return
 nnoremap <silent> <CR> :noh<CR><CR>
@@ -267,6 +270,9 @@ nnoremap <leader><leader> :TabooRename
 " Dont copy to clipboard deleted text
 nnoremap d "_d
 vnoremap d "_d
+
+" auto open fold when jumping to line
+cmap <expr> <CR> getcmdtype() == ':' && getcmdline() =~ '^\d\+$' ? 'normal! zv<CR>' : '<CR>'
 
 " run test for current method
 fun! RunPytest()
