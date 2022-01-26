@@ -272,7 +272,7 @@ nnoremap d "_d
 vnoremap d "_d
 
 " auto open fold when jumping to line
-cmap <expr> <CR> getcmdtype() == ':' && getcmdline() =~ '^\d\+$' ? 'normal! zv<CR>' : '<CR>'
+cmap <silent> <expr> <CR> getcmdtype() == ':' && getcmdline() =~ '^\d\+$' ? 'normal! zv<CR>' : '<CR>'
 
 " run test for current method
 fun! RunPytest()
