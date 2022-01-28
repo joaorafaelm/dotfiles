@@ -351,7 +351,7 @@ augroup myCmds
 augroup END
 
 nnoremap s /
-set laststatus=1
+set laststatus=2
 
 " git blamer
 let g:blamer_enabled = 1
