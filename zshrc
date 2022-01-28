@@ -17,7 +17,7 @@ export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS="--no-cov-on-fail -p no:warnings --ff -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x"
 export PYTHONBREAKPOINT=ipdb.set_trace
-export DOCKER_DEFAULT_PLATFORM=linux/arm64
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export PATH="$PATH:/home/joao/.local/bin"
 export ENABLE_TTY="true"
 if command -v pyenv 1>/dev/null 2>&1; then

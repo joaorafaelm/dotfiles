@@ -444,7 +444,7 @@ endfunction
 hi AddBardsHighlight ctermfg=green
 hi RemoveBardsHighlight ctermfg=red
 hi DiffHighlight ctermfg=246
-set statusline=%F%m\ %#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
+set statusline=%F\ %#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
 
 " lua scripts
 lua <<EOF
