@@ -126,7 +126,7 @@ let g:gitgutter_override_sign_column_highlight = 0
 highlight clear SignColumn
 highlight GitGutterAdd ctermfg=108
 highlight GitGutterChange ctermfg=108
-highlight GitGutterDelete ctermfg=108
+highlight GitGutterDelete ctermfg=red
 highlight GitGutterChangeDelete ctermfg=108
 
 " disable preview window
