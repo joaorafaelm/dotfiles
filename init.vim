@@ -21,11 +21,11 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-commentary'
     Plug 'gcmt/taboo.vim'
     Plug 'unblevable/quick-scope'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 set encoding=utf-8
 scriptencoding utf-8
-
 
 " default shell
 set shell=$SHELL
@@ -94,6 +94,13 @@ augroup CursorLine
     au!
     au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     au WinLeave * setlocal nocursorline
+augroup END
+
+" comments
+augroup CommentsGroup
+    au!
+    au FileType vim setlocal commentstring=\"\ %s
+    au FileType python setlocal commentstring=#\ %s
 augroup END
 
 " line highlighting
@@ -265,7 +272,7 @@ nnoremap <Leader>6 6gt
 nnoremap <Leader>7 7gt
 nnoremap <Leader>8 8gt
 nnoremap <Leader>9 9gt
-nnoremap <leader><leader> :TabooRename 
+nnoremap <c-w>n :TabooRename 
 
 " Dont copy to clipboard deleted text
 nnoremap d "_d
@@ -357,8 +364,7 @@ nnoremap <silent> <leader>d :VTerm<CR>
 augroup terminal_settings
 autocmd!
 
-autocmd BufWinEnter,WinEnter term://* stopinsert
-autocmd BufLeave term://* stopinsert
+autocmd BufWinEnter,WinEnter,BufLeave,BufNew term://* stopinsert
 
 " Ignore various filetypes as those will close terminal automatically
 " Ignore fzf, ranger, coc
@@ -375,7 +381,7 @@ let g:disable_key_mappings = 1
 tnoremap <Esc> <C-\><C-n>
 
 " zoom
-nnoremap <C-W>z <C-W>\| <C-W>_
+nnoremap <C-W>z <C-W>\|<C-W>_
 
 " vimdiff in new tab
 function! GStatusGetFilenameUnderCursor()
@@ -399,12 +405,46 @@ augroup END
 function! GitStatus()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
+        echo a + m
         return printf('+%d ~%d -%d', a, m, r)
     else
         return ''
     endif
 endfunction
-set statusline=%F\ %{GitStatus()}
+
+function! GitStatusTotalDiff()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    if a || m || r
+        let total = a + m + r
+        return total
+    else
+        return ''
+    endif
+endfunction
+
+function! GitStatusAddBars()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    if a || m || r
+        let total = a + m
+        return repeat('+', total)
+    else
+        return ''
+    endif
+endfunction
+
+function! GitStatusRemoveBars()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    if a || m || r
+        return repeat('-', r)
+    else
+        return ''
+    endif
+endfunction
+
+hi AddBardsHighlight ctermfg=green
+hi RemoveBardsHighlight ctermfg=red
+hi DiffHighlight ctermfg=246
+set statusline=%F\ %#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
 
 " lua scripts
 lua <<EOF
@@ -484,4 +524,7 @@ highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=und
 
 " session config
 set sessionoptions-=options    " do not store global and local values in a session
-set sessionoptions-=folds      " do not store folds
+
+" search word under cursor
+nnoremap # #N
+nnoremap * *N

@@ -10,16 +10,16 @@ export PATH="/usr/local/opt/node@8/bin:$PATH"
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH="$PATH:$HOME/.rvm/bin"
-export PYTHONWARNINGS="ignore"
 export EDITOR=vim
 export PATH="$PATH:/Users/joaorafael/.local/bin"
 export PIPENV_VENV_IN_PROJECT=1
 export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
-export PYTEST_ADDOPTS='--no-cov-on-fail -p no:warnings --ff -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x'
+export PYTEST_ADDOPTS="--no-cov-on-fail -p no:warnings --ff -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x"
 export PYTHONBREAKPOINT=ipdb.set_trace
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
+export DOCKER_DEFAULT_PLATFORM=linux/arm64
 export PATH="$PATH:/home/joao/.local/bin"
+export ENABLE_TTY="true"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
