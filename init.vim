@@ -186,17 +186,12 @@ let g:fzf_action = {
 \ }
 
 hi FZFBG ctermbg=NONE ctermfg=NONE
+hi BorderFZF ctermfg=233
 let g:fzf_colors = {
-    \ 'bg': ['bg', 'FZFBG']
+    \ 'bg': ['bg', 'FZFBG'],
+    \ 'border': ['fg', 'BorderFZF']
 \ }
-hi! BorderFZF ctermbg=235 ctermfg=235 cterm=bold
-let g:fzf_layout = {
-    \ 'window': {
-        \'width': 0.9,
-        \'height': 0.6,
-        \'highlight': 'BorderFZF'
-    \ }
-\ }
+let g:fzf_layout = { 'down': '~40%' }
 let $FZF_DEFAULT_OPTS='--layout=reverse-list --border'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
