@@ -537,3 +537,6 @@ set sessionoptions-=options    " do not store global and local values in a sessi
 " search word under cursor
 nnoremap # #N
 nnoremap * *N
+
+" quick fix
+highlight link QuickFixLine CursorLine
