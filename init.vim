@@ -180,10 +180,24 @@ nnoremap <silent> <CR> :noh<CR><CR>
 
 "fzf
 let g:fzf_action = {
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-d': 'vsplit'
-      \ }
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-d': 'vsplit'
+\ }
+
+hi FZFBG ctermbg=NONE ctermfg=NONE
+let g:fzf_colors = {
+    \ 'bg': ['bg', 'FZFBG']
+\ }
+hi! BorderFZF ctermbg=235 ctermfg=235 cterm=bold
+let g:fzf_layout = {
+    \ 'window': {
+        \'width': 0.9,
+        \'height': 0.6,
+        \'highlight': 'BorderFZF'
+    \ }
+\ }
+let $FZF_DEFAULT_OPTS='--layout=reverse-list --border'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR>
