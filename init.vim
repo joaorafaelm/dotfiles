@@ -176,7 +176,7 @@ nnoremap <C-a> <Home>
 nnoremap <C-e> <End>
 
 "This unsets the "last search pattern" register by hitting return
-nnoremap <silent> <CR> :noh<CR><CR>
+nnoremap <silent> <CR> :let @/ = ""<CR><CR>
 
 "fzf
 let g:fzf_action = {
