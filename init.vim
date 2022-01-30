@@ -266,7 +266,6 @@ nnoremap <silent> <expr> o <SID>NewLineInsertExpr(1, 'o')
 nnoremap <silent> <expr> O <SID>NewLineInsertExpr(1, 'O')
 
 " tab rename
-set sessionoptions+=tabpages,globals
 set guioptions-=e
 let g:taboo_renamed_tab_format = ' %N:%l%m '
 let g:taboo_tab_format = ' %N:%f%m '
@@ -532,7 +531,10 @@ highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=unde
 highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
 " session config
-set sessionoptions-=options    " do not store global and local values in a session
+set sessionoptions+=tabpages,globals,winpos,terminal
+
+" do not store global and local values in a session
+set sessionoptions-=options
 
 " search word under cursor
 nnoremap # #N
