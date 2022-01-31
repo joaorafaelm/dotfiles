@@ -90,12 +90,6 @@ let g:indent_guides_guide_size = 1
 hi IndentGuidesOdd  ctermbg=234
 hi IndentGuidesEven ctermbg=234
 
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
-
 " comments
 augroup CommentsGroup
     au!
@@ -104,7 +98,7 @@ augroup CommentsGroup
 augroup END
 
 " line highlighting
-set cursorline
+set nocursorline
 
 "highlight clear cursorline
 highlight cursorlinenr ctermbg=NONE cterm=bold
@@ -112,9 +106,8 @@ highlight cursorline ctermbg=235
 highlight cursorcolumn ctermbg=235
 highlight Blamer ctermfg=240 ctermbg=NONE
 
-
 " Fold
-highlight Folded ctermbg=NONE ctermfg=236
+highlight Folded ctermbg=NONE ctermfg=240
 set foldmethod=indent
 set foldnestmax=3
 set foldminlines=1
@@ -179,7 +172,13 @@ nnoremap <C-e> <End>
 nnoremap <silent> <CR> :let @/ = ""<CR><CR>
 
 "fzf
+
+function! s:fill_quickfix(lines)
+    silent! call setqflist(map(copy(a:lines), '{ "filename": v:val }'), 'a')
+    copen
+endfunction
 let g:fzf_action = {
+    \ 'ctrl-q': function('s:fill_quickfix'),
     \ 'ctrl-t': 'tab split',
     \ 'ctrl-s': 'split',
     \ 'ctrl-d': 'vsplit'
@@ -192,7 +191,7 @@ let g:fzf_colors = {
     \ 'border': ['fg', 'BorderFZF']
 \ }
 let g:fzf_layout = { 'down': '~40%' }
-let $FZF_DEFAULT_OPTS='--layout=reverse-list --border'
+let $FZF_DEFAULT_OPTS='--layout=reverse-list --border --bind ctrl-a:select-all'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR>
@@ -540,5 +539,24 @@ set sessionoptions-=options
 nnoremap # #N
 nnoremap * *N
 
-" quick fix
+" quickfix
 highlight link QuickFixLine CursorLine
+" When using `dd` in the quickfix list, remove the item from the quickfix list.
+function! RemoveQFItem()
+    let curqfidx = line('.') - 1
+    let qfall = getqflist()
+    silent! call remove(qfall, curqfidx)
+    silent! call setqflist(qfall, 'r')
+    silent! execute curqfidx + 1 . 'cfirst'
+    if len(getqflist()) == 0
+        cclose
+    endif
+endfunction
+command! RemoveQFItem :call RemoveQFItem()
+
+" Use map <buffer> to only map dd in the quickfix window. Requires +localmap
+nnoremap <silent> <leader>q :copen<cr>
+augroup QuickFixCmds
+    autocmd FileType qf map <buffer> <silent> dd :RemoveQFItem<cr>
+    autocmd FileType qf map <buffer> <silent> <leader>q :cclose<cr>
+augroup END
