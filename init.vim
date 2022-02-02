@@ -186,10 +186,17 @@ function! AddToQuickFix()
     :silent! WorklistShow
     call win_gotoid(current_win)
 endfunction
+function! RemoveFromQuickFix()
+    :silent! WorklistRemove
+    let lines = len(getqflist())
+    if lines == 0
+        cclose
+    endif
+endfunction
 nnoremap <silent> <leader>q :silent! WorklistShow<cr>
 nnoremap <silent> <leader>x :call AddToQuickFix()<cr>
 augroup QuickFixCmds
-    autocmd FileType qf map <buffer> <silent> dd :silent! WorklistRemove<cr>
+    autocmd FileType qf map <buffer> <silent> dd :call RemoveFromQuickFix()<cr>
     autocmd FileType qf map <buffer> <silent> <leader>q :cclose<cr>
     autocmd FileType qf :resize 5
 augroup END
