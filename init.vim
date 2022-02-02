@@ -191,6 +191,7 @@ nnoremap <silent> <leader>x :call AddToQuickFix()<cr>
 augroup QuickFixCmds
     autocmd FileType qf map <buffer> <silent> dd :silent! WorklistRemove<cr>
     autocmd FileType qf map <buffer> <silent> <leader>q :cclose<cr>
+    autocmd FileType qf :resize 5
 augroup END
 
 "fzf actions
@@ -201,6 +202,7 @@ function! s:fill_quickfix(lines)
     copen
 endfunction
 let g:fzf_action = {
+    \ 'ctrl-q': function('s:fill_quickfix'),
     \ 'ctrl-t': 'tab split',
     \ 'ctrl-s': 'split',
     \ 'ctrl-d': 'vsplit'
