@@ -60,6 +60,7 @@ alias vim="nvim"
 alias v="nvim"
 alias l="exa"
 alias ls="exa -lha"
+alias :q="exit"
 
 
 # git abstraction, install gawk

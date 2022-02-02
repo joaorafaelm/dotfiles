@@ -22,6 +22,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'gcmt/taboo.vim'
     Plug 'unblevable/quick-scope'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'joaorafaelm/worklist.vim'
 call plug#end()
 
 set encoding=utf-8
@@ -98,11 +99,13 @@ augroup CommentsGroup
 augroup END
 
 " line highlighting
-set nocursorline
+set cursorline
+set cursorlineopt=number
 
 "highlight clear cursorline
 highlight cursorlinenr ctermbg=NONE cterm=bold
 highlight cursorline ctermbg=235
+highlight Visual ctermbg=237 cterm=NONE
 highlight cursorcolumn ctermbg=235
 highlight Blamer ctermfg=240 ctermbg=NONE
 
@@ -110,9 +113,11 @@ highlight Blamer ctermfg=240 ctermbg=NONE
 highlight Folded ctermbg=NONE ctermfg=240
 set foldmethod=indent
 set foldnestmax=3
-set foldminlines=1
+set foldminlines=0
 nnoremap <space> za
 vnoremap <space> zf
+nnoremap } zj
+nnoremap { zk
 
 " git gutter
 let g:gitgutter_override_sign_column_highlight = 0
@@ -171,14 +176,31 @@ nnoremap <C-e> <End>
 "This unsets the "last search pattern" register by hitting return
 nnoremap <silent> <CR> :let @/ = ""<CR><CR>
 
-"fzf
+" quickfix
+highlight link QuickFixLine CursorLine
+" Use map <buffer> to only map dd in the quickfix window. Requires +localmap
+function! AddToQuickFix()
+    let current_win = win_getid()
+    :silent! WorklistAdd
+    :cclose
+    :silent! WorklistShow
+    call win_gotoid(current_win)
+endfunction
+nnoremap <silent> <leader>q :silent! WorklistShow<cr>
+nnoremap <silent> <leader>x :call AddToQuickFix()<cr>
+augroup QuickFixCmds
+    autocmd FileType qf map <buffer> <silent> dd :silent! WorklistRemove<cr>
+    autocmd FileType qf map <buffer> <silent> <leader>q :cclose<cr>
+augroup END
 
+"fzf actions
 function! s:fill_quickfix(lines)
-    silent! call setqflist(map(copy(a:lines), '{ "filename": v:val }'), 'a')
+    let current_lines = getqflist()
+    let selected_lines = map(copy(a:lines), '{ "filename": v:val }')
+    call setqflist(selected_lines, 'a')
     copen
 endfunction
 let g:fzf_action = {
-    \ 'ctrl-q': function('s:fill_quickfix'),
     \ 'ctrl-t': 'tab split',
     \ 'ctrl-s': 'split',
     \ 'ctrl-d': 'vsplit'
@@ -533,30 +555,8 @@ highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=und
 set sessionoptions+=tabpages,globals,winpos,terminal
 
 " do not store global and local values in a session
-set sessionoptions-=options
+set sessionoptions-=options,blank
 
 " search word under cursor
 nnoremap # #N
 nnoremap * *N
-
-" quickfix
-highlight link QuickFixLine CursorLine
-" When using `dd` in the quickfix list, remove the item from the quickfix list.
-function! RemoveQFItem()
-    let curqfidx = line('.') - 1
-    let qfall = getqflist()
-    silent! call remove(qfall, curqfidx)
-    silent! call setqflist(qfall, 'r')
-    silent! execute curqfidx + 1 . 'cfirst'
-    if len(getqflist()) == 0
-        cclose
-    endif
-endfunction
-command! RemoveQFItem :call RemoveQFItem()
-
-" Use map <buffer> to only map dd in the quickfix window. Requires +localmap
-nnoremap <silent> <leader>q :copen<cr>
-augroup QuickFixCmds
-    autocmd FileType qf map <buffer> <silent> dd :RemoveQFItem<cr>
-    autocmd FileType qf map <buffer> <silent> <leader>q :cclose<cr>
-augroup END
