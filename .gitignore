@@ -8,3 +8,4 @@ vim/plugins/*
 !vim/plugins/.gitkeep
 *.swp
 vim/undodir
+vim/worklist.json
