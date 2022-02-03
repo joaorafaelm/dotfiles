@@ -116,8 +116,8 @@ set foldnestmax=3
 set foldminlines=0
 nnoremap <space> za
 vnoremap <space> zf
-nnoremap } zj
-nnoremap { zk
+nnoremap } zjzz
+nnoremap { zkzz
 
 " git gutter
 let g:gitgutter_override_sign_column_highlight = 0
@@ -228,8 +228,14 @@ nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR>
 nnoremap <silent> <C-s> :GFiles?<CR>
 nnoremap <silent> <C-r> :History:<CR>
+nnoremap <silent> <c-h> :Helptags<CR>
 nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
+
+augroup fzfGroup
+    au! FileType fzf setlocal laststatus=0 noshowmode noruler nonumber norelativenumber
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
 
 " window resize
 nnoremap <silent> <leader>e :WinResizerStartResize<CR>
