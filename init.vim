@@ -404,6 +404,9 @@ let g:blamer_enabled = 1
 nnoremap <silent> <leader>s :Term<CR>
 nnoremap <silent> <leader>d :VTerm<CR>
 
+set splitbelow
+set splitright
+
 " quit vim window on term exit
 augroup terminal_settings
 autocmd!

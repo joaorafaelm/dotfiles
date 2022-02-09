@@ -2,9 +2,10 @@
 	name = João Rafael
 	email = joaoraf@me.com
 [core]
-	editor = vim
+	editor = v
 	excludesfile = /Users/joaorafael/.gitignore_global
 	page = 
+	pager = delta
 [pull]
 	rebase = true
 	default = current
@@ -20,3 +21,5 @@
 	d = difftool
 [push]
 	default = current
+[delta]
+    syntax-theme = gruvbox
