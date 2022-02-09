@@ -23,6 +23,12 @@ call plug#begin('~/.vim/plugins')
     Plug 'unblevable/quick-scope'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'joaorafaelm/worklist.vim'
+    function! UpdateRemotePlugins(...)
+        " Needed to refresh runtime files
+        let &runtimepath=&runtimepath
+        UpdateRemotePlugins
+    endfunction
+    Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 call plug#end()
 
 set encoding=utf-8
@@ -41,6 +47,7 @@ set autoindent
 filetype plugin on
 let mapleader = ','
 set winminheight=0
+set winminwidth=0
 
 " space as tabs
 filetype plugin indent off
@@ -222,7 +229,7 @@ let g:fzf_colors = {
     \ 'border': ['fg', 'BorderFZF']
 \ }
 let g:fzf_layout = { 'down': '~40%' }
-let $FZF_DEFAULT_OPTS='--layout=reverse-list --border --bind ctrl-a:select-all'
+let $FZF_DEFAULT_OPTS='--layout=reverse-list --border --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR>
@@ -232,9 +239,19 @@ nnoremap <silent> <c-h> :Helptags<CR>
 nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=232 ctermbg=232
+  highlight fzf2 ctermfg=232 ctermbg=232
+  highlight fzf3 ctermfg=232 ctermbg=232
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+  setlocal laststatus=0
+endfunction
+
 augroup fzfGroup
     au! FileType fzf setlocal laststatus=0 noshowmode noruler nonumber norelativenumber
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+    au! User FzfStatusLine call <SID>fzf_statusline()
 augroup END
 
 " window resize
@@ -578,3 +595,14 @@ set sessionoptions-=options,blank
 " search word under cursor
 nnoremap # #N
 nnoremap * *N
+
+" command line
+highlight PmenuCustom cterm=inverse ctermfg=NONE ctermbg=red
+call wilder#setup({'modes': [':', '/', '?']})
+call wilder#set_option('use_python_remote_plugin', 0)
+call wilder#set_option('renderer', wilder#wildmenu_renderer({
+      \ 'highlighter': wilder#basic_highlighter(),
+      \ 'highlights': {
+      \   'accent': wilder#make_hl('WilderAccent', 'PmenuCustom', [{}, {}, {}]),
+      \ },
+      \ }))
