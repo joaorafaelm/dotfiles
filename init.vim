@@ -245,12 +245,10 @@ function! s:fzf_statusline()
   highlight fzf2 ctermfg=232 ctermbg=232
   highlight fzf3 ctermfg=232 ctermbg=232
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-  setlocal laststatus=0
 endfunction
 
 augroup fzfGroup
-    au! FileType fzf setlocal laststatus=0 noshowmode noruler nonumber norelativenumber
-    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+    au! FileType fzf setlocal noshowmode noruler nonumber norelativenumber
     au! User FzfStatusLine call <SID>fzf_statusline()
 augroup END
 
@@ -597,12 +595,16 @@ nnoremap # #N
 nnoremap * *N
 
 " command line
-highlight PmenuCustom cterm=inverse ctermfg=NONE ctermbg=red
-call wilder#setup({'modes': [':', '/', '?']})
+highlight PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
+highlight PmenuSelCustom cterm=inverse ctermfg=108 ctermbg=233
+highlight PmenuTextCustom ctermfg=245 ctermbg=233
+call wilder#setup({'modes': [':', '?']})
 call wilder#set_option('use_python_remote_plugin', 0)
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
       \ 'highlighter': wilder#basic_highlighter(),
       \ 'highlights': {
+      \   'default': wilder#make_hl('PmenuTextCustom', 'PmenuTextCustom', [{}, {}, {}]),
       \   'accent': wilder#make_hl('WilderAccent', 'PmenuCustom', [{}, {}, {}]),
+      \   'selected': wilder#make_hl('WilderWildmenuSelectedAccent', 'PmenuSelCustom', [{}, {}, {}]),
       \ },
       \ }))
