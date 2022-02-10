@@ -62,7 +62,7 @@ augroup file_format
     au FileType make setlocal noexpandtab
 augroup END
 
-set updatetime=100
+set updatetime=50
 set mouse=a
 if has('clipboard')
     set clipboard=unnamed " copy to the system clipboard
@@ -617,8 +617,8 @@ call wilder#set_option('renderer', wilder#wildmenu_renderer({
 augroup CWordHiGroup
     autocmd CursorHold * call HighlightCursorWord()
 augroup END
-highlight HiCursorWord ctermbg=236
+highlight HiCursorWord ctermbg=236 cterm=inverse
 function! HighlightCursorWord()
     let cword = expand('<cword>')
-    exe printf('match HiCursorWord /\V\<%s\>/', escape(cword, '/\'))
+    exe printf('match Search /\V\<%s\>/', escape(cword, '/\'))
 endfunction
