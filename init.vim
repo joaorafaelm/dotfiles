@@ -113,6 +113,7 @@ set cursorlineopt=number
 highlight cursorlinenr ctermbg=NONE cterm=bold
 highlight cursorline ctermbg=235
 highlight Visual ctermbg=237 cterm=NONE
+highlight Search cterm=inverse ctermfg=NONE
 highlight cursorcolumn ctermbg=235
 highlight Blamer ctermfg=240 ctermbg=NONE
 
@@ -572,6 +573,9 @@ hi Title ctermfg=214 cterm=bold
 " y behaves as other capital letters
 nnoremap Y y$
 
+" W equal to b for motion
+nnoremap W b
+
 " keep centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -601,10 +605,20 @@ highlight PmenuTextCustom ctermfg=245 ctermbg=233
 call wilder#setup({'modes': [':']})
 call wilder#set_option('use_python_remote_plugin', 0)
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
-      \ 'highlighter': wilder#basic_highlighter(),
-      \ 'highlights': {
-      \   'default': wilder#make_hl('PmenuTextCustom', 'PmenuTextCustom', [{}, {}, {}]),
-      \   'accent': wilder#make_hl('WilderAccent', 'PmenuCustom', [{}, {}, {}]),
-      \   'selected': wilder#make_hl('WilderWildmenuSelectedAccent', 'PmenuSelCustom', [{}, {}, {}]),
-      \ },
-      \ }))
+    \ 'highlighter': wilder#basic_highlighter(),
+    \ 'highlights': {
+    \   'default': wilder#make_hl('PmenuTextCustom', 'PmenuTextCustom', [{}, {}, {}]),
+    \   'accent': wilder#make_hl('WilderAccent', 'PmenuCustom', [{}, {}, {}]),
+    \   'selected': wilder#make_hl('WilderWildmenuSelectedAccent', 'PmenuSelCustom', [{}, {}, {}]),
+    \ },
+\ }))
+
+" highlight the word under cursor (CursorMoved is inperformant)
+augroup CWordHiGroup
+    autocmd CursorHold * call HighlightCursorWord()
+augroup END
+highlight HiCursorWord ctermbg=236
+function! HighlightCursorWord()
+    let cword = expand('<cword>')
+    exe printf('match HiCursorWord /\V\<%s\>/', escape(cword, '/\'))
+endfunction
