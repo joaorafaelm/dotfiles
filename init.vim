@@ -598,7 +598,7 @@ nnoremap * *N
 highlight PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
 highlight PmenuSelCustom cterm=inverse ctermfg=108 ctermbg=233
 highlight PmenuTextCustom ctermfg=245 ctermbg=233
-call wilder#setup({'modes': [':', '?']})
+call wilder#setup({'modes': [':']})
 call wilder#set_option('use_python_remote_plugin', 0)
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
       \ 'highlighter': wilder#basic_highlighter(),
