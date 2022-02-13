@@ -72,7 +72,7 @@ if has('clipboard')
 endif
 
 " WSL yank support
-if !isdirectory("/mnt/c/Windows/")
+if !isdirectory('/mnt/c/Windows/')
     set clipboard+=unnamedplus
     let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
     let g:clipboard = {
@@ -646,5 +646,5 @@ augroup END
 highlight HiCursorWord ctermbg=236 cterm=inverse
 function! HighlightCursorWord()
     let cword = expand('<cword>')
-    exe printf('match Search /\V\<%s\>/', escape(cword, '/\'))
+    exe printf('match hiCursorWord /\V\<%s\>/', escape(cword, '/\'))
 endfunction
