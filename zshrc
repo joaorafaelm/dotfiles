@@ -29,6 +29,7 @@ source ~/.zshenv
 # Zsh cmd
 ZSH_THEME="simple"
 plugins=(
+    docker
     git
     zsh-autosuggestions
     git-prompt
