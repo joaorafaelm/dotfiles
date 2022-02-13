@@ -585,8 +585,7 @@ augroup fold_formats
 augroup END
 
 " print current date
-nnoremap <silent> <leader>dt o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
-
+nnoremap <silent> <leader>td o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
 " buffer cycle
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
