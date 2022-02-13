@@ -134,6 +134,7 @@ EDITOR="$VISUAL"
 FCEDIT="$VISUAL"
 
 DISABLE_MAGIC_FUNCTIONS=true
+eval `keychain --quiet --eval --agents ssh id_rsa`
 
 alias fd=fdfind
 if [ -z "$TMUX" ]
