@@ -519,7 +519,7 @@ endfunction
 function! GitStatusTotalDiff()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
-        let total = a + m + r
+        let total = a + m * 2 + r
         return total
     else
         return ''
@@ -539,7 +539,7 @@ endfunction
 function! GitStatusRemoveBars()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
-        return repeat('-', r)
+        return repeat('-', r + m)
     else
         return ''
     endif
