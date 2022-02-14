@@ -112,9 +112,24 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
 
 "theme config
-colorscheme gruvbox
-let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_dark='dark'
 set background=dark
+colorscheme gruvbox
+
+" Background colors for active vs inactive windows
+highlight ActiveWindow ctermbg=233
+highlight InactiveWindow ctermbg=232
+
+" Call method on window enter
+augroup WindowManagement
+    autocmd!
+    autocmd BufWinEnter,WinEnter * call Handle_Win_Enter()
+augroup END
+
+" Change highlight group of active/inactive windows
+function! Handle_Win_Enter()
+    setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+endfunction
 
 " Inherit background color from terminal
 highlight normal ctermbg=232
@@ -122,13 +137,13 @@ highlight normal ctermbg=232
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
-hi IndentGuidesOdd  ctermbg=234
-hi IndentGuidesEven ctermbg=234
+highlight IndentGuidesOdd  ctermbg=234 ctermfg=238
+highlight IndentGuidesEven ctermbg=234 ctermfg=238
 
 " comments
 augroup CommentsGroup
     au!
-    au FileType vim setlocal commentstring=\"\ %s
+        au FileType vim setlocal commentstring=\"\ %s
     au FileType python setlocal commentstring=#\ %s
 augroup END
 
@@ -250,8 +265,8 @@ let g:fzf_action = {
     \ 'ctrl-d': 'vsplit'
 \ }
 
-hi FZFBG ctermbg=NONE ctermfg=NONE
-hi BorderFZF ctermfg=233
+highlight FZFBG ctermbg=NONE ctermfg=NONE
+highlight BorderFZF ctermfg=233
 let g:fzf_colors = {
     \ 'bg': ['bg', 'FZFBG'],
     \ 'border': ['fg', 'BorderFZF']
@@ -381,8 +396,8 @@ map <silent> t :call RunPytest() <CR>
 nnoremap <silent> ZZ :wqa!<CR>
 
 " Auto complete menu
-hi Pmenu ctermfg=15 ctermbg=236
-hi PmenuSel ctermfg=233 ctermbg=108
+highlight Pmenu ctermfg=15 ctermbg=236
+highlight PmenuSel ctermfg=233 ctermbg=108
 
 " paste in next line
 nmap p :pu<CR>
@@ -418,9 +433,9 @@ set undofile
 
 " split styling
 set fillchars+=vert:\ 
-hi VertSplit ctermfg=None ctermbg=None
-hi StatusLineNC ctermfg=232 ctermbg=237
-hi StatusLine ctermfg=232 ctermbg=241
+highlight VertSplit ctermfg=None ctermbg=None
+highlight StatusLineNC ctermfg=232 ctermbg=237
+highlight StatusLine ctermfg=232 ctermbg=241
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -531,29 +546,14 @@ function! GitStatusRemoveBars()
     endif
 endfunction
 
-hi AddBardsHighlight ctermfg=green
-hi RemoveBardsHighlight ctermfg=red
-hi DiffHighlight ctermfg=246
+highlight AddBardsHighlight ctermfg=green
+highlight RemoveBardsHighlight ctermfg=red
+highlight DiffHighlight ctermfg=246
 set statusline=%F\ %#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
 
 " lua scripts
 lua <<EOF
 EOF
-
-" Background colors for active vs inactive windows
-hi ActiveWindow ctermbg=233
-hi InactiveWindow ctermbg=232
-
-" Call method on window enter
-augroup WindowManagement
-    autocmd!
-    autocmd BufWinEnter,WinEnter * call Handle_Win_Enter()
-augroup END
-
-" Change highlight group of active/inactive windows
-function! Handle_Win_Enter()
-    setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
-endfunction
 
 " markdown fold
 function! MarkdownLevel()
@@ -591,10 +591,10 @@ nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
 " tab styling
-hi TabLineFill ctermfg=235 ctermbg=234
-hi TabLine ctermfg=240 ctermbg=234 cterm=NONE
-hi TabLineSel ctermfg=214 ctermbg=236 cterm=bold
-hi Title ctermfg=214 cterm=bold
+highlight TabLineFill ctermfg=235 ctermbg=234
+highlight TabLine ctermfg=240 ctermbg=234 cterm=NONE
+highlight TabLineSel ctermfg=214 ctermbg=236 cterm=bold
+highlight Title ctermfg=214 cterm=bold
 
 " y behaves as other capital letters
 nnoremap Y y$
