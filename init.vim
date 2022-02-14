@@ -87,7 +87,6 @@ if !isdirectory('/mnt/c/Windows/')
               \   },
               \   'cache_enabled': 0,
               \ }
-
     let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
     if executable(s:clip)
         augroup WSLYank
@@ -137,13 +136,13 @@ highlight normal ctermbg=232
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
-highlight IndentGuidesOdd  ctermbg=234 ctermfg=238
-highlight IndentGuidesEven ctermbg=234 ctermfg=238
+highlight IndentGuidesOdd  ctermbg=234 ctermfg=236 cterm=bold
+highlight IndentGuidesEven ctermbg=234 ctermfg=236 cterm=bold
 
 " comments
 augroup CommentsGroup
     au!
-        au FileType vim setlocal commentstring=\"\ %s
+    au FileType vim setlocal commentstring=\"\ %s
     au FileType python setlocal commentstring=#\ %s
 augroup END
 
