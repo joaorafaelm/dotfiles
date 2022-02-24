@@ -2,7 +2,7 @@
 	name = João Rafael
 	email = joaoraf@me.com
 [core]
-	editor = v
+	editor = nvim
 	excludesfile = /Users/joaorafael/.gitignore_global
 	page = 
 	pager = delta
