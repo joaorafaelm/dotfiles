@@ -8,7 +8,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'ruanyl/vim-gh-line'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    Plug 'tmux-plugins/vim-tmux-focus-events'
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'mgedmin/taghelper.vim'
     Plug 'codota/tabnine-vim'
@@ -29,6 +28,7 @@ call plug#begin('~/.vim/plugins')
         UpdateRemotePlugins
     endfunction
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+    Plug 'vimwiki/vimwiki'
 call plug#end()
 
 set encoding=utf-8
@@ -271,6 +271,8 @@ let g:fzf_colors = {
     \ 'border': ['fg', 'BorderFZF']
 \ }
 let g:fzf_layout = { 'down': '~40%' }
+" ctrl-p/n to navigate cmd history
+let g:fzf_history_dir = '~/.fzf-history'
 let $FZF_DEFAULT_OPTS='--layout=reverse-list --border --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
@@ -647,3 +649,6 @@ function! HighlightCursorWord()
     let cword = expand('<cword>')
     exe printf('match hiCursorWord /\V\<%s\>/', escape(cword, '/\'))
 endfunction
+
+" wiki
+let g:vimwiki_list = [{'syntax': 'markdown', 'ext': '.md'}]
