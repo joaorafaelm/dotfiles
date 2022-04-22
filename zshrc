@@ -145,3 +145,5 @@ if [ -z "$TMUX" ]
 then
     tmux attach -t TMUX || tmux new -s TMUX
 fi
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

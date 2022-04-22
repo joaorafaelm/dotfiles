@@ -5,7 +5,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
     Plug 'w0rp/ale'
-    Plug 'ruanyl/vim-gh-line'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'nathanaelkane/vim-indent-guides'
@@ -28,7 +27,6 @@ call plug#begin('~/.vim/plugins')
         UpdateRemotePlugins
     endfunction
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-    Plug 'vimwiki/vimwiki'
 call plug#end()
 
 set encoding=utf-8
@@ -144,11 +142,12 @@ augroup CommentsGroup
     au!
     au FileType vim setlocal commentstring=\"\ %s
     au FileType python setlocal commentstring=#\ %s
+    au FileType sh setlocal commentstring=#\ %s
 augroup END
 
 " line highlighting
 set cursorline
-silent! set cursorlineopt=number
+" silent! set cursorlineopt=number
 
 "highlight clear cursorline
 highlight cursorlinenr ctermbg=NONE cterm=bold
@@ -183,7 +182,7 @@ set completeopt-=preview
 let g:ale_enabled = 1
 let b:ale_fixers = {
     \   'python': ['black', 'isort', 'flake8'],
-    \   'javascript': ['eslint']
+    \   'javascript': ['eslint', 'prettier']
     \}
 let g:ale_fix_on_save = 0
 let g:ale_set_highlights = 1
@@ -497,11 +496,11 @@ endfunction
 command! GdiffsplitTab call GdiffsplitTab(expand("%"))
 function! GdiffsplitTab(filename)
     exe 'tabedit ' . a:filename
-    Gdiffsplit
+    Gvdiffsplit
 endfunction
 
 " custom mapping in fugitive window (:Git)
-nnoremap <silent> <leader>g :tab G<CR>
+nnoremap <silent> <leader>g :G<CR>
 augroup custom_fugitive_mappings
     au!
     au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<cr>
@@ -649,6 +648,3 @@ function! HighlightCursorWord()
     let cword = expand('<cword>')
     exe printf('match hiCursorWord /\V\<%s\>/', escape(cword, '/\'))
 endfunction
-
-" wiki
-let g:vimwiki_list = [{'syntax': 'markdown', 'ext': '.md'}]
