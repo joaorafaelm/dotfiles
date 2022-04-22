@@ -108,11 +108,14 @@ set incsearch
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
 
-"theme config
-let g:gruvbox_contrast_dark='dark'
+let g:gruvbox_contrast_dark='hard'
 set background=dark
 colorscheme gruvbox
 
+" Inherit background color from terminal
+highlight normal ctermbg=232
+
+"theme config
 " Background colors for active vs inactive windows
 highlight ActiveWindow ctermbg=233
 highlight InactiveWindow ctermbg=232
@@ -127,9 +130,6 @@ augroup END
 function! Handle_Win_Enter()
     setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 endfunction
-
-" Inherit background color from terminal
-highlight normal ctermbg=232
 
 " indent guides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -148,6 +148,12 @@ augroup END
 " line highlighting
 set cursorline
 " silent! set cursorlineopt=number
+
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
 
 "highlight clear cursorline
 highlight cursorlinenr ctermbg=NONE cterm=bold
