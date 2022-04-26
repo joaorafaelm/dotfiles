@@ -108,7 +108,6 @@ set incsearch
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
 
-let g:gruvbox_contrast_dark='hard'
 set background=dark
 colorscheme gruvbox
 

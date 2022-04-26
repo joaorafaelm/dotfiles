@@ -56,7 +56,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 
 # vim mode fzf
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-zvm_after_init_commands+=('source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh') 
+source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh;
 alias vim="nvim"
 alias v="nvim"
 alias l="exa"

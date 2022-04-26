@@ -10,9 +10,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :500 {}'"
 export FZF_DEFAULT_OPTS='
   --height 75% --multi --reverse
-  --bind ctrl-f:page-down,ctrl-b:page-up
+  --bind ctrl-y:preview-up,ctrl-e:preview-down
 '
-export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 
 # file search
 fzf_grep_edit(){
