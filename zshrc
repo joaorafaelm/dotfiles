@@ -10,6 +10,7 @@ export PATH="/usr/local/opt/node@8/bin:$PATH"
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export EDITOR=vim
 export PATH="$PATH:/Users/joaorafael/.local/bin"
 export PIPENV_VENV_IN_PROJECT=1
@@ -61,6 +62,7 @@ alias vim="nvim"
 alias v="nvim"
 alias l="exa"
 alias ls="exa -lha"
+alias ll="exa -lha --git"
 alias :q="exit"
 
 
@@ -146,4 +148,3 @@ then
     tmux attach -t TMUX || tmux new -s TMUX
 fi
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
