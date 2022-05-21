@@ -288,17 +288,18 @@ nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 
 function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=232 ctermbg=232
-  highlight fzf2 ctermfg=232 ctermbg=232
-  highlight fzf3 ctermfg=232 ctermbg=232
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+    highlight fzf1 ctermfg=233 ctermbg=233
+    highlight fzf2 ctermfg=233 ctermbg=233
+    highlight fzf3 ctermfg=233 ctermbg=233
+    setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
 augroup fzfGroup
-    au! FileType fzf setlocal noshowmode noruler nonumber norelativenumber
     au! User FzfStatusLine call <SID>fzf_statusline()
+    autocmd! FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
+
 
 " window resize
 nnoremap <silent> <leader>e :WinResizerStartResize<CR>
