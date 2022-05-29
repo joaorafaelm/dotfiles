@@ -19,8 +19,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-commentary'
     Plug 'gcmt/taboo.vim'
     Plug 'unblevable/quick-scope'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'joaorafaelm/worklist.vim'
+    Plug 'sindrets/winshift.nvim'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -112,12 +112,12 @@ set background=dark
 colorscheme gruvbox
 
 " Inherit background color from terminal
-highlight normal ctermbg=232
+highlight normal ctermbg=16
 
 "theme config
 " Background colors for active vs inactive windows
 highlight ActiveWindow ctermbg=233
-highlight InactiveWindow ctermbg=232
+highlight InactiveWindow ctermbg=16
 
 " Call method on window enter
 augroup WindowManagement
@@ -440,8 +440,8 @@ set undofile
 " split styling
 set fillchars+=vert:\ 
 highlight VertSplit ctermfg=None ctermbg=None
-highlight StatusLineNC ctermfg=232 ctermbg=237
-highlight StatusLine ctermfg=232 ctermbg=241
+highlight StatusLineNC ctermfg=16 ctermbg=237
+highlight StatusLine ctermfg=16 ctermbg=241
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -557,10 +557,6 @@ highlight RemoveBardsHighlight ctermfg=red
 highlight DiffHighlight ctermfg=246
 set statusline=%F\ %#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
 
-" lua scripts
-lua <<EOF
-EOF
-
 " markdown fold
 function! MarkdownLevel()
     if getline(v:lnum) =~? '^# .*$'
@@ -654,3 +650,13 @@ function! HighlightCursorWord()
     let cword = expand('<cword>')
     exe printf('match hiCursorWord /\V\<%s\>/', escape(cword, '/\'))
 endfunction
+
+" lua scripts
+lua <<EOF
+    require("winshift").setup({
+        highlight_moving_win = false  -- Highlight the window being moved
+    })
+EOF
+
+" Start Win-Move mode:
+nnoremap <C-W>m <Cmd>WinShift<CR>
