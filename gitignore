@@ -5,3 +5,4 @@
 :w
 .features
 vim/worklist.json
+.nvimlog

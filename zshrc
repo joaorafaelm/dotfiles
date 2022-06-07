@@ -38,7 +38,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_super_status)%{$reset_color%} '
+PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_prompt_info)%{$reset_color%} '
 #RPROMPT="%{$fg[yellow]%}%D{%b %d, %Y - %T}%{$reset_color%}"
 RPROMPT=""
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
@@ -100,9 +100,6 @@ g () {
     else
         git $@
     fi
-
-    # update prompt
-    update_current_git_vars
 }
 
 # make worktree
@@ -124,8 +121,6 @@ gw () {
     done;
 }
 
-# update git prompt
-update_current_git_vars
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
   export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
 else

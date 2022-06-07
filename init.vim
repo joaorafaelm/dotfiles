@@ -527,7 +527,8 @@ function! GitStatusTotalDiff()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
         let total = a + m * 2 + r
-        return total
+        " return total
+        return ''
     else
         return ''
     endif
@@ -537,7 +538,8 @@ function! GitStatusAddBars()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
         let total = a + m
-        return repeat('+', total)
+        " return repeat('+', total)
+        return '+' . total
     else
         return ''
     endif
@@ -546,7 +548,8 @@ endfunction
 function! GitStatusRemoveBars()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
-        return repeat('-', r + m)
+        " return repeat('-', r + m)
+        return '-' . (r + m)
     else
         return ''
     endif
@@ -555,7 +558,7 @@ endfunction
 highlight AddBardsHighlight ctermfg=green
 highlight RemoveBardsHighlight ctermfg=red
 highlight DiffHighlight ctermfg=246
-set statusline=%F\ %#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
+set statusline=\ %f\ %m\%#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
 
 " markdown fold
 function! MarkdownLevel()
