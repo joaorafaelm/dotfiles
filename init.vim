@@ -657,7 +657,7 @@ endfunction
 " lua scripts
 lua <<EOF
     require("winshift").setup({
-        highlight_moving_win = false  -- Highlight the window being moved
+        highlight_moving_win = false
     })
 EOF
 
