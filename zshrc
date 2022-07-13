@@ -126,8 +126,10 @@ else
 fi
 alias v="$VISUAL"
 
+v="$VISUAL"
 EDITOR="$VISUAL"
 FCEDIT="$VISUAL"
+GIT_EDITOR="$VISUAL"
 
 DISABLE_MAGIC_FUNCTIONS=true
 if command -v keychain 1>/dev/null 2>&1; then

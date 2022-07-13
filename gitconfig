@@ -3,9 +3,8 @@
 	email = joaoraf@me.com
 	signingkey = AEEED69F826224CB
 [core]
-	editor = nvim
+	editor = nvr -cc split --remote-wait +'set bufhidden=wipe'
 	excludesfile = /Users/joaorafael/.gitignore_global
-	page = 
 	pager = delta
 [pull]
 	rebase = true
