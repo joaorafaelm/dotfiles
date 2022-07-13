@@ -1,6 +1,7 @@
 [user]
 	name = João Rafael
 	email = joaoraf@me.com
+	signingkey = AEEED69F826224CB
 [core]
 	editor = nvim
 	excludesfile = /Users/joaorafael/.gitignore_global
@@ -23,3 +24,5 @@
 	default = current
 [delta]
     syntax-theme = gruvbox
+[commit]
+	gpgsign = true

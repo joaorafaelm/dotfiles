@@ -44,6 +44,6 @@ font:
 
 colors:
   primary:
-    background: '0x080808'
+    background: '#000000'
 
 alt_send_esc: false

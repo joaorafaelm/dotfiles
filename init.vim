@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'unblevable/quick-scope'
     Plug 'joaorafaelm/worklist.vim'
     Plug 'sindrets/winshift.nvim'
+    Plug 'ruanyl/vim-gh-line'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -596,16 +597,13 @@ nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
 " tab styling
-highlight TabLineFill ctermfg=235 ctermbg=234
+highlight TabLineFill ctermfg=235 ctermbg=16
 highlight TabLine ctermfg=240 ctermbg=234 cterm=NONE
 highlight TabLineSel ctermfg=214 ctermbg=236 cterm=bold
 highlight Title ctermfg=214 cterm=bold
 
 " y behaves as other capital letters
 nnoremap Y y$
-
-" W equal to b for motion
-nnoremap W b
 
 " keep centered
 nnoremap n nzzzv
