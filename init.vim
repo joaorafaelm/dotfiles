@@ -19,7 +19,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-commentary'
     Plug 'gcmt/taboo.vim'
     Plug 'unblevable/quick-scope'
-    Plug 'joaorafaelm/worklist.vim'
     Plug 'sindrets/winshift.nvim'
     Plug 'ruanyl/vim-gh-line'
     function! UpdateRemotePlugins(...)
@@ -235,33 +234,68 @@ highlight link QuickFixLine CursorLine
 " Use map <buffer> to only map dd in the quickfix window. Requires +localmap
 function! AddToQuickFix()
     let current_win = win_getid()
-    :silent! WorklistAdd
-    :cclose
-    :silent! WorklistShow
+    let lnum = line('.')
+    let filename = expand('%:p')
+    let text = trim(getline(lnum))
+    let what = {
+        \   'filename': filename,
+        \   'lnum': lnum,
+        \   'text': text,
+        \   'valid': v:true,
+        \ }
+    call setqflist([what], 'a')
+    copen
+    " w! .qf
     call win_gotoid(current_win)
 endfunction
+
+" When using `dd` in the quickfix list, remove the item from the quickfix list.
+function! RemoveQFItem()
+    let curqfidx = line('.') - 1
+    let qfall = getqflist()
+    call remove(qfall, curqfidx)
+    call setqflist(qfall, 'r')
+    execute curqfidx + 1 . 'cfirst'
+    copen
+endfunction
+command! RemoveQFItem :call RemoveQFItem()
+
 function! RemoveFromQuickFix()
-    :silent! WorklistRemove
+    :silent! RemoveQFItem
     let lines = len(getqflist())
     if lines == 0
         cclose
     endif
 endfunction
-nnoremap <silent> <leader>q :silent! WorklistShow<cr>
-nnoremap <silent> <leader>x :call AddToQuickFix()<cr>
+
+function! OpenQuickFix()
+    " cfile .qf
+    copen
+    setlocal modifiable
+endfunction
+
+function! CloseQuickFix()
+    " silent! w! .qf
+    cclose
+endfunction
+
 augroup QuickFixCmds
     autocmd FileType qf map <buffer> <silent> dd :call RemoveFromQuickFix()<cr>
-    autocmd FileType qf map <buffer> <silent> <leader>q :cclose<cr>
-    autocmd FileType qf :resize 5
+    autocmd FileType qf map <buffer> <silent> <leader>q :call CloseQuickFix()<cr>
+    autocmd FileType qf :resize 8
 augroup END
+
+nnoremap <silent> <leader>q :silent! :call OpenQuickFix()<cr>
+nnoremap <silent> <leader>x :call AddToQuickFix()<cr>
 
 "fzf actions
 function! s:fill_quickfix(lines)
     let current_lines = getqflist()
     let selected_lines = map(copy(a:lines), '{ "filename": v:val }')
     call setqflist(selected_lines, 'a')
-    copen
+    " silent! w! .qf
 endfunction
+
 let g:fzf_action = {
     \ 'ctrl-q': function('s:fill_quickfix'),
     \ 'ctrl-t': 'tab split',
@@ -491,6 +525,8 @@ let g:disable_key_mappings = 1
 
 " hit esc twice to exit term mode
 tnoremap <Esc> <C-\><C-n>
+tnoremap <silent><C-f> <C-\><C-n> :Rg<CR><C-P>
+tnoremap <silent><leader><space> <C-\><C-n> :Files<CR>
 
 " zoom
 nnoremap <C-W>z <C-W>\|<C-W>_
@@ -510,6 +546,7 @@ endfunction
 nnoremap <silent> <leader>g :G<CR>
 augroup custom_fugitive_mappings
     au!
+    au User FugitiveIndex map <buffer> <space> =
     au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<cr>
 augroup END
 
@@ -661,3 +698,6 @@ EOF
 
 " Start Win-Move mode:
 nnoremap <C-W>m <Cmd>WinShift<CR>
+
+" Copy github link
+let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '

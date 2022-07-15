@@ -63,7 +63,7 @@ alias l="exa"
 alias ls="exa -lha"
 alias ll="exa -lha --git"
 alias :q="exit"
-
+HISTSIZE=999999999
 
 # git abstraction, install gawk
 unalias g
