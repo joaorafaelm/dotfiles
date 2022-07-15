@@ -245,7 +245,6 @@ function! AddToQuickFix()
         \ }
     call setqflist([what], 'a')
     copen
-    " w! .qf
     call win_gotoid(current_win)
 endfunction
 
@@ -269,18 +268,15 @@ function! RemoveFromQuickFix()
 endfunction
 
 function! OpenQuickFix()
-    " cfile .qf
     copen
-    setlocal modifiable
 endfunction
 
 function! CloseQuickFix()
-    " silent! w! .qf
     cclose
 endfunction
 
 augroup QuickFixCmds
-    autocmd FileType qf map <buffer> <silent> dd :call RemoveFromQuickFix()<cr>
+    autocmd FileType qf map  <buffer> <silent> dd :call RemoveFromQuickFix()<cr>
     autocmd FileType qf map <buffer> <silent> <leader>q :call CloseQuickFix()<cr>
     autocmd FileType qf :resize 8
 augroup END
@@ -293,7 +289,6 @@ function! s:fill_quickfix(lines)
     let current_lines = getqflist()
     let selected_lines = map(copy(a:lines), '{ "filename": v:val }')
     call setqflist(selected_lines, 'a')
-    " silent! w! .qf
 endfunction
 
 let g:fzf_action = {
@@ -508,25 +503,37 @@ set splitright
 
 " quit vim window on term exit
 augroup terminal_settings
-autocmd!
+    autocmd!
 
-autocmd BufWinEnter,WinEnter,BufLeave,BufNew term://* stopinsert
+    autocmd BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
+    autocmd BufWinEnter,WinEnter term://* startinsert
 
-" Ignore various filetypes as those will close terminal automatically
-" Ignore fzf, ranger, coc
-autocmd TermClose term://*
-      \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
-      \   call nvim_input('<CR>')  |
-      \ endif
+    " Ignore various filetypes as those will close terminal automatically
+    " Ignore fzf, ranger, coc
+    autocmd TermClose term://*
+          \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
+          \   call nvim_input('<CR>')  |
+          \ endif
 augroup END
 
 " disable split term default mappins
 let g:disable_key_mappings = 1
 
 " hit esc twice to exit term mode
+" all terminal commands
 tnoremap <Esc> <C-\><C-n>
 tnoremap <silent><C-f> <C-\><C-n> :Rg<CR><C-P>
 tnoremap <silent><leader><space> <C-\><C-n> :Files<CR>
+tnoremap <silent><C-W><up> <C-\><C-n> <C-W><up>
+tnoremap <silent><C-W><down> <C-\><C-n> <C-W><down>
+tnoremap <silent><C-W><left> <C-\><C-n> <C-W><left>
+tnoremap <silent><C-W><right> <C-\><C-n> <C-W><right>
+tnoremap <silent><C-W>z <C-\><C-n>  <C-W>\|<C-W>_
+tnoremap <silent><leader>q <C-\><C-n> :silent! :call OpenQuickFix()<cr>
+tnoremap <silent><leader>x <C-\><C-n> :call AddToQuickFix()<cr>
+tnoremap <silent><leader>e <C-\><C-n> :WinResizerStartResize<CR>
+tnoremap <silent> <leader>s <C-\><C-n> :Term<CR>
+tnoremap <silent> <leader>d <C-\><C-n> :VTerm<CR>
 
 " zoom
 nnoremap <C-W>z <C-W>\|<C-W>_
@@ -645,10 +652,6 @@ nnoremap Y y$
 " keep centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
-" move lines
-nnoremap <leader>k :m .-2<CR>==
-nnoremap <leader>j :m .+1<CR>==
 
 " f char highlight
 highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
