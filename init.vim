@@ -42,6 +42,7 @@ set scrolloff=10
 set backspace=indent,eol,start
 set nowrap
 set autoindent
+set nohidden
 filetype plugin on
 let mapleader = ','
 set winminheight=0
@@ -61,6 +62,7 @@ augroup file_format
 augroup END
 
 set updatetime=50
+set timeoutlen=250
 set mouse=a
 if has('clipboard')
     set clipboard=unnamed " copy to the system clipboard
@@ -118,6 +120,7 @@ highlight normal ctermbg=16
 " Background colors for active vs inactive windows
 highlight ActiveWindow ctermbg=233
 highlight InactiveWindow ctermbg=16
+highlight MsgArea ctermfg=244
 
 " Call method on window enter
 augroup WindowManagement
