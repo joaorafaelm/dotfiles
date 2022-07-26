@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'unblevable/quick-scope'
     Plug 'sindrets/winshift.nvim'
     Plug 'ruanyl/vim-gh-line'
+    Plug 'joaorafaelm/vim-kata'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -167,6 +168,7 @@ highlight Blamer ctermfg=240 ctermbg=NONE
 
 " Fold
 highlight Folded ctermbg=NONE ctermfg=240
+highlight FoldColumn ctermbg=NONE ctermfg=235
 set foldmethod=indent
 set foldnestmax=3
 set foldminlines=0
@@ -355,7 +357,7 @@ function! SearchVisualSelectionWithRg() range
 endfunction
 
 " Redo with U instead of Ctrl+R
-noremap U <C-R>
+nnoremap U <C-R>
 
 " debugger shortcut
 ab br breakpoint()<CR>
