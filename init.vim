@@ -379,27 +379,6 @@ func! s:ToggleBreakpoint()
 endf
 nnoremap <leader>p :call <SID>ToggleBreakpoint()<CR>
 
-"o/O Start insert mode with [count] blank lines.
-function! s:NewLineInsertExpr( isUndoCount, command )
-    if ! v:count
-        return a:command
-    endif
-
-    let l:reverse = { 'o': 'O', 'O' : 'o' }
-    " First insert a temporary '$' marker at the next line (which is necessary
-    " to keep the indent from the current line), then insert <count> empty lines
-    " in between. Finally, go back to the previously inserted temporary '$' and
-    " enter insert mode by substituting this character.
-    " Note: <C-\><C-n> prevents a move back into insert mode when triggered via
-    " |i_CTRL-O|.
-    return (a:isUndoCount && v:count ? "\<C-\>\<C-n>" : '') .
-    \   a:command . "$\<Esc>m`" .
-    \   v:count . l:reverse[a:command] . "\<Esc>" .
-    \   'g``"_s'
-endfunction
-nnoremap <silent> <expr> o <SID>NewLineInsertExpr(1, 'o')
-nnoremap <silent> <expr> O <SID>NewLineInsertExpr(1, 'O')
-
 " tab rename
 set guioptions-=e
 let g:taboo_renamed_tab_format = ' %N:%l%m '
@@ -423,15 +402,6 @@ vnoremap d "_d
 
 " auto open fold when jumping to line
 cmap <silent> <expr> <CR> getcmdtype() == ':' && getcmdline() =~ '^\d\+$' ? 'normal! zv<CR>' : '<CR>'
-
-" run test for current method
-fun! RunPytest()
-    let test_name = substitute(substitute(taghelper#curtag(), '\[', '', ''), '\]', '', '')
-    if test_name =~? 'test_'
-        silent! exec '!tmux split-window -h -t $TMUX_PANE pipenv run pytest -k ' test_name
-    endif
-endfun
-map <silent> t :call RunPytest() <CR>
 
 " quickly exit
 nnoremap <silent> ZZ :wqa!<CR>
