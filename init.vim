@@ -529,8 +529,9 @@ tnoremap <silent><C-W>z <C-\><C-n>  <C-W>\|<C-W>_
 tnoremap <silent><leader>q <C-\><C-n> :silent! :call OpenQuickFix()<cr>
 tnoremap <silent><leader>x <C-\><C-n> :call AddToQuickFix()<cr>
 tnoremap <silent><leader>e <C-\><C-n> :WinResizerStartResize<CR>
-tnoremap <silent> <leader>s <C-\><C-n> :Term<CR>
-tnoremap <silent> <leader>d <C-\><C-n> :VTerm<CR>
+tnoremap <silent><leader>s <C-\><C-n> :Term<CR>
+tnoremap <silent><leader>d <C-\><C-n> :VTerm<CR>
+tnoremap <silent><C-W>p <C-\><C-n> <C-W>p<CR>
 
 " zoom
 nnoremap <C-W>z <C-W>\|<C-W>_
