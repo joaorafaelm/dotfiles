@@ -9,8 +9,6 @@
 [pull]
 	rebase = true
 	default = current
-[include]
-	path = /Users/joaorafael/.gitalias
 [diff]
 	tool = nvimdiff
 [difftool]
@@ -18,7 +16,9 @@
 [difftool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [alias]
-	d = difftool
+    fixup = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
+    c = commit
+    a = add
 [push]
 	default = current
 [delta]

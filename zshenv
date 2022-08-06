@@ -1,8 +1,3 @@
-# Pretty gitdiff
-gdiff() {
-  preview="git diff $@ --color=always -- {-1}"
-  git diff $@ --name-only | fzf -m --ansi --preview $preview
-}
 export BAT_THEME="gruvbox-dark"
 export PATH=export PATH=/Users/Shared/DBngin/postgresql/12.2/bin:$PATH:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
