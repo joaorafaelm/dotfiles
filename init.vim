@@ -532,6 +532,7 @@ tnoremap <silent><leader>e <C-\><C-n> :WinResizerStartResize<CR>
 tnoremap <silent><leader>s <C-\><C-n> :Term<CR>
 tnoremap <silent><leader>d <C-\><C-n> :VTerm<CR>
 tnoremap <silent><C-W>p <C-\><C-n> <C-W>p<CR>
+tnoremap <silent><leader>v <C-X><C-E><CR>
 
 " zoom
 nnoremap <C-W>z <C-W>\|<C-W>_
