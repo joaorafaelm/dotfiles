@@ -444,6 +444,7 @@ set undofile
 
 " split styling
 set fillchars+=vert:\ 
+set fillchars+=fold:\ 
 highlight VertSplit ctermfg=None ctermbg=None
 highlight StatusLineNC ctermfg=16 ctermbg=237
 highlight StatusLine ctermfg=16 ctermbg=241
@@ -495,6 +496,10 @@ endfunction
 
 nnoremap <silent> <Leader>t :call SwitchToTerm()<cr>
 
+map <C-Up> <C-W>k
+map <C-Down> <C-W>j
+map <C-Left> <C-W>h
+map <C-Right> <C-W>l
 set splitbelow
 set splitright
 
@@ -516,26 +521,36 @@ augroup END
 " disable split term default mappins
 let g:disable_key_mappings = 1
 
+" zoom
+let s:zoomed_in = 0
+function! ToogleZoom()
+    if s:zoomed_in
+        :exe "normal \<C-W>="
+        let s:zoomed_in = 0
+    else
+        :exe "normal \<C-W>\|\<C-W>_"
+        let s:zoomed_in = 1
+    endif
+endfunction
+nnoremap <leader>z :call ToogleZoom()<CR>
+
 " hit esc twice to exit term mode
 " all terminal commands
 tnoremap <Esc> <C-\><C-n>
-tnoremap <silent><C-f> <C-\><C-n> :Rg<CR><C-P>
-tnoremap <silent><leader><space> <C-\><C-n> :Files<CR>
-tnoremap <silent><C-W><up> <C-\><C-n> <C-W><up>
-tnoremap <silent><C-W><down> <C-\><C-n> <C-W><down>
-tnoremap <silent><C-W><left> <C-\><C-n> <C-W><left>
-tnoremap <silent><C-W><right> <C-\><C-n> <C-W><right>
-tnoremap <silent><C-W>z <C-\><C-n>  <C-W>\|<C-W>_
-tnoremap <silent><leader>q <C-\><C-n> :silent! :call OpenQuickFix()<cr>
-tnoremap <silent><leader>x <C-\><C-n> :call AddToQuickFix()<cr>
-tnoremap <silent><leader>e <C-\><C-n> :WinResizerStartResize<CR>
-tnoremap <silent><leader>s <C-\><C-n> :Term<CR>
-tnoremap <silent><leader>d <C-\><C-n> :VTerm<CR>
-tnoremap <silent><C-W>p <C-\><C-n> <C-W>p<CR>
+tnoremap <silent><C-f> <C-\><C-n>:Rg<CR><C-P>
+tnoremap <silent><leader><space> <C-\><C-n>:Files<CR>
+tnoremap <silent><leader>q <C-\><C-n>:silent! :call OpenQuickFix()<cr>
+tnoremap <silent><leader>x <C-\><C-n>:call AddToQuickFix()<cr>
+tnoremap <silent><leader>e <C-\><C-n>:WinResizerStartResize<CR>
+tnoremap <silent><leader>s <C-\><C-n>:Term<CR>
+tnoremap <silent><leader>z <C-\><C-n><C-W>\|<C-W>_
+tnoremap <silent><leader>d <C-\><C-n>:VTerm<CR>
 tnoremap <silent><leader>v <C-X><C-E><CR>
+tnoremap <C-Up> <C-\><C-n><C-W>k
+tnoremap <C-Down> <C-\><C-n><C-W>j
+tnoremap <C-Left> <C-\><C-n><C-W>h
+tnoremap <C-Right> <C-\><C-n><C-W>l
 
-" zoom
-nnoremap <C-W>z <C-W>\|<C-W>_
 
 " vimdiff in new tab
 function! GStatusGetFilenameUnderCursor()
