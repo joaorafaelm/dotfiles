@@ -22,6 +22,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'sindrets/winshift.nvim'
     Plug 'ruanyl/vim-gh-line'
     Plug 'joaorafaelm/vim-kata'
+    Plug 'hashivim/vim-terraform'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -564,7 +565,7 @@ function! GdiffsplitTab(filename)
 endfunction
 
 " custom mapping in fugitive window (:Git)
-nnoremap <silent> <leader>g :G<CR>
+nnoremap <silent> <leader>g :tab G<CR>
 augroup custom_fugitive_mappings
     au!
     au User FugitiveIndex map <buffer> <space> =
