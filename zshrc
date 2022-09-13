@@ -98,6 +98,7 @@ g () {
             <(git -c color.status=always status -sb)
     else
         git $@
+        g
     fi
 }
 
