@@ -28,13 +28,13 @@ fi
 source ~/.zshenv
 
 # Zsh cmd
-ZSH_THEME="simple"
 plugins=(
     docker
     git
     zsh-autosuggestions
 )
 
+ZSH_THEME="simple"
 source $ZSH/oh-my-zsh.sh
 
 PROMPT='%{$fg[yellow]%}%~%{$fg_bold[yellow]%}$(git_prompt_info)%{$reset_color%} '
@@ -51,7 +51,11 @@ ZSH_THEME_GIT_PROMPT_STAGED="%{$fg_bold[red]%}%{●%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[cyan]%}%{?%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[yellow]%}%{✔%G%}"
 ZSH_THEME_GIT_PROMPT_CACHE=1
+
+source ~/.headline.zsh-theme
+
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # vim mode fzf

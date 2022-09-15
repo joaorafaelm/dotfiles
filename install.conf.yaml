@@ -10,12 +10,12 @@
     ~/.vimrc: vimrc
     ~/.tmux: tmux/
     ~/.gitconfig: gitconfig
-    ~/.gitalias: gitalias
     ~/.yabairc: yabairc
     ~/.skhdrc: skhdrc
     ~/.zshrc: zshrc 
     ~/.bashrc: bashrc 
     ~/.zshenv: zshenv 
+    ~/.headline.zsh-theme: headline.zsh-theme 
     ~/.gitignore_global: gitignore
     ~/.config/flake8: flake8
     ~/.config/alacritty.yml: alacritty.yml
