@@ -81,17 +81,17 @@ HEADLINE_INFO_MODE='precmd' # precmd|prompt (whether info line is in $PROMPT or 
   # use "prompt" for Ctrl+L to clear properly (but window resize eats previous output)
 
 # Segments
-HEADLINE_DO_USER='true'
-HEADLINE_DO_HOST='true'
+HEADLINE_DO_USER='false'
+HEADLINE_DO_HOST='false'
 HEADLINE_DO_PATH='true'
 HEADLINE_DO_GIT_BRANCH='true'
 HEADLINE_DO_GIT_STATUS='true'
 
 # Prompt character
-HEADLINE_PROMPT="%(#.#.%(!.!.$)) " # consider "%#"
+HEADLINE_PROMPT="%(#.#.%(!.!.;)) " # consider "%#"
 
 # Repeated characters (no styles here)
-HEADLINE_LINE_CHAR='_' # line above information
+HEADLINE_LINE_CHAR='─' # line above information
 HEADLINE_PAD_CHAR=' ' # space between <path> and <branch>
 
 # Prefixes (optional)
@@ -139,14 +139,14 @@ HEADLINE_DO_GIT_STATUS_OMIT_ONE='false' # set "true" to omit the status number w
 # Git status styles and characters
 # To set individual status styles use "%{$reset<style>%}<char>"
 HEADLINE_GIT_STAGED='+'
-HEADLINE_GIT_CHANGED='!'
+HEADLINE_GIT_CHANGED='✘'
 HEADLINE_GIT_UNTRACKED='?'
 HEADLINE_GIT_BEHIND='↓'
 HEADLINE_GIT_AHEAD='↑'
 HEADLINE_GIT_DIVERGED='↕'
 HEADLINE_GIT_STASHED='*'
-HEADLINE_GIT_CONFLICTS='✘' # consider "%{$red%}✘"
-HEADLINE_GIT_CLEAN='' # consider "✓" or "✔"
+HEADLINE_GIT_CONFLICTS='!' # consider "%{$red%}✘"
+HEADLINE_GIT_CLEAN='✔' # consider "✓" or "✔"
 
 # ------------------------------------------------------------------------------
 
