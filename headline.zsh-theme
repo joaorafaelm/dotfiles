@@ -348,6 +348,11 @@ headline_precmd() {
   if (( ${#branch_str} )); then
     _headline_part BRANCH "$HEADLINE_BRANCH_PREFIX$branch_str" right
   fi
+
+  # date
+  _headline_part JOINT "$HEADLINE_BRANCH_TO_STATUS" right
+  _headline_part HOST "$HEADLINE_HOST_PREFIX%D{%b %d, %Y - %T}" right
+
   git_len=$_HEADLINE_LEN_SUM
   if (( ${#user_str} )); then
     _headline_part JOINT "$HEADLINE_USER_BEGIN" left
@@ -380,13 +385,18 @@ headline_precmd() {
   if [[ $HEADLINE_LINE_MODE == 'on' || ($HEADLINE_LINE_MODE == 'auto' && $_HEADLINE_DO_SEP == 'true' ) ]]; then
     print -rP $_HEADLINE_LINE_OUTPUT
   fi
-  _HEADLINE_DO_SEP='true'
 
   # Information line
   _HEADLINE_INFO_OUTPUT="$_HEADLINE_INFO_LEFT$_HEADLINE_INFO_RIGHT$reset"
   if [[ $HEADLINE_INFO_MODE == 'precmd' ]]; then
     print -rP $_HEADLINE_INFO_OUTPUT
   fi
+
+  # Separator line
+  if [[ $HEADLINE_LINE_MODE == 'on' || ($HEADLINE_LINE_MODE == 'auto' && $_HEADLINE_DO_SEP == 'true' ) ]]; then
+    print -rP $_HEADLINE_LINE_OUTPUT
+  fi
+  _HEADLINE_DO_SEP='true'
 }
 
 # Create a part of the prompt

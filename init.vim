@@ -21,7 +21,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'unblevable/quick-scope'
     Plug 'sindrets/winshift.nvim'
     Plug 'ruanyl/vim-gh-line'
-    Plug 'joaorafaelm/vim-kata'
     Plug 'hashivim/vim-terraform'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
@@ -510,6 +509,8 @@ augroup terminal_settings
 
     autocmd BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
     autocmd BufWinEnter,WinEnter term://* startinsert
+    autocmd BufWinEnter,WinEnter term://* :IndentGuidesDisable
+    autocmd BufLeave term://* :IndentGuidesEnable
 
     " Ignore various filetypes as those will close terminal automatically
     " Ignore fzf, ranger, coc
