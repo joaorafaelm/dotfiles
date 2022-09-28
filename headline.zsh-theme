@@ -385,6 +385,7 @@ headline_precmd() {
   if [[ $HEADLINE_LINE_MODE == 'on' || ($HEADLINE_LINE_MODE == 'auto' && $_HEADLINE_DO_SEP == 'true' ) ]]; then
     print -rP $_HEADLINE_LINE_OUTPUT
   fi
+  _HEADLINE_DO_SEP='true'
 
   # Information line
   _HEADLINE_INFO_OUTPUT="$_HEADLINE_INFO_LEFT$_HEADLINE_INFO_RIGHT$reset"
@@ -393,10 +394,11 @@ headline_precmd() {
   fi
 
   # Separator line
-  if [[ $HEADLINE_LINE_MODE == 'on' || ($HEADLINE_LINE_MODE == 'auto' && $_HEADLINE_DO_SEP == 'true' ) ]]; then
-    print -rP $_HEADLINE_LINE_OUTPUT
-  fi
-  _HEADLINE_DO_SEP='true'
+  #if [[ $HEADLINE_LINE_MODE == 'on' || ($HEADLINE_LINE_MODE == 'auto' && $_HEADLINE_DO_SEP == 'true' ) ]]; then
+  #  print -rP $_HEADLINE_LINE_OUTPUT
+  #fi
+  #_HEADLINE_DO_SEP='true'
+
 }
 
 # Create a part of the prompt
