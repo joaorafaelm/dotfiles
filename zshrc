@@ -22,6 +22,9 @@ export PYTEST_ADDOPTS="--no-cov-on-fail -p no:warnings --ff -s --pdb --pdbcls=IP
 export PYTHONBREAKPOINT=ipdb.set_trace
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export ENABLE_TTY="true"
+alias kubectl="minikube kubectl --"
+alias gc="gh pr list | fzf --preview 'gh pr diff --color=always {+1} | delta' | awk '{print $1}' | xargs gh pr checkout"
+
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
@@ -30,7 +33,6 @@ source ~/.zshenv
 # Zsh cmd
 plugins=(
     docker
-    git
     zsh-autosuggestions
 )
 
@@ -53,7 +55,6 @@ alias :q="exit"
 HISTSIZE=999999999
 
 # git abstraction, install gawk
-unalias g
 g () {
     if [ $# -eq 0 ]
       then
@@ -90,7 +91,6 @@ g () {
 }
 
 # make worktree
-unalias gg
 gg () {
     cd $(git worktree list | grep develop | cut -f1 -d " ");
     git worktree add .features/$1;

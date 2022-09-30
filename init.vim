@@ -312,7 +312,7 @@ let g:fzf_colors = {
 let g:fzf_layout = { 'down': '~40%' }
 " ctrl-p/n to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'
-let $FZF_DEFAULT_OPTS='--layout=reverse-list --border --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
+let $FZF_DEFAULT_OPTS='--layout=reverse-list --border --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down --preview-window noborder'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR><C-P>
