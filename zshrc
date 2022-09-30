@@ -23,8 +23,6 @@ export PYTHONBREAKPOINT=ipdb.set_trace
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export ENABLE_TTY="true"
 alias kubectl="minikube kubectl --"
-alias gc="gh pr list | fzf --preview 'gh pr diff --color=always {+1} | delta' | awk '{print $1}' | xargs gh pr checkout"
-
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi

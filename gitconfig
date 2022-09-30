@@ -26,3 +26,5 @@
     syntax-theme = gruvbox
 [commit]
 	gpgsign = true
+[init]
+	defaultBranch = main
