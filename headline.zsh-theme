@@ -307,6 +307,7 @@ headline_git_status() {
 add-zsh-hook preexec headline_preexec
 headline_preexec() {
   # TODO better way of knowing the prompt is at the top of the terminal
+  timer=$(($(gdate +%s%0N)/1000000))
   if [[ $2 == 'clear' ]]; then
     _HEADLINE_DO_SEP='false'
   fi
@@ -350,8 +351,15 @@ headline_precmd() {
   fi
 
   # date
-  _headline_part JOINT "$HEADLINE_BRANCH_TO_STATUS" right
-  _headline_part HOST "$HEADLINE_HOST_PREFIX%D{%b %d, %Y - %T}" right
+  if [ $timer ]; then
+    now=$(($(gdate +%s%0N)/1000000))
+    elapsed=$(echo "(${now}-${timer})/1000" | bc -l | awk '{printf "%.3f", $1}')
+    _headline_part JOINT "$HEADLINE_BRANCH_TO_STATUS" right
+    #_headline_part HOST "$HEADLINE_HOST_PREFIX%D{%b %d, %Y - %T}" right
+    _headline_part HOST "$HEADLINE_HOST_PREFIX${elapsed}s" right
+    unset timer
+  fi
+
 
   git_len=$_HEADLINE_LEN_SUM
   if (( ${#user_str} )); then

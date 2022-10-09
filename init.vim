@@ -57,7 +57,7 @@ set shiftwidth=4
 set expandtab
 augroup file_format
     au!
-    au FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
+    au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     au FileType make setlocal noexpandtab
 augroup END
