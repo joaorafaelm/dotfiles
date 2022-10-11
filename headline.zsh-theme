@@ -353,10 +353,16 @@ headline_precmd() {
   # date
   if [ $timer ]; then
     now=$(($(gdate +%s%0N)/1000000))
-    elapsed=$(echo "(${now}-${timer})/1000" | bc -l | awk '{printf "%.3f", $1}')
+    elapsed=$(echo "(${now}-${timer})/1000" | bc -l | awk '
+        {
+            elapsed = ($1>60) ? $1/60 : $1;
+            unit = ($1>60) ? "m" : "s";
+            printf "%.2f%s", elapsed, unit;
+        }
+    ')
     _headline_part JOINT "$HEADLINE_BRANCH_TO_STATUS" right
     #_headline_part HOST "$HEADLINE_HOST_PREFIX%D{%b %d, %Y - %T}" right
-    _headline_part HOST "$HEADLINE_HOST_PREFIX${elapsed}s" right
+    _headline_part HOST "$HEADLINE_HOST_PREFIX${elapsed}" right
     unset timer
   fi
 
