@@ -288,6 +288,8 @@ augroup END
 
 nnoremap <silent> <leader>q :silent! :call OpenQuickFix()<cr>
 nnoremap <silent> <leader>x :call AddToQuickFix()<cr>
+map <C-j> :diffoff<CR>:q<CR>:cn<CR>:Gdiffsplit<CR>
+map <C-k> :diffoff<CR>:q<CR>:cp<CR>:Gdiffsplit<CR>
 
 "fzf actions
 function! s:fill_quickfix(lines)
@@ -567,10 +569,11 @@ endfunction
 
 " custom mapping in fugitive window (:Git)
 nnoremap <silent> <leader>g :tab G<CR>
+nnoremap <silent> <leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>
 augroup custom_fugitive_mappings
     au!
     au User FugitiveIndex map <buffer> <space> =
-    au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<cr>
+    au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<CR>
 augroup END
 
 " Git status
