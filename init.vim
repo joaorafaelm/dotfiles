@@ -123,6 +123,10 @@ highlight ActiveWindow ctermbg=233
 highlight InactiveWindow ctermbg=16
 highlight MsgArea ctermfg=244
 
+hi Whitespace ctermbg=NONE ctermfg=237 cterm=bold
+hi Nontext ctermbg=NONE ctermfg=237 cterm=bold
+hi Specialkey ctermbg=NONE ctermfg=237 cterm=bold
+
 " Call method on window enter
 augroup WindowManagement
     autocmd!
@@ -184,6 +188,10 @@ highlight GitGutterAdd ctermfg=108
 highlight GitGutterChange ctermfg=108
 highlight GitGutterDelete ctermfg=red
 highlight GitGutterChangeDelete ctermfg=108
+hi diffAdd cterm=none ctermfg=NONE ctermbg=22
+hi diffChange cterm=none ctermfg=NONE ctermbg=58
+hi diffDelete cterm=none ctermfg=NONE ctermbg=52
+hi diffLine cterm=none ctermfg=NONE ctermbg=8
 
 " disable preview window
 set completeopt-=preview
@@ -510,7 +518,7 @@ augroup terminal_settings
     autocmd!
 
     autocmd BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
-    autocmd BufWinEnter,WinEnter term://* startinsert
+    autocmd BufWinEnter,WinEnter term://* stopinsert
     autocmd BufWinEnter,WinEnter term://* :IndentGuidesDisable
     autocmd BufLeave term://* :IndentGuidesEnable
 
