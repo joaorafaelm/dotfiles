@@ -189,7 +189,7 @@ highlight GitGutterChange ctermfg=108
 highlight GitGutterDelete ctermfg=red
 highlight GitGutterChangeDelete ctermfg=108
 hi diffAdd cterm=none ctermfg=NONE ctermbg=22
-hi diffChange cterm=none ctermfg=NONE ctermbg=58
+hi diffChange cterm=none ctermfg=NONE ctermbg=22
 hi diffDelete cterm=none ctermfg=NONE ctermbg=52
 hi diffLine cterm=none ctermfg=NONE ctermbg=8
 

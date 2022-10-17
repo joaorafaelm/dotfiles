@@ -105,7 +105,7 @@ gw () {
     done;
 }
 
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+if [ -n "$NVIM" ]; then
   export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
 else
   export VISUAL="nvim"
