@@ -106,7 +106,7 @@ gw () {
 }
 
 if [ -n "$NVIM" ]; then
-  export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+  export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe' --servername ${NVIM}"
 else
   export VISUAL="nvim"
 fi

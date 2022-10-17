@@ -3,7 +3,7 @@
 	email = joaoraf@me.com
 	signingkey = AEEED69F826224CB
 [core]
-	editor = nvr -cc split --remote-wait +'set bufhidden=wipe'
+	editor = nvr -cc split --remote-wait +'set bufhidden=wipe' --servername $NVIM
 	excludesfile = /Users/joaorafael/.gitignore_global
 	pager = delta
 [pull]
