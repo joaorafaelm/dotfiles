@@ -9,7 +9,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'junegunn/fzf.vim'
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'mgedmin/taghelper.vim'
-    Plug 'codota/tabnine-vim'
     Plug 'vimlab/split-term.vim'
     Plug 'rmagatti/auto-session'
     Plug 'APZelos/blamer.nvim'
@@ -22,6 +21,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'sindrets/winshift.nvim'
     Plug 'ruanyl/vim-gh-line'
     Plug 'hashivim/vim-terraform'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -114,6 +114,8 @@ set list
 set background=dark
 colorscheme gruvbox
 
+let g:loaded_python3_provider = 0
+
 " Inherit background color from terminal
 highlight normal ctermbg=16
 
@@ -150,6 +152,7 @@ augroup CommentsGroup
     au FileType vim setlocal commentstring=\"\ %s
     au FileType python setlocal commentstring=#\ %s
     au FileType sh setlocal commentstring=#\ %s
+    au FileType awk setlocal commentstring=#\ %s
 augroup END
 
 " line highlighting
@@ -719,15 +722,36 @@ function! HighlightCursorWord()
     exe printf('match hiCursorWord /\V\<%s\>/', escape(cword, '/\'))
 endfunction
 
+" Copy github link
+let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
+
+" vim coc
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+set pumheight=10
+
 " lua scripts
 lua <<EOF
     require("winshift").setup({
         highlight_moving_win = false
     })
 EOF
-
-" Start Win-Move mode:
-nnoremap <C-W>m <Cmd>WinShift<CR>
-
-" Copy github link
-let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
