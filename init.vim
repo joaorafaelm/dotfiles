@@ -135,6 +135,9 @@ augroup WindowManagement
     autocmd BufWinEnter,WinEnter * call Handle_Win_Enter()
 augroup END
 
+" new tab shortcut
+map <C-t> :tabe term://zsh<CR>
+
 " Change highlight group of active/inactive windows
 function! Handle_Win_Enter()
     setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
@@ -553,7 +556,6 @@ nnoremap <leader>z :call ToogleZoom()<CR>
 " all terminal commands
 tnoremap <Esc> <C-\><C-n>
 tnoremap <silent><C-f> <C-\><C-n>:Rg<CR><C-P>
-tnoremap <silent><leader><space> <C-\><C-n>:Files<CR>
 tnoremap <silent><leader>q <C-\><C-n>:silent! :call OpenQuickFix()<cr>
 tnoremap <silent><leader>x <C-\><C-n>:call AddToQuickFix()<cr>
 tnoremap <silent><leader>e <C-\><C-n>:WinResizerStartResize<CR>
