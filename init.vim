@@ -41,7 +41,7 @@ set number
 set relativenumber
 set scrolloff=10
 set backspace=indent,eol,start
-set nowrap
+set wrap
 set autoindent
 set nohidden
 filetype plugin on
@@ -749,7 +749,10 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" auto complete size
 set pumheight=10
+
+map <leader>n :sp /Users/joaorafael/Library/Mobile Documents/com~apple~CloudDocs/notes/index.md<CR>
 
 " lua scripts
 lua <<EOF
