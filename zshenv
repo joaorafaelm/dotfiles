@@ -6,6 +6,7 @@ export FZF_DEFAULT_OPTS="
   --height 75% --multi --reverse
   --bind ctrl-y:preview-up,ctrl-e:preview-down
   --preview-window noborder
+  --no-separator --margin 0 --padding 0
 "
 alias fd=fdfind
 alias gc="gh pr list | fzf --preview 'gh pr diff --color=always {+1} | delta' | awk '{print \$1}' | xargs gh pr checkout"

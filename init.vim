@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'simeji/winresizer'
     Plug 'tpope/vim-commentary'
     Plug 'gcmt/taboo.vim'
-    Plug 'unblevable/quick-scope'
     Plug 'sindrets/winshift.nvim'
     Plug 'ruanyl/vim-gh-line'
     Plug 'hashivim/vim-terraform'
@@ -328,7 +327,7 @@ let g:fzf_colors = {
 let g:fzf_layout = { 'down': '~40%' }
 " ctrl-p/n to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'
-let $FZF_DEFAULT_OPTS='--layout=reverse-list --border --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down --preview-window noborder'
+let $FZF_DEFAULT_OPTS='--layout=reverse-list --border=vertical --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down --preview-window noborder --margin 0 --padding 0 --no-separator'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR><C-P>
@@ -684,10 +683,6 @@ nnoremap Y y$
 " keep centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
-" f char highlight
-highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
-highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
 " session config
 set sessionoptions+=tabpages,globals,winpos,terminal

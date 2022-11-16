@@ -25,6 +25,6 @@
 [delta]
     syntax-theme = gruvbox
 [commit]
-	gpgsign = true
+	gpgSign = true
 [init]
 	defaultBranch = main
