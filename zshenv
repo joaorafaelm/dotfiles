@@ -9,4 +9,5 @@ export FZF_DEFAULT_OPTS="
   --no-separator --margin 0 --padding 0
 "
 alias fd=fdfind
+alias cat="bat --plain"
 alias gc="gh pr list | fzf --preview 'gh pr diff --color=always {+1} | delta' | awk '{print \$1}' | xargs gh pr checkout"

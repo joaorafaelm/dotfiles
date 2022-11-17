@@ -9,3 +9,5 @@ vim/plugins/*
 *.swp
 vim/undodir
 vim/worklist.json
+dotbot
+.vagrant
