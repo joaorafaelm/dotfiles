@@ -10,14 +10,14 @@ call plug#begin('~/.vim/plugins')
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'mgedmin/taghelper.vim'
     Plug 'vimlab/split-term.vim'
-    Plug 'rmagatti/auto-session'
+    Plug 'rmagatti/auto-session', {'branch': 'main'}
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
     Plug 'jkramer/vim-checkbox'
     Plug 'simeji/winresizer'
     Plug 'tpope/vim-commentary'
     Plug 'gcmt/taboo.vim'
-    Plug 'sindrets/winshift.nvim'
+    Plug 'sindrets/winshift.nvim', {'branch': 'main'}
     Plug 'ruanyl/vim-gh-line'
     Plug 'hashivim/vim-terraform'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -181,6 +181,7 @@ highlight FoldColumn ctermbg=NONE ctermfg=235
 set foldmethod=indent
 set foldnestmax=3
 set foldminlines=0
+set foldlevel=99
 nnoremap <space> za
 vnoremap <space> zf
 nnoremap } zjzz
@@ -305,6 +306,33 @@ map <C-j> :diffoff<CR>:q<CR>:cn<CR>:Gdiffsplit<CR>
 map <C-k> :diffoff<CR>:q<CR>:cp<CR>:Gdiffsplit<CR>
 
 "fzf actions
+" Jump to open buffer
+let g:fzf_buffers_jump = 1
+
+let s:session_dir = '$HOME/.local/share/nvim/sessions/'
+function! s:list_sessions() abort
+    return systemlist('ls ' . s:session_dir . ' | sed "s/%/\//g"')
+endfunction
+
+function! s:source_session(lines) abort
+    let key = a:lines[0]
+    let file = a:lines[1]
+    let file = s:session_dir . substitute(file, '/', '\\%', 'g')
+    if key ==# 'ctrl-x'
+        silent! exec '!rm ' . file
+        :SessionPicker
+    else
+        silent! exec 'source ' . file
+    endif
+endfunction
+
+command! SessionPicker call fzf#run(fzf#wrap({
+  \ 'source': s:list_sessions(),
+  \ 'sink*': { lines -> s:source_session(lines) },
+  \ 'options': '--expect=ctrl-x'
+  \ }))
+
+
 function! s:fill_quickfix(lines)
     let current_lines = getqflist()
     let selected_lines = map(copy(a:lines), '{ "filename": v:val }')
@@ -327,7 +355,7 @@ let g:fzf_colors = {
 let g:fzf_layout = { 'down': '~40%' }
 " ctrl-p/n to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'
-let $FZF_DEFAULT_OPTS='--layout=reverse-list --border=vertical --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down --preview-window noborder --margin 0 --padding 0 --no-separator'
+let $FZF_DEFAULT_OPTS='--inline-info --layout=reverse-list --border=vertical --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down --preview-window noborder --margin 0 --padding 0 --no-separator'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR><C-P>
@@ -336,6 +364,8 @@ nnoremap <silent> <C-r> :History:<CR>
 nnoremap <silent> <c-h> :Helptags<CR>
 nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
+nnoremap <c-\> :SessionPicker<cr>
+
 
 function! s:fzf_statusline()
     highlight fzf1 ctermfg=233 ctermbg=233
