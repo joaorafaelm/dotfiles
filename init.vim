@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'ruanyl/vim-gh-line'
     Plug 'hashivim/vim-terraform'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'github/copilot.vim'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -314,14 +315,24 @@ function! s:list_sessions() abort
     return systemlist('ls ' . s:session_dir . ' | sed "s/%/\//g"')
 endfunction
 
+" swap edit
+augroup SwapEditOption
+    autocmd SwapExists * let v:swapchoice = 'e'
+    autocmd BufWinEnter * if g:in_pager_mode == 0 | call LuaAutoSaveSession() | endif
+    autocmd BufWinLeave * if g:in_pager_mode == 0 | call LuaAutoSaveSession() | endif
+augroup END
+
+let g:fzf_current_session = ''
 function! s:source_session(lines) abort
     let key = a:lines[0]
     let file = a:lines[1]
     let file = s:session_dir . substitute(file, '/', '\\%', 'g')
+    let LuaAutoSaveSession = luaeval('require("auto-session").AutoSaveSession')
     if key ==# 'ctrl-x'
         silent! exec '!rm ' . file
         :SessionPicker
     else
+        call LuaAutoSaveSession()
         silent! exec 'source ' . file
     endif
 endfunction
@@ -778,6 +789,10 @@ endfunction
 set pumheight=10
 
 map <leader>n :sp /Users/joaorafael/Library/Mobile Documents/com~apple~CloudDocs/notes/index.md<CR>
+
+" vim copilot config
+inoremap ‘ <Cmd>call copilot#Next()<CR>
+inoremap “ <Cmd>call copilot#Previous()<CR>
 
 " lua scripts
 lua <<EOF
