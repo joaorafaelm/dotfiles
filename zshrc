@@ -7,13 +7,14 @@ export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export PATH="/usr/local/bin/:$PATH"
 export PATH="/usr/local/opt/node@8/bin:$PATH"
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:/Users/joaorafael/.local/bin"
-export PATH="$PATH:/home/joao/.local/bin"
+export PATH="$HOME/.luarocks/bin:$PATH"
 export EDITOR=vim
 export PIPENV_VENV_IN_PROJECT=1
 export PYTHONWARNINGS="ignore"
@@ -24,7 +25,7 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export ENABLE_TTY="true"
 alias kubectl="minikube kubectl --"
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
+    eval "$(pyenv init -)"
 fi
 source ~/.zshenv
 
@@ -50,6 +51,7 @@ alias l="exa"
 alias ls="exa -lha"
 alias ll="exa -lha --git"
 alias :q="exit"
+
 
 #set history size
 HISTSIZE=999999999
@@ -133,7 +135,9 @@ if command -v keychain 1>/dev/null 2>&1; then
 fi
 
 alias fd=fdfind
-if [ -z "$TMUX" ]
-then
-    tmux attach -t TMUX || tmux new -s TMUX
-fi
+#if [ -z "$TMUX" ]
+#then
+#    tmux attach -t TMUX || tmux new -s TMUX
+#fi
+
+source /Users/joaorafael/.docker/init-zsh.sh || true # Added by Docker Desktop

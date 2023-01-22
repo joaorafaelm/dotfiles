@@ -30,3 +30,18 @@
 	defaultBranch = main
 [safe]
 	directory = /Users/joaorafael/dotfiles/vim/plugins/vim-gh-line
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+[url "https://"]
+	insteadOf = git://
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/local/bin//gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/local/bin//gh auth git-credential
