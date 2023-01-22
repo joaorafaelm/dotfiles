@@ -7,10 +7,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'w0rp/ale'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    Plug 'nathanaelkane/vim-indent-guides'
     Plug 'mgedmin/taghelper.vim'
     Plug 'vimlab/split-term.vim'
-    Plug 'rmagatti/auto-session', {'branch': 'main'}
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
     Plug 'jkramer/vim-checkbox'
@@ -22,6 +20,11 @@ call plug#begin('~/.vim/plugins')
     Plug 'hashivim/vim-terraform'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'github/copilot.vim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'tpope/vim-obsession'
+    Plug 'dhruvasagar/vim-prosession'
+    Plug 'maxmellon/vim-jsx-pretty'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -51,7 +54,7 @@ set winminwidth=0
 
 " space as tabs
 filetype plugin indent off
-set softtabstop=4
+
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -98,6 +101,8 @@ if !isdirectory('/mnt/c/Windows/')
 endif
 
 
+
+
 " Highlight search matches
 set hlsearch 
 " Ignore case when searching
@@ -142,12 +147,6 @@ map <C-t> :tabe term://zsh<CR>
 function! Handle_Win_Enter()
     setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 endfunction
-
-" indent guides
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-highlight IndentGuidesOdd  ctermbg=234 ctermfg=236 cterm=bold
-highlight IndentGuidesEven ctermbg=234 ctermfg=236 cterm=bold
 
 " comments
 augroup CommentsGroup
@@ -310,29 +309,27 @@ map <C-k> :diffoff<CR>:q<CR>:cp<CR>:Gdiffsplit<CR>
 " Jump to open buffer
 let g:fzf_buffers_jump = 1
 
-let s:session_dir = '$HOME/.local/share/nvim/sessions/'
+let g:prosession_dir = '~/.local/share/nvim/sessions/'
+let g:prosession_on_startup = 1
+
 function! s:list_sessions() abort
-    return systemlist('ls ' . s:session_dir . ' | sed "s/%/\//g"')
+    return systemlist('ls -t ' . g:prosession_dir . ' | grep -v last_session | sed "s/%/\//g"')
 endfunction
 
 " swap edit
 augroup SwapEditOption
     autocmd SwapExists * let v:swapchoice = 'e'
-    autocmd BufWinEnter * if g:in_pager_mode == 0 | call LuaAutoSaveSession() | endif
-    autocmd BufWinLeave * if g:in_pager_mode == 0 | call LuaAutoSaveSession() | endif
 augroup END
 
 let g:fzf_current_session = ''
 function! s:source_session(lines) abort
     let key = a:lines[0]
     let file = a:lines[1]
-    let file = s:session_dir . substitute(file, '/', '\\%', 'g')
-    let LuaAutoSaveSession = luaeval('require("auto-session").AutoSaveSession')
+    let file = g:prosession_dir . substitute(file, '/', '\\%', 'g')
     if key ==# 'ctrl-x'
         silent! exec '!rm ' . file
         :SessionPicker
     else
-        call LuaAutoSaveSession()
         silent! exec 'source ' . file
     endif
 endfunction
@@ -364,7 +361,8 @@ let g:fzf_colors = {
     \ 'border': ['fg', 'BorderFZF']
 \ }
 let g:fzf_layout = { 'down': '~40%' }
-" ctrl-p/n to navigate cmd history
+
+" ctrl-e/y to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'
 let $FZF_DEFAULT_OPTS='--inline-info --layout=reverse-list --border=vertical --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down --preview-window noborder --margin 0 --padding 0 --no-separator'
 nnoremap <silent> <leader><space> :Files<CR>
@@ -565,9 +563,6 @@ augroup terminal_settings
 
     autocmd BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
     autocmd BufWinEnter,WinEnter term://* stopinsert
-    autocmd BufWinEnter,WinEnter term://* :IndentGuidesDisable
-    autocmd BufLeave term://* :IndentGuidesEnable
-
     " Ignore various filetypes as those will close terminal automatically
     " Ignore fzf, ranger, coc
     autocmd TermClose term://*
@@ -708,9 +703,6 @@ augroup END
 
 " print current date
 nnoremap <silent> <leader>td o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
-" buffer cycle
-nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
-nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
 " tab styling
 highlight TabLineFill ctermfg=235 ctermbg=16
@@ -764,39 +756,45 @@ endfunction
 let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 
 " vim coc
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " auto complete size
 set pumheight=10
 
-map <leader>n :sp /Users/joaorafael/Library/Mobile Documents/com~apple~CloudDocs/notes/index.md<CR>
+map <leader>n :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<CR>
+let g:netrw_banner = 0
 
 " vim copilot config
 inoremap ‘ <Cmd>call copilot#Next()<CR>
 inoremap “ <Cmd>call copilot#Previous()<CR>
+inoremap « <Cmd>call copilot#Suggest()<CR>
+let g:copilot_filetypes = {
+    \ 'markdown': v:true,
+\ }
+
+" window shift
+nnoremap <C-W>m <Cmd>WinShift<CR>
+
+" indent config
+let g:indent_blankline_use_treesitter = v:true
+let g:indent_blankline_show_current_context = v:true
 
 " lua scripts
 lua <<EOF
     require("winshift").setup({
         highlight_moving_win = false
     })
+    require("indent_blankline").setup {
+        show_current_context = true,
+        show_current_context_start = false,
+        use_treesitter_scope = true
+    }
 EOF
