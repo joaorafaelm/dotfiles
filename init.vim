@@ -778,6 +778,8 @@ inoremap “ <Cmd>call copilot#Previous()<CR>
 inoremap « <Cmd>call copilot#Suggest()<CR>
 let g:copilot_filetypes = {
     \ 'markdown': v:true,
+    \ 'terraform': v:true,
+    \ 'tf': v:true,
 \ }
 
 " window shift
