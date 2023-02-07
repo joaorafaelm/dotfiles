@@ -20,8 +20,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'hashivim/vim-terraform'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'github/copilot.vim'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'tpope/vim-obsession'
     Plug 'dhruvasagar/vim-prosession'
     Plug 'maxmellon/vim-jsx-pretty'
@@ -785,18 +783,9 @@ let g:copilot_filetypes = {
 " window shift
 nnoremap <C-W>m <Cmd>WinShift<CR>
 
-" indent config
-let g:indent_blankline_use_treesitter = v:true
-let g:indent_blankline_show_current_context = v:true
-
 " lua scripts
 lua <<EOF
     require("winshift").setup({
         highlight_moving_win = false
     })
-    require("indent_blankline").setup {
-        show_current_context = true,
-        show_current_context_start = false,
-        use_treesitter_scope = true
-    }
 EOF
