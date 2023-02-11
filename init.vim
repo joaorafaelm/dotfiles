@@ -785,7 +785,5 @@ nnoremap <C-W>m <Cmd>WinShift<CR>
 
 " lua scripts
 lua <<EOF
-    require("winshift").setup({
-        highlight_moving_win = false
-    })
+    require("winshift").setup({ highlight_moving_win = false })
 EOF

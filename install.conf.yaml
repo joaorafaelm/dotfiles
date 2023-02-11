@@ -15,6 +15,7 @@
     ~/.zshrc: zshrc 
     ~/.bashrc: bashrc 
     ~/.zshenv: zshenv 
+    ~/.xonshrc: .xonshrc 
     ~/.headline.zsh-theme: headline.zsh-theme 
     ~/.gitignore_global: gitignore
     ~/.config/flake8: flake8
