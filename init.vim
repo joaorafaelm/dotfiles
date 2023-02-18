@@ -596,10 +596,6 @@ tnoremap <silent><leader>s <C-\><C-n>:Term<CR>
 tnoremap <silent><leader>z <C-\><C-n><C-W>\|<C-W>_
 tnoremap <silent><leader>d <C-\><C-n>:VTerm<CR>
 tnoremap <silent><leader>v <C-X><C-E><CR>
-tnoremap <C-Up> <C-\><C-n><C-W>k
-tnoremap <C-Down> <C-\><C-n><C-W>j
-tnoremap <C-Left> <C-\><C-n><C-W>h
-tnoremap <C-Right> <C-\><C-n><C-W>l
 
 
 " vimdiff in new tab
