@@ -98,9 +98,6 @@ if !isdirectory('/mnt/c/Windows/')
     endif
 endif
 
-
-
-
 " Highlight search matches
 set hlsearch 
 " Ignore case when searching
