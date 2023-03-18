@@ -23,6 +23,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-obsession'
     Plug 'dhruvasagar/vim-prosession'
     Plug 'maxmellon/vim-jsx-pretty'
+    Plug 'chomosuke/term-edit.nvim', {'tag': 'v1.*'}
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -359,7 +360,9 @@ let g:fzf_layout = { 'down': '~40%' }
 
 " ctrl-e/y to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'
-let $FZF_DEFAULT_OPTS='--inline-info --layout=reverse-list --border=vertical --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down --preview-window noborder --margin 0 --padding 0 --no-separator'
+let $FZF_DEFAULT_OPTS = '--inline-info --layout=reverse-list --border=vertical'
+let $FZF_DEFAULT_OPTS = $FZF_DEFAULT_OPTS . ' --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
+let $FZF_DEFAULT_OPTS = $FZF_DEFAULT_OPTS . ' --preview-window noborder --margin 0 --padding 0 --no-separator'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR><C-P>
@@ -780,5 +783,6 @@ nnoremap <C-W>m <Cmd>WinShift<CR>
 
 " lua scripts
 lua <<EOF
-    require("winshift").setup({ highlight_moving_win = false })
+    require "winshift".setup { highlight_moving_win = false }
+    require "term-edit".setup { prompt_end = '%$ ' }
 EOF

@@ -51,6 +51,7 @@ alias l="exa"
 alias ls="exa -lha"
 alias ll="exa -lha --git"
 alias :q="exit"
+alias ai="aichat"
 
 
 #set history size
@@ -141,3 +142,7 @@ alias fd=fdfind
 #fi
 
 source /Users/joaorafael/.docker/init-zsh.sh || true # Added by Docker Desktop
+eval "$(github-copilot-cli alias -- "$0")"
+
+# aichat
+export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
