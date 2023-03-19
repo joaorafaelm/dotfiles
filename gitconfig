@@ -6,6 +6,7 @@
 	editor = nvr -cc split --remote-wait +'set bufhidden=wipe' --servername $NVIM
 	excludesfile = /Users/joaorafael/.gitignore_global
 	pager = delta
+    hooksPath = ~/.config/githooks
 [pull]
 	rebase = true
 	default = current
