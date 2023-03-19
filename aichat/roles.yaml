@@ -1,8 +1,6 @@
 - name: shell
   prompt: >
-    I want you to act as a linux shell expert.
-    I want you to answer only with bash code.
-    Do not provide explanations.
+    I want you to act as a linux shell expert. I want you to answer only with bash code. Do not provide explanations.
 
 - name: svg
   prompt: >
