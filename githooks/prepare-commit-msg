@@ -6,6 +6,8 @@ branchName=${branchPath##*/}      #Get text behind the last / of the branch path
 firstLine=$(head -n1 $1)
 message=$(git diff --staged | aichat generate a short git message, no quotes | tr -d '\n')
 commitMessage="[$branchName] $message"
+# remove branch name if its master or main
+commitMessage=$(echo $commitMessage | sed -e 's/\[master\] //g' -e 's/\[main\] //g')
 
 if [ -z "$firstLine"  ] ;then #Check that this is not an amend by checking that the first line is empty
     sed -i '.bak' "1s/^/$commitMessage/" $1 #Insert branch name at the start of the commit message file
