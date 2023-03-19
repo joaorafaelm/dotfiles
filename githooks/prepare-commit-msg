@@ -4,8 +4,7 @@ branchPath=$(git symbolic-ref -q HEAD) #Somthing like refs/heads/myBranchName
 branchName=${branchPath##*/}      #Get text behind the last / of the branch path
 
 firstLine=$(head -n1 $1)
-message=$(git diff --staged | aichat generate a git message)
-# set the commit message to [branchName] message
+message=$(git diff --staged | aichat generate a short git message, no quotes | tr -d '\n')
 commitMessage="[$branchName] $message"
 
 if [ -z "$firstLine"  ] ;then #Check that this is not an amend by checking that the first line is empty
