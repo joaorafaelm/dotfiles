@@ -3,7 +3,7 @@
 branchPath=$(git symbolic-ref -q HEAD)
 branchName=${branchPath##*/}
 firstLine=$(head -n1 $1)
-message=$(git diff --staged | aichat generate a short git message, no quotes | tr -d '\n')
+message=$(git diff --staged | aichat based on the git diff, generate a short git message, no quotes | tr -d '\n')
 commitMessage="[$branchName] $message"
 commitMessage=$(echo $commitMessage | sed -e 's/\[master\] //g' -e 's/\[main\] //g')
 
