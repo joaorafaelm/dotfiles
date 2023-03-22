@@ -809,3 +809,5 @@ nnoremap <S-UP> :call SelectLines('up')<CR>
 nnoremap <S-DOWN> :call SelectLines('down')<CR>
 vnoremap <S-UP> :call SelectLines('up')<CR>
 vnoremap <S-DOWN> :call SelectLines('down')<CR>
+tnoremap <S-UP> <C-\><C-n>:call SelectLines('up')<CR>
+tnoremap <S-DOWN> <C-\><C-n>:call SelectLines('down')<CR>
