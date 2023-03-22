@@ -786,3 +786,26 @@ lua <<EOF
     require "winshift".setup { highlight_moving_win = false }
     require "term-edit".setup { prompt_end = '%$ ' }
 EOF
+
+function! Decho(str)
+    call writefile([a:str . "\n"], '/tmp/vim_debug.log', 'a')
+endfunction
+
+
+function! SelectLines(char) range
+    if a:char ==# 'up'
+        let end_command = search('^;', 'b') - 3
+        let start_command = search('^;', 'bn') +  1
+    else
+        let start_command = search('^;') +  1
+        let end_command = search('^;', 'n') - 3
+    endif
+    if start_command <= end_command
+        execute 'normal!' start_command . 'GV' . end_command . 'G'
+    endif
+endfunction
+
+nnoremap <S-UP> :call SelectLines('up')<CR>
+nnoremap <S-DOWN> :call SelectLines('down')<CR>
+vnoremap <S-UP> :call SelectLines('up')<CR>
+vnoremap <S-DOWN> :call SelectLines('down')<CR>
