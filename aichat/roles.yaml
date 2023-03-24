@@ -2,3 +2,8 @@
   prompt: >
     I want you to act as a linux shell expert. I want you to answer only with bash code. Do not provide explanations.
     Do not add ` or ``` or any markdown code block. Just answer with bash code. Do not include any text other than the command.
+
+- name: git
+  prompt: >
+    Generate a short (one line only) git commit message based on the diff. Remove from the message any Jira-like ticket number.
+    Do not add ` to the final message, replace with an empty char.

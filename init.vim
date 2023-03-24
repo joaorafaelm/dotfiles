@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'dhruvasagar/vim-prosession'
     Plug 'maxmellon/vim-jsx-pretty'
     Plug 'chomosuke/term-edit.nvim', {'tag': 'v1.*'}
+    Plug 'michaeljsmith/vim-indent-object'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -31,6 +32,7 @@ call plug#begin('~/.vim/plugins')
     endfunction
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 call plug#end()
+
 
 set encoding=utf-8
 scriptencoding utf-8
@@ -805,9 +807,9 @@ function! SelectLines(char) range
     endif
 endfunction
 
-nnoremap <S-UP> :call SelectLines('up')<CR>
-nnoremap <S-DOWN> :call SelectLines('down')<CR>
-vnoremap <S-UP> :call SelectLines('up')<CR>
-vnoremap <S-DOWN> :call SelectLines('down')<CR>
-tnoremap <S-UP> <C-\><C-n>:call SelectLines('up')<CR>
-tnoremap <S-DOWN> <C-\><C-n>:call SelectLines('down')<CR>
+nnoremap <silent> <S-UP> :call SelectLines('up')<CR>
+nnoremap <silent> <S-DOWN> :call SelectLines('down')<CR>
+vnoremap <silent> <S-UP> :call SelectLines('up')<CR>
+vnoremap <silent> <S-DOWN> :call SelectLines('down')<CR>
+tnoremap <silent> <S-UP> <C-\><C-n>:call SelectLines('up')<CR>
+tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectLines('down')<CR>
