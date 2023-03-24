@@ -52,6 +52,7 @@ filetype plugin on
 let mapleader = ','
 set winminheight=0
 set winminwidth=0
+set iskeyword-=_
 
 " space as tabs
 filetype plugin indent off
