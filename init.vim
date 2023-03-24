@@ -784,12 +784,6 @@ let g:copilot_filetypes = {
 " window shift
 nnoremap <C-W>m <Cmd>WinShift<CR>
 
-" lua scripts
-lua <<EOF
-    require "winshift".setup { highlight_moving_win = false }
-    require "term-edit".setup { prompt_end = '%$ ' }
-EOF
-
 function! Decho(str)
     call writefile([a:str . "\n"], '/tmp/vim_debug.log', 'a')
 endfunction
@@ -814,3 +808,9 @@ vnoremap <silent> <S-UP> :call SelectLines('up')<CR>
 vnoremap <silent> <S-DOWN> :call SelectLines('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectLines('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectLines('down')<CR>
+
+" lua scripts
+lua <<EOF
+    require "winshift".setup { highlight_moving_win = false }
+    require "term-edit".setup { prompt_end = '%$ ' }
+EOF
