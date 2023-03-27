@@ -25,6 +25,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'maxmellon/vim-jsx-pretty'
     Plug 'chomosuke/term-edit.nvim', {'tag': 'v1.*'}
     Plug 'michaeljsmith/vim-indent-object'
+    Plug 'vim-scripts/argtextobj.vim'
+    Plug 'mbbill/undotree'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
