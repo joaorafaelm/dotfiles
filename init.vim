@@ -355,12 +355,27 @@ let g:fzf_action = {
     \ 'ctrl-d': 'vsplit'
 \ }
 
+
 highlight FZFBG ctermbg=NONE ctermfg=NONE
 highlight BorderFZF ctermfg=233
-let g:fzf_colors = {
-    \ 'bg': ['bg', 'FZFBG'],
-    \ 'border': ['fg', 'BorderFZF']
+highlight TextFZF ctermfg=245
+
+let g:fzf_colors = { 
+    \ 'fg':      ['fg', 'TextFZF'],
+    \ 'bg':      ['bg', 'FZFBG'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'BorderFZF'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] 
 \ }
+
 let g:fzf_layout = { 'down': '~40%' }
 
 " ctrl-e/y to navigate cmd history
@@ -377,7 +392,6 @@ nnoremap <silent> <c-h> :Helptags<CR>
 nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 nnoremap <c-\> :SessionPicker<cr>
-
 
 function! s:fzf_statusline()
     highlight fzf1 ctermfg=233 ctermbg=233
@@ -811,8 +825,21 @@ vnoremap <silent> <S-DOWN> :call SelectLines('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectLines('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectLines('down')<CR>
 
+nmap <C-_> <Plug>CommentaryLine
+
+
 " lua scripts
 lua <<EOF
     require "winshift".setup { highlight_moving_win = false }
     require "term-edit".setup { prompt_end = '%$ ' }
 EOF
+
+
+" run test for current method
+fun! RunPytest()
+    let test_name = substitute(substitute(taghelper#curtag(), '\[', '', ''), '\]', '', '')
+    if test_name =~? 'test_'
+        silent! exec '!tmux split-window -h -t $TMUX_PANE pipenv run pytest -k ' test_name
+    endif
+endfun
+map <silent>t :call RunPytest() <CR>
