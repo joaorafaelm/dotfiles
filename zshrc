@@ -146,3 +146,4 @@ eval "$(github-copilot-cli alias -- "$0")"
 
 # aichat
 export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
+export OPENAI_API_KEY=`cat ~/.config/openai.token`

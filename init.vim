@@ -27,6 +27,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'vim-scripts/argtextobj.vim'
     Plug 'mbbill/undotree'
+    Plug 'aduros/ai.vim'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -805,7 +806,7 @@ function! Decho(str)
 endfunction
 
 
-function! SelectLines(char) range
+function! SelectCommand(char) range
     if a:char ==# 'up'
         let end_command = search('^;', 'b') - 3
         let start_command = search('^;', 'bn') +  1
@@ -818,26 +819,20 @@ function! SelectLines(char) range
     endif
 endfunction
 
-nnoremap <silent> <S-UP> :call SelectLines('up')<CR>
-nnoremap <silent> <S-DOWN> :call SelectLines('down')<CR>
-vnoremap <silent> <S-UP> :call SelectLines('up')<CR>
-vnoremap <silent> <S-DOWN> :call SelectLines('down')<CR>
-tnoremap <silent> <S-UP> <C-\><C-n>:call SelectLines('up')<CR>
-tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectLines('down')<CR>
+nnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
+nnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
+vnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
+vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
+tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
+tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 nmap <C-_> <Plug>CommentaryLine
 
+nnoremap <silent> <leader>f :AI<space>
+vnoremap <silent> <leader>f :AI<space>
 
+let g:ai_no_mappings = 1
 " lua scripts
 lua <<EOF
     require "winshift".setup { highlight_moving_win = false }
     require "term-edit".setup { prompt_end = '%$ ' }
 EOF
-
-
-" run test for current method
-fun! RunPytest()
-    let test_name = substitute(substitute(taghelper#curtag(), '\[', '', ''), '\]', '', '')
-    if test_name =~? 'test_'
-        silent! exec '!tmux split-window -h -t $TMUX_PANE pipenv run pytest -k ' test_name
-    endif
-endfun

@@ -12,3 +12,5 @@ alias fd=fdfind
 alias cat="bat --plain"
 alias gc="gh pr list --state all --limit 1000 | fzf --preview 'gh pr diff --color=always {+1} | delta' | awk '{print \$1}' | xargs gh pr checkout"
 . "$HOME/.cargo/env"
+alias ai="aichat"
+export OPENAI_API_KEY=`cat ~/.config/openai.token`
