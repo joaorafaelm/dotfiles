@@ -825,10 +825,12 @@ vnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
 vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
-nmap <C-_> <Plug>CommentaryLine
 
 nnoremap <silent> <leader>f :AI<space>
 vnoremap <silent> <leader>f :AI<space>
+highlight link AIHighlight Visual
+
+nmap <C-_> <Plug>CommentaryLine
 
 let g:ai_no_mappings = 1
 " lua scripts
