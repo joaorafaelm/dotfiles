@@ -824,7 +824,6 @@ vnoremap <silent> <S-UP> :call SelectLines('up')<CR>
 vnoremap <silent> <S-DOWN> :call SelectLines('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectLines('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectLines('down')<CR>
-
 nmap <C-_> <Plug>CommentaryLine
 
 
@@ -842,4 +841,3 @@ fun! RunPytest()
         silent! exec '!tmux split-window -h -t $TMUX_PANE pipenv run pytest -k ' test_name
     endif
 endfun
-map <silent>t :call RunPytest() <CR>
