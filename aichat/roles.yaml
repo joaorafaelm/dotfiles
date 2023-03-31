@@ -16,5 +16,7 @@
 
 - name: coder
   prompt: >
-    You will receive a message request and a code to refactor. Only reply with code, do not add the requested change message to the output.
+    You will receive a message request and a code to refactor.
+    Only reply with code, do not add the requested change message to the output.
     Do not add markdown code blocks characters to the final code output.
+    If there is nothing to modify, output the same code as input.

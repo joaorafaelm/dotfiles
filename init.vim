@@ -27,6 +27,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'vim-scripts/argtextobj.vim'
     Plug 'mbbill/undotree'
+    Plug 'aduros/ai.vim'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -825,8 +826,15 @@ vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 
-nmap <C-_> <Plug>CommentaryLine
+let g:ai_no_mappings = 1
+let g:ai_edits_model='gpt-4'
+let g:ai_completions_model='gpt-4'
+nnoremap <silent> <leader>f :AI<space>
+inoremap <silent> <leader>f :AI<CR>
+vnoremap <silent> <leader>f :AI<space>
+highlight link AIHighlight Visual
 
+nmap <C-_> <Plug>CommentaryLine
 
 " lua scripts
 lua <<EOF
@@ -834,13 +842,15 @@ lua <<EOF
     require "term-edit".setup { prompt_end = '%$ ' }
 EOF
 
+" Sample function to send the selection to aichat
+" function! AiChat(message) range
+"   let text = join(getline(a:firstline, a:lastline), "\n")
+"   let encoded_message = shellescape(a:message)
+"   let encoded_text = shellescape(text)
+"   let command = 'ai -r coder ' . encoded_message . ': ' . encoded_text
+"   let output = split(system(command), "\n")
+"   call setline(a:firstline, sort(output))
+" endfunction
 
-function! AI(message) range
-    let l:text = join(getline(a:firstline, a:lastline), "\n")
-    let l:output = system('ai -r coder ' . shellescape(a:message) . ': ' . shellescape(l:text))
-    call setline(a:firstline, split(l:output, "\n"))
-endfunction
-
-command! -range=% -nargs=* AI :<line1>,<line2> call AI(<q-args>)
-vnoremap <silent> <leader>f :AI<space>
-vnoremap <silent> <leader>f :AI<space>
+" command! -range=% -nargs=* AiChat :<line1>,<line2> call AiChat(<q-args>)
+" vnoremap <silent> <leader>f :AiChat<space>
