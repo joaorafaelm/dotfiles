@@ -27,7 +27,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'vim-scripts/argtextobj.vim'
     Plug 'mbbill/undotree'
-    Plug 'aduros/ai.vim'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -826,15 +825,22 @@ vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 
-nnoremap <silent> <leader>f :AI<space>
-vnoremap <silent> <leader>f :AI<space>
-highlight link AIHighlight Visual
-
 nmap <C-_> <Plug>CommentaryLine
 
-let g:ai_no_mappings = 1
+
 " lua scripts
 lua <<EOF
     require "winshift".setup { highlight_moving_win = false }
     require "term-edit".setup { prompt_end = '%$ ' }
 EOF
+
+
+function! AI(message) range
+    let l:text = join(getline(a:firstline, a:lastline), "\n")
+    let l:output = system('ai -r coder ' . shellescape(a:message) . ': ' . shellescape(l:text))
+    call setline(a:firstline, split(l:output, "\n"))
+endfunction
+
+command! -range=% -nargs=* AI :<line1>,<line2> call AI(<q-args>)
+vnoremap <silent> <leader>f :AI<space>
+vnoremap <silent> <leader>f :AI<space>

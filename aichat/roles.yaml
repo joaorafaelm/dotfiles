@@ -13,3 +13,8 @@
     Suggest similar classes for tailwind css based on the following input.
     Keep the output simple, add the classes and a one line comment about them.
     Make sure you only output classes defined in the tailwind documentation.
+
+- name: coder
+  prompt: >
+    You will receive a message request and a code to refactor. Only reply with code, do not add the requested change message to the output.
+    Do not add markdown code blocks characters to the final code output.
