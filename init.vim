@@ -537,7 +537,7 @@ augroup myCmds
 augroup END
 
 nnoremap s /
-set laststatus=2
+
 
 " git blamer
 let g:blamer_enabled = 1
@@ -686,7 +686,21 @@ endfunction
 highlight AddBardsHighlight ctermfg=green
 highlight RemoveBardsHighlight ctermfg=red
 highlight DiffHighlight ctermfg=246
-set statusline=\ %f\ %m\%#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
+highlight NormalColor guifg=Black guibg=Green ctermbg=46 ctermfg=0
+highlight InsertColor guifg=Black guibg=Cyan ctermbg=51 ctermfg=0
+highlight ReplaceColor guifg=Black guibg=maroon1 ctermbg=165 ctermfg=0
+highlight VisualColor guifg=Black guibg=Orange ctermbg=202 ctermfg=0
+
+
+set laststatus=2
+set statusline=
+" set statusline+=%#NormalColor#%{(mode()=='n')?'\ \ NORMAL\ ':''}%#clear#
+" set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ INSERT\ ':''}%#clear#
+" set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ REPLACE\ ':''}%#clear#
+" set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ VISUAL\ ':''}%#clear#
+set statusline+=\ %f\ %m\%#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
+set noshowcmd
+" set noshowmode
 
 " markdown fold
 function! MarkdownLevel()
@@ -706,7 +720,6 @@ function! MarkdownLevel()
     endif 
     return '='
 endfunction
-
 
 augroup fold_formats
     au!
