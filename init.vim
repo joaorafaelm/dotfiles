@@ -690,26 +690,23 @@ set statusline=\ %f\ %m\%#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighl
 
 " markdown fold
 function! MarkdownLevel()
-    if getline(v:lnum) =~? '^# .*$'
-        return '>1'
-    endif
-    if getline(v:lnum) =~? '^## .*$'
-        return '>2'
-    endif
-    if getline(v:lnum) =~? '^### .*$'
-        return '>3'
-    endif
-    if getline(v:lnum) =~? '^#### .*$'
-        return '>4'
-    endif
-    if getline(v:lnum) =~? '^##### .*$'
-        return '>5'
-    endif
-    if getline(v:lnum) =~? '^###### .*$'
-        return '>6'
-    endif
+    let l:line = getline(v:lnum)
+    if l:line =~? '^# .*$'
+        return '>1' 
+    elseif l:line =~? '^## .*$'
+        return '>2' 
+    elseif l:line =~? '^### .*$'
+        return '>3' 
+    elseif l:line =~? '^#### .*$'
+        return '>4' 
+    elseif l:line =~? '^##### .*$'
+        return '>5' 
+    elseif l:line =~? '^###### .*$'
+        return '>6' 
+    endif 
     return '='
 endfunction
+
 
 augroup fold_formats
     au!
@@ -805,7 +802,6 @@ function! Decho(str)
     call writefile([a:str . "\n"], '/tmp/vim_debug.log', 'a')
 endfunction
 
-
 function! SelectCommand(char) range
     if a:char ==# 'up'
         let end_command = search('^;', 'b') - 3
@@ -827,10 +823,8 @@ tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 
 let g:ai_no_mappings = 1
-let g:ai_edits_model='gpt-4'
-let g:ai_completions_model='gpt-4'
 nnoremap <silent> <leader>f :AI<space>
-inoremap <silent> <leader>f :AI<CR>
+inoremap <silent> <leader>f <esc>:AI<CR>
 vnoremap <silent> <leader>f :AI<space>
 highlight link AIHighlight Visual
 
