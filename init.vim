@@ -28,6 +28,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'vim-scripts/argtextobj.vim'
     Plug 'mbbill/undotree'
     Plug 'aduros/ai.vim'
+    Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -55,7 +56,7 @@ filetype plugin on
 let mapleader = ','
 set winminheight=0
 set winminwidth=0
-set iskeyword-=_
+" set iskeyword-=_
 
 " space as tabs
 filetype plugin indent off
@@ -63,9 +64,11 @@ filetype plugin indent off
 set tabstop=4
 set shiftwidth=4
 set expandtab
+
 augroup file_format
     au!
     au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+    au FileType jsx set tabstop=2|set shiftwidth=2|set expandtab
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     au FileType make setlocal noexpandtab
 augroup END
@@ -176,6 +179,7 @@ highlight Visual ctermbg=237 cterm=NONE
 highlight Search cterm=inverse ctermfg=NONE
 highlight cursorcolumn ctermbg=235
 highlight Blamer ctermfg=240 ctermbg=NONE
+highlight LineNr ctermfg=234 cterm=bold
 
 " Fold
 highlight Folded ctermbg=NONE ctermfg=240
@@ -210,7 +214,7 @@ let b:ale_fixers = {
     \   'python': ['black', 'isort', 'flake8'],
     \   'javascript': ['eslint', 'prettier']
     \}
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 1
 let g:ale_sign_error = '█'
 let g:ale_sign_warning = '█'
@@ -836,6 +840,8 @@ tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 
 let g:ai_no_mappings = 1
+let g:ai_context_before = 20
+let g:ai_context_after = 20
 nnoremap <silent> <leader>f :AI<space>
 inoremap <silent> <leader>f <esc>:AI<CR>
 vnoremap <silent> <leader>f :AI<space>
