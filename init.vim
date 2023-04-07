@@ -129,7 +129,6 @@ let g:loaded_python3_provider = 0
 " Background and foreground colors
 hi normal ctermbg=16 ctermfg=247
 
-"theme config
 " Background colors for active vs inactive windows
 hi ActiveWindow ctermbg=233
 hi InactiveWindow ctermbg=16
@@ -213,6 +212,16 @@ hi PmenuTextCustom ctermfg=245 ctermbg=233
 
 " ai.vim
 hi link AIHighlight Visual
+
+if &background ==# 'light'
+    " Background and foreground colors
+    hi normal ctermbg=254 ctermfg=0
+
+    " Background colors for active vs inactive windows
+    hi ActiveWindow ctermbg=254
+    hi InactiveWindow ctermbg=251
+
+endif
 
 " Call method on window enter
 augroup WindowManagement
@@ -379,10 +388,12 @@ function! s:list_sessions() abort
     return systemlist('ls -t ' . g:prosession_dir . ' | grep -v last_session | sed "s/%/\//g"')
 endfunction
 
-" swap edit
+" swap edit:
+" if a swap file exists, open it in a new buffer
 augroup SwapEditOption
     autocmd SwapExists * let v:swapchoice = 'e'
 augroup END
+
 
 let g:fzf_current_session = ''
 function! s:source_session(lines) abort
@@ -416,7 +427,6 @@ let g:fzf_action = {
     \ 'ctrl-s': 'split',
     \ 'ctrl-d': 'vsplit'
 \ }
-
 
 
 let g:fzf_colors = { 
