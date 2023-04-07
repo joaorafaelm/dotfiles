@@ -116,8 +116,8 @@ HEADLINE_STATUS_END=']'
 HEADLINE_STYLE_DEFAULT='' # style applied to entire info line
 HEADLINE_STYLE_JOINT=$black
 HEADLINE_STYLE_USER=$bold$red
-HEADLINE_STYLE_HOST=$bold$yellow
-HEADLINE_STYLE_PATH=$bold$blue
+HEADLINE_STYLE_HOST=$bold$light_black
+HEADLINE_STYLE_PATH=$bold$light_black
 HEADLINE_STYLE_BRANCH=$bold$cyan
 HEADLINE_STYLE_STATUS=$bold$magenta
 

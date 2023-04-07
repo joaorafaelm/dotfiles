@@ -126,18 +126,93 @@ colorscheme gruvbox
 
 let g:loaded_python3_provider = 0
 
-" Inherit background color from terminal
-highlight normal ctermbg=16
+" Background and foreground colors
+hi normal ctermbg=16 ctermfg=247
 
 "theme config
 " Background colors for active vs inactive windows
-highlight ActiveWindow ctermbg=233
-highlight InactiveWindow ctermbg=16
-highlight MsgArea ctermfg=244
+hi ActiveWindow ctermbg=233
+hi InactiveWindow ctermbg=16
+hi MsgArea ctermfg=239
 
-hi Whitespace ctermbg=NONE ctermfg=237 cterm=bold
-hi Nontext ctermbg=NONE ctermfg=237 cterm=bold
-hi Specialkey ctermbg=NONE ctermfg=237 cterm=bold
+"invisible characters
+hi Whitespace ctermbg=NONE ctermfg=234 cterm=bold
+hi Nontext ctermbg=NONE ctermfg=234 cterm=bold
+hi Specialkey ctermbg=NONE ctermfg=234 cterm=bold
+hi Comment cterm=italic ctermfg=239
+
+"highlight clear cursorline
+hi cursorlinenr ctermbg=NONE cterm=bold
+hi cursorline ctermbg=235
+hi Visual ctermbg=237 cterm=NONE
+hi Search cterm=inverse ctermfg=NONE
+hi cursorcolumn ctermbg=235
+hi Blamer ctermfg=239 ctermbg=NONE cterm=italic
+hi LineNr ctermfg=234 cterm=bold
+hi HiCursorWord ctermbg=235
+
+" Fold
+hi Folded ctermbg=NONE ctermfg=239
+hi FoldColumn ctermbg=NONE ctermfg=235
+
+" Git gutter and vimdiff
+hi clear SignColumn
+hi GitGutterAdd ctermfg=108
+hi GitGutterChange ctermfg=108
+hi GitGutterDelete ctermfg=131
+hi GitGutterChangeDelete ctermfg=108
+hi diffAdd cterm=none ctermfg=NONE ctermbg=22
+hi diffChange cterm=none ctermfg=NONE ctermbg=22
+hi diffDelete cterm=none ctermfg=NONE ctermbg=52
+hi diffLine cterm=none ctermfg=NONE ctermbg=8
+
+" Linter sign column
+hi ALEErrorSign ctermbg=NONE ctermfg=131
+hi ALEWarningSign ctermbg=NONE ctermfg=131
+
+" Quickfix
+hi link QuickFixLine CursorLine
+
+" FZF colors
+hi FZFBG ctermbg=NONE ctermfg=NONE
+hi BorderFZF ctermfg=233
+hi TextFZF ctermfg=245
+hi fzf1 ctermfg=233 ctermbg=233
+hi fzf2 ctermfg=233 ctermbg=233
+hi fzf3 ctermfg=233 ctermbg=233
+
+" Auto complete menu
+hi Pmenu ctermfg=15 ctermbg=236
+hi PmenuSel ctermfg=233 ctermbg=108
+
+" Windows split
+hi VertSplit ctermfg=None ctermbg=None
+hi StatusLineNC ctermfg=16 ctermbg=237
+hi StatusLine ctermfg=16 ctermbg=241
+
+" Status line components
+hi AddBardsHighlight ctermfg=106
+hi RemoveBardsHighlight ctermfg=131
+hi DiffHighlight ctermfg=246
+hi NormalColor guifg=Black guibg=Green ctermbg=46 ctermfg=0
+hi InsertColor guifg=Black guibg=Cyan ctermbg=51 ctermfg=0
+hi ReplaceColor guifg=Black guibg=maroon1 ctermbg=165 ctermfg=0
+hi VisualColor guifg=Black guibg=Orange ctermbg=202 ctermfg=0
+hi FileName ctermfg=235 cterm=bold
+
+" tab styling
+hi TabLineFill ctermfg=235 ctermbg=16
+hi TabLine ctermfg=240 ctermbg=234 cterm=NONE
+hi TabLineSel ctermfg=214 ctermbg=236 cterm=bold
+hi Title ctermfg=214 cterm=bold
+
+" command line
+hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
+hi PmenuSelCustom cterm=inverse ctermfg=108 ctermbg=233
+hi PmenuTextCustom ctermfg=245 ctermbg=233
+
+" ai.vim
+hi link AIHighlight Visual
 
 " Call method on window enter
 augroup WindowManagement
@@ -164,7 +239,7 @@ augroup END
 
 " line highlighting
 set cursorline
-" silent! set cursorlineopt=number
+silent! set cursorlineopt=number
 
 augroup CursorLine
     au!
@@ -172,18 +247,7 @@ augroup CursorLine
     au WinLeave * setlocal nocursorline
 augroup END
 
-"highlight clear cursorline
-highlight cursorlinenr ctermbg=NONE cterm=bold
-highlight cursorline ctermbg=235
-highlight Visual ctermbg=237 cterm=NONE
-highlight Search cterm=inverse ctermfg=NONE
-highlight cursorcolumn ctermbg=235
-highlight Blamer ctermfg=240 ctermbg=NONE
-highlight LineNr ctermfg=234 cterm=bold
-
-" Fold
-highlight Folded ctermbg=NONE ctermfg=240
-highlight FoldColumn ctermbg=NONE ctermfg=235
+"fold stuff
 set foldmethod=indent
 set foldnestmax=3
 set foldminlines=0
@@ -195,15 +259,12 @@ nnoremap { zkzz
 
 " git gutter
 let g:gitgutter_override_sign_column_highlight = 0
-highlight clear SignColumn
-highlight GitGutterAdd ctermfg=108
-highlight GitGutterChange ctermfg=108
-highlight GitGutterDelete ctermfg=red
-highlight GitGutterChangeDelete ctermfg=108
-hi diffAdd cterm=none ctermfg=NONE ctermbg=22
-hi diffChange cterm=none ctermfg=NONE ctermbg=22
-hi diffDelete cterm=none ctermfg=NONE ctermbg=52
-hi diffLine cterm=none ctermfg=NONE ctermbg=8
+let g:gitgutter_sign_added = '│'
+let g:gitgutter_sign_modified = '│'
+let g:gitgutter_sign_removed = '│'
+let g:gitgutter_sign_removed_first_line = '│'
+let g:gitgutter_sign_removed_above_and_below = '│'
+let g:gitgutter_sign_modified_removed = '│'
 
 " disable preview window
 set completeopt-=preview
@@ -218,8 +279,6 @@ let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 1
 let g:ale_sign_error = '█'
 let g:ale_sign_warning = '█'
-highlight ALEErrorSign ctermbg=NONE ctermfg=131
-highlight ALEWarningSign ctermbg=NONE ctermfg=131
 
 augroup file_reload
     au!
@@ -254,8 +313,6 @@ nnoremap <C-e> <End>
 "This unsets the "last search pattern" register by hitting return
 nnoremap <silent> <CR> :let @/ = ""<CR><CR>
 
-" quickfix
-highlight link QuickFixLine CursorLine
 " Use map <buffer> to only map dd in the quickfix window. Requires +localmap
 function! AddToQuickFix()
     let current_win = win_getid()
@@ -361,9 +418,6 @@ let g:fzf_action = {
 \ }
 
 
-highlight FZFBG ctermbg=NONE ctermfg=NONE
-highlight BorderFZF ctermfg=233
-highlight TextFZF ctermfg=245
 
 let g:fzf_colors = { 
     \ 'fg':      ['fg', 'TextFZF'],
@@ -399,9 +453,7 @@ vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 nnoremap <c-\> :SessionPicker<cr>
 
 function! s:fzf_statusline()
-    highlight fzf1 ctermfg=233 ctermbg=233
-    highlight fzf2 ctermfg=233 ctermbg=233
-    highlight fzf3 ctermfg=233 ctermbg=233
+
     setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
@@ -482,9 +534,7 @@ cmap <silent> <expr> <CR> getcmdtype() == ':' && getcmdline() =~ '^\d\+$' ? 'nor
 " quickly exit
 nnoremap <silent> ZZ :wqa!<CR>
 
-" Auto complete menu
-highlight Pmenu ctermfg=15 ctermbg=236
-highlight PmenuSel ctermfg=233 ctermbg=108
+
 
 " paste in next line
 nmap p :pu<CR>
@@ -521,9 +571,6 @@ set undofile
 " split styling
 set fillchars+=vert:\ 
 set fillchars+=fold:\ 
-highlight VertSplit ctermfg=None ctermbg=None
-highlight StatusLineNC ctermfg=16 ctermbg=237
-highlight StatusLine ctermfg=16 ctermbg=241
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -687,14 +734,6 @@ function! GitStatusRemoveBars()
     endif
 endfunction
 
-highlight AddBardsHighlight ctermfg=green
-highlight RemoveBardsHighlight ctermfg=red
-highlight DiffHighlight ctermfg=246
-highlight NormalColor guifg=Black guibg=Green ctermbg=46 ctermfg=0
-highlight InsertColor guifg=Black guibg=Cyan ctermbg=51 ctermfg=0
-highlight ReplaceColor guifg=Black guibg=maroon1 ctermbg=165 ctermfg=0
-highlight VisualColor guifg=Black guibg=Orange ctermbg=202 ctermfg=0
-
 
 set laststatus=2
 set statusline=
@@ -702,7 +741,8 @@ set statusline=
 " set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ INSERT\ ':''}%#clear#
 " set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ REPLACE\ ':''}%#clear#
 " set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ VISUAL\ ':''}%#clear#
-set statusline+=\ %f\ %m\%#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
+set statusline+=\ %#FileName#%f\ %m\%#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
+
 set noshowcmd
 " set noshowmode
 
@@ -734,11 +774,6 @@ augroup END
 " print current date
 nnoremap <silent> <leader>td o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
 
-" tab styling
-highlight TabLineFill ctermfg=235 ctermbg=16
-highlight TabLine ctermfg=240 ctermbg=234 cterm=NONE
-highlight TabLineSel ctermfg=214 ctermbg=236 cterm=bold
-highlight Title ctermfg=214 cterm=bold
 
 " y behaves as other capital letters
 nnoremap Y y$
@@ -757,10 +792,7 @@ set sessionoptions-=options,blank
 nnoremap # #N
 nnoremap * *N
 
-" command line
-highlight PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
-highlight PmenuSelCustom cterm=inverse ctermfg=108 ctermbg=233
-highlight PmenuTextCustom ctermfg=245 ctermbg=233
+
 call wilder#setup({'modes': [':']})
 call wilder#set_option('use_python_remote_plugin', 0)
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
@@ -776,7 +808,7 @@ call wilder#set_option('renderer', wilder#wildmenu_renderer({
 augroup CWordHiGroup
     autocmd CursorHold * call HighlightCursorWord()
 augroup END
-highlight HiCursorWord ctermbg=236 cterm=inverse
+
 function! HighlightCursorWord()
     let cword = expand('<cword>')
     exe printf('match hiCursorWord /\V\<%s\>/', escape(cword, '/\'))
@@ -815,10 +847,12 @@ let g:copilot_filetypes = {
 " window shift
 nnoremap <C-W>m <Cmd>WinShift<CR>
 
+" debug vim script
 function! Decho(str)
     call writefile([a:str . "\n"], '/tmp/vim_debug.log', 'a')
 endfunction
 
+" select terminal commands output
 function! SelectCommand(char) range
     if a:char ==# 'up'
         let end_command = search('^;', 'b') - 3
@@ -839,15 +873,19 @@ vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 
+" openai
 let g:ai_no_mappings = 1
 let g:ai_context_before = 20
 let g:ai_context_after = 20
 nnoremap <silent> <leader>f :AI<space>
 inoremap <silent> <leader>f <esc>:AI<CR>
 vnoremap <silent> <leader>f :AI<space>
-highlight link AIHighlight Visual
 
+" comments
 nmap <C-_> <Plug>CommentaryLine
+
+" vim multiline
+let g:VM_default_mappings = 0
 
 " lua scripts
 lua <<EOF
