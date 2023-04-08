@@ -160,14 +160,12 @@ hi GitGutterAdd ctermfg=108
 hi GitGutterChange ctermfg=108
 hi GitGutterDelete ctermfg=131
 hi GitGutterChangeDelete ctermfg=108
-hi diffAdd cterm=none ctermfg=NONE ctermbg=22
-hi diffChange cterm=none ctermfg=NONE ctermbg=22
-hi diffDelete cterm=none ctermfg=NONE ctermbg=52
-hi diffLine cterm=none ctermfg=NONE ctermbg=8
-
-" Linter sign column
 hi ALEErrorSign ctermbg=NONE ctermfg=131
 hi ALEWarningSign ctermbg=NONE ctermfg=131
+" hi diffAdd cterm=none ctermfg=0 ctermbg=22
+" hi diffChange cterm=none ctermfg=NONE ctermbg=22
+" hi diffDelete cterm=none ctermfg=NONE ctermbg=52
+" hi diffLine cterm=none ctermfg=NONE ctermbg=8
 
 " Quickfix
 hi link QuickFixLine CursorLine
@@ -235,6 +233,9 @@ map <C-t> :tabe term://zsh<CR>
 " Change highlight group of active/inactive windows
 function! Handle_Win_Enter()
     setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+    if !(&diff) 
+      setlocal nolist
+    endif
 endfunction
 
 " comments
