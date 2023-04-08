@@ -897,12 +897,6 @@ nmap <C-_> <Plug>CommentaryLine
 " vim multiline
 let g:VM_default_mappings = 0
 
-" lua scripts
-lua <<EOF
-    require "winshift".setup { highlight_moving_win = false }
-    require "term-edit".setup { prompt_end = '%$ ' }
-EOF
-
 " Sample function to send the selection to aichat
 " function! AiChat(message) range
 "   let text = join(getline(a:firstline, a:lastline), "\n")
@@ -915,3 +909,12 @@ EOF
 
 " command! -range=% -nargs=* AiChat :<line1>,<line2> call AiChat(<q-args>)
 " vnoremap <silent> <leader>f :AiChat<space>
+
+" lua scripts
+lua << EOF
+    require "term-edit".setup { prompt_end = '%$ ' }
+    xpcall(function()
+        require "winshift".setup { highlight_moving_win = false }
+    end, function(err)
+    end)
+EOF
