@@ -598,23 +598,20 @@ nnoremap <silent> <leader>d :VTerm<CR>
 
 " Jump to active term window or create a new one
 function SwitchToTerm()
-    let term_bufs = getbufinfo({'buflisted':1})
-    let curr_buf = bufnr('%')
-    call filter(term_bufs, 'v:val.name =~# "^term"')
-    call filter(term_bufs, 'v:val.bufnr != ' . curr_buf)
-    call map(term_bufs, { _, e -> ({"nr": e.bufnr, "lu": e.lastused}) })
-    if bufname('%') =~# '^term'
-      call sort(term_bufs, { b1, b2 -> b1.lu - b2.lu })
-    else
-      call sort(term_bufs, { b1, b2 -> b2.lu - b1.lu })
-    endif
-    if len(term_bufs) > 0
-        let window_buf_ids = win_findbuf(term_bufs[0].nr)
-        call win_gotoid(win_findbuf(term_bufs[0].nr)[0])
-    else
-        :Term
-    endif
+  try
+    let term_bufs = filter(getbufinfo({'buflisted':1}), 'v:val.name =~# "^term"')
+    let curr_buf = bufnr('%') - 1
+    let term_bufs = filter(term_bufs, 'v:val.bufnr != ' . curr_buf)
+    let term_bufs = map(term_bufs, { _, e -> ({"nr": e.bufnr, "lu": e.lastused}) })
+    let term_bufs = sort(term_bufs, { b1, b2 -> b2.lu - b1.lu })
+    if len(term_bufs) > 0 && win_gotoid(win_findbuf(term_bufs[0].nr)[0])
+      return
+    endif 
+  catch
+  endtry
+  :Term
 endfunction
+
 
 nnoremap <silent> <Leader>t :call SwitchToTerm()<cr>
 
