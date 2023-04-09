@@ -233,9 +233,6 @@ map <C-t> :tabe term://zsh<CR>
 " Change highlight group of active/inactive windows
 function! Handle_Win_Enter()
     setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
-    if !(&diff) 
-      setlocal nolist
-    endif
 endfunction
 
 " comments
@@ -307,11 +304,6 @@ augroup file_reload
     " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
     au FocusGained,BufEnter,CursorHold,CursorHoldI * silent!
                 \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | silent! checktime | endif
-
-    " Notification after file change
-    " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-    au FileChangedShellPost *
-      \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 augroup END
 
 " Map Ctrl-A -> Start of line, Ctrl-E -> End of line
@@ -464,7 +456,6 @@ vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 nnoremap <c-\> :SessionPicker<cr>
 
 function! s:fzf_statusline()
-
     setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
@@ -473,7 +464,6 @@ augroup fzfGroup
     autocmd! FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
-
 
 " window resize
 nnoremap <silent> <leader>e :WinResizerStartResize<CR>
@@ -544,8 +534,6 @@ cmap <silent> <expr> <CR> getcmdtype() == ':' && getcmdline() =~ '^\d\+$' ? 'nor
 
 " quickly exit
 nnoremap <silent> ZZ :wqa!<CR>
-
-
 
 " paste in next line
 nmap p :pu<CR>
@@ -680,6 +668,8 @@ tnoremap <silent><leader>d <C-\><C-n>:VTerm<CR>
 tnoremap <silent><leader>v <C-X><C-E><CR>
 tnoremap <C-Up> <C-\><C-n><C-W>k
 tnoremap <C-Down> <C-\><C-n><C-W>j
+tnoremap <C-Left> <C-\><C-n><C-W>h
+tnoremap <C-Right> <C-\><C-n><C-W>l
 
 
 " vimdiff in new tab
