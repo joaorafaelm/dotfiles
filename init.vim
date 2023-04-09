@@ -148,7 +148,7 @@ hi Search cterm=inverse ctermfg=NONE
 hi cursorcolumn ctermbg=235
 hi Blamer ctermfg=239 ctermbg=NONE cterm=italic
 hi LineNr ctermfg=234 cterm=bold
-hi HiCursorWord ctermbg=235
+hi HiCursorWord ctermbg=236
 
 " Fold
 hi Folded ctermbg=NONE ctermfg=239
@@ -162,10 +162,6 @@ hi GitGutterDelete ctermfg=131
 hi GitGutterChangeDelete ctermfg=108
 hi ALEErrorSign ctermbg=NONE ctermfg=131
 hi ALEWarningSign ctermbg=NONE ctermfg=131
-" hi diffAdd cterm=none ctermfg=0 ctermbg=22
-" hi diffChange cterm=none ctermfg=NONE ctermbg=22
-" hi diffDelete cterm=none ctermfg=NONE ctermbg=52
-" hi diffLine cterm=none ctermfg=NONE ctermbg=8
 
 " Quickfix
 hi link QuickFixLine CursorLine
@@ -191,11 +187,8 @@ hi StatusLine ctermfg=16 ctermbg=241
 hi AddBardsHighlight ctermfg=106
 hi RemoveBardsHighlight ctermfg=131
 hi DiffHighlight ctermfg=246
-hi NormalColor guifg=Black guibg=Green ctermbg=46 ctermfg=0
-hi InsertColor guifg=Black guibg=Cyan ctermbg=51 ctermfg=0
-hi ReplaceColor guifg=Black guibg=maroon1 ctermbg=165 ctermfg=0
-hi VisualColor guifg=Black guibg=Orange ctermbg=202 ctermfg=0
-hi FileName ctermfg=235 cterm=bold
+hi FileName ctermfg=236 cterm=none
+hi CurrentMode ctermfg=236 cterm=bold
 
 " tab styling
 hi TabLineFill ctermfg=235 ctermbg=16
@@ -732,17 +725,46 @@ function! GitStatusRemoveBars()
     endif
 endfunction
 
+" Status Line Custom
+let g:currentmode={
+    \ 'n'  : 'Normal',
+    \ 'no' : 'Normal·Operator Pending',
+    \ 'v'  : 'Visual',
+    \ 'V'  : 'V·Line',
+    \ '^V' : 'V·Block',
+    \ 's'  : 'Select',
+    \ 'S'  : 'S·Line',
+    \ '^S' : 'S·Block',
+    \ 'i'  : 'Insert',
+    \ 'R'  : 'Replace',
+    \ 'Rv' : 'V·Replace',
+    \ 'c'  : 'Command',
+    \ 'cv' : 'Vim Ex',
+    \ 'ce' : 'Ex',
+    \ 'r'  : 'Prompt',
+    \ 'rm' : 'More',
+    \ 'r?' : 'Confirm',
+    \ '!'  : 'Shell',
+    \ 't'  : 'Terminal'
+    \}
+
+function! ModeCurrent() abort
+    let l:modecurrent = mode()
+    let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block'))
+    let l:current_status_mode = l:modelist
+    return l:current_status_mode
+endfunction
+
 
 set laststatus=2
-set statusline=
-" set statusline+=%#NormalColor#%{(mode()=='n')?'\ \ NORMAL\ ':''}%#clear#
-" set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ INSERT\ ':''}%#clear#
-" set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ REPLACE\ ':''}%#clear#
-" set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ VISUAL\ ':''}%#clear#
-set statusline+=\ %#FileName#%f\ %m\%#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
-
 set noshowcmd
-" set noshowmode
+set noshowmode
+
+set statusline=
+set statusline+=%#CurrentMode#\ %{ModeCurrent()}\ %* 
+set statusline+=%#FileName#%f
+set statusline+=%#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
+set statusline+=%= " Right Side
 
 " markdown fold
 function! MarkdownLevel()
