@@ -1,6 +1,19 @@
-for i in {0..255} ; do
-    printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
-    if (( i == 15 )) || (( i > 15 )) && (( (i-15) % 6 == 0 )); then
-        printf "\n";
+#!/bin/bash
+
+# This program is free software. It comes without any warranty, to
+# the extent permitted by applicable law. You can redistribute it
+# and/or modify it under the terms of the Do What The Fuck You Want
+# To Public License, Version 2, as published by Sam Hocevar. See
+# http://sam.zoy.org/wtfpl/COPYING for more details.
+
+for color in {0..255} ; do #Colors
+    #Display the color
+    printf "\e[38;5;%sm  %3s  \e[0m" $color $color
+    printf "\e[48;5;%sm  %3s  \e[0m" $color
+    #Display 6 colors per lines
+    if [ $((($color + 1) % 6)) == 4 ] ; then
+        echo #New line
     fi
 done
+
+exit 0

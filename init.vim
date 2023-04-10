@@ -761,8 +761,7 @@ set laststatus=2
 set noshowcmd
 set noshowmode
 
-
-
+" Status Line Custom
 function SetStatusLine(active)
     let l:statusline = ''
     if a:active
