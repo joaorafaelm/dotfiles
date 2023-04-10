@@ -785,7 +785,6 @@ function! MarkdownLevel()
     endif 
     return '='
 endfunction
-
 augroup fold_formats
     au!
     au BufEnter *.md setlocal foldexpr=MarkdownLevel()
@@ -794,7 +793,6 @@ augroup END
 
 " print current date
 nnoremap <silent> <leader>td o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
-
 
 " y behaves as other capital letters
 nnoremap Y y$
@@ -813,6 +811,7 @@ set sessionoptions-=options,blank
 nnoremap # #N
 nnoremap * *N
 
+" wilder config
 call wilder#setup({'modes': [':']})
 call wilder#set_option('use_python_remote_plugin', 0)
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
@@ -837,6 +836,7 @@ endfunction
 " Copy github link
 let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 
+" vim coc
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
@@ -849,13 +849,17 @@ endfunction
 set pumheight=10
 
 map <leader>n :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<CR>
+
+" netrw config
 let g:netrw_banner = 0
 let g:netrw_altv=1
 
-" vim copilot config
+" vim copilot maps
 inoremap ‘ <Cmd>call copilot#Next()<CR>
 inoremap “ <Cmd>call copilot#Previous()<CR>
 inoremap « <Cmd>call copilot#Suggest()<CR>
+
+" vim copilot config
 let g:copilot_filetypes = {
     \ 'markdown': v:true,
     \ 'terraform': v:true,
@@ -884,6 +888,7 @@ function! SelectCommand(char) range
     endif
 endfunction
 
+" select terminal commands output
 nnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
 nnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
 vnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
@@ -891,10 +896,12 @@ vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 
-" openai
+" openai config
 let g:ai_no_mappings = 1
 let g:ai_context_before = 20
 let g:ai_context_after = 20
+
+" openai maps
 nnoremap <silent> <leader>f :AI<space>
 inoremap <silent> <leader>f <esc>:AI<CR>
 vnoremap <silent> <leader>f :AI<space>
