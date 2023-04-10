@@ -29,6 +29,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'mbbill/undotree'
     Plug 'aduros/ai.vim'
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+    Plug 'dstein64/vim-startuptime'
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
         let &runtimepath=&runtimepath
@@ -198,8 +199,8 @@ hi Title ctermfg=214 cterm=bold
 
 " command line
 hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
-hi PmenuSelCustom cterm=inverse ctermfg=108 ctermbg=233
-hi PmenuTextCustom ctermfg=245 ctermbg=233
+hi PmenuSelCustom ctermbg=233
+hi PmenuTextCustom ctermfg=240 ctermbg=16
 
 " ai.vim
 hi link AIHighlight Visual
@@ -455,7 +456,7 @@ endfunction
 augroup fzfGroup
     au! User FzfStatusLine call <SID>fzf_statusline()
     autocmd! FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+      \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 augroup END
 
 " window resize
@@ -578,9 +579,6 @@ augroup myCmds
     au!
     autocmd FocusGained,BufEnter,VimEnter * silent !echo -ne "\e[2 q"
 augroup END
-
-nnoremap s /
-
 
 " git blamer
 let g:blamer_enabled = 1
