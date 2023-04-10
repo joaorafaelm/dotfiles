@@ -226,6 +226,9 @@ map <C-t> :tabe term://zsh<CR>
 " Change highlight group of active/inactive windows
 function! Handle_Win_Enter()
     setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+    if &diff
+        setlocal nolist
+    endif
 endfunction
 
 " comments
@@ -617,6 +620,7 @@ augroup terminal_settings
     autocmd!
 
     autocmd BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
+    autocmd BufWinEnter,WinEnter,BufLeave term://* setlocal nolist
     autocmd BufWinEnter,WinEnter term://* stopinsert
     " Ignore various filetypes as those will close terminal automatically
     " Ignore fzf, ranger, coc
@@ -672,7 +676,7 @@ endfunction
 
 " custom mapping in fugitive window (:Git)
 nnoremap <silent> <leader>g :tab G<CR>
-nnoremap <silent> <leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>
+nnoremap <silent> <leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>
 augroup custom_fugitive_mappings
     au!
     au User FugitiveIndex map <buffer> <space> =
