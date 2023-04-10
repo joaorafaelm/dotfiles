@@ -40,10 +40,7 @@ font:
     x: 0
     y: 5
   scale_with_dpi: true
-  use_thin_strokes: true
 
 colors:
   primary:
     background: '#000000'
-
-alt_send_esc: false
