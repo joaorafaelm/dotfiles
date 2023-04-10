@@ -761,11 +761,34 @@ set laststatus=2
 set noshowcmd
 set noshowmode
 
-set statusline=
-set statusline+=%#CurrentMode#\ %{ModeCurrent()}\ %* 
-set statusline+=%#FileName#%f
-set statusline+=%#DiffHighlight#%{GitStatusTotalDiff()}\ %#AddBardsHighlight#%{GitStatusAddBars()}%#RemoveBardsHighlight#%{GitStatusRemoveBars()}
-set statusline+=%= " Right Side
+
+
+function SetStatusLine(active)
+    let l:statusline = ''
+    if a:active
+        let l:statusline .= '%#CurrentMode#'
+        let l:statusline .= '%{ModeCurrent()} '
+    endif
+    let l:statusline .= '%*'
+    let l:statusline .= '%#FileName#'
+    let l:statusline .= '%f '
+    let l:statusline .= '%#DiffHighlight#'
+    let l:statusline .= '%{GitStatusTotalDiff()}'
+    let l:statusline .= '%#AddBardsHighlight#'
+    let l:statusline .= '%{GitStatusAddBars()}'
+    let l:statusline .= '%#RemoveBardsHighlight#'
+    let l:statusline .= '%{GitStatusRemoveBars()}'
+    let l:statusline .= '%=' " Right Side
+    return l:statusline
+endfunction
+
+set statusline=%!SetStatusLine(1)
+
+augroup statusline
+    autocmd!
+    autocmd WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
+    autocmd WinLeave,BufLeave * setlocal statusline=%!SetStatusLine(0)
+augroup end
 
 " markdown fold
 function! MarkdownLevel()
