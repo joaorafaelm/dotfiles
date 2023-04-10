@@ -2,6 +2,11 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 
 call plug#begin('~/.vim/plugins')
+    function! UpdateRemotePlugins(...)
+        " Needed to refresh runtime files
+        let &runtimepath=&runtimepath
+        UpdateRemotePlugins
+    endfunction
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
     Plug 'w0rp/ale'
@@ -29,12 +34,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'mbbill/undotree'
     Plug 'aduros/ai.vim'
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-    Plug 'dstein64/vim-startuptime'
-    function! UpdateRemotePlugins(...)
-        " Needed to refresh runtime files
-        let &runtimepath=&runtimepath
-        UpdateRemotePlugins
-    endfunction
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 call plug#end()
 
