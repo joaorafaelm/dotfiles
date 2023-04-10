@@ -907,6 +907,20 @@ nmap <C-_> <Plug>CommentaryLine
 " vim multiline
 let g:VM_default_mappings = 0
 
+
+function DeleteHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent! execute 'bwipeout' buf
+    endfor
+endfunction
+
+augroup DeleteHiddenBuffers
+  autocmd!
+  autocmd BufWinLeave * silent call DeleteHiddenBuffers()
+augroup END
+
 " Sample function to send the selection to aichat
 " function! AiChat(message) range
 "   let text = join(getline(a:firstline, a:lastline), "\n")
