@@ -809,7 +809,6 @@ set sessionoptions-=options,blank
 nnoremap # #N
 nnoremap * *N
 
-
 call wilder#setup({'modes': [':']})
 call wilder#set_option('use_python_remote_plugin', 0)
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
@@ -850,6 +849,7 @@ set pumheight=10
 
 map <leader>n :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<CR>
 let g:netrw_banner = 0
+let g:netrw_altv=1
 
 " vim copilot config
 inoremap ‘ <Cmd>call copilot#Next()<CR>
@@ -914,22 +914,9 @@ function DeleteHiddenBuffers()
 endfunction
 
 augroup DeleteHiddenBuffers
-  autocmd!
-  autocmd BufWinLeave * silent call DeleteHiddenBuffers()
+    autocmd!
+    autocmd BufWinLeave * silent call DeleteHiddenBuffers()
 augroup END
-
-" Sample function to send the selection to aichat
-" function! AiChat(message) range
-"   let text = join(getline(a:firstline, a:lastline), "\n")
-"   let encoded_message = shellescape(a:message)
-"   let encoded_text = shellescape(text)
-"   let command = 'ai -r coder ' . encoded_message . ': ' . encoded_text
-"   let output = split(system(command), "\n")
-"   call setline(a:firstline, sort(output))
-" endfunction
-
-" command! -range=% -nargs=* AiChat :<line1>,<line2> call AiChat(<q-args>)
-" vnoremap <silent> <leader>f :AiChat<space>
 
 " lua scripts
 lua << EOF

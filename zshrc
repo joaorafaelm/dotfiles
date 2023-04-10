@@ -52,6 +52,7 @@ alias ls="exa -lha"
 alias ll="exa -lha --git"
 alias :q="exit"
 alias ai="aichat"
+function f() { cd $(mktemp -d) && git clone $1 . && tmux new-window "nvim ."; cd -; }
 
 
 #set history size
