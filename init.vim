@@ -37,97 +37,97 @@ call plug#begin('~/.vim/plugins')
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 call plug#end()
 
-
+let g:loaded_python3_provider = 0
+let mapleader = ','
 set encoding=utf-8
 scriptencoding utf-8
-
-" default shell
-set shell=$SHELL
-
 syntax on
+filetype plugin on
+filetype plugin indent off " space as tabs
+
+" options
+set shell=$SHELL 
 set number
 set relativenumber
 set scrolloff=10
 set backspace=indent,eol,start
 set wrap
-4
 set autoindent
 set nohidden
-filetype plugin on
-let mapleader = ','
 set winminheight=0
 set winminwidth=0
 set numberwidth=6
 set signcolumn=yes
-" set iskeyword-=_
+set updatetime=50
+set timeoutlen=250
+set mouse=a
+set viminfo='100,f1
 
-" space as tabs
-filetype plugin indent off
+" session config
+set sessionoptions+=tabpages,globals,winpos,terminal
 
+" do not store global and local values in a session
+set sessionoptions-=options,blank
+
+" default tabs length
 set tabstop=4
 set shiftwidth=4
 set expandtab
 
-augroup file_format
-    au!
-    au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
-    au FileType jsx set tabstop=2|set shiftwidth=2|set expandtab
-    au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-    au FileType make setlocal noexpandtab
-augroup END
-
-set updatetime=50
-set timeoutlen=250
-set mouse=a
-if has('clipboard')
-    set clipboard=unnamed " copy to the system clipboard
-    if has('unnamedplus') " X11 support
-        set clipboard+=unnamedplus
-    endif
-endif
-
-" WSL yank support
-if !isdirectory('/mnt/c/Windows/')
-    set clipboard+=unnamedplus
-    let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
-    let g:clipboard = {
-              \   'name': 'win32yank-wsl',
-              \   'copy': {
-              \      '+': 'win32yank.exe -i --crlf',
-              \      '*': 'win32yank.exe -i --crlf',
-              \    },
-              \   'paste': {
-              \      '+': 'win32yank.exe -o --lf',
-              \      '*': 'win32yank.exe -o --lf',
-              \   },
-              \   'cache_enabled': 0,
-              \ }
-    let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
-    if executable(s:clip)
-        augroup WSLYank
-            autocmd!
-            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-        augroup END
-    endif
-endif
-
-" Highlight search matches
-set hlsearch 
-" Ignore case when searching
-set ignorecase
-" except when search string contains uppercase
-set smartcase
-" Jump to first match while entering search string
-set incsearch
+set hlsearch " Highlight search matches
+set ignorecase " Ignore case when searching
+set smartcase " except when search string contains uppercase
+set incsearch "Jump to first match while entering search string
 
 " show spaces, eol, tabs etc
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
 
+set cursorline
+silent! set cursorlineopt=number
+
+"fold stuff
+set foldmethod=indent
+set foldnestmax=3
+set foldminlines=0
+set foldlevel=99
+
+" disable preview window
+set completeopt-=preview
+
+" persist undo
+set undodir=~/.vim/undodir
+set undofile
+
+" split styling
+set fillchars+=vert:\ 
+set fillchars+=fold:\ 
+set splitbelow
+set splitright
+
+" statusline
+set laststatus=2
+set noshowcmd
+set noshowmode
+
+" change cursor for mode
+" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+set ttimeout
+set ttimeoutlen=1
+set ttyfast
+
+" auto complete size
+set pumheight=10
+
+" netrw config
+let g:netrw_banner = 0
+let g:netrw_altv=1
+
 set background=dark
 colorscheme gruvbox
-
-let g:loaded_python3_provider = 0
 
 " Background and foreground colors
 hi normal ctermbg=16 ctermfg=247
@@ -213,6 +213,48 @@ if &background ==# 'light'
     hi InactiveWindow ctermbg=251
 endif
 
+" tab length per file type
+augroup file_format
+    au!
+    au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
+    au FileType jsx set tabstop=2|set shiftwidth=2|set expandtab
+    au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    au FileType make setlocal noexpandtab
+augroup END
+
+" system clibboard access
+if has('clipboard')
+    set clipboard=unnamed " copy to the system clipboard
+    if has('unnamedplus') " X11 support
+        set clipboard+=unnamedplus
+    endif
+endif
+
+" WSL yank support
+if !isdirectory('/mnt/c/Windows/')
+    set clipboard+=unnamedplus
+    let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+    let g:clipboard = {
+              \   'name': 'win32yank-wsl',
+              \   'copy': {
+              \      '+': 'win32yank.exe -i --crlf',
+              \      '*': 'win32yank.exe -i --crlf',
+              \    },
+              \   'paste': {
+              \      '+': 'win32yank.exe -o --lf',
+              \      '*': 'win32yank.exe -o --lf',
+              \   },
+              \   'cache_enabled': 0,
+              \ }
+    let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+    if executable(s:clip)
+        augroup WSLYank
+            autocmd!
+            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+        augroup END
+    endif
+endif
+
 " Call method on window enter
 augroup WindowManagement
     autocmd!
@@ -230,7 +272,7 @@ function! Handle_Win_Enter()
     endif
 endfunction
 
-" comments
+" comments config
 augroup CommentsGroup
     au!
     au FileType vim setlocal commentstring=\"\ %s
@@ -239,21 +281,6 @@ augroup CommentsGroup
     au FileType awk setlocal commentstring=#\ %s
 augroup END
 
-" line highlighting
-set cursorline
-silent! set cursorlineopt=number
-
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
-
-"fold stuff
-set foldmethod=indent
-set foldnestmax=3
-set foldminlines=0
-set foldlevel=99
 nnoremap <space> za
 vnoremap <space> zf
 nnoremap } zjzz
@@ -267,9 +294,6 @@ let g:gitgutter_sign_removed = '│'
 let g:gitgutter_sign_removed_first_line = '│'
 let g:gitgutter_sign_removed_above_and_below = '│'
 let g:gitgutter_sign_modified_removed = '│'
-
-" disable preview window
-set completeopt-=preview
 
 "Linters
 let g:ale_enabled = 1
@@ -498,7 +522,6 @@ endf
 nnoremap <leader>p :call <SID>ToggleBreakpoint()<CR>
 
 " tab rename
-set guioptions-=e
 let g:taboo_renamed_tab_format = ' %N:%l%m '
 let g:taboo_tab_format = ' %N:%f%m '
 let g:taboo_modified_tab_flag = ' ~ '
@@ -550,24 +573,6 @@ augroup update_plug
 augroup END
 
 noremap M `
-set viminfo='100,f1
-
-" persist undo
-set undodir=~/.vim/undodir
-set undofile
-
-" split styling
-set fillchars+=vert:\ 
-set fillchars+=fold:\ 
-
-" change cursor for mode
-" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
-let &t_SI.="\e[5 q" "SI = INSERT mode
-let &t_SR.="\e[4 q" "SR = REPLACE mode
-let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
-set ttimeout
-set ttimeoutlen=1
-set ttyfast
 
 " reset the cursor on start
 augroup myCmds
@@ -605,8 +610,6 @@ map <C-Up> <C-W>k
 map <C-Down> <C-W>j
 map <C-Left> <C-W>h
 map <C-Right> <C-W>l
-set splitbelow
-set splitright
 
 " quit vim window on term exit
 augroup terminal_settings
@@ -744,13 +747,9 @@ function SetStatusLine(active)
     return l:statusline
 endfunction
 
-set laststatus=2
-set noshowcmd
-set noshowmode
 set statusline=%!SetStatusLine(1)
 
 augroup statusline
-    autocmd!
     autocmd WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
     autocmd WinLeave,BufLeave * setlocal statusline=%!SetStatusLine(0)
 augroup end
@@ -788,12 +787,6 @@ nnoremap Y y$
 " keep centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
-" session config
-set sessionoptions+=tabpages,globals,winpos,terminal
-
-" do not store global and local values in a session
-set sessionoptions-=options,blank
 
 " search word under cursor
 nnoremap # #N
@@ -833,14 +826,7 @@ function! CheckBackspace() abort
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" auto complete size
-set pumheight=10
-
 map <leader>n :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<CR>
-
-" netrw config
-let g:netrw_banner = 0
-let g:netrw_altv=1
 
 " vim copilot maps
 inoremap ‘ <Cmd>call copilot#Next()<CR>
@@ -899,7 +885,6 @@ nmap <C-_> <Plug>CommentaryLine
 
 " vim multiline
 let g:VM_default_mappings = 0
-
 
 function DeleteHiddenBuffers()
     let tpbl=[]
