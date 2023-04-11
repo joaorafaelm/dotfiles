@@ -126,6 +126,59 @@ set pumheight=10
 let g:netrw_banner = 0
 let g:netrw_altv=1
 
+" vim multiline
+let g:VM_default_mappings = 0
+
+" ai.vim config
+let g:ai_no_mappings = 1
+let g:ai_context_before = 20
+let g:ai_context_after = 20
+
+" vim copilot config
+let g:copilot_filetypes = {
+    \ 'markdown': v:true,
+    \ 'terraform': v:true,
+    \ 'tf': v:true,
+\ }
+
+" Copy github link
+let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
+
+" git gutter
+let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_sign_added = '│'
+let g:gitgutter_sign_modified = '│'
+let g:gitgutter_sign_removed = '│'
+let g:gitgutter_sign_removed_first_line = '│'
+let g:gitgutter_sign_removed_above_and_below = '│'
+let g:gitgutter_sign_modified_removed = '│'
+
+"Linters
+let g:ale_enabled = 1
+let b:ale_fixers = {
+    \   'python': ['black', 'isort', 'flake8'],
+    \   'javascript': ['eslint', 'prettier']
+    \}
+let g:ale_fix_on_save = 1
+let g:ale_set_highlights = 1
+let g:ale_sign_error = '█'
+let g:ale_sign_warning = '█'
+
+" disable split term default mappins
+let g:disable_key_mappings = 1
+
+" git blamer
+let g:blamer_enabled = 1
+
+" tab rename
+let g:taboo_renamed_tab_format = ' %N:%l%m '
+let g:taboo_tab_format = ' %N:%f%m '
+let g:taboo_modified_tab_flag = ' ~ '
+
+" resize window key
+let g:winresizer_start_key	= '<leader>e'
+
+" theme
 set background=dark
 colorscheme gruvbox
 
@@ -285,26 +338,6 @@ nnoremap <space> za
 vnoremap <space> zf
 nnoremap } zjzz
 nnoremap { zkzz
-
-" git gutter
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_sign_added = '│'
-let g:gitgutter_sign_modified = '│'
-let g:gitgutter_sign_removed = '│'
-let g:gitgutter_sign_removed_first_line = '│'
-let g:gitgutter_sign_removed_above_and_below = '│'
-let g:gitgutter_sign_modified_removed = '│'
-
-"Linters
-let g:ale_enabled = 1
-let b:ale_fixers = {
-    \   'python': ['black', 'isort', 'flake8'],
-    \   'javascript': ['eslint', 'prettier']
-    \}
-let g:ale_fix_on_save = 1
-let g:ale_set_highlights = 1
-let g:ale_sign_error = '█'
-let g:ale_sign_warning = '█'
 
 augroup file_reload
     au!
@@ -480,7 +513,6 @@ augroup END
 
 " window resize
 nnoremap <silent> <leader>e :WinResizerStartResize<CR>
-let g:winresizer_start_key	= '<leader>e'
 
 function! SearchWordWithRg()
     execute 'Rg' expand('<cword>')
@@ -520,11 +552,6 @@ func! s:ToggleBreakpoint()
     if getline('.')=~#'^\s*breakpoint' | cal s:RemoveBreakpoint() | el | cal s:SetBreakpoint() | en
 endf
 nnoremap <leader>p :call <SID>ToggleBreakpoint()<CR>
-
-" tab rename
-let g:taboo_renamed_tab_format = ' %N:%l%m '
-let g:taboo_tab_format = ' %N:%f%m '
-let g:taboo_modified_tab_flag = ' ~ '
 
 nnoremap <Leader>1 1gt
 nnoremap <Leader>2 2gt
@@ -580,9 +607,6 @@ augroup myCmds
     autocmd FocusGained,BufEnter,VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
-" git blamer
-let g:blamer_enabled = 1
-
 " terminal binding
 nnoremap <silent> <leader>s :Term<CR>
 nnoremap <silent> <leader>d :VTerm<CR>
@@ -602,7 +626,6 @@ function SwitchToTerm()
   endtry
   :Term
 endfunction
-
 
 nnoremap <silent> <Leader>t :call SwitchToTerm()<cr>
 
@@ -625,19 +648,11 @@ augroup terminal_settings
           \ endif
 augroup END
 
-" disable split term default mappins
-let g:disable_key_mappings = 1
-
 " zoom
 let s:zoomed_in = 0
 function! ToogleZoom()
-    if s:zoomed_in
-        :exe "normal \<C-W>="
-        let s:zoomed_in = 0
-    else
-        :exe "normal \<C-W>\|\<C-W>_"
-        let s:zoomed_in = 1
-    endif
+    let s:zoomed_in = s:zoomed_in ? 0 : 1
+    :exe "normal \<C-W>" . (s:zoomed_in ? "\|\<C-W>_" : '=')
 endfunction
 nnoremap <leader>z :call ToogleZoom()<CR>
 
@@ -699,31 +714,30 @@ function! GitStatusRemoveBars()
 endfunction
 
 " Status Line Custom
-let g:currentmode={
-    \ 'n'  : 'Normal',
-    \ 'no' : 'Normal·Operator Pending',
-    \ 'v'  : 'Visual',
-    \ 'V'  : 'V·Line',
-    \ '^V' : 'V·Block',
-    \ 's'  : 'Select',
-    \ 'S'  : 'S·Line',
-    \ '^S' : 'S·Block',
-    \ 'i'  : 'Insert',
-    \ 'R'  : 'Replace',
-    \ 'Rv' : 'V·Replace',
-    \ 'c'  : 'Command',
-    \ 'cv' : 'Vim Ex',
-    \ 'ce' : 'Ex',
-    \ 'r'  : 'Prompt',
-    \ 'rm' : 'More',
-    \ 'r?' : 'Confirm',
-    \ '!'  : 'Shell',
-    \ 't'  : 'Terminal'
-    \}
-
 function! ModeCurrent() abort
+    let currentmode={
+        \ 'n'  : 'Normal',
+        \ 'no' : 'Normal·Operator Pending',
+        \ 'v'  : 'Visual',
+        \ 'V'  : 'V·Line',
+        \ '^V' : 'V·Block',
+        \ 's'  : 'Select',
+        \ 'S'  : 'S·Line',
+        \ '^S' : 'S·Block',
+        \ 'i'  : 'Insert',
+        \ 'R'  : 'Replace',
+        \ 'Rv' : 'V·Replace',
+        \ 'c'  : 'Command',
+        \ 'cv' : 'Vim Ex',
+        \ 'ce' : 'Ex',
+        \ 'r'  : 'Prompt',
+        \ 'rm' : 'More',
+        \ 'r?' : 'Confirm',
+        \ '!'  : 'Shell',
+        \ 't'  : 'Terminal'
+        \}
     let l:modecurrent = mode()
-    let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block'))
+    let l:modelist = toupper(get(currentmode, l:modecurrent, 'V·Block'))
     let l:current_status_mode = l:modelist
     return l:current_status_mode
 endfunction
@@ -814,9 +828,6 @@ function! HighlightCursorWord()
     exe printf('match hiCursorWord /\V\<%s\>/', escape(cword, '/\'))
 endfunction
 
-" Copy github link
-let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
-
 " vim coc
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -832,13 +843,6 @@ map <leader>n :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<CR>
 inoremap ‘ <Cmd>call copilot#Next()<CR>
 inoremap “ <Cmd>call copilot#Previous()<CR>
 inoremap « <Cmd>call copilot#Suggest()<CR>
-
-" vim copilot config
-let g:copilot_filetypes = {
-    \ 'markdown': v:true,
-    \ 'terraform': v:true,
-    \ 'tf': v:true,
-\ }
 
 " window shift
 nnoremap <C-W>m <Cmd>WinShift<CR>
@@ -870,21 +874,13 @@ vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 
-" openai config
-let g:ai_no_mappings = 1
-let g:ai_context_before = 20
-let g:ai_context_after = 20
-
-" openai maps
+" ai.vim maps
 nnoremap <silent> <leader>f :AI<space>
 inoremap <silent> <leader>f <esc>:AI<CR>
 vnoremap <silent> <leader>f :AI<space>
 
 " comments
 nmap <C-_> <Plug>CommentaryLine
-
-" vim multiline
-let g:VM_default_mappings = 0
 
 function DeleteHiddenBuffers()
     let tpbl=[]
