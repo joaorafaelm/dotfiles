@@ -852,6 +852,10 @@ inoremap « <Cmd>call copilot#Suggest()<CR>
 
 " window shift
 nnoremap <C-W>m <Cmd>WinShift<CR>
+nnoremap <C-W><LEFT> <Cmd>WinShift left<CR>
+nnoremap <C-W><DOWN> <Cmd>WinShift down<CR>
+nnoremap <C-W><UP> <Cmd>WinShift up<CR>
+nnoremap <C-W><RIGHT> <Cmd>WinShift right<CR>
 
 " debug vim script
 function! Decho(str)
