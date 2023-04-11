@@ -35,6 +35,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'aduros/ai.vim'
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+    Plug 'folke/which-key.nvim'
 call plug#end()
 
 let g:loaded_python3_provider = 0
@@ -256,6 +257,11 @@ hi PmenuTextCustom ctermfg=240 ctermbg=16
 
 " ai.vim
 hi link AIHighlight Visual
+
+" which key
+hi WhichKeyFloat ctermbg=16 ctermfg=239 
+hi WhichKeyDesc	ctermfg=239
+hi WhichKey	ctermfg=red
 
 if &background ==# 'light'
     " Background and foreground colors
@@ -898,6 +904,7 @@ augroup END
 " lua scripts
 lua << EOF
     require "term-edit".setup { prompt_end = '%$ ' }
+    require "which-key".setup {}
     xpcall(function()
         require "winshift".setup { highlight_moving_win = false }
     end, function(err)
