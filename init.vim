@@ -50,12 +50,15 @@ set relativenumber
 set scrolloff=10
 set backspace=indent,eol,start
 set wrap
+4
 set autoindent
 set nohidden
 filetype plugin on
 let mapleader = ','
 set winminheight=0
 set winminwidth=0
+set numberwidth=6
+set signcolumn=yes
 " set iskeyword-=_
 
 " space as tabs
@@ -434,8 +437,8 @@ let g:fzf_layout = { 'down': '~40%' }
 " ctrl-e/y to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'
 let $FZF_DEFAULT_OPTS = '--inline-info --layout=reverse-list --border=vertical'
-let $FZF_DEFAULT_OPTS = $FZF_DEFAULT_OPTS . ' --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
-let $FZF_DEFAULT_OPTS = $FZF_DEFAULT_OPTS . ' --preview-window noborder --margin 0 --padding 0 --no-separator'
+let $FZF_DEFAULT_OPTS .= ' --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
+let $FZF_DEFAULT_OPTS .= ' --preview-window noborder --margin 0 --padding 0 --no-separator'
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Rg<CR><C-P>
@@ -447,8 +450,8 @@ vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 nnoremap <c-\> :SessionPicker<cr>
 
 augroup fzfGroup
-    autocmd! FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber
-      \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+    autocmd! FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
+      \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes
 augroup END
 
 " window resize
@@ -673,16 +676,6 @@ augroup custom_fugitive_mappings
 augroup END
 
 " Git status
-function! GitStatusTotalDiff()
-    let [a,m,r] = GitGutterGetHunkSummary()
-    if a || m || r
-        let total = a + m * 2 + r
-        return ''
-    else
-        return ''
-    endif
-endfunction
-
 function! GitStatusAddBars()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
@@ -743,7 +736,6 @@ function SetStatusLine(active)
     let l:statusline .= '%#FileName#'
     let l:statusline .= '%f '
     let l:statusline .= '%#DiffHighlight#'
-    let l:statusline .= '%{GitStatusTotalDiff()}'
     let l:statusline .= '%#AddBardsHighlight#'
     let l:statusline .= '%{GitStatusAddBars()}'
     let l:statusline .= '%#RemoveBardsHighlight#'
