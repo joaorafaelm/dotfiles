@@ -67,7 +67,7 @@ set expandtab
 
 augroup file_format
     au!
-    au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+    au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
     au FileType jsx set tabstop=2|set shiftwidth=2|set expandtab
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     au FileType make setlocal noexpandtab
@@ -170,9 +170,6 @@ hi link QuickFixLine CursorLine
 hi FZFBG ctermbg=NONE ctermfg=NONE
 hi BorderFZF ctermfg=233
 hi TextFZF ctermfg=245
-hi fzf1 ctermfg=233 ctermbg=233
-hi fzf2 ctermfg=233 ctermbg=233
-hi fzf3 ctermfg=233 ctermbg=233
 
 " Auto complete menu
 hi Pmenu ctermfg=15 ctermbg=236
@@ -211,7 +208,6 @@ if &background ==# 'light'
     " Background colors for active vs inactive windows
     hi ActiveWindow ctermbg=254
     hi InactiveWindow ctermbg=251
-
 endif
 
 " Call method on window enter
@@ -417,7 +413,6 @@ let g:fzf_action = {
     \ 'ctrl-d': 'vsplit'
 \ }
 
-
 let g:fzf_colors = { 
     \ 'fg':      ['fg', 'TextFZF'],
     \ 'bg':      ['bg', 'FZFBG'],
@@ -451,12 +446,7 @@ nnoremap <silent> K :call SearchWordWithRg()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
 nnoremap <c-\> :SessionPicker<cr>
 
-function! s:fzf_statusline()
-    setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
 augroup fzfGroup
-    au! User FzfStatusLine call <SID>fzf_statusline()
     autocmd! FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber
       \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 augroup END
@@ -618,7 +608,6 @@ set splitright
 " quit vim window on term exit
 augroup terminal_settings
     autocmd!
-
     autocmd BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
     autocmd BufWinEnter,WinEnter,BufLeave term://* setlocal nolist
     autocmd BufWinEnter,WinEnter term://* stopinsert
@@ -684,21 +673,10 @@ augroup custom_fugitive_mappings
 augroup END
 
 " Git status
-function! GitStatus()
-    let [a,m,r] = GitGutterGetHunkSummary()
-    if a || m || r
-        echo a + m
-        return printf('+%d ~%d -%d', a, m, r)
-    else
-        return ''
-    endif
-endfunction
-
 function! GitStatusTotalDiff()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
         let total = a + m * 2 + r
-        " return total
         return ''
     else
         return ''
@@ -709,7 +687,6 @@ function! GitStatusAddBars()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
         let total = a + m
-        " return repeat('+', total)
         return '+' . total
     else
         return ''
@@ -719,7 +696,6 @@ endfunction
 function! GitStatusRemoveBars()
     let [a,m,r] = GitGutterGetHunkSummary()
     if a || m || r
-        " return repeat('-', r + m)
         return '-' . (r + m)
     else
         return ''
@@ -756,11 +732,6 @@ function! ModeCurrent() abort
     return l:current_status_mode
 endfunction
 
-
-set laststatus=2
-set noshowcmd
-set noshowmode
-
 " Status Line Custom
 function SetStatusLine(active)
     let l:statusline = ''
@@ -781,6 +752,9 @@ function SetStatusLine(active)
     return l:statusline
 endfunction
 
+set laststatus=2
+set noshowcmd
+set noshowmode
 set statusline=%!SetStatusLine(1)
 
 augroup statusline
