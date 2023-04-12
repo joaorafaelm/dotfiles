@@ -86,10 +86,12 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
 
 set cursorline
-silent! set cursorlineopt=number
+set cursorlineopt=number
+
+" status column
+" let &stc='%s %#NonText#%{v:relnum} %=%#LineNr#%{v:lnum} '
 
 "fold stuff
-set foldmethod=indent
 set foldnestmax=3
 set foldminlines=0
 set foldlevel=99
