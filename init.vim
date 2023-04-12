@@ -664,8 +664,7 @@ function! ToogleZoom()
 endfunction
 nnoremap <leader>z :call ToogleZoom()<CR>
 
-" hit esc twice to exit term mode
-" all terminal commands
+" terminal commands
 tnoremap <Esc> <C-\><C-n>
 tnoremap <silent><C-f> <C-\><C-n>:Rg<CR><C-P>
 tnoremap <silent><leader>q <C-\><C-n>:silent! :call OpenQuickFix()<cr>
