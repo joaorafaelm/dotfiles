@@ -46,6 +46,99 @@ syntax on
 filetype plugin on
 filetype plugin indent off " space as tabs
 
+" theme
+set background=dark
+colorscheme gruvbox
+
+" Background and foreground colors
+hi normal ctermbg=16 ctermfg=247
+
+" Background colors for active vs inactive windows
+hi ActiveWindow ctermbg=233
+hi InactiveWindow ctermbg=16
+hi MsgArea ctermfg=239
+
+"invisible characters
+hi Whitespace ctermbg=NONE ctermfg=234 cterm=bold
+hi Nontext ctermbg=NONE ctermfg=234 cterm=bold
+hi Specialkey ctermbg=NONE ctermfg=234 cterm=bold
+hi Comment cterm=italic ctermfg=239
+
+"highlight clear cursorline
+hi cursorlinenr ctermbg=NONE cterm=bold
+hi cursorline ctermbg=235
+hi Visual ctermbg=237 cterm=NONE
+hi Search cterm=inverse ctermfg=NONE
+hi cursorcolumn ctermbg=235
+hi Blamer ctermfg=239 ctermbg=NONE cterm=italic
+hi LineNr ctermfg=234 cterm=bold
+hi HiCursorWord ctermbg=236
+
+" Fold
+hi Folded ctermbg=NONE ctermfg=239
+hi FoldColumn ctermbg=NONE ctermfg=235
+
+" Git gutter and vimdiff
+hi clear SignColumn
+hi GitGutterAdd ctermfg=108
+hi GitGutterChange ctermfg=108
+hi GitGutterDelete ctermfg=131
+hi GitGutterChangeDelete ctermfg=108
+hi ALEErrorSign ctermbg=NONE ctermfg=131
+hi ALEWarningSign ctermbg=NONE ctermfg=131
+
+" Quickfix
+hi link QuickFixLine CursorLine
+
+" FZF colors
+hi FZFBG ctermbg=NONE ctermfg=NONE
+hi BorderFZF ctermfg=233
+hi TextFZF ctermfg=245
+
+" Auto complete menu
+hi Pmenu ctermfg=15 ctermbg=236
+hi PmenuSel ctermfg=233 ctermbg=108
+
+" Windows split
+hi VertSplit ctermfg=None ctermbg=None
+hi StatusLineNC ctermfg=16 ctermbg=237
+hi StatusLine ctermfg=16 ctermbg=241
+
+" Status line components
+hi AddBardsHighlight ctermfg=106
+hi RemoveBardsHighlight ctermfg=131
+hi DiffHighlight ctermfg=246
+hi FileName ctermfg=236 cterm=none
+hi CurrentMode ctermfg=236 cterm=bold
+
+" tab styling
+hi TabLineFill ctermfg=235 ctermbg=16
+hi TabLine ctermfg=240 ctermbg=234 cterm=NONE
+hi TabLineSel ctermfg=214 ctermbg=236 cterm=bold
+hi Title ctermfg=214 cterm=bold
+
+" command line
+hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
+hi PmenuSelCustom ctermbg=233
+hi PmenuTextCustom ctermfg=240 ctermbg=16
+
+" ai.vim
+hi link AIHighlight Visual
+
+" which key
+hi WhichKeyFloat ctermbg=16 ctermfg=239 
+hi WhichKeyDesc	ctermfg=239
+hi WhichKey	ctermfg=red
+
+if &background ==# 'light'
+    " Background and foreground colors
+    hi normal ctermbg=254 ctermfg=0
+
+    " Background colors for active vs inactive windows
+    hi ActiveWindow ctermbg=254
+    hi InactiveWindow ctermbg=251
+endif
+
 " options
 set shell=$SHELL 
 set number
@@ -180,99 +273,6 @@ let g:taboo_modified_tab_flag = ' ~ '
 
 " resize window key
 let g:winresizer_start_key	= '<leader>e'
-
-" theme
-set background=dark
-colorscheme gruvbox
-
-" Background and foreground colors
-hi normal ctermbg=16 ctermfg=247
-
-" Background colors for active vs inactive windows
-hi ActiveWindow ctermbg=233
-hi InactiveWindow ctermbg=16
-hi MsgArea ctermfg=239
-
-"invisible characters
-hi Whitespace ctermbg=NONE ctermfg=234 cterm=bold
-hi Nontext ctermbg=NONE ctermfg=234 cterm=bold
-hi Specialkey ctermbg=NONE ctermfg=234 cterm=bold
-hi Comment cterm=italic ctermfg=239
-
-"highlight clear cursorline
-hi cursorlinenr ctermbg=NONE cterm=bold
-hi cursorline ctermbg=235
-hi Visual ctermbg=237 cterm=NONE
-hi Search cterm=inverse ctermfg=NONE
-hi cursorcolumn ctermbg=235
-hi Blamer ctermfg=239 ctermbg=NONE cterm=italic
-hi LineNr ctermfg=234 cterm=bold
-hi HiCursorWord ctermbg=236
-
-" Fold
-hi Folded ctermbg=NONE ctermfg=239
-hi FoldColumn ctermbg=NONE ctermfg=235
-
-" Git gutter and vimdiff
-hi clear SignColumn
-hi GitGutterAdd ctermfg=108
-hi GitGutterChange ctermfg=108
-hi GitGutterDelete ctermfg=131
-hi GitGutterChangeDelete ctermfg=108
-hi ALEErrorSign ctermbg=NONE ctermfg=131
-hi ALEWarningSign ctermbg=NONE ctermfg=131
-
-" Quickfix
-hi link QuickFixLine CursorLine
-
-" FZF colors
-hi FZFBG ctermbg=NONE ctermfg=NONE
-hi BorderFZF ctermfg=233
-hi TextFZF ctermfg=245
-
-" Auto complete menu
-hi Pmenu ctermfg=15 ctermbg=236
-hi PmenuSel ctermfg=233 ctermbg=108
-
-" Windows split
-hi VertSplit ctermfg=None ctermbg=None
-hi StatusLineNC ctermfg=16 ctermbg=237
-hi StatusLine ctermfg=16 ctermbg=241
-
-" Status line components
-hi AddBardsHighlight ctermfg=106
-hi RemoveBardsHighlight ctermfg=131
-hi DiffHighlight ctermfg=246
-hi FileName ctermfg=236 cterm=none
-hi CurrentMode ctermfg=236 cterm=bold
-
-" tab styling
-hi TabLineFill ctermfg=235 ctermbg=16
-hi TabLine ctermfg=240 ctermbg=234 cterm=NONE
-hi TabLineSel ctermfg=214 ctermbg=236 cterm=bold
-hi Title ctermfg=214 cterm=bold
-
-" command line
-hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
-hi PmenuSelCustom ctermbg=233
-hi PmenuTextCustom ctermfg=240 ctermbg=16
-
-" ai.vim
-hi link AIHighlight Visual
-
-" which key
-hi WhichKeyFloat ctermbg=16 ctermfg=239 
-hi WhichKeyDesc	ctermfg=239
-hi WhichKey	ctermfg=red
-
-if &background ==# 'light'
-    " Background and foreground colors
-    hi normal ctermbg=254 ctermfg=0
-
-    " Background colors for active vs inactive windows
-    hi ActiveWindow ctermbg=254
-    hi InactiveWindow ctermbg=251
-endif
 
 " tab length per file type
 augroup file_format
@@ -905,6 +905,13 @@ endfunction
 augroup DeleteHiddenBuffers
     autocmd!
     autocmd BufWinLeave * silent call DeleteHiddenBuffers()
+augroup END
+
+" auto run commands to disable cursorline when exiting a window, enable when entering
+augroup cursorline
+    autocmd!
+    autocmd WinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
 augroup END
 
 " lua scripts
