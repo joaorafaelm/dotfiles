@@ -60,6 +60,7 @@ set winminwidth=0
 set numberwidth=6
 set signcolumn=yes
 set updatetime=50
+set timeout
 set timeoutlen=250
 set mouse=a
 set viminfo='100,f1
