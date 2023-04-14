@@ -569,11 +569,11 @@ augroup terminal_settings
 augroup END
 
 " zoom
-let s:zoomed_in = 0
 function! ToogleZoom()
-    let s:zoomed_in = s:zoomed_in ? 0 : 1
-    :exe "normal \<C-W>" . (s:zoomed_in ? "\|\<C-W>_" : '=')
+    let s:zoomed_in = (exists('s:zoomed_in') ? s:zoomed_in : 0) ? 0 : 1
+    exe "normal \<C-W>" . (s:zoomed_in ? "\|\<C-W>_" : '=')
 endfunction
+
 
 augroup custom_fugitive_mappings
     " vimdiff in new tab
