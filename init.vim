@@ -154,6 +154,7 @@ set numberwidth=6
 set signcolumn=yes
 set updatetime=50
 set timeout
+set ttimeout
 set timeoutlen=250
 set mouse=a
 set viminfo='100,f1
@@ -213,7 +214,6 @@ set noshowmode
 let &t_SI.="\e[5 q" "SI = INSERT mode
 let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
-set ttimeout
 set ttyfast
 
 " auto complete size
@@ -611,59 +611,60 @@ function! GitStatusRemoveBars()
     endif
 endfunction
 
-augroup Statusline
-    " Status Line Custom
-    function! ModeCurrent() abort
-        let currentmode={
-            \ 'n'  : 'Normal',
-            \ 'no' : 'Normal·Operator Pending',
-            \ 'v'  : 'Visual',
-            \ 'V'  : 'V·Line',
-            \ '^V' : 'V·Block',
-            \ 's'  : 'Select',
-            \ 'S'  : 'S·Line',
-            \ '^S' : 'S·Block',
-            \ 'i'  : 'Insert',
-            \ 'R'  : 'Replace',
-            \ 'Rv' : 'V·Replace',
-            \ 'c'  : 'Command',
-            \ 'cv' : 'Vim Ex',
-            \ 'ce' : 'Ex',
-            \ 'r'  : 'Prompt',
-            \ 'rm' : 'More',
-            \ 'r?' : 'Confirm',
-            \ '!'  : 'Shell',
-            \ 't'  : 'Terminal'
-            \}
-        let l:modecurrent = mode()
-        let l:modelist = toupper(get(currentmode, l:modecurrent, 'V·Block'))
-        let l:current_status_mode = l:modelist
-        return l:current_status_mode
-    endfunction
+" Status Line Custom
+function! ModeCurrent() abort
+    let currentmode={
+        \ 'n'  : 'Normal',
+        \ 'no' : 'Normal·Operator Pending',
+        \ 'v'  : 'Visual',
+        \ 'V'  : 'V·Line',
+        \ '^V' : 'V·Block',
+        \ 's'  : 'Select',
+        \ 'S'  : 'S·Line',
+        \ '^S' : 'S·Block',
+        \ 'i'  : 'Insert',
+        \ 'R'  : 'Replace',
+        \ 'Rv' : 'V·Replace',
+        \ 'c'  : 'Command',
+        \ 'cv' : 'Vim Ex',
+        \ 'ce' : 'Ex',
+        \ 'r'  : 'Prompt',
+        \ 'rm' : 'More',
+        \ 'r?' : 'Confirm',
+        \ '!'  : 'Shell',
+        \ 't'  : 'Terminal'
+        \}
+    let l:modecurrent = mode()
+    let l:modelist = toupper(get(currentmode, l:modecurrent, 'V·Block'))
+    let l:current_status_mode = l:modelist
+    return l:current_status_mode
+endfunction
 
-    " Status Line Custom
-    function SetStatusLine(active)
-        let l:statusline = ''
-        if a:active
-            let l:statusline .= '%#CurrentMode#'
-            let l:statusline .= '%{ModeCurrent()} '
-        endif
-        let l:statusline .= '%*'
-        let l:statusline .= '%#FileName#'
-        let l:statusline .= '%f '
-        let l:statusline .= '%#DiffHighlight#'
-        let l:statusline .= '%#AddBardsHighlight#'
-        let l:statusline .= '%{GitStatusAddBars()}'
-        let l:statusline .= '%#RemoveBardsHighlight#'
-        let l:statusline .= '%{GitStatusRemoveBars()}'
-        let l:statusline .= '%=' " Right Side
-        return l:statusline
-    endfunction
-    set statusline=%!SetStatusLine(1)
-    au!
-    au WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
-    au WinLeave,BufLeave * setlocal statusline=%!SetStatusLine(0)
-augroup end
+" Status Line Custom
+function SetStatusLine(active)
+    let l:statusline = ''
+    if a:active
+        let l:statusline .= ' %#CurrentMode#'
+        let l:statusline .= '%{ModeCurrent()} '
+    endif
+    let l:statusline .= '%*'
+    let l:statusline .= '%#FileName#'
+    let l:statusline .= '%f '
+    let l:statusline .= '%#DiffHighlight#'
+    let l:statusline .= '%#AddBardsHighlight#'
+    let l:statusline .= '%{GitStatusAddBars()}'
+    let l:statusline .= '%#RemoveBardsHighlight#'
+    let l:statusline .= '%{GitStatusRemoveBars()}'
+    let l:statusline .= '%=' " Right Side
+    return l:statusline
+endfunction
+set statusline=%!SetStatusLine(1)
+
+" augroup Statusline
+"     au!
+"     au WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
+"     au WinLeave,BufLeave * setlocal statusline=%!SetStatusLine(0)
+" augroup end
 
 augroup fold_formats
     function! MarkdownLevel()
