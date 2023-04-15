@@ -704,11 +704,11 @@ call wilder#set_option('renderer', wilder#wildmenu_renderer({
 
 " highlight the word under cursor (CursorMoved is inperformant)
 augroup CWordHiGroup
+    au!
     function! HighlightCursorWord()
         let cword = expand('<cword>')
         exe printf('match hiCursorWord /\V\<%s\>/', escape(cword, '/\'))
     endfunction
-    au!
     au CursorHold * call HighlightCursorWord()
 augroup END
 
