@@ -477,8 +477,9 @@ command! SessionPicker call fzf#run(fzf#wrap({
   \ }))
 
 augroup fzfGroup
-    au! FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
-      \| au BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes
+    au!
+    au FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
+    au BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes
 augroup END
 
 function! SearchWordWithRg()
@@ -512,6 +513,7 @@ endf
 
 " Auto update plugins every week
 augroup update_plug
+    au!
     function! OnVimEnter() abort
         " Run PlugUpdate every week automatically when entering Vim.
         if exists('g:plug_home')
@@ -527,7 +529,6 @@ augroup update_plug
             endif
         endif
     endfunction
-    au!
     au VimEnter * call OnVimEnter()
 augroup END
 
@@ -576,6 +577,7 @@ endfunction
 
 " fugitive mappings
 augroup custom_fugitive_mappings
+    au!
     " vimdiff in new tab
     function! GStatusGetFilenameUnderCursor()
         return matchstr(getline('.'), '^[A-Z?] \zs.*')
@@ -586,7 +588,6 @@ augroup custom_fugitive_mappings
         exe 'tabedit ' . a:filename
         Gvdiffsplit
     endfunction
-    au!
     au User FugitiveIndex map <buffer> <space> =
     au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<CR>
 augroup END
@@ -667,6 +668,7 @@ set statusline=%!SetStatusLine(1)
 " augroup end
 
 augroup fold_formats
+    au!
     function! MarkdownLevel()
         let l:line = getline(v:lnum)
         if l:line =~? '^# .*$'
@@ -684,7 +686,6 @@ augroup fold_formats
         endif 
         return '='
     endfunction
-    au!
     au BufEnter *.md setlocal foldexpr=MarkdownLevel()
     au BufEnter *.md setlocal foldmethod=expr
 augroup END
@@ -732,6 +733,7 @@ endfunction
 
 " when leaving a buffer, delete all hidden buffers
 augroup DeleteHiddenBuffers
+    au!
     function DeleteHiddenBuffers()
         let tpbl=[]
         call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
@@ -739,7 +741,6 @@ augroup DeleteHiddenBuffers
             silent! execute 'bwipeout' buf
         endfor
     endfunction
-    au!
     au BufWinLeave * silent call DeleteHiddenBuffers()
 augroup END
 
