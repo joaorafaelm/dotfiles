@@ -348,16 +348,16 @@ if !isdirectory('/mnt/c/Windows/')
     let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
     if executable(s:clip)
         augroup WSLYank
-            autocmd!
-            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+            au!
+            au TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
         augroup END
     endif
 endif
 
 " Call method on window enter
 augroup WindowManagement
-    autocmd!
-    autocmd BufWinEnter,WinEnter * call Handle_Win_Enter()
+    au!
+    au BufWinEnter,WinEnter * call Handle_Win_Enter()
 augroup END
 
 " Change highlight group of active/inactive windows
@@ -441,9 +441,10 @@ function! CloseQuickFix()
 endfunction
 
 augroup QuickFixCmds
-    autocmd FileType qf map  <buffer> <silent> dd :call RemoveFromQuickFix()<cr>
-    autocmd FileType qf map <buffer> <silent> <leader>q :call CloseQuickFix()<cr>
-    autocmd FileType qf :resize 8
+    au!
+    au FileType qf map  <buffer> <silent> dd :call RemoveFromQuickFix()<cr>
+    au FileType qf map <buffer> <silent> <leader>q :call CloseQuickFix()<cr>
+    au FileType qf :resize 8
 augroup END
 
 function! s:list_sessions() abort
@@ -453,7 +454,8 @@ endfunction
 " swap edit:
 " if a swap file exists, open it in a new buffer
 augroup SwapEditOption
-    autocmd SwapExists * let v:swapchoice = 'e'
+    au!
+    au SwapExists * let v:swapchoice = 'e'
 augroup END
 
 function! s:source_session(lines) abort
@@ -475,8 +477,8 @@ command! SessionPicker call fzf#run(fzf#wrap({
   \ }))
 
 augroup fzfGroup
-    autocmd! FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
-      \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes
+    au! FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
+      \| au BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes
 augroup END
 
 function! SearchWordWithRg()
@@ -495,21 +497,17 @@ function! SearchVisualSelectionWithRg() range
     execute 'Rg' selection
 endfunction
 
-func! s:SetBreakpoint()
-    let indent = strlen(matchstr(getline(line('.') - 1), '^\s*'))
-    if indent == 0
-        let indent = strlen(matchstr(getline(line('.')), '^\s*'))
-    endif
-    cal append('.', repeat(' ', indent). 'breakpoint()')
-    exec ':w'
-endf
-
-func! s:RemoveBreakpoint()
-    exe 'silent! g/^\s*breakpoint()/d'
-endf
-
 func! s:ToggleBreakpoint()
-    if getline('.')=~#'^\s*breakpoint' | cal s:RemoveBreakpoint() | el | cal s:SetBreakpoint() | en
+    if getline('.')=~#'^\s*breakpoint'
+        exe 'silent! g/^\s*breakpoint()/d'
+    else
+        let indent = strlen(matchstr(getline(line('.') - 1), '^\s*'))
+        if indent == 0
+            let indent = strlen(matchstr(getline(line('.')), '^\s*'))
+        endif
+        cal append('.', repeat(' ', indent). 'breakpoint()')
+        exec ':w'
+    endif
 endf
 
 " Auto update plugins every week
@@ -536,7 +534,7 @@ augroup END
 " reset the cursor on start
 augroup myCmds
     au!
-    autocmd FocusGained,BufEnter,VimEnter * silent !echo -ne "\e[2 q"
+    au FocusGained,BufEnter,VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
 " Jump to active term window or create a new one
@@ -557,14 +555,14 @@ endfunction
 
 " quit vim window on term exit
 augroup terminal_settings
-    autocmd!
-    autocmd BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
-    autocmd BufWinEnter,WinEnter,BufLeave term://* setlocal nolist
-    autocmd BufWinEnter,WinEnter,BufLeave fugitive://* setlocal nolist
-    autocmd BufWinEnter,WinEnter term://* stopinsert
+    au!
+    au BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
+    au BufWinEnter,WinEnter,BufLeave term://* setlocal nolist
+    au BufWinEnter,WinEnter,BufLeave fugitive://* setlocal nolist
+    au BufWinEnter,WinEnter term://* stopinsert
     " Ignore various filetypes as those will close terminal automatically
     " Ignore fzf, ranger, coc
-    autocmd TermClose term://*
+    au TermClose term://*
           \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
           \   call nvim_input('<CR>')  |
           \ endif
@@ -576,7 +574,7 @@ function! ToogleZoom()
     exe "normal \<C-W>" . (s:zoomed_in ? "\|\<C-W>_" : '=')
 endfunction
 
-
+" fugitive mappings
 augroup custom_fugitive_mappings
     " vimdiff in new tab
     function! GStatusGetFilenameUnderCursor()
