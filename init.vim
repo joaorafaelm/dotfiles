@@ -559,6 +559,7 @@ augroup terminal_settings
     autocmd!
     autocmd BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
     autocmd BufWinEnter,WinEnter,BufLeave term://* setlocal nolist
+    autocmd BufWinEnter,WinEnter,BufLeave fugitive://* setlocal nolist
     autocmd BufWinEnter,WinEnter term://* stopinsert
     " Ignore various filetypes as those will close terminal automatically
     " Ignore fzf, ranger, coc
@@ -816,10 +817,6 @@ nnoremap N Nzzzv
 nnoremap # #N
 nnoremap * *N
 
-" custom mapping in fugitive window (:Git)
-nnoremap <silent> <leader>g :tab G<CR>
-nnoremap <silent> <leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>
-
 nnoremap <leader>z :call ToogleZoom()<CR>
 
 " terminal commands
@@ -900,9 +897,13 @@ nnoremap <silent> <leader>q :silent! :call OpenQuickFix()<cr>
 " Add current line to quick fix list
 nnoremap <silent> <leader>x :call AddToQuickFix()<cr>
 
+" custom mapping in fugitive window (:Git)
+nnoremap <silent> <leader>g :tab G<CR>
+nnoremap <silent> <leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>
+
 "After <leader>h, navigate through the git history
-map <C-j> :diffoff<CR>:q<CR>:cn<CR>:Gdiffsplit<CR>
-map <C-k> :diffoff<CR>:q<CR>:cp<CR>:Gdiffsplit<CR>
+map <C-j> :q<CR>:cn<CR>:Gdiffsplit<CR>
+map <C-k> :q<CR>:cp<CR>:Gdiffsplit<CR>
 
 " lua scripts
 lua << EOF
