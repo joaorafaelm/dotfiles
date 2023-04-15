@@ -190,6 +190,7 @@ set foldnestmax=3
 set foldminlines=0
 set foldlevel=99
 set foldmethod=indent
+set foldcolumn=0
 
 " disable preview window
 set completeopt-=preview
@@ -736,7 +737,7 @@ augroup DeleteHiddenBuffers
     function DeleteHiddenBuffers()
         let tpbl=[]
         call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-        for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1 && bufname(v:val) !~# "^fugitive://"')
             silent! execute 'bwipeout' buf
         endfor
     endfunction
@@ -882,28 +883,28 @@ nnoremap <silent> <leader>e :WinResizerStartResize<CR>
 " Redo with U instead of Ctrl+R
 nnoremap U <C-R>
 
-nnoremap <silent> <leader><space> :Files<CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <C-f> :Rg<CR><C-P>
-nnoremap <silent> <C-s> :GFiles?<CR>
-nnoremap <silent> <C-r> :History:<CR>
-nnoremap <silent> <c-h> :Helptags<CR>
-nnoremap <silent> K :call SearchWordWithRg()<CR>
-vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
+nnoremap <silent><leader><space> :Files<CR>
+nnoremap <silent><leader>b :Buffers<CR>
+nnoremap <silent><C-f> :Rg<CR><C-P>
+nnoremap <silent><C-s> :GFiles?<CR>
+nnoremap <silent><C-r> :History:<CR>
+nnoremap <silent><c-h> :Helptags<CR>
+nnoremap <silent>K :call SearchWordWithRg()<CR>
+vnoremap <silent>K :call SearchVisualSelectionWithRg()<CR>
 nnoremap <c-\> :SessionPicker<cr>
 
 " Open quick fix list
-nnoremap <silent> <leader>q :silent! :call OpenQuickFix()<cr>
+nnoremap <silent><leader>q :silent! :call OpenQuickFix()<cr>
 " Add current line to quick fix list
-nnoremap <silent> <leader>x :call AddToQuickFix()<cr>
+nnoremap <silent><leader>x :call AddToQuickFix()<cr>
 
 " custom mapping in fugitive window (:Git)
-nnoremap <silent> <leader>g :tab G<CR>
-nnoremap <silent> <leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>
+nnoremap <silent><leader>g :tab G<CR>
+nnoremap <silent><leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>
 
 "After <leader>h, navigate through the git history
-map <C-j> :q<CR>:cn<CR>:Gdiffsplit<CR>
-map <C-k> :q<CR>:cp<CR>:Gdiffsplit<CR>
+map <silent> <expr> <C-j> &diff ? ':q<CR>:cn<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-j>'
+map <silent> <expr> <C-k> &diff ? ':q<CR>:cp<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-k>'
 
 " lua scripts
 lua << EOF
