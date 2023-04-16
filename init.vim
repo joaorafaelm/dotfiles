@@ -601,6 +601,8 @@ augroup CommentsGroup
     au FileType python setlocal commentstring=#\ %s
     au FileType sh setlocal commentstring=#\ %s
     au FileType awk setlocal commentstring=#\ %s
+    au FileType javascript setlocal commentstring=//\ %s
+    au FileType jsx setlocal commentstring=//\ %s
 augroup END
 
 " autorelaod files
@@ -766,7 +768,8 @@ nnoremap <C-a> <Home>
 nnoremap <C-e> <End>
 
 " comments
-nmap <C-_> <Plug>CommentaryLine
+nmap <C-_> gcc
+vmap <C-_> gc
 
 "This unsets the "last search pattern" register by hitting return
 nnoremap <silent> <CR> :let @/ = ""<CR><CR>

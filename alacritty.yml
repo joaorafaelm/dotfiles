@@ -41,6 +41,9 @@ font:
     y: 5
   scale_with_dpi: true
 
+key_bindings:
+  - { key: Slash,   mods: Control,       chars: "\x1f"                 }
+
 colors:
   primary:
     background: '#000000'
