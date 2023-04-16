@@ -313,14 +313,17 @@ let $FZF_DEFAULT_OPTS = '--inline-info --layout=reverse-list --border=vertical'
 let $FZF_DEFAULT_OPTS .= ' --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
 let $FZF_DEFAULT_OPTS .= ' --preview-window noborder --margin 0 --padding 0 --no-separator'
 
-" tab length per file type
-augroup file_format
-    au!
-    au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
-    au FileType jsx set tabstop=2|set shiftwidth=2|set expandtab
-    au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-    au FileType make setlocal noexpandtab
-augroup END
+" wilder config
+call wilder#setup({'modes': [':']})
+call wilder#set_option('use_python_remote_plugin', 0)
+call wilder#set_option('renderer', wilder#wildmenu_renderer({
+    \ 'highlighter': wilder#basic_highlighter(),
+    \ 'highlights': {
+    \   'default': wilder#make_hl('PmenuTextCustom', 'PmenuTextCustom', [{}, {}, {}]),
+    \   'accent': wilder#make_hl('WilderAccent', 'PmenuCustom', [{}, {}, {}]),
+    \   'selected': wilder#make_hl('WilderWildmenuSelectedAccent', 'PmenuSelCustom', [{}, {}, {}]),
+    \ },
+\ }))
 
 " system clibboard access
 if has('clipboard')
@@ -355,12 +358,6 @@ if !isdirectory('/mnt/c/Windows/')
     endif
 endif
 
-" Call method on window enter
-augroup WindowManagement
-    au!
-    au BufWinEnter,WinEnter * call Handle_Win_Enter()
-augroup END
-
 " Change highlight group of active/inactive windows
 function! Handle_Win_Enter()
     setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
@@ -368,34 +365,6 @@ function! Handle_Win_Enter()
         setlocal nolist
     endif
 endfunction
-
-" comments config
-augroup CommentsGroup
-    au!
-    au FileType vim setlocal commentstring=\"\ %s
-    au FileType python setlocal commentstring=#\ %s
-    au FileType sh setlocal commentstring=#\ %s
-    au FileType awk setlocal commentstring=#\ %s
-augroup END
-
-augroup file_reload
-    au!
-    " Return to last edit position when opening files
-    au BufReadPost *
-         \ if line("'\"") > 0 && line("'\"") <= line("$") |
-         \   silent! exe "normal! g`\"" |
-         \   silent! exe "normal! zA`\"" |
-         \ endif
-
-    " Auto reload file
-    set autoread
-
-    " Triger `autoread` when files changes on disk
-    " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-    " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-    au FocusGained,BufEnter,CursorHold,CursorHoldI * silent!
-                \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | silent! checktime | endif
-augroup END
 
 " Use map <buffer> to only map dd in the quickfix window. Requires +localmap
 function! AddToQuickFix()
@@ -441,23 +410,10 @@ function! CloseQuickFix()
     cclose
 endfunction
 
-augroup QuickFixCmds
-    au!
-    au FileType qf map  <buffer> <silent> dd :call RemoveFromQuickFix()<cr>
-    au FileType qf map <buffer> <silent> <leader>q :call CloseQuickFix()<cr>
-    au FileType qf :resize 8
-augroup END
 
 function! s:list_sessions() abort
     return systemlist('ls -t ' . g:prosession_dir . ' | grep -v last_session | sed "s/%/\//g"')
 endfunction
-
-" swap edit:
-" if a swap file exists, open it in a new buffer
-augroup SwapEditOption
-    au!
-    au SwapExists * let v:swapchoice = 'e'
-augroup END
 
 function! s:source_session(lines) abort
     let key = a:lines[0]
@@ -476,11 +432,6 @@ command! SessionPicker call fzf#run(fzf#wrap({
   \ 'sink*': { lines -> s:source_session(lines) },
   \ 'options': '--expect=ctrl-x'
   \ }))
-
-augroup fzfGroup
-    au! FileType fzf setlocal laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
-    \| au BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes cmdheight=0
-augroup END
 
 function! SearchWordWithRg()
     execute 'Rg' expand('<cword>')
@@ -511,27 +462,6 @@ func! s:ToggleBreakpoint()
     endif
 endf
 
-" Auto update plugins every week
-augroup update_plug
-    au!
-    function! OnVimEnter() abort
-        " Run PlugUpdate every week automatically when entering Vim.
-        if exists('g:plug_home')
-            let l:filename = printf('%s/.vim_plug_update', g:plug_home)
-            if filereadable(l:filename) == 0
-                call writefile([], l:filename)
-            endif
-            let l:this_week = strftime('%Y_%V')
-            let l:contents = readfile(l:filename)
-            if index(l:contents, l:this_week) < 0
-                call execute('PlugUpdate')
-                call writefile([l:this_week], l:filename, 'a')
-            endif
-        endif
-    endfunction
-    au VimEnter * call OnVimEnter()
-augroup END
-
 " Jump to active term window or create a new one
 function SwitchToTerm()
     try
@@ -548,43 +478,11 @@ function SwitchToTerm()
       :Term
 endfunction
 
-" quit vim window on term exit
-augroup terminal_settings
-    au!
-    au BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
-    au BufWinEnter,WinEnter,BufLeave term://* setlocal nolist
-    au BufWinEnter,WinEnter,BufLeave fugitive://* setlocal nolist
-    au BufWinEnter,WinEnter term://* stopinsert
-    " Ignore various filetypes as those will close terminal automatically
-    " Ignore fzf, ranger, coc
-    au TermClose term://*
-          \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
-          \   call nvim_input('<CR>')  |
-          \ endif
-augroup END
-
 " zoom
 function! ToogleZoom()
     let s:zoomed_in = (exists('s:zoomed_in') ? s:zoomed_in : 0) ? 0 : 1
     exe "normal \<C-W>" . (s:zoomed_in ? "\|\<C-W>_" : '=')
 endfunction
-
-" fugitive mappings
-augroup custom_fugitive_mappings
-    au!
-    " vimdiff in new tab
-    function! GStatusGetFilenameUnderCursor()
-        return matchstr(getline('.'), '^[A-Z?] \zs.*')
-    endfunction
-
-    command! GdiffsplitTab call GdiffsplitTab(expand("%"))
-    function! GdiffsplitTab(filename)
-        exe 'tabedit ' . a:filename
-        Gvdiffsplit
-    endfunction
-    au User FugitiveIndex map <buffer> <space> =
-    au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<CR>
-augroup END
 
 " Git status
 function! GitStatusAddBars()
@@ -635,6 +533,25 @@ function! ModeCurrent() abort
     return l:current_status_mode
 endfunction
 
+" debug vim script
+function! Decho(str)
+    call writefile([a:str . "\n"], '/tmp/vim_debug.log', 'a')
+endfunction
+
+" select terminal commands output
+function! SelectCommand(char) range
+    if a:char ==# 'up'
+        let end_command = search('^;', 'b') - 3
+        let start_command = search('^;', 'bn') +  1
+    else
+        let start_command = search('^;') +  1
+        let end_command = search('^;', 'n') - 3
+    endif
+    if start_command <= end_command
+        execute 'normal!' start_command . 'GV' . end_command . 'G'
+    endif
+endfunction
+
 " Status Line Custom
 function SetStatusLine(active)
     let l:statusline = ''
@@ -655,12 +572,130 @@ function SetStatusLine(active)
 endfunction
 set statusline=%!SetStatusLine(1)
 
-" augroup Statusline
-"     au!
-"     au WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
-"     au WinLeave,BufLeave * setlocal statusline=%!SetStatusLine(0)
-" augroup end
+augroup Statusline
+    au!
+    au WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
+    au WinLeave,BufLeave * setlocal statusline=%!SetStatusLine(0)
+augroup END
 
+" tab length per file type
+augroup file_format
+    au!
+    au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
+    au FileType jsx set tabstop=2|set shiftwidth=2|set expandtab
+    au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    au FileType make setlocal noexpandtab
+augroup END
+
+" Call method on window enter
+augroup WindowManagement
+    au!
+    au BufWinEnter,WinEnter * call Handle_Win_Enter()
+augroup END
+
+" comments config
+augroup CommentsGroup
+    au!
+    au FileType vim setlocal commentstring=\"\ %s
+    au FileType python setlocal commentstring=#\ %s
+    au FileType sh setlocal commentstring=#\ %s
+    au FileType awk setlocal commentstring=#\ %s
+augroup END
+
+" autorelaod files
+augroup file_reload
+    au!
+    " Return to last edit position when opening files
+    au BufReadPost *
+         \ if line("'\"") > 0 && line("'\"") <= line("$") |
+         \   silent! exe "normal! g`\"" |
+         \   silent! exe "normal! zA`\"" |
+         \ endif
+
+    " Auto reload file
+    set autoread
+
+    " Triger `autoread` when files changes on disk
+    " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+    " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+    au FocusGained,BufEnter,CursorHold,CursorHoldI * silent!
+                \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | silent! checktime | endif
+augroup END
+
+" quickfix
+augroup QuickFixCmds
+    au!
+    au FileType qf map  <buffer> <silent> dd :call RemoveFromQuickFix()<cr>
+    au FileType qf map <buffer> <silent> <leader>q :call CloseQuickFix()<cr>
+    au FileType qf :resize 8
+augroup END
+
+" if a swap file exists, open it in a new buffer
+augroup SwapEditOption
+    au!
+    au SwapExists * let v:swapchoice = 'e'
+augroup END
+
+" fzf window
+augroup fzfGroup
+    au! FileType fzf setlocal laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
+    \| au BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes cmdheight=0
+augroup END
+
+" Auto update plugins every week
+augroup update_plug
+    au!
+    function! OnVimEnter() abort
+        " Run PlugUpdate every week automatically when entering Vim.
+        if exists('g:plug_home')
+            let l:filename = printf('%s/.vim_plug_update', g:plug_home)
+            if filereadable(l:filename) == 0
+                call writefile([], l:filename)
+            endif
+            let l:this_week = strftime('%Y_%V')
+            let l:contents = readfile(l:filename)
+            if index(l:contents, l:this_week) < 0
+                call execute('PlugUpdate')
+                call writefile([l:this_week], l:filename, 'a')
+            endif
+        endif
+    endfunction
+    au VimEnter * call OnVimEnter()
+augroup END
+
+" quit vim window on term exit
+augroup terminal_settings
+    au!
+    au BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
+    au BufWinEnter,WinEnter,BufLeave term://* setlocal nolist
+    au BufWinEnter,WinEnter,BufLeave fugitive://* setlocal nolist
+    au BufWinEnter,WinEnter term://* stopinsert
+    " Ignore various filetypes as those will close terminal automatically
+    " Ignore fzf, ranger, coc
+    au TermClose term://*
+          \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
+          \   call nvim_input('<CR>')  |
+          \ endif
+augroup END
+
+" fugitive mappings
+augroup custom_fugitive_mappings
+    au!
+    " vimdiff in new tab
+    function! GStatusGetFilenameUnderCursor()
+        return matchstr(getline('.'), '^[A-Z?] \zs.*')
+    endfunction
+
+    command! GdiffsplitTab call GdiffsplitTab(expand("%"))
+    function! GdiffsplitTab(filename)
+        exe 'tabedit ' . a:filename
+        Gvdiffsplit
+    endfunction
+    au User FugitiveIndex map <buffer> <space> =
+    au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<CR>
+augroup END
+
+" markdown fold
 augroup fold_formats
     au!
     function! MarkdownLevel()
@@ -684,18 +719,6 @@ augroup fold_formats
     au BufEnter *.md setlocal foldmethod=expr
 augroup END
 
-" wilder config
-call wilder#setup({'modes': [':']})
-call wilder#set_option('use_python_remote_plugin', 0)
-call wilder#set_option('renderer', wilder#wildmenu_renderer({
-    \ 'highlighter': wilder#basic_highlighter(),
-    \ 'highlights': {
-    \   'default': wilder#make_hl('PmenuTextCustom', 'PmenuTextCustom', [{}, {}, {}]),
-    \   'accent': wilder#make_hl('WilderAccent', 'PmenuCustom', [{}, {}, {}]),
-    \   'selected': wilder#make_hl('WilderWildmenuSelectedAccent', 'PmenuSelCustom', [{}, {}, {}]),
-    \ },
-\ }))
-
 " highlight the word under cursor (CursorMoved is inperformant)
 augroup CWordHiGroup
     au!
@@ -705,25 +728,6 @@ augroup CWordHiGroup
     endfunction
     au CursorHold * call HighlightCursorWord()
 augroup END
-
-" debug vim script
-function! Decho(str)
-    call writefile([a:str . "\n"], '/tmp/vim_debug.log', 'a')
-endfunction
-
-" select terminal commands output
-function! SelectCommand(char) range
-    if a:char ==# 'up'
-        let end_command = search('^;', 'b') - 3
-        let start_command = search('^;', 'bn') +  1
-    else
-        let start_command = search('^;') +  1
-        let end_command = search('^;', 'n') - 3
-    endif
-    if start_command <= end_command
-        execute 'normal!' start_command . 'GV' . end_command . 'G'
-    endif
-endfunction
 
 " when leaving a buffer, delete all hidden buffers
 augroup DeleteHiddenBuffers
