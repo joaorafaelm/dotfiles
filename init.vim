@@ -887,6 +887,7 @@ nnoremap <silent><C-f> :Rg<CR><C-P>
 nnoremap <silent><C-s> :GFiles?<CR>
 nnoremap <silent><C-r> :History:<CR>
 nnoremap <silent><c-h> :Helptags<CR>
+
 nnoremap <silent>K :call SearchWordWithRg()<CR>
 vnoremap <silent>K :call SearchVisualSelectionWithRg()<CR>
 nnoremap <c-\> :SessionPicker<cr>
@@ -903,6 +904,10 @@ nnoremap <silent><leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nol
 "After <leader>h, navigate through the git history
 map <silent> <expr> <C-j> &diff ? ':q<CR>:cn<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-j>'
 map <silent> <expr> <C-k> &diff ? ':q<CR>:cp<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-k>'
+
+" silent maps for [c and ]c for git gutter
+nnoremap [c :silent! GitGutterPrevHunk<CR>
+nnoremap ]c :silent! GitGutterNextHunk<CR>
 
 " lua scripts
 lua << EOF
