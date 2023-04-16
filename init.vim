@@ -57,6 +57,7 @@ hi normal ctermbg=16 ctermfg=247
 hi ActiveWindow ctermbg=233
 hi InactiveWindow ctermbg=16
 hi MsgArea ctermfg=239
+hi WinSeparator ctermfg=16 ctermbg=16
 
 "invisible characters
 hi Whitespace ctermbg=NONE ctermfg=234 cterm=bold
