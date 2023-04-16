@@ -18,7 +18,7 @@ window:
     y: 0
   dynamic_padding: true
   decorations: buttonless
-  startup_mode: Windowed
+  startup_mode: SimpleFullscreen
 
 font:
   normal:
