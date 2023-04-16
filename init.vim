@@ -207,6 +207,7 @@ set splitright
 
 " statusline
 set laststatus=2
+set cmdheight=0
 set noshowcmd
 set noshowmode
 
@@ -477,9 +478,8 @@ command! SessionPicker call fzf#run(fzf#wrap({
   \ }))
 
 augroup fzfGroup
-    au!
-    au FileType fzf set laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
-    au BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes
+    au! FileType fzf setlocal laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
+    \| au BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes cmdheight=0
 augroup END
 
 function! SearchWordWithRg()
@@ -530,12 +530,6 @@ augroup update_plug
         endif
     endfunction
     au VimEnter * call OnVimEnter()
-augroup END
-
-" reset the cursor on start
-augroup myCmds
-    au!
-    au FocusGained,BufEnter,VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
 " Jump to active term window or create a new one
