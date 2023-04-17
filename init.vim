@@ -29,7 +29,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'dhruvasagar/vim-prosession'
     Plug 'maxmellon/vim-jsx-pretty'
     Plug 'chomosuke/term-edit.nvim', {'tag': 'v1.*'}
-    Plug 'michaeljsmith/vim-indent-object'
+    Plug 'jessekelighine/vindent.vim'
     Plug 'vim-scripts/argtextobj.vim'
     Plug 'mbbill/undotree'
     Plug 'aduros/ai.vim'
@@ -314,6 +314,22 @@ let g:fzf_history_dir = '~/.fzf-history'
 let $FZF_DEFAULT_OPTS = '--inline-info --layout=reverse-list --border=vertical'
 let $FZF_DEFAULT_OPTS .= ' --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
 let $FZF_DEFAULT_OPTS .= ' --preview-window noborder --margin 0 --padding 0 --no-separator'
+
+" vindent
+let g:vindent_motion_OO_prev   = '[=' " jump to prev block of same indent.
+let g:vindent_motion_OO_next   = ']=' " jump to next block of same indent.
+let g:vindent_motion_more_prev = '[+' " jump to prev line with more indent.
+let g:vindent_motion_more_next = ']+' " jump to next line with more indent.
+let g:vindent_motion_less_prev = '[-' " jump to prev line with less indent.
+let g:vindent_motion_less_next = ']-' " jump to next line with less indent.
+let g:vindent_motion_diff_prev = '{' " jump to prev line with different indent.
+let g:vindent_motion_diff_next = '}' " jump to next line with different indent.
+let g:vindent_motion_XX_ss     = '[p' " jump to start of the current block scope.
+let g:vindent_motion_XX_se     = ']p' " jump to end   of the current block scope.
+let g:vindent_object_XX_ii     = 'ii' " select current block.
+let g:vindent_object_XX_ai     = 'ai' " select current block + one extra line  at beginning.
+let g:vindent_object_XX_aI     = 'aI' " select current block + two extra lines at beginning and end.
+let g:vindent_jumps            = 1    " make vindent motion count as a |jump-motion| (works with |jumplist|).
 
 " wilder config
 call wilder#setup({'modes': [':']})
@@ -642,8 +658,17 @@ augroup END
 
 " fzf window
 augroup fzfGroup
+    function! s:fzf_statusline()
+        highlight fzf1 ctermfg=16 ctermbg=16
+        highlight fzf2 ctermfg=16 ctermbg=16
+        highlight fzf3 ctermfg=16 ctermbg=16
+        setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+    endfunction
+
+    autocmd! User FzfStatusLine call <SID>fzf_statusline()
     au! FileType fzf setlocal laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
-    \| au BufLeave <buffer> if &filetype != 'fzf' | set laststatus=2 noshowmode ruler signcolumn=yes cmdheight=0 | endif
+    \| au BufLeave <buffer> if &filetype == 'fzf' | set laststatus=2 noshowmode ruler signcolumn=yes cmdheight=0 | endif
+    au BufEnter * if &filetype == 'fzf' | setlocal laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no | endif
 augroup END
 
 " Auto update plugins every week
@@ -759,8 +784,6 @@ map <C-t> :tabe term://zsh<CR>
 " fold and indent navigation
 nnoremap <space> za
 vnoremap <space> zf
-nnoremap } zjzz
-nnoremap { zkzz
 
 " Map Ctrl-A -> Start of line, Ctrl-E -> End of line
 inoremap <C-a> <Home>
