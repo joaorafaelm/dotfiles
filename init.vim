@@ -36,6 +36,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     Plug 'folke/which-key.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter'
 call plug#end()
 
 let g:loaded_python3_provider = 0
@@ -642,7 +643,7 @@ augroup END
 " fzf window
 augroup fzfGroup
     au! FileType fzf setlocal laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
-    \| au BufLeave <buffer> set laststatus=2 noshowmode ruler signcolumn=yes cmdheight=0
+    \| au BufLeave <buffer> if &filetype != 'fzf' | set laststatus=2 noshowmode ruler signcolumn=yes cmdheight=0 | endif
 augroup END
 
 " Auto update plugins every week
@@ -916,8 +917,16 @@ nnoremap ]c :silent! GitGutterNextHunk<CR>
 lua << EOF
     require "term-edit".setup { prompt_end = '%$ ' }
     require "which-key".setup {}
-    xpcall(function()
-        require "winshift".setup { highlight_moving_win = false }
-    end, function(err)
-    end)
+    require('nvim-treesitter.configs').setup {
+        highlight = {
+            enable = true,
+        },
+    }
+    xpcall(
+        function()
+            require "winshift".setup { highlight_moving_win = false }
+        end, 
+        function(err)
+        end
+    )
 EOF
