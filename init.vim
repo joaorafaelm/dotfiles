@@ -658,14 +658,7 @@ augroup END
 
 " fzf window
 augroup fzfGroup
-    function! s:fzf_statusline()
-        highlight fzf1 ctermfg=16 ctermbg=16
-        highlight fzf2 ctermfg=16 ctermbg=16
-        highlight fzf3 ctermfg=16 ctermbg=16
-        setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-    endfunction
-
-    autocmd! User FzfStatusLine call <SID>fzf_statusline()
+    au! User FzfStatusLine setlocal statusline=
     au! FileType fzf setlocal laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no
     \| au BufLeave <buffer> if &filetype == 'fzf' | set laststatus=2 noshowmode ruler signcolumn=yes cmdheight=0 | endif
     au BufEnter * if &filetype == 'fzf' | setlocal laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no | endif
@@ -941,6 +934,9 @@ lua << EOF
     require "term-edit".setup { prompt_end = '%$ ' }
     require "which-key".setup {}
     require('nvim-treesitter.configs').setup {
+        ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript" },
+        sync_install = false,
+        auto_install = true,
         highlight = {
             enable = true,
         },
