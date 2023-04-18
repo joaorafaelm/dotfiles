@@ -428,7 +428,6 @@ function! CloseQuickFix()
     cclose
 endfunction
 
-
 function! s:list_sessions() abort
     return systemlist('ls -t ' . g:prosession_dir . ' | grep -v last_session | sed "s/%/\//g"')
 endfunction
