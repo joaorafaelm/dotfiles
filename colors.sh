@@ -12,8 +12,8 @@ for color in {0..255} ; do
     printf "\e[48;5;%sm%3s\e[0m" $color
     #Display 6 colors per lines
     if [ $((($color + 1) % 6)) == 4 ] ; then
-        echo #New line
-    fi
-done
+        echo; #New line
+    fi;
+done;
 
-exit 0
+exit 0;
