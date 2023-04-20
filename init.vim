@@ -115,8 +115,8 @@ hi CurrentMode ctermfg=236 cterm=bold
 
 " tab styling
 hi TabLineFill ctermfg=235 ctermbg=16
-hi TabLine ctermfg=240 ctermbg=234 cterm=NONE
-hi TabLineSel ctermfg=214 ctermbg=236 cterm=bold
+hi TabLine ctermfg=237 ctermbg=16 cterm=NONE
+hi TabLineSel ctermfg=241 ctermbg=233
 hi Title ctermfg=214 cterm=bold
 
 " command line
