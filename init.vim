@@ -458,10 +458,10 @@ function! s:source_session(lines) abort
 endfunction
 
 command! SessionPicker call fzf#run(fzf#wrap({
-  \ 'source': s:list_sessions(),
-  \ 'sink*': { lines -> s:source_session(lines) },
-  \ 'options': '--expect=ctrl-x'
-  \ }))
+    \ 'source': s:list_sessions(),
+    \ 'sink*': { lines -> s:source_session(lines) },
+    \ 'options': '--expect=ctrl-x'
+\ }))
 
 function! SearchWordWithRg()
     execute 'Rg' expand('<cword>')
