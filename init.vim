@@ -102,7 +102,7 @@ hi BorderFZF ctermfg=233
 hi TextFZF ctermfg=245
 
 " Auto complete menu
-hi Pmenu ctermfg=15 ctermbg=236
+hi Pmenu ctermfg=240 ctermbg=233
 hi PmenuSel ctermfg=233 ctermbg=108
 
 " Windows split
