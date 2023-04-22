@@ -434,13 +434,15 @@ endfunction
 
 function! s:source_session(lines) abort
     let key = a:lines[0]
-    let file = a:lines[1]
-    let file = g:prosession_dir . substitute(file, '/', '\\%', 'g')
+    let original_file_name = a:lines[1]
+    let dir = substitute(original_file_name, '\.vim$', '', '')
+    let last_dir = split(dir, '/')[-1]
+    let file = g:prosession_dir . substitute(original_file_name, '/', '\\%', 'g')
     if key ==# 'ctrl-x'
         silent! exec '!rm ' . file
         :SessionPicker
     else
-        silent! exec 'source ' . file
+        silent! exec '!tmux select-window -t ' . last_dir . ' || tmux new-window -n ' . last_dir . ' -c ' . dir . ' nvim'
     endif
 endfunction
 
