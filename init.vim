@@ -606,11 +606,11 @@ set statusline=%!SetStatusLine(1)
 "==================AUGROUPS==================
 "============================================
 
-" augroup Statusline
-"     au!
-"     au WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
-"     au WinLeave,BufLeave * setlocal statusline=%!SetStatusLine(0)
-" augroup END
+augroup Statusline
+    au!
+    au WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
+    au WinLeave,BufLeave * setlocal statusline=%!SetStatusLine(0)
+augroup END
 
 " tab length per file type
 augroup file_format
