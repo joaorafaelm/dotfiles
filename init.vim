@@ -51,6 +51,10 @@ filetype plugin indent off " space as tabs
 set background=dark
 colorscheme gruvbox
 
+"========================================
+"================= COLORS ===============
+"========================================
+
 " Background and foreground colors
 hi normal ctermbg=16 ctermfg=247
 
@@ -141,7 +145,10 @@ if &background ==# 'light'
     hi InactiveWindow ctermbg=251
 endif
 
-" options
+"========================================
+"================= OPTIONS ==============
+"========================================
+
 set shell=$SHELL 
 set number
 set relativenumber
@@ -376,6 +383,10 @@ if !isdirectory('/mnt/c/Windows/')
     endif
 endif
 
+"============================================
+"================= FUNCTIONS ================
+"============================================
+
 " Change highlight group of active/inactive windows
 function! Handle_Win_Enter()
     setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
@@ -591,6 +602,10 @@ function SetStatusLine(active)
 endfunction
 set statusline=%!SetStatusLine(1)
 
+"============================================
+"==================AUGROUPS==================
+"============================================
+
 " augroup Statusline
 "     au!
 "     au WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
@@ -772,6 +787,10 @@ augroup Cursorline
     au WinLeave * setlocal nocursorline
 augroup END
 
+"============================================
+"================== MAPPINGS ================
+"============================================
+
 " new tab shortcut
 map <C-t> :tabe term://zsh<CR>
 
@@ -929,6 +948,10 @@ map <silent> <expr> <C-k> &diff ? ':q<CR>:cp<CR>:Gdiffsplit<CR>:setlocal nolist<
 " silent maps for [c and ]c for git gutter
 nnoremap [c :silent! GitGutterPrevHunk<CR>
 nnoremap ]c :silent! GitGutterNextHunk<CR>
+
+"============================================
+"================= LUA ======================
+"============================================
 
 " lua scripts
 lua << EOF
