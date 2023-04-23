@@ -267,10 +267,10 @@ let b:ale_fixers = {
     \   'python': ['black', 'isort', 'flake8'],
     \   'javascript': ['eslint', 'prettier']
     \}
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 1
-let g:ale_sign_error = '█'
-let g:ale_sign_warning = '█'
+let g:ale_sign_error = '├'
+let g:ale_sign_warning = '├'
 
 " disable split term default mappins
 let g:disable_key_mappings = 1
