@@ -254,12 +254,12 @@ let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 
 " git gutter
 let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_sign_added = '│'
-let g:gitgutter_sign_modified = '│'
-let g:gitgutter_sign_removed = '│'
-let g:gitgutter_sign_removed_first_line = '│'
-let g:gitgutter_sign_removed_above_and_below = '│'
-let g:gitgutter_sign_modified_removed = '│'
+let g:gitgutter_sign_added = '█'
+let g:gitgutter_sign_modified = '█'
+let g:gitgutter_sign_removed = '█'
+let g:gitgutter_sign_removed_first_line = '█'
+let g:gitgutter_sign_removed_above_and_below = '█'
+let g:gitgutter_sign_modified_removed = '█'
 
 "Linters
 let g:ale_enabled = 1
@@ -386,6 +386,22 @@ endif
 "============================================
 "================= FUNCTIONS ================
 "============================================
+
+" Open ranger in a terminal buffer
+function! OpenRanger()
+    let rangerCallback = { 'name': 'ranger' }
+    function! rangerCallback.on_exit(id, code)
+      try
+        if filereadable('/tmp/chosenfile')
+            exec 'edit ' . readfile('/tmp/chosenfile')[0]
+            call system('rm /tmp/chosenfile')
+        endif
+      endtry
+    endfunction
+    enew
+    call termopen('ranger --choosefile=/tmp/chosenfile', rangerCallback)
+    startinsert
+endfunction
 
 " Change highlight group of active/inactive windows
 function! Handle_Win_Enter()
