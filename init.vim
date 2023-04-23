@@ -37,6 +37,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     Plug 'folke/which-key.nvim'
     Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'terryma/vim-expand-region'
 call plug#end()
 
 let g:loaded_python3_provider = 0
