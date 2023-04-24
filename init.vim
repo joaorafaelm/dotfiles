@@ -156,6 +156,7 @@ set relativenumber
 set scrolloff=10
 set backspace=indent,eol,start
 set wrap
+set linebreak
 set autoindent
 set nohidden
 set winminheight=0
