@@ -56,7 +56,8 @@ colorscheme gruvbox
 "========================================
 
 " Background and foreground colors
-hi normal ctermbg=16 ctermfg=247
+hi Normal ctermbg=16 ctermfg=247
+hi Operator ctermbg=NONE
 
 " Background colors for active vs inactive windows
 hi ActiveWindow ctermbg=233
@@ -138,7 +139,7 @@ hi WhichKey	ctermfg=red
 
 if &background ==# 'light'
     " Background and foreground colors
-    hi normal ctermbg=254 ctermfg=0
+    hi Normal ctermbg=254 ctermfg=0
 
     " Background colors for active vs inactive windows
     hi ActiveWindow ctermbg=254
@@ -977,25 +978,29 @@ nnoremap ]c :silent! GitGutterNextHunk<CR>
 
 " lua scripts
 lua << EOF
+
     require("indent_blankline").setup {
         show_current_context = true,
         show_current_context_start = false,
         space_char_highlight_list = { "Whitespace" },
         char_highlight_list = { "Whitespace" },
         context_highlight_list = { "Whitespace" },
-        char = ' ',
+        char = '',
         context_char = '┃',
 
     }
+
     require "term-edit".setup { prompt_end = '%$ ' }
+
     require('nvim-treesitter.configs').setup {
         ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript" },
         sync_install = false,
         auto_install = true,
         highlight = {
             enable = true,
-        },
+        }
     }
+
     xpcall(
         function()
             require "winshift".setup { highlight_moving_win = false }
