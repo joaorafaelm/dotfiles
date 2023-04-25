@@ -119,10 +119,6 @@ gw () {
     done;
 }
 
-alias a="g add"
-alias c="g c"
-alias p="g push"
-
 if [ -n "$NVIM" ]; then
   export VISUAL="nvr -cc split --remote-wait-silent +'set bufhidden=wipe' --servername ${NVIM}"
 else

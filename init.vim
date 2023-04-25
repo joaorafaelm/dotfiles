@@ -22,7 +22,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'gcmt/taboo.vim'
     Plug 'sindrets/winshift.nvim', {'branch': 'main'}
     Plug 'ruanyl/vim-gh-line'
-    Plug 'hashivim/vim-terraform'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'github/copilot.vim'
     Plug 'tpope/vim-obsession'
