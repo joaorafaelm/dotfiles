@@ -339,6 +339,11 @@ let g:vindent_object_XX_ai     = 'ai' " select current block + one extra line  a
 let g:vindent_object_XX_aI     = 'aI' " select current block + two extra lines at beginning and end.
 let g:vindent_jumps            = 1    " make vindent motion count as a |jump-motion| (works with |jumplist|).
 
+" expand region
+call expand_region#custom_text_objects({
+  \ 'ia' :1,
+\})
+
 " wilder config
 call wilder#setup({'modes': [':']})
 call wilder#set_option('use_python_remote_plugin', 0)
