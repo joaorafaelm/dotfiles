@@ -264,7 +264,7 @@ let g:gitgutter_sign_removed_above_and_below = '┃'
 let g:gitgutter_sign_modified_removed = '┃'
 
 "Linters
-let g:ale_enabled = 1
+let g:ale_enabled = 0
 let b:ale_fixers = {
     \   'python': ['black', 'isort', 'flake8'],
     \   'javascript': ['eslint', 'prettier']
@@ -987,7 +987,6 @@ lua << EOF
         context_highlight_list = { "Whitespace" },
         char = '',
         context_char = '┃',
-
     }
 
     require "term-edit".setup { prompt_end = '%$ ' }
