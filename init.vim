@@ -977,7 +977,8 @@ lua << EOF
         show_current_context_start = false,
         space_char_highlight_list = { "Whitespace" },
         char_highlight_list = { "Whitespace" },
-        char = '',
+        context_highlight_list = { "Whitespace" },
+        char = ' ',
         context_char = '┃',
 
     }
