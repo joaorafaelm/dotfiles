@@ -34,9 +34,9 @@ call plug#begin('~/.vim/plugins')
     Plug 'aduros/ai.vim'
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-    Plug 'folke/which-key.nvim'
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'terryma/vim-expand-region'
+    Plug 'lukas-reineke/indent-blankline.nvim'
 call plug#end()
 
 let g:loaded_python3_provider = 0
@@ -255,12 +255,12 @@ let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 
 " git gutter
 let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_sign_added = '│'
-let g:gitgutter_sign_modified = '│'
-let g:gitgutter_sign_removed = '│'
-let g:gitgutter_sign_removed_first_line = '│'
-let g:gitgutter_sign_removed_above_and_below = '│'
-let g:gitgutter_sign_modified_removed = '│'
+let g:gitgutter_sign_added = '┃'
+let g:gitgutter_sign_modified = '┃'
+let g:gitgutter_sign_removed = '┃'
+let g:gitgutter_sign_removed_first_line = '┃'
+let g:gitgutter_sign_removed_above_and_below = '┃'
+let g:gitgutter_sign_modified_removed = '┃'
 
 "Linters
 let g:ale_enabled = 1
@@ -270,8 +270,8 @@ let b:ale_fixers = {
     \}
 let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 1
-let g:ale_sign_error = '├'
-let g:ale_sign_warning = '├'
+let g:ale_sign_error = '┃'
+let g:ale_sign_warning = '┃'
 
 " disable split term default mappins
 let g:disable_key_mappings = 1
@@ -972,8 +972,16 @@ nnoremap ]c :silent! GitGutterNextHunk<CR>
 
 " lua scripts
 lua << EOF
+    require("indent_blankline").setup {
+        show_current_context = true,
+        show_current_context_start = false,
+        space_char_highlight_list = { "Whitespace" },
+        char_highlight_list = { "Whitespace" },
+        char = '',
+        context_char = '┃',
+
+    }
     require "term-edit".setup { prompt_end = '%$ ' }
-    require "which-key".setup {}
     require('nvim-treesitter.configs').setup {
         ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript" },
         sync_install = false,
