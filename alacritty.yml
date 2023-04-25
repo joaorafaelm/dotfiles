@@ -38,7 +38,7 @@ font:
   size: 10
   offset:
     x: 0
-    y: 0
+    y: 3
   scale_with_dpi: true
 
 key_bindings:
