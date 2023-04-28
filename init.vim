@@ -333,8 +333,8 @@ let g:vindent_motion_less_prev = '[-' " jump to prev line with less indent.
 let g:vindent_motion_less_next = ']-' " jump to next line with less indent.
 let g:vindent_motion_diff_prev = '{' " jump to prev line with different indent.
 let g:vindent_motion_diff_next = '}' " jump to next line with different indent.
-let g:vindent_motion_XX_ss     = '[p' " jump to start of the current block scope.
-let g:vindent_motion_XX_se     = ']p' " jump to end   of the current block scope.
+let g:vindent_motion_XX_ss     = '[[' " jump to start of the current block scope.
+let g:vindent_motion_XX_se     = ']]' " jump to end   of the current block scope.
 let g:vindent_object_XX_ii     = 'ii' " select current block.
 let g:vindent_object_XX_ai     = 'ai' " select current block + one extra line  at beginning.
 let g:vindent_object_XX_aI     = 'aI' " select current block + two extra lines at beginning and end.
@@ -609,6 +609,7 @@ function SetStatusLine(active)
     if a:active
         let l:statusline .= ' %#CurrentMode#'
         let l:statusline .= '%{ModeCurrent()} '
+        let l:statusline .= '%{FugitiveHead()} '
     endif
     let l:statusline .= '%*'
     let l:statusline .= '%#FileName#'

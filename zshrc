@@ -137,10 +137,7 @@ if command -v keychain 1>/dev/null 2>&1; then
 fi
 
 alias fd=fdfind
-#if [ -z "$TMUX" ]
-#then
-#    tmux attach -t TMUX || tmux new -s TMUX
-#fi
+
 
 source /Users/joaorafael/.docker/init-zsh.sh || true # Added by Docker Desktop
 eval "$(github-copilot-cli alias -- "$0")"
@@ -149,3 +146,8 @@ eval "$(github-copilot-cli alias -- "$0")"
 export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
 export OPENAI_API_KEY=`cat ~/.config/openai.token`
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+if [ -z "$TMUX" ]
+then
+    tmux a -t || tmux
+fi
