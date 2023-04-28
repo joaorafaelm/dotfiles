@@ -112,12 +112,12 @@ hi StatusLineNC ctermfg=16 ctermbg=237
 hi StatusLine ctermfg=16 ctermbg=241
 
 " Status line components
-hi AddBardsHighlight ctermfg=106
-hi RemoveBardsHighlight ctermfg=131
-hi DiffHighlight ctermfg=246
-hi FileName ctermfg=236 cterm=none
+hi AddBardsHighlight ctermfg=106 cterm=italic
+hi RemoveBardsHighlight ctermfg=131 cterm=italic
+hi DiffHighlight ctermfg=246 cterm=italic
+hi FileName ctermfg=236 cterm=italic
 hi CurrentMode ctermfg=236 cterm=bold
-hi GitBranch cterm=italic ctermfg=236
+hi GitBranch ctermfg=236 cterm=italic,bold
 
 " tab styling
 hi TabLineFill ctermfg=235 ctermbg=16
