@@ -265,10 +265,11 @@ let g:gitgutter_sign_removed_above_and_below = '┃'
 let g:gitgutter_sign_modified_removed = '┃'
 
 "Linters
-let g:ale_enabled = 0
+let g:ale_enabled = 1
 let b:ale_fixers = {
     \   'python': ['black', 'isort', 'flake8'],
-    \   'javascript': ['eslint', 'prettier']
+    \   'javascript': ['eslint', 'prettier'],
+    \   'typescript': ['eslint', 'prettier']
     \}
 let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 1
@@ -639,8 +640,7 @@ augroup END
 " tab length per file type
 augroup file_format
     au!
-    au FileType javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
-    au FileType jsx set tabstop=2|set shiftwidth=2|set expandtab
+    au FileType ts,tsx,typescript,typescriptreact,jsx,javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     au FileType make setlocal noexpandtab
 augroup END
@@ -658,8 +658,7 @@ augroup CommentsGroup
     au FileType python setlocal commentstring=#\ %s
     au FileType sh setlocal commentstring=#\ %s
     au FileType awk setlocal commentstring=#\ %s
-    au FileType javascript setlocal commentstring=//\ %s
-    au FileType jsx setlocal commentstring=//\ %s
+    au FileType tsx,ts,typescriptreact,jsx,javascript setlocal commentstring=//\ %s
 augroup END
 
 " autorelaod files
@@ -845,7 +844,6 @@ tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 
 " ai.vim maps
 nnoremap <silent> <leader>f :AI<space>
-inoremap <silent> <leader>f <esc>:AI<CR>
 vnoremap <silent> <leader>f :AI<space>
 
 " vim copilot maps
