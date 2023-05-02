@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugins')
     endfunction
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
-    Plug 'w0rp/ale'
+    Plug 'dense-analysis/ale'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'mgedmin/taghelper.vim'
@@ -267,14 +267,18 @@ let g:gitgutter_sign_modified_removed = '┃'
 "Linters
 let g:ale_enabled = 1
 let b:ale_fixers = {
+    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
     \   'python': ['black', 'isort', 'flake8'],
     \   'javascript': ['eslint', 'prettier'],
-    \   'typescript': ['eslint', 'prettier']
+    \   'typescript': ['eslint', 'prettier'],
+    \   'typescriptreact': ['eslint', 'prettier'],
     \}
 let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 1
 let g:ale_sign_error = '┃'
 let g:ale_sign_warning = '┃'
+let b:ale_javascript_eslint_executable = 'eslint_d'
+let b:ale_javascript_eslint_use_global = 1
 
 " disable split term default mappins
 let g:disable_key_mappings = 1
