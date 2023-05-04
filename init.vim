@@ -215,8 +215,8 @@ set undodir=~/.vim/undodir
 set undofile
 
 " split styling
-set fillchars+=vert:\
-set fillchars+=fold:\
+set fillchars+=vert:\ 
+set fillchars+=fold:\ 
 set splitbelow
 set splitright
 
@@ -270,7 +270,6 @@ let g:gitgutter_sign_modified_removed = '┃'
 "Linters
 let g:ale_enabled = 1
 let b:ale_fixers = {
-    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
     \   'python': ['black', 'isort', 'flake8'],
     \   'javascript': ['eslint', 'prettier'],
     \   'typescript': ['eslint', 'prettier'],
