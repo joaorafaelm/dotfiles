@@ -134,9 +134,12 @@ hi PmenuTextCustom ctermfg=240 ctermbg=16
 hi link AIHighlight Visual
 
 " which key
-hi WhichKeyFloat ctermbg=16 ctermfg=239 
+hi WhichKeyFloat ctermbg=16 ctermfg=239
 hi WhichKeyDesc	ctermfg=239
 hi WhichKey	ctermfg=red
+
+" todo highlight
+hi def link MyTodo Todo
 
 if &background ==# 'light'
     " Background and foreground colors
@@ -151,7 +154,7 @@ endif
 "================= OPTIONS ==============
 "========================================
 
-set shell=$SHELL 
+set shell=$SHELL
 set number
 set relativenumber
 set scrolloff=10
@@ -212,8 +215,8 @@ set undodir=~/.vim/undodir
 set undofile
 
 " split styling
-set fillchars+=vert:\ 
-set fillchars+=fold:\ 
+set fillchars+=vert:\
+set fillchars+=fold:\
 set splitbelow
 set splitright
 
@@ -298,7 +301,7 @@ let g:winresizer_start_key	= '<leader>e'
 let g:prosession_dir = '~/.local/share/nvim/sessions/'
 let g:prosession_on_startup = 1
 
-" fzf config 
+" fzf config
 let g:fzf_buffers_jump = 1
 let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
@@ -306,7 +309,7 @@ let g:fzf_action = {
     \ 'ctrl-d': 'vsplit'
 \ }
 
-let g:fzf_colors = { 
+let g:fzf_colors = {
     \ 'fg':      ['fg', 'TextFZF'],
     \ 'bg':      ['bg', 'FZFBG'],
     \ 'hl':      ['fg', 'Comment'],
@@ -319,7 +322,7 @@ let g:fzf_colors = {
     \ 'pointer': ['fg', 'Exception'],
     \ 'marker':  ['fg', 'Keyword'],
     \ 'spinner': ['fg', 'Label'],
-    \ 'header':  ['fg', 'Comment'] 
+    \ 'header':  ['fg', 'Comment']
 \ }
 
 let g:fzf_layout = { 'down': '~40%' }
@@ -529,7 +532,7 @@ function SwitchToTerm()
         let term_bufs = sort(term_bufs, { b1, b2 -> b2.lu - b1.lu })
         if len(term_bufs) > 0 && win_gotoid(win_findbuf(term_bufs[0].nr)[0])
           return
-        endif 
+        endif
       catch
       endtry
       :Term
@@ -634,6 +637,12 @@ set statusline=%!SetStatusLine(1)
 "============================================
 "==================AUGROUPS==================
 "============================================
+
+augroup vimrc_todo
+    au!
+    au Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|OPTIMIZE|XXX)/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
 
 augroup Statusline
     au!
@@ -766,18 +775,18 @@ augroup fold_formats
     function! MarkdownLevel()
         let l:line = getline(v:lnum)
         if l:line =~? '^# .*$'
-            return '>1' 
+            return '>1'
         elseif l:line =~? '^## .*$'
-            return '>2' 
+            return '>2'
         elseif l:line =~? '^### .*$'
-            return '>3' 
+            return '>3'
         elseif l:line =~? '^#### .*$'
-            return '>4' 
+            return '>4'
         elseif l:line =~? '^##### .*$'
-            return '>5' 
+            return '>5'
         elseif l:line =~? '^###### .*$'
-            return '>6' 
-        endif 
+            return '>6'
+        endif
         return '='
     endfunction
     au BufEnter *.md setlocal foldexpr=MarkdownLevel()
@@ -926,7 +935,7 @@ nnoremap <Leader>6 6gt
 nnoremap <Leader>7 7gt
 nnoremap <Leader>8 8gt
 nnoremap <Leader>9 9gt
-nnoremap <c-w>n :TabooRename 
+nnoremap <c-w>n :TabooRename
 
 " Dont copy to clipboard deleted text
 nnoremap d "_d
@@ -1005,7 +1014,7 @@ lua << EOF
     xpcall(
         function()
             require "winshift".setup { highlight_moving_win = false }
-        end, 
+        end,
         function(err)
         end
     )
