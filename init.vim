@@ -979,9 +979,9 @@ nnoremap <silent><leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nol
 map <silent> <expr> <C-j> &diff ? ':q<CR>:cn<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-j>'
 map <silent> <expr> <C-k> &diff ? ':q<CR>:cp<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-k>'
 
-" silent maps for [c and ]c for git gutter
-nnoremap [c :silent! GitGutterPrevHunk<CR>
-nnoremap ]c :silent! GitGutterNextHunk<CR>
+" silent maps for [c and ]c for git gutter and vimdiff
+map <silent> <expr> [c &diff ? '[c' : ':silent! GitGutterPrevHunk<CR>'
+map <silent> <expr> ]c &diff ? ']c' : ':silent! GitGutterNextHunk<CR>'
 
 "============================================
 "================= LUA ======================
