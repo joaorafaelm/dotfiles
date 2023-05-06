@@ -630,6 +630,10 @@ function SetStatusLine(active)
     let l:statusline .= '%#RemoveBardsHighlight#'
     let l:statusline .= '%{GitStatusRemoveBars()}'
     let l:statusline .= '%=' " Right Side
+    if a:active
+        let l:statusline .= '%#FileName#'
+        let l:statusline .= '%l:%c '
+    endif
     return l:statusline
 endfunction
 set statusline=%!SetStatusLine(1)
@@ -655,6 +659,7 @@ augroup file_format
     au!
     au FileType ts,tsx,typescript,typescriptreact,jsx,javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab
     au FileType make setlocal noexpandtab
 augroup END
 
