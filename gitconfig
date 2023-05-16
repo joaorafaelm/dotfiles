@@ -1,7 +1,7 @@
 [user]
 	name = João Rafael
 	email = joaoraf@me.com
-	signingkey = AEEED69F826224CB
+	signingkey = /Users/joaorafael/.ssh/work.pub
 [core]
 	editor = nvr -cc split --remote-wait +'set bufhidden=wipe' --servername $NVIM
 	excludesfile = /Users/joaorafael/.gitignore_global
@@ -36,3 +36,4 @@
 	required = true
 [gpg]
 	program = gpg
+	format = ssh
