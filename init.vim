@@ -334,6 +334,7 @@ let $FZF_DEFAULT_OPTS .= ' --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctr
 let $FZF_DEFAULT_OPTS .= ' --preview-window noborder --margin 0 --padding 0 --no-separator'
 
 " vindent
+let g:vindent_begin = 0
 let g:vindent_motion_OO_prev   = '[=' " jump to prev block of same indent.
 let g:vindent_motion_OO_next   = ']=' " jump to next block of same indent.
 let g:vindent_motion_more_prev = '[+' " jump to prev line with more indent.
