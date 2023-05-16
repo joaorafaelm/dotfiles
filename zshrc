@@ -66,6 +66,7 @@ setopt HIST_IGNORE_DUPS
 #add timestamp for each entry
 setopt EXTENDED_HISTORY
 
+export GPG_TTY=$(tty)
 # git abstraction, install gawk
 g () {
     if [ $# -eq 0 ]
