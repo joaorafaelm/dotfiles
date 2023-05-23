@@ -913,6 +913,8 @@ tnoremap <C-Up> <C-\><C-n><C-W>k
 tnoremap <C-Down> <C-\><C-n><C-W>j
 tnoremap <C-Left> <C-\><C-n><C-W>h
 tnoremap <C-Right> <C-\><C-n><C-W>l
+tnoremap <C-]> <C-\><C-n>:SessionPicker<CR>
+
 
 nnoremap <silent> <Leader>t :call SwitchToTerm()<cr>
 
@@ -971,7 +973,7 @@ nnoremap <silent><c-h> :Helptags<CR>
 
 nnoremap <silent>K :call SearchWordWithRg()<CR>
 vnoremap <silent>K :call SearchVisualSelectionWithRg()<CR>
-nnoremap <c-\> :SessionPicker<cr>
+nnoremap <silent><c-]> :SessionPicker<cr>
 
 " Open quick fix list
 nnoremap <silent><leader>q :silent! :call OpenQuickFix()<cr>
