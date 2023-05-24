@@ -7,7 +7,6 @@
 - link:
     ~/.tmux.conf: tmux.conf
     ~/.vim: vim/
-    ~/.vimrc: vimrc
     ~/.tmux: tmux/
     ~/.gitconfig: gitconfig
     ~/.yabairc: yabairc
