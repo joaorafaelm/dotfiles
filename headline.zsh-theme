@@ -108,9 +108,9 @@ HEADLINE_HOST_TO_PATH=': '
 HEADLINE_PATH_TO_BRANCH=' | ' # only used when no padding between <path> and <branch>
 HEADLINE_PATH_TO_PAD='' # used if padding between <path> and <branch>
 HEADLINE_PAD_TO_BRANCH='' # used if padding between <path> and <branch>
-HEADLINE_BRANCH_TO_STATUS=' ['
+HEADLINE_BRANCH_TO_STATUS=' '
 HEADLINE_STATUS_TO_STATUS='' # between each status section, consider "]"
-HEADLINE_STATUS_END=']'
+HEADLINE_STATUS_END=''
 
 # Info styles (ANSI SGR codes)
 HEADLINE_STYLE_DEFAULT='' # style applied to entire info line

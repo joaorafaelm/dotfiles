@@ -674,7 +674,7 @@ augroup END
 augroup CommentsGroup
     au!
     au FileType vim setlocal commentstring=\"\ %s
-    au FileType python setlocal commentstring=#\ %s
+    au FileType python,yaml setlocal commentstring=#\ %s
     au FileType sh setlocal commentstring=#\ %s
     au FileType awk setlocal commentstring=#\ %s
     au FileType tsx,ts,typescriptreact,jsx,javascript setlocal commentstring=//\ %s
