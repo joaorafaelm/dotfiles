@@ -207,7 +207,8 @@ headline_git_branch() {
   ref=$(headline_git symbolic-ref --quiet HEAD 2> /dev/null)
   local ret=$?
   if [[ $ret == 0 ]]; then
-    echo ${ref#refs/heads/} # remove "refs/heads/" to get branch
+    rev=$(headline_git rev-parse --short HEAD 2> /dev/null) || return
+    echo ${ref#refs/heads/} $rev # remove "refs/heads/" to get branch
   else # not on a branch
     [[ $ret == 128 ]] && return  # not a git repo
     ref=$(headline_git rev-parse --short HEAD 2> /dev/null) || return
