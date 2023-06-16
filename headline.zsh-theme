@@ -85,6 +85,7 @@ HEADLINE_DO_USER='false'
 HEADLINE_DO_HOST='false'
 HEADLINE_DO_PATH='true'
 HEADLINE_DO_GIT_BRANCH='true'
+HEADLINE_DO_GIT_HASH='true'
 HEADLINE_DO_GIT_STATUS='true'
 
 # Prompt character
@@ -119,6 +120,7 @@ HEADLINE_STYLE_USER=$bold$red
 HEADLINE_STYLE_HOST=$bold$light_black
 HEADLINE_STYLE_PATH=$bold$light_black
 HEADLINE_STYLE_BRANCH=$bold$cyan
+HEADLINE_STYLE_HASH=$yellow
 HEADLINE_STYLE_STATUS=$bold$magenta
 
 # Line styles
@@ -127,6 +129,7 @@ HEADLINE_STYLE_USER_LINE=$HEADLINE_STYLE_USER
 HEADLINE_STYLE_HOST_LINE=$HEADLINE_STYLE_HOST
 HEADLINE_STYLE_PATH_LINE=$HEADLINE_STYLE_PATH
 HEADLINE_STYLE_BRANCH_LINE=$HEADLINE_STYLE_BRANCH
+HEADLINE_STYLE_HASH_LINE=$HEADLINE_STYLE_HASH
 HEADLINE_STYLE_STATUS_LINE=$HEADLINE_STYLE_STATUS
 
 # Git branch characters
@@ -208,11 +211,21 @@ headline_git_branch() {
   local ret=$?
   if [[ $ret == 0 ]]; then
     rev=$(headline_git rev-parse --short HEAD 2> /dev/null) || return
-    echo ${ref#refs/heads/} $rev # remove "refs/heads/" to get branch
+    echo ${ref#refs/heads/} # remove "refs/heads/" to get branch
   else # not on a branch
     [[ $ret == 128 ]] && return  # not a git repo
-    ref=$(headline_git rev-parse --short HEAD 2> /dev/null) || return
-    echo "$HEADLINE_GIT_HASH$ref" # hash prefixed to distingush from branch
+  fi
+}
+
+headline_git_hash() {
+  local ref
+  ref=$(headline_git symbolic-ref --quiet HEAD 2> /dev/null)
+  local ret=$?
+  if [[ $ret == 0 ]]; then
+    rev=$(headline_git rev-parse --short HEAD 2> /dev/null) || return
+    echo $rev # remove "refs/heads/" to get branch
+  else # not on a branch
+    [[ $ret == 128 ]] && return  # not a git repo
   fi
 }
 
@@ -318,11 +331,12 @@ headline_preexec() {
 add-zsh-hook precmd headline_precmd
 headline_precmd() {
   # Information
-  local user_str host_str path_str branch_str status_str
+  local user_str host_str path_str branch_str hash_str status_str
   [[ $HEADLINE_DO_USER == 'true' ]] && user_str=$USER
   [[ $HEADLINE_DO_HOST == 'true' ]] && host_str=$(hostname -s)
   [[ $HEADLINE_DO_PATH == 'true' ]] && path_str=$(print -rP '%~')
   [[ $HEADLINE_DO_GIT_BRANCH == 'true' ]] && branch_str=$(headline_git_branch)
+  [[ $HEADLINE_DO_GIT_HASH == 'true' ]] && hash_str=$(headline_git_hash)
   [[ $HEADLINE_DO_GIT_STATUS == 'true' ]] && status_str=$(headline_git_status)
 
   # Trimming
@@ -347,7 +361,13 @@ headline_precmd() {
     _headline_part STATUS "$HEADLINE_STATUS_PREFIX$status_str" right
     _headline_part JOINT "$HEADLINE_BRANCH_TO_STATUS" right
   fi
+
+  if (( ${#hash_str} )); then
+    _headline_part HASH "$HEADLINE_BRANCH_PREFIX$hash_str" right
+  fi
+
   if (( ${#branch_str} )); then
+    _headline_part JOINT "$HEADLINE_BRANCH_TO_STATUS" right
     _headline_part BRANCH "$HEADLINE_BRANCH_PREFIX$branch_str" right
   fi
 
