@@ -120,7 +120,7 @@ HEADLINE_STYLE_USER=$bold$red
 HEADLINE_STYLE_HOST=$bold$light_black
 HEADLINE_STYLE_PATH=$bold$light_black
 HEADLINE_STYLE_BRANCH=$bold$cyan
-HEADLINE_STYLE_HASH=$yellow
+HEADLINE_STYLE_HASH=$italic$yellow
 HEADLINE_STYLE_STATUS=$bold$magenta
 
 # Line styles
