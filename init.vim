@@ -645,8 +645,12 @@ set statusline=%!SetStatusLine(1)
 
 augroup vimrc_todo
     au!
-    au Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|OPTIMIZE|XXX)/
-          \ containedin=.*Comment,vimCommentTitle
+    syn case ignore
+    highlight def link inProgress Normal
+    highlight def link itemComplete Comment
+    highlight def link location Number
+    au Syntax * syn match inProgress "\[ ] .\+"
+    au Syntax * syn match itemComplete "\[x] .\+"
 augroup END
 
 augroup Statusline
