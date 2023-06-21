@@ -882,7 +882,10 @@ nnoremap <C-W><UP> <Cmd>WinShift up<CR>
 nnoremap <C-W><RIGHT> <Cmd>WinShift right<CR>
 
 " notes
-map <leader>n :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<CR>
+map <leader>n :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<C-R>=substitute(getcwd(), '^.*/', '', '')<CR>.md<CR>
+
+" yank line with column and line number, and line content
+nnoremap <leader>y :let @+ = expand('%') . '\|' . line('.') . ' col ' . col('.') . '\|' . substitute(getline('.'), '^\s\+', '', '')<CR>
 
 " vim coc
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
