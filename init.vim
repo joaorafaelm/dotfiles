@@ -32,7 +32,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'jessekelighine/vindent.vim'
     Plug 'vim-scripts/argtextobj.vim'
     Plug 'mbbill/undotree'
-    Plug 'aduros/ai.vim'
+    Plug 'madox2/vim-ai'
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     Plug 'nvim-treesitter/nvim-treesitter'
@@ -40,7 +40,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'lukas-reineke/indent-blankline.nvim'
 call plug#end()
 
-let g:loaded_python3_provider = 0
 let mapleader = ','
 set encoding=utf-8
 scriptencoding utf-8
@@ -866,8 +865,8 @@ tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 
 " ai.vim maps
-nnoremap <silent> <leader>f :AI<space>
-vnoremap <silent> <leader>f :AI<space>
+nnoremap <silent> <leader>f :AIEdit<space>
+vnoremap <silent> <leader>f :AIEdit<space>
 
 " vim copilot maps
 inoremap ‘ <Cmd>call copilot#Next()<CR>
