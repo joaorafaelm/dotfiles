@@ -667,6 +667,12 @@ augroup file_format
     au FileType make setlocal noexpandtab
 augroup END
 
+" if filetype is aichat set it to mardown filetype
+augroup aichat
+    au!
+    au BufNewFile,BufRead *.aichat set filetype=markdown
+augroup END
+
 " Call method on window enter
 augroup WindowManagement
     au!
@@ -867,6 +873,10 @@ tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 " ai.vim maps
 nnoremap <silent> <leader>f :AIEdit<space>
 vnoremap <silent> <leader>f :AIEdit<space>
+
+" trigger chat
+xnoremap <leader>c :AIChat<CR>
+nnoremap <leader>c :AIChat<CR>
 
 " vim copilot maps
 inoremap ‘ <Cmd>call copilot#Next()<CR>
