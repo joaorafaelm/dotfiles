@@ -270,7 +270,7 @@ let g:gitgutter_sign_modified_removed = '┃'
 "Linters
 let g:ale_enabled = 1
 let b:ale_fixers = {
-    \   'python': ['black', 'isort', 'flake8'],
+    \   'python': ['black', 'isort'],
     \   'javascript': ['eslint', 'prettier'],
     \   'typescript': ['eslint', 'prettier'],
     \   'typescriptreact': ['eslint', 'prettier'],
@@ -670,7 +670,7 @@ augroup END
 " if filetype is aichat set it to mardown filetype
 augroup aichat
     au!
-    au BufNewFile,BufRead *.aichat set filetype=markdown
+    au FileType aichat setlocal ft=markdown
 augroup END
 
 " Call method on window enter
@@ -882,6 +882,7 @@ vnoremap <silent> <leader>f :AIEdit<space>
 
 " trigger chat
 xnoremap <leader>c :AIChat<CR>
+inoremap <leader>c <esc>:AIChat<CR>
 nnoremap <leader>c :AIChat<CR>
 
 " vim copilot maps
