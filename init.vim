@@ -752,6 +752,12 @@ augroup update_plug
     au VimEnter * call OnVimEnter()
 augroup END
 
+" auto resize windows
+augroup auto_resize
+    au!
+    au VimResized * wincmd =
+augroup END
+
 " quit vim window on term exit
 augroup terminal_settings
     au!
