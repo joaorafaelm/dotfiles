@@ -13,3 +13,4 @@ dotbot
 .vagrant
 selfhosted/*
 !selfhosted/docker-compose.yaml
+.env
