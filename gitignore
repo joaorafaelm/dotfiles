@@ -6,3 +6,4 @@
 .features
 vim/worklist.json
 .nvimlog
+.aider*

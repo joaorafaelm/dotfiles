@@ -271,8 +271,8 @@ let g:gitgutter_sign_modified_removed = '┃'
 let g:ale_enabled = 1
 let b:ale_fixers = {
     \   'python': ['black', 'isort'],
-    \   'javascript': ['eslint', 'prettier'],
-    \   'typescript': ['eslint', 'prettier'],
+    \   'javascript': ['eslint', 'prettier', 'prisma-lint'],
+    \   'typescript': ['eslint', 'prettier', 'prisma-lint'],
     \   'typescriptreact': ['eslint', 'prettier'],
     \}
 let g:ale_fix_on_save = 1
