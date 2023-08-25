@@ -152,3 +152,5 @@ if [ -z "$TMUX" ]
 then
     tmux a -t || tmux
 fi
+
+ls
