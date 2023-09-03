@@ -14,3 +14,4 @@ dotbot
 selfhosted/*
 !selfhosted/docker-compose.yaml
 .env
+.aider*
