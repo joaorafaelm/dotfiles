@@ -686,6 +686,7 @@ augroup CommentsGroup
     au FileType python,yaml setlocal commentstring=#\ %s
     au FileType sh setlocal commentstring=#\ %s
     au FileType awk setlocal commentstring=#\ %s
+    au FileType haskell,hs setlocal commentstring=--\ %s
     au FileType tsx,ts,typescriptreact,jsx,javascript setlocal commentstring=//\ %s
 augroup END
 

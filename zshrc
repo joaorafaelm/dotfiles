@@ -53,7 +53,13 @@ alias ll="exa -lha --git"
 alias :q="exit"
 alias ai="aichat"
 function f() { cd $(mktemp -d) && git clone $1 . && tmux new-window "nvim ."; cd -; }
-function cd { builtin cd "$@" && l }
+function cd {
+    if [[ $ZSH_EVAL_CONTEXT =~ :shfunc: ]]; then
+        builtin cd "$@"
+    else
+        builtin cd "$@" && l
+    fi
+}
 
 #set history size
 HISTSIZE=999999999
@@ -105,17 +111,27 @@ g () {
 
 # make worktree
 gg () {
-    cd $(git worktree list | grep develop | cut -f1 -d " ");
+    cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ");
+    if [ ! -d ".features" ]; then
+        mkdir .features;
+    fi
     git worktree add .features/$1;
     cd .features/$1;
 }
 
 # clean worktree
 gw () {
-    cd $(git worktree list | grep develop | cut -f1 -d " ");
+    cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ");
+    if [ ! -d ".features" ]; then
+        mkdir .features;
+    fi
     for i in $(l .features);
     do cd .features/$i;
-        gh pr status | grep -i "${i}.*merged" && git worktree remove $i;
+        if [ "$1" = "--dry-run" ]; then
+            gh pr status | grep -i "${i}.*merged" && echo "git worktree remove $i";
+        else
+            gh pr status | grep -i "${i}.*merged" && git worktree remove $i;
+        fi
         cd ~-;
     done;
 }
@@ -148,9 +164,12 @@ export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
 export OPENAI_API_KEY=`cat ~/.config/openai.token`
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-if [ -z "$TMUX" ]
-then
-    tmux a -t || tmux
+if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ]; then
+    echo "Skipping tmux command because TERM_PROGRAM is set to vscode."
+else
+    if [ -z "$TMUX" ]; then
+        tmux a -t || tmux
+    fi
 fi
 
-ls
+l
