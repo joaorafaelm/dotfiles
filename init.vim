@@ -165,7 +165,7 @@ set autoindent
 set nohidden
 set winminheight=0
 set winminwidth=0
-set numberwidth=6
+set numberwidth=4
 set signcolumn=yes
 set updatetime=50
 set timeout
