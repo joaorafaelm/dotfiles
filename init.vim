@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'airblade/vim-gitgutter'
     Plug 'dense-analysis/ale'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf.vim', { 'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650' }
     Plug 'mgedmin/taghelper.vim'
     Plug 'vimlab/split-term.vim'
     Plug 'APZelos/blamer.nvim'
@@ -926,7 +926,7 @@ nnoremap <leader>z :call ToogleZoom()<CR>
 
 " terminal commands
 tnoremap <Esc> <C-\><C-n>
-tnoremap <silent><C-f> <C-\><C-n>:Rg<CR><C-P>
+tnoremap <silent><C-f> <C-\><C-n>:Rg<CR>
 tnoremap <silent><leader>q <C-\><C-n>:silent! :call OpenQuickFix()<cr>
 tnoremap <silent><leader>x <C-\><C-n>:call AddToQuickFix()<cr>
 tnoremap <silent><leader>e <C-\><C-n>:WinResizerStartResize<CR>
@@ -991,7 +991,7 @@ nnoremap U <C-R>
 
 nnoremap <silent><leader><space> :Files<CR>
 nnoremap <silent><leader>b :Buffers<CR>
-nnoremap <silent><C-f> :Rg<CR><C-P>
+nnoremap <silent><C-f> :Rg<CR>
 nnoremap <silent><C-s> :GFiles?<CR>
 nnoremap <silent><C-r> :History:<CR>
 nnoremap <silent><c-h> :Helptags<CR>
