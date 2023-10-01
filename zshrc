@@ -52,7 +52,11 @@ alias ls="exa -lha"
 alias ll="exa -lha --git"
 alias :q="exit"
 alias ai="aichat"
-function f() { cd $(mktemp -d) && git clone $1 . && tmux new-window "nvim ."; cd -; }
+function f() { 
+    # cd $(mktemp -d)
+    folder=${2:-.}
+    cd ~/dev/other && git clone $1 $folder && cd "$_" && tmux new-window "nvim ."; cd -;
+}
 function cd {
     if [[ $ZSH_EVAL_CONTEXT =~ :shfunc: ]]; then
         builtin cd "$@"
