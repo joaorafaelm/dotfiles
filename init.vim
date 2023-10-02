@@ -11,15 +11,15 @@ call plug#begin('~/.vim/plugins')
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
     Plug 'dense-analysis/ale'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim', { 'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650' }
+    Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
+    Plug 'junegunn/fzf.vim', {'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650'}
     Plug 'mgedmin/taghelper.vim'
     Plug 'vimlab/split-term.vim'
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
     Plug 'jkramer/vim-checkbox'
     Plug 'simeji/winresizer'
-    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-commentary', {'on': 'Commentary'}
     Plug 'gcmt/taboo.vim'
     Plug 'sindrets/winshift.nvim', {'branch': 'main'}
     Plug 'ruanyl/vim-gh-line'
@@ -27,17 +27,16 @@ call plug#begin('~/.vim/plugins')
     Plug 'github/copilot.vim'
     Plug 'tpope/vim-obsession'
     Plug 'dhruvasagar/vim-prosession'
-    Plug 'maxmellon/vim-jsx-pretty'
+    Plug 'maxmellon/vim-jsx-pretty', {'for': 'javascript'}
     Plug 'chomosuke/term-edit.nvim', {'tag': 'v1.*'}
     Plug 'jessekelighine/vindent.vim'
-    Plug 'vim-scripts/argtextobj.vim'
-    Plug 'mbbill/undotree'
+    Plug 'vim-scripts/argtextobj.vim', {'for': 'python'}
     Plug 'madox2/vim-ai'
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'terryma/vim-expand-region'
-    Plug 'lukas-reineke/indent-blankline.nvim', { 'commit': '9637670896b68805430e2f72cf5d16be5b97a22a' }
+    Plug 'lukas-reineke/indent-blankline.nvim', {'commit': '9637670896b68805430e2f72cf5d16be5b97a22a'}
 call plug#end()
 
 let mapleader = ','
@@ -173,6 +172,8 @@ set ttimeout
 set timeoutlen=250
 set mouse=a
 set viminfo='100,f1
+set noswapfile
+set lazyredraw
 
 " session config
 set sessionoptions+=tabpages,globals,winpos,terminal
