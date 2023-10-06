@@ -907,9 +907,12 @@ map <leader>N :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<CR>
 " yank line with column and line number, and line content
 nnoremap <leader>y :let @+ = expand('%') . '\|' . line('.') . ' col ' . col('.') . '\|' . substitute(getline('.'), '^\s\+', '', '')<CR>
 
-" disable popup
-aunmenu PopUp.How-to\ disable\ mouse
-aunmenu PopUp.-1-
+" expand on click
+map + <Plug>(expand_region_expand)
+map - <Plug>(expand_region_shrink)
+map <2-LeftMouse> <Plug>(expand_region_expand)
+map <3-LeftMouse> <Plug>(expand_region_expand)
+map <4-LeftMouse> <Plug>(expand_region_expand)
 
 " vim coc
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
