@@ -158,7 +158,7 @@ set number
 set relativenumber
 set scrolloff=10
 set backspace=indent,eol,start
-set wrap
+set nowrap
 set linebreak
 set autoindent
 set nohidden
@@ -662,7 +662,7 @@ augroup END
 " tab length per file type
 augroup file_format
     au!
-    au FileType ts,tsx,typescript,typescriptreact,jsx,javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
+    au FileType json,ts,tsx,typescript,typescriptreact,jsx,javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab
     au FileType make setlocal noexpandtab
@@ -747,6 +747,7 @@ augroup update_plug
             let l:contents = readfile(l:filename)
             if index(l:contents, l:this_week) < 0
                 call execute('PlugUpdate')
+                :TSUpdate
                 call writefile([l:this_week], l:filename, 'a')
             endif
         endif
@@ -905,6 +906,10 @@ map <leader>N :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<CR>
 
 " yank line with column and line number, and line content
 nnoremap <leader>y :let @+ = expand('%') . '\|' . line('.') . ' col ' . col('.') . '\|' . substitute(getline('.'), '^\s\+', '', '')<CR>
+
+" disable popup
+aunmenu PopUp.How-to\ disable\ mouse
+aunmenu PopUp.-1-
 
 " vim coc
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
