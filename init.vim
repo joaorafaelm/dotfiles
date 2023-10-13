@@ -350,6 +350,25 @@ let g:vindent_object_XX_ai     = 'ai' " select current block + one extra line  a
 let g:vindent_object_XX_aI     = 'aI' " select current block + two extra lines at beginning and end.
 let g:vindent_jumps            = 1    " make vindent motion count as a |jump-motion| (works with |jumplist|).
 
+" expand region definition
+" 'i]' Support nesting of square brackets
+" 'ib' Support nesting of parentheses
+" 'iB' Support nesting of braces
+" 'il' 'inside line'. Available through https://github.com/kana/vim-textobj-line
+" 'ie' 'entire file'. Available through https://github.com/kana/vim-textobj-entire
+let g:expand_region_text_objects = {
+  \ 'iw'  :0,
+  \ 'iW'  :0,
+  \ 'i"'  :0,
+  \ 'i''' :0,
+  \ 'i]'  :1,
+  \ 'ib'  :1,
+  \ 'iB'  :1,
+  \ 'il'  :0,
+  \ 'ip'  :0,
+  \ 'ie'  :0,
+\ }
+
 " expand region
 call expand_region#custom_text_objects({ 'ia' :1 })
 
@@ -910,9 +929,10 @@ nnoremap <leader>y :let @+ = expand('%') . '\|' . line('.') . ' col ' . col('.')
 " expand on click
 map + <Plug>(expand_region_expand)
 map - <Plug>(expand_region_shrink)
-map <2-LeftMouse> <Plug>(expand_region_expand)
-map <3-LeftMouse> <Plug>(expand_region_expand)
-map <4-LeftMouse> <Plug>(expand_region_expand)
+"map <LeftMouse> <LeftMouse><Plug>(expand_region_expand)
+"map <2-LeftMouse> <Plug>(expand_region_expand)
+"map <3-LeftMouse> <Plug>(expand_region_expand)
+"map <4-LeftMouse> <Plug>(expand_region_expand)
 
 " vim coc
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
