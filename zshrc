@@ -39,6 +39,7 @@ source $ZSH/oh-my-zsh.sh
 source ~/.headline.zsh-theme
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -63,6 +64,9 @@ function cd {
     else
         builtin cd "$@" && l
     fi
+}
+function space_to_continue {
+    read -r -s -d ' '
 }
 
 #set history size
