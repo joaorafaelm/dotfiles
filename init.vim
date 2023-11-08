@@ -19,7 +19,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-fugitive'
     Plug 'jkramer/vim-checkbox'
     Plug 'simeji/winresizer'
-    Plug 'tpope/vim-commentary', {'on': 'Commentary'}
+    Plug 'tpope/vim-commentary'
     Plug 'gcmt/taboo.vim'
     Plug 'sindrets/winshift.nvim', {'branch': 'main'}
     Plug 'ruanyl/vim-gh-line'
@@ -325,7 +325,7 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment']
 \ }
 
-let g:fzf_layout = { 'down': '~40%' }
+let g:fzf_layout = { 'up': '~40%' }
 
 " ctrl-e/y to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'

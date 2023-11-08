@@ -1,5 +1,7 @@
 export CI=1
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew bundle install
+
 brew install tmux fzf rg pyenv neovim exa fd git-delta coreutils exercism zsh-sintax-highlighting
 $(brew --prefix)/opt/fzf/install
 git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab

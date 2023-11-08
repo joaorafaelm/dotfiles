@@ -23,6 +23,7 @@ export PYTEST_ADDOPTS="--no-cov-on-fail -p no:warnings --ff -s --pdb --pdbcls=IP
 export PYTHONBREAKPOINT=ipdb.set_trace
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export ENABLE_TTY="true"
+export NODE_OPTIONS="--no-warnings"
 alias kubectl="minikube kubectl --"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
