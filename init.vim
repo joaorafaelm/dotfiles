@@ -654,6 +654,9 @@ function SetStatusLine(active)
         let l:statusline .= '%#FileName#'
         let l:statusline .= '%l:%c '
     endif
+    if &filetype ==# 'fzf'
+        let l:statusline = ''
+    endif
     return l:statusline
 endfunction
 set statusline=%!SetStatusLine(1)
