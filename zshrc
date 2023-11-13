@@ -30,10 +30,16 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 source ~/.zshenv
 
+export ZSH_DOTENV_PROMPT=false
+
 # Zsh cmd
 plugins=(
     docker
     zsh-autosuggestions
+    dotenv
+    docker-compose
+    gh
+    git-auto-fetch
 )
 
 source $ZSH/oh-my-zsh.sh

@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'airblade/vim-gitgutter'
     Plug 'dense-analysis/ale'
     Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-    Plug 'junegunn/fzf.vim', {'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650'}
+    Plug 'junegunn/fzf.vim'
     Plug 'mgedmin/taghelper.vim'
     Plug 'vimlab/split-term.vim'
     Plug 'APZelos/blamer.nvim'
