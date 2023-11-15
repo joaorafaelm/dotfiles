@@ -15,3 +15,4 @@ selfhosted/*
 !selfhosted/docker-compose.yaml
 .env
 .aider*
+Brewfile.lock.json

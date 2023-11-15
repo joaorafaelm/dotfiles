@@ -329,9 +329,9 @@ let g:fzf_layout = { 'up': '~40%' }
 
 " ctrl-e/y to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'
-let $FZF_DEFAULT_OPTS = '--inline-info --layout=reverse-list --border=vertical'
+let $FZF_DEFAULT_OPTS = '--inline-info --layout=reverse-list --border=none --no-scrollbar'
 let $FZF_DEFAULT_OPTS .= ' --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
-let $FZF_DEFAULT_OPTS .= ' --preview-window noborder --margin 0 --padding 0 --no-separator'
+let $FZF_DEFAULT_OPTS .= ' --preview-window noborder --margin=0 --padding=0 --no-separator'
 
 " vindent
 let g:vindent_begin = 0
@@ -963,6 +963,7 @@ tnoremap <silent><leader>q <C-\><C-n>:silent! :call OpenQuickFix()<cr>
 tnoremap <silent><leader>x <C-\><C-n>:call AddToQuickFix()<cr>
 tnoremap <silent><leader>e <C-\><C-n>:WinResizerStartResize<CR>
 tnoremap <silent><leader>s <C-\><C-n>:Term<CR>
+tnoremap <silent><leader>r <C-\><C-n>:q<CR>:Term<CR>
 tnoremap <silent><leader>z <C-\><C-n><C-W>\|<C-W>_
 tnoremap <silent><leader>d <C-\><C-n>:VTerm<CR>
 tnoremap <silent><leader>v <C-X><C-E><CR>
@@ -983,6 +984,7 @@ map <C-Right> <C-W>l
 " terminal binding
 nnoremap <silent> <leader>s :Term<CR>
 nnoremap <silent> <leader>d :VTerm<CR>
+nnoremap <silent> <leader>r :q<CR>:Term<CR>
 
 " marker
 noremap M `

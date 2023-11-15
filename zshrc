@@ -50,6 +50,8 @@ ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+bindkey "ç" fzf-cd-widget
+
 # vim mode fzf
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh;
