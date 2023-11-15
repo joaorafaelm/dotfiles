@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'airblade/vim-gitgutter'
     Plug 'dense-analysis/ale'
     Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf.vim', {'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650'}
     Plug 'mgedmin/taghelper.vim'
     Plug 'vimlab/split-term.vim'
     Plug 'APZelos/blamer.nvim'
@@ -688,6 +688,12 @@ augroup file_format
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab
     au FileType make setlocal noexpandtab
+augroup END
+
+"if filename starts with /private/tmp, run bufhidden=wipe
+augroup tmp_files
+    au!
+    au BufNewFile,BufRead /private/* setlocal bufhidden=wipe
 augroup END
 
 " if filetype is aichat set it to mardown filetype

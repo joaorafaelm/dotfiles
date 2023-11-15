@@ -15,7 +15,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:/Users/joaorafael/.local/bin"
 export PATH="$HOME/.luarocks/bin:$PATH"
-export EDITOR=vim
 export PIPENV_VENV_IN_PROJECT=1
 export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
@@ -154,7 +153,7 @@ gw () {
 }
 
 if [ -n "$NVIM" ]; then
-  export VISUAL="nvr -cc split --remote-wait-silent +'set bufhidden=wipe' --servername ${NVIM}"
+  export VISUAL="nvr -cc split --remote-wait-silent --servername ${NVIM}"
 else
   export VISUAL="nvim"
 fi
