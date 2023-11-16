@@ -688,6 +688,7 @@ augroup file_format
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab
     au FileType make setlocal noexpandtab
+    au FileType zsh setlocal filetype=sh
 augroup END
 
 "if filename starts with /private/tmp, run bufhidden=wipe
@@ -906,6 +907,7 @@ vnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
 vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
+tnoremap <silent> <S-LEFT> <C-\><C-n><S-LEFT>
 
 " ai.vim maps
 nnoremap <silent> <leader>f :AIEdit<space>
