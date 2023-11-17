@@ -276,7 +276,7 @@ let b:ale_fixers = {
     \   'typescript': ['eslint', 'prettier', 'prisma-lint'],
     \   'typescriptreact': ['eslint', 'prettier'],
     \}
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_set_highlights = 1
 let g:ale_sign_error = '┃'
 let g:ale_sign_warning = '┃'
@@ -514,7 +514,9 @@ command! SessionPicker call fzf#run(fzf#wrap({
 \ }))
 
 function! SearchWordWithRg()
-    execute 'Rg' expand('<cword>')
+    let word = expand('<cword>')
+    execute 'Rg'
+    call feedkeys(word)
 endfunction
 
 function! SearchVisualSelectionWithRg() range
@@ -763,6 +765,10 @@ augroup fzfGroup
 augroup END
 
 " Auto update plugins every week
+
+command UpdatePlugins
+  \ PlugUpdate | PlugSnapshot! ~/dotfiles/plug.snapshot.vim
+
 augroup update_plug
     au!
     function! OnVimEnter() abort
@@ -775,7 +781,7 @@ augroup update_plug
             let l:this_week = strftime('%Y_%V')
             let l:contents = readfile(l:filename)
             if index(l:contents, l:this_week) < 0
-                call execute('PlugUpdate')
+                call execute('UpdatePlugins'
                 :TSUpdate
                 call writefile([l:this_week], l:filename, 'a')
             endif

@@ -170,9 +170,7 @@ if command -v keychain 1>/dev/null 2>&1; then
 fi
 
 alias fd=fdfind
-
-
-source /Users/joaorafael/.docker/init-zsh.sh || true # Added by Docker Desktop
+source /Users/joaorafael/.docker/init-zsh.sh || true
 eval "$(github-copilot-cli alias -- "$0")"
 
 # aichat
