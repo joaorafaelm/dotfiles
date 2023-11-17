@@ -37,6 +37,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'terryma/vim-expand-region'
     Plug 'lukas-reineke/indent-blankline.nvim', {'commit': '9637670896b68805430e2f72cf5d16be5b97a22a'}
+    Plug 'andrewradev/undoquit.vim'
 call plug#end()
 
 let mapleader = ','
