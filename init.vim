@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'airblade/vim-gitgutter'
     Plug 'dense-analysis/ale'
     Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-    Plug 'junegunn/fzf.vim', {'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650'}
+    Plug 'junegunn/fzf.vim', {'frozen': 1}
     Plug 'mgedmin/taghelper.vim'
     Plug 'vimlab/split-term.vim'
     Plug 'APZelos/blamer.nvim'
@@ -36,7 +36,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'terryma/vim-expand-region'
-    Plug 'lukas-reineke/indent-blankline.nvim', {'commit': '9637670896b68805430e2f72cf5d16be5b97a22a'}
+    Plug 'lukas-reineke/indent-blankline.nvim', {'frozen': 1}
     Plug 'andrewradev/undoquit.vim'
 call plug#end()
 
