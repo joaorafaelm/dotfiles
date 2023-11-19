@@ -16,3 +16,4 @@ selfhosted/*
 .env
 .aider*
 Brewfile.lock.json
+vim/session/
