@@ -32,12 +32,16 @@ require("lazy").setup({
     "tpope/vim-commentary",
     "gcmt/taboo.vim",
     {"sindrets/winshift.nvim", highlight_moving_win = false},
-    {"neoclide/coc.nvim", branch = "release", build = "yarn" },
+    -- {"neoclide/coc.nvim", branch = "release", build = "yarn" },
     "ruanyl/vim-gh-line",
     "github/copilot.vim",
     {"dhruvasagar/vim-prosession", dependencies = "tpope/vim-obsession"},
     "maxmellon/vim-jsx-pretty",
-    {"chomosuke/term-edit.nvim", tag = "v1.*", prompt_end = '%$ '},
+    {
+        'chomosuke/term-edit.nvim',
+        lazy = false, -- or ft = 'toggleterm' if you use toggleterm.nvim
+        version = '1.*',
+    },
     "jessekelighine/vindent.vim",
     "vim-scripts/argtextobj.vim",
     "madox2/vim-ai",
