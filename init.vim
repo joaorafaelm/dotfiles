@@ -787,7 +787,7 @@ augroup update_plug
             let l:this_week = strftime('%Y_%V')
             let l:contents = readfile(l:filename)
             if index(l:contents, l:this_week) < 0
-                call execute('UpdatePlugins'
+                call execute('UpdatePlugins')
                 :TSUpdate
                 call writefile([l:this_week], l:filename, 'a')
             endif
