@@ -771,10 +771,6 @@ augroup yankhighlight
     autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=500}
 augroup END
 
-" Auto update plugins every week
-command UpdatePlugins
-  \ PlugUpdate | PlugSnapshot! ~/dotfiles/plug.snapshot.vim
-
 augroup update_plug
     au!
     function! OnVimEnter() abort
@@ -787,13 +783,14 @@ augroup update_plug
             let l:this_week = strftime('%Y_%V')
             let l:contents = readfile(l:filename)
             if index(l:contents, l:this_week) < 0
-                call execute('UpdatePlugins')
+                call execute('PlugUpdate')
                 :TSUpdate
                 call writefile([l:this_week], l:filename, 'a')
             endif
         endif
     endfunction
     au VimEnter * call OnVimEnter()
+    au BufLeave * if &filetype == 'vim-plug' | silent! PlugSnapshot! ~/dotfiles/plug.snapshot.vim | endif
 augroup END
 
 " auto resize windows
