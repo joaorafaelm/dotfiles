@@ -765,8 +765,13 @@ augroup fzfGroup
     au BufEnter * if &filetype == 'fzf' | setlocal laststatus=0 noshowmode noruler nonumber norelativenumber signcolumn=no | endif
 augroup END
 
-" Auto update plugins every week
+augroup yankhighlight
+    au!
+    hi HighlightedyankRegion ctermbg=236
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=500}
+augroup END
 
+" Auto update plugins every week
 command UpdatePlugins
   \ PlugUpdate | PlugSnapshot! ~/dotfiles/plug.snapshot.vim
 

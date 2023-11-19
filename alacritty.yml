@@ -26,6 +26,7 @@ font:
     style: Regular
     antialias: false
     rgba: false
+    use_thin_strokes: false
 
   bold:
     family: Menlo
