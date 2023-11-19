@@ -16,12 +16,12 @@
     ~/.tmux.conf: tmux.conf
     ~/.vim: vim/
     ~/.tmux: tmux/
-    ~/.gitconfig: gitconfig
+    ~/.gitconfig: .gitconfig
     ~/.yabairc: yabairc
     ~/.skhdrc: skhdrc
-    ~/.zshrc: zshrc 
-    ~/.bashrc: bashrc 
-    ~/.zshenv: zshenv 
+    ~/.zshrc: .zshrc 
+    ~/.bashrc: .bashrc 
+    ~/.zshenv: .zshenv 
     ~/.xonshrc: .xonshrc 
     ~/.headline.zsh-theme: headline.zsh-theme 
     ~/.gitignore_global: gitignore
