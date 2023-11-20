@@ -1,6 +1,7 @@
 " vim: set filetype=vim:
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
+let g:python3_host_prog = expand('python')
 
 call plug#begin('~/.vim/plugins')
     function! UpdateRemotePlugins(...)
@@ -13,7 +14,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'dense-analysis/ale'
     Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
     Plug 'junegunn/fzf.vim', {'frozen': 1}
-    Plug 'mgedmin/taghelper.vim'
     Plug 'vimlab/split-term.vim'
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
@@ -38,6 +38,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'terryma/vim-expand-region'
     Plug 'lukas-reineke/indent-blankline.nvim', {'frozen': 1}
     Plug 'andrewradev/undoquit.vim'
+    Plug 'dstein64/vim-startuptime'
 call plug#end()
 
 let mapleader = ','
@@ -989,6 +990,7 @@ tnoremap <C-Down> <C-\><C-n><C-W>j
 tnoremap <C-Left> <C-\><C-n><C-W>h
 tnoremap <C-Right> <C-\><C-n><C-W>l
 tnoremap <C-]> <C-\><C-n>:SessionPicker<CR>
+tnoremap <C-s> <C-\><C-n>:call GFilesWithFocus()<CR>
 
 
 nnoremap <silent> <Leader>t :call SwitchToTerm()<cr>
@@ -1043,7 +1045,13 @@ nnoremap U <C-R>
 nnoremap <silent><leader><space> :Files<CR>
 nnoremap <silent><leader>b :Buffers<CR>
 nnoremap <silent><C-f> :Rg<CR>
-nnoremap <silent><C-s> :GFiles?<CR>
+
+function! GFilesWithFocus()
+    let current_dir = getcwd()
+    call fzf#vim#gitfiles('?', fzf#vim#with_preview({ "placeholder": "", 'dir': getcwd()}))
+endfunction
+
+nnoremap <silent><C-s> :call GFilesWithFocus()<CR>
 nnoremap <silent><C-r> :History:<CR>
 nnoremap <silent><c-h> :Helptags<CR>
 
@@ -1057,7 +1065,7 @@ nnoremap <silent><leader>q :silent! :call OpenQuickFix()<cr>
 nnoremap <silent><leader>x :call AddToQuickFix()<cr>
 
 " custom mapping in fugitive window (:Git)
-nnoremap <silent><leader>g :tab G<CR>
+nnoremap <silent><leader>g :G<CR>
 nnoremap <silent><leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>
 
 "After <leader>h, navigate through the git history
