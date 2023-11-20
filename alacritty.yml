@@ -39,8 +39,8 @@ font:
   size: 10
   offset:
     x: 0
-    y: 4
-  scale_with_dpi: true
+    y: 3
+  scale_with_dpi: false
 
 key_bindings:
   - { key: Slash,   mods: Control,       chars: "\x1f"                 }

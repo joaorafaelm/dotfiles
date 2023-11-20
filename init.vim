@@ -235,7 +235,8 @@ set cursorline
 set cursorlineopt=number
 
 " status column
-" let &stc='%s %#NonText#%{v:relnum} %=%#LineNr#%{v:lnum} '
+" let &stc='%s %=%#LineNr#%{v:lnum}  %#NonText#%{v:relnum ? v:relnum : v:lnum} %T'
+" let &stc='%s %{v:relnum?v:relnum:v:lnum} '
 
 "fold stuff
 set foldnestmax=3
