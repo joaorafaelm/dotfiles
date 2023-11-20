@@ -1046,8 +1046,8 @@ nnoremap <silent><leader>b :Buffers<CR>
 nnoremap <silent><C-f> :Rg<CR>
 
 function! GFilesWithFocus()
-  let current_dir = getcwd()
-  call fzf#vim#gitfiles('?', fzf#vim#with_preview({ "placeholder": "", 'dir': getcwd()}))
+    let current_dir = getcwd()
+    call fzf#vim#gitfiles('?', fzf#vim#with_preview({ "placeholder": "", 'dir': getcwd()}))
 endfunction
 
 nnoremap <silent><C-s> :call GFilesWithFocus()<CR>
@@ -1065,11 +1065,14 @@ nnoremap <silent><leader>x :call AddToQuickFix()<cr>
 
 " custom mapping in fugitive window (:Git)
 nnoremap <silent><leader>g :G<CR>
-nnoremap <silent><leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>
+nnoremap <silent><leader>h :BCommits<CR>
+vnoremap <silent><leader>h :BCommits<CR>
 
+" open git blame in a new tab
+" nnoremap <silent><leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>
 "After <leader>h, navigate through the git history
-map <silent> <expr> <C-j> &diff ? ':q<CR>:cn<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-j>'
-map <silent> <expr> <C-k> &diff ? ':q<CR>:cp<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-k>'
+" map <silent> <expr> <C-j> &diff ? ':q<CR>:cn<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-j>'
+" map <silent> <expr> <C-k> &diff ? ':q<CR>:cp<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-k>'
 
 " silent maps for [c and ]c for git gutter and vimdiff
 map <silent> <expr> [c &diff ? '[c' : ':silent! GitGutterPrevHunk<CR>'

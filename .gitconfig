@@ -14,8 +14,8 @@
     commit-style = omit
     file-decoration-style = none
     hunk-header-style = omit
-    line-numbers-left-format = "{nm:>1} "
-    line-numbers-right-format = "{np:>1} "
+    line-numbers-left-format = " {nm:>1} "
+    line-numbers-right-format = " {np:>1} "
     line-numbers-minus-style = red
     line-numbers-plus-style = green
     line-numbers-zero-style = black
