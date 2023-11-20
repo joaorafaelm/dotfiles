@@ -1078,6 +1078,11 @@ vnoremap <silent><leader>h :BCommits<CR>
 map <silent> <expr> [c &diff ? '[c' : ':silent! GitGutterPrevHunk<CR>'
 map <silent> <expr> ]c &diff ? ']c' : ':silent! GitGutterNextHunk<CR>'
 
+" disable command line window
+" record macro with Shift + q
+nnoremap Q q
+nnoremap q <Nop>
+
 "============================================
 "================= LUA ======================
 "============================================
