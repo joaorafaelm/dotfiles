@@ -537,7 +537,7 @@ endfunction
 command! SessionPicker call fzf#run(fzf#wrap({
     \ 'source': 'cd $HOME; zsh -c $FZF_ALT_C_COMMAND',
     \ 'sink*': { lines -> s:source_session(lines) },
-    \ 'options': "--expect=ctrl-x --preview 'tree -S -d -C ~/{}'"
+    \ 'options': "--expect=ctrl-x"
 \ }))
 
 function! SearchWordWithRg()
