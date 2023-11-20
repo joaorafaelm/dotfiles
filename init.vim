@@ -1,7 +1,8 @@
-" vim: set filetype=vim:
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 let g:python3_host_prog = expand('python')
+let mapleader = ','
+set encoding=utf-8
 
 call plug#begin('~/.vim/plugins')
     function! UpdateRemotePlugins(...)
@@ -38,17 +39,45 @@ call plug#begin('~/.vim/plugins')
     Plug 'terryma/vim-expand-region'
     Plug 'lukas-reineke/indent-blankline.nvim', {'frozen': 1}
     Plug 'andrewradev/undoquit.vim'
-    Plug 'dstein64/vim-startuptime'
 call plug#end()
 
-let mapleader = ','
-set encoding=utf-8
-scriptencoding utf-8
+" lua scripts
+lua << EOF
+    require("indent_blankline").setup {
+        show_current_context = true,
+        show_current_context_start = false,
+        space_char_highlight_list = { "Whitespace" },
+        char_highlight_list = { "Whitespace" },
+        context_highlight_list = { "Whitespace" },
+        char = '',
+        context_char = '┃',
+    }
+
+    require "term-edit".setup { prompt_end = '%$ ' }
+
+    require('nvim-treesitter.configs').setup {
+        ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript" },
+        sync_install = false,
+        auto_install = true,
+        highlight = {
+            enable = true,
+        }
+    }
+
+    xpcall(
+        function()
+            require "winshift".setup { highlight_moving_win = false }
+        end,
+        function(err)
+        end
+    )
+EOF
+
+" theme
 syntax on
 filetype plugin on
 filetype plugin indent off " space as tabs
-
-" theme
+set notermguicolors
 set background=dark
 colorscheme gruvbox
 
@@ -300,6 +329,7 @@ let g:taboo_modified_tab_flag = ' ~ '
 let g:winresizer_start_key	= '<leader>e'
 
 " session config
+let g:obsession_no_bufenter = 1
 let g:prosession_dir = '~/.local/share/nvim/sessions/'
 let g:prosession_on_startup = 1
 
@@ -1082,39 +1112,3 @@ map <silent> <expr> ]c &diff ? ']c' : ':silent! GitGutterNextHunk<CR>'
 " record macro with Shift + q
 nnoremap Q q
 nnoremap q <Nop>
-
-"============================================
-"================= LUA ======================
-"============================================
-
-" lua scripts
-lua << EOF
-    require("indent_blankline").setup {
-        show_current_context = true,
-        show_current_context_start = false,
-        space_char_highlight_list = { "Whitespace" },
-        char_highlight_list = { "Whitespace" },
-        context_highlight_list = { "Whitespace" },
-        char = '',
-        context_char = '┃',
-    }
-
-    require "term-edit".setup { prompt_end = '%$ ' }
-
-    require('nvim-treesitter.configs').setup {
-        ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript" },
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-            enable = true,
-        }
-    }
-
-    xpcall(
-        function()
-            require "winshift".setup { highlight_moving_win = false }
-        end,
-        function(err)
-        end
-    )
-EOF
