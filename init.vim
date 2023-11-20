@@ -178,10 +178,10 @@ set noswapfile
 set lazyredraw
 
 " session config
-set sessionoptions+=tabpages,globals,winpos,terminal
+set sessionoptions+=winpos
 
 " do not store global and local values in a session
-set sessionoptions-=options,blank
+set sessionoptions-=options,blank,terminal
 
 " default tabs length
 set tabstop=4
@@ -990,7 +990,6 @@ tnoremap <C-Down> <C-\><C-n><C-W>j
 tnoremap <C-Left> <C-\><C-n><C-W>h
 tnoremap <C-Right> <C-\><C-n><C-W>l
 tnoremap <C-]> <C-\><C-n>:SessionPicker<CR>
-tnoremap <C-s> <C-\><C-n>:call GFilesWithFocus()<CR>
 
 
 nnoremap <silent> <Leader>t :call SwitchToTerm()<cr>
@@ -1047,8 +1046,8 @@ nnoremap <silent><leader>b :Buffers<CR>
 nnoremap <silent><C-f> :Rg<CR>
 
 function! GFilesWithFocus()
-    let current_dir = getcwd()
-    call fzf#vim#gitfiles('?', fzf#vim#with_preview({ "placeholder": "", 'dir': getcwd()}))
+  let current_dir = getcwd()
+  call fzf#vim#gitfiles('?', fzf#vim#with_preview({ "placeholder": "", 'dir': getcwd()}))
 endfunction
 
 nnoremap <silent><C-s> :call GFilesWithFocus()<CR>
