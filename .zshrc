@@ -126,6 +126,7 @@ g () {
 }
 
 # make worktree
+# TODO: use .feature from $HOME, prepend the new branch with the project name + $1
 gg () {
     cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ");
     if [ ! -d ".features" ]; then
@@ -169,7 +170,6 @@ if command -v keychain 1>/dev/null 2>&1; then
     eval `keychain --quiet --eval --agents ssh id_rsa`
 fi
 
-alias fd=fdfind
 source /Users/joaorafael/.docker/init-zsh.sh || true
 eval "$(github-copilot-cli alias -- "$0")"
 

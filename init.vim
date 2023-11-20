@@ -4,6 +4,11 @@ let g:python3_host_prog = expand('python')
 let mapleader = ','
 set encoding=utf-8
 
+" session config
+let g:obsession_no_bufenter = 1
+let g:prosession_dir = '~/.local/share/nvim/sessions/'
+let g:prosession_on_startup = 1
+
 call plug#begin('~/.vim/plugins')
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
@@ -328,11 +333,6 @@ let g:taboo_modified_tab_flag = ' ~ '
 " resize window key
 let g:winresizer_start_key	= '<leader>e'
 
-" session config
-let g:obsession_no_bufenter = 1
-let g:prosession_dir = '~/.local/share/nvim/sessions/'
-let g:prosession_on_startup = 1
-
 " fzf config
 let g:fzf_buffers_jump = 1
 let g:fzf_action = {
@@ -521,28 +521,23 @@ function! CloseQuickFix()
     cclose
 endfunction
 
-function! s:list_sessions() abort
-    return systemlist('ls -t ' . g:prosession_dir . ' | grep -v last_session | sed "s/%/\//g"')
-endfunction
-
 function! s:source_session(lines) abort
     let key = a:lines[0]
-    let original_file_name = a:lines[1]
+    let original_file_name = '~/' . a:lines[1]
     let dir = substitute(original_file_name, '\.vim$', '', '')
     let last_dir = split(dir, '/')[-1]
-    let file = g:prosession_dir . substitute(original_file_name, '/', '\\%', 'g')
     if key ==# 'ctrl-x'
-        silent! exec '!rm ' . file
-        :SessionPicker
+        " silent! exec '!rm ' . file
+        " :SessionPicker
     else
         silent! exec '!tmux select-window -t ' . last_dir . ' || tmux new-window -n ' . last_dir . ' -c ' . dir . ' nvim'
-    endif
+     endif
 endfunction
 
 command! SessionPicker call fzf#run(fzf#wrap({
-    \ 'source': s:list_sessions(),
+    \ 'source': 'cd $HOME; zsh -c $FZF_ALT_C_COMMAND',
     \ 'sink*': { lines -> s:source_session(lines) },
-    \ 'options': '--expect=ctrl-x'
+    \ 'options': "--expect=ctrl-x --preview 'tree -S -d -C ~/{}'"
 \ }))
 
 function! SearchWordWithRg()
