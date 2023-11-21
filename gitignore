@@ -8,3 +8,4 @@ vim/worklist.json
 .nvimlog
 .aider*
 tags
+Session.vim

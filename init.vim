@@ -4,11 +4,6 @@ let g:python3_host_prog = expand('python')
 let mapleader = ','
 set encoding=utf-8
 
-" session config
-let g:obsession_no_bufenter = 1
-let g:prosession_dir = '~/.local/share/nvim/sessions/'
-let g:prosession_on_startup = 1
-
 call plug#begin('~/.vim/plugins')
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
@@ -78,12 +73,17 @@ lua << EOF
     )
 EOF
 
+" session config
+let g:prosession_dir = '~/.local/share/nvim/sessions/'
+let g:obsession_no_bufenter = 0
+let g:prosession_on_startup = 1
+
 " theme
 syntax on
 filetype plugin on
 filetype plugin indent off " space as tabs
 set notermguicolors
-set background=dark
+" set background=light
 colorscheme gruvbox
 
 "========================================
@@ -91,98 +91,183 @@ colorscheme gruvbox
 "========================================
 
 " Background and foreground colors
-hi Normal ctermbg=16 ctermfg=247
 hi Operator ctermbg=NONE
-
-" Background colors for active vs inactive windows
-hi ActiveWindow ctermbg=233
-hi InactiveWindow ctermbg=16
-hi MsgArea ctermfg=239
-hi WinSeparator ctermfg=16 ctermbg=16
-
-"invisible characters
-hi Whitespace ctermbg=NONE ctermfg=234 cterm=bold
-hi Nontext ctermbg=NONE ctermfg=234 cterm=bold
-hi Specialkey ctermbg=NONE ctermfg=234 cterm=bold
-hi Comment cterm=italic ctermfg=239
-
-"highlight clear cursorline
-hi cursorlinenr ctermbg=NONE cterm=bold
-hi cursorline ctermbg=235
-hi Visual ctermbg=237 cterm=NONE
-hi Search cterm=inverse ctermfg=NONE
-hi cursorcolumn ctermbg=235
-hi Blamer ctermfg=239 ctermbg=NONE cterm=italic
-hi LineNr ctermfg=234 cterm=bold
-hi HiCursorWord ctermbg=236
-
-" Fold
-hi Folded ctermbg=NONE ctermfg=239
-hi FoldColumn ctermbg=NONE ctermfg=235
-
-" Git gutter and vimdiff
-hi clear SignColumn
-hi GitGutterAdd ctermfg=108
-hi GitGutterChange ctermfg=108
-hi GitGutterDelete ctermfg=131
-hi GitGutterChangeDelete ctermfg=108
-hi ALEErrorSign ctermbg=NONE ctermfg=131
-hi ALEWarningSign ctermbg=NONE ctermfg=131
-
-" Quickfix
-hi link QuickFixLine CursorLine
 
 " FZF colors
 hi FZFBG ctermbg=NONE ctermfg=NONE
-hi BorderFZF ctermfg=233
-hi TextFZF ctermfg=245
-
-" Auto complete menu
-hi Pmenu ctermfg=240 ctermbg=233
-hi PmenuSel ctermfg=233 ctermbg=108
 
 " Windows split
 hi VertSplit ctermfg=None ctermbg=None
-hi StatusLineNC ctermfg=16 ctermbg=237
-hi StatusLine ctermfg=16 ctermbg=241
-
-" Status line components
-hi AddBardsHighlight ctermfg=106 cterm=italic
-hi RemoveBardsHighlight ctermfg=131 cterm=italic
-hi DiffHighlight ctermfg=246 cterm=italic
-hi FileName ctermfg=236 cterm=italic
-hi CurrentMode ctermfg=236 cterm=bold
-hi GitBranch ctermfg=236 cterm=italic,bold
-
-" tab styling
-hi TabLineFill ctermfg=235 ctermbg=16
-hi TabLine ctermfg=237 ctermbg=16 cterm=NONE
-hi TabLineSel ctermfg=241 ctermbg=233
-hi Title ctermfg=214 cterm=bold
-
-" command line
-hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
-hi PmenuSelCustom ctermbg=233
-hi PmenuTextCustom ctermfg=240 ctermbg=16
 
 " ai.vim
 hi link AIHighlight Visual
 
-" which key
-hi WhichKeyFloat ctermbg=16 ctermfg=239
-hi WhichKeyDesc	ctermfg=239
-hi WhichKey	ctermfg=red
-
 " todo highlight
 hi def link MyTodo Todo
 
-if &background ==# 'light'
+" Quickfix
+hi link QuickFixLine CursorLine
+
+
+function! SetDarkColors()
     " Background and foreground colors
-    hi Normal ctermbg=254 ctermfg=0
+    hi Normal ctermbg=16 ctermfg=247
+    hi Operator ctermbg=NONE
+
+    " Background colors for active vs inactive windows
+    hi ActiveWindow ctermbg=233
+    hi InactiveWindow ctermbg=16
+    hi MsgArea ctermfg=239
+    hi WinSeparator ctermfg=16 ctermbg=16
+
+    "invisible characters
+    hi Whitespace ctermbg=NONE ctermfg=234 cterm=bold
+    hi Nontext ctermbg=NONE ctermfg=234 cterm=bold
+    hi Specialkey ctermbg=NONE ctermfg=234 cterm=bold
+    hi Comment cterm=italic ctermfg=239
+
+    "highlight clear cursorline
+    hi cursorlinenr ctermbg=NONE cterm=bold
+    hi cursorline ctermbg=235
+    hi Visual ctermbg=237 cterm=NONE
+    hi Search cterm=inverse ctermfg=NONE
+    hi cursorcolumn ctermbg=235
+    hi Blamer ctermfg=239 ctermbg=NONE cterm=italic
+    hi LineNr ctermfg=234 cterm=bold
+    hi HiCursorWord ctermbg=236
+
+    " Fold
+    hi Folded ctermbg=NONE ctermfg=239
+    hi FoldColumn ctermbg=NONE ctermfg=235
+
+    " FZF colors
+    hi BorderFZF ctermfg=233
+    hi TextFZF ctermfg=245
+
+    " Auto complete menu
+    hi Pmenu ctermfg=240 ctermbg=233
+    hi PmenuSel ctermfg=233 ctermbg=108
+
+    " Windows split
+    hi StatusLineNC ctermfg=16 ctermbg=237
+    hi StatusLine ctermfg=16 ctermbg=241
+
+    " Status line components
+    hi AddBardsHighlight ctermfg=106 cterm=italic
+    hi RemoveBardsHighlight ctermfg=131 cterm=italic
+    hi DiffHighlight ctermfg=246 cterm=italic
+    hi FileName ctermfg=236 cterm=italic
+    hi CurrentMode ctermfg=236 cterm=bold
+    hi GitBranch ctermfg=236 cterm=italic,bold
+
+    " tab styling
+    hi TabLineFill ctermfg=235 ctermbg=16
+    hi TabLine ctermfg=237 ctermbg=16 cterm=NONE
+    hi TabLineSel ctermfg=241 ctermbg=233
+    hi Title ctermfg=214 cterm=bold
+
+    " command line
+    hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
+    hi PmenuSelCustom ctermbg=233
+    hi PmenuTextCustom ctermfg=240 ctermbg=16
+
+    " which key
+    hi WhichKeyFloat ctermbg=16 ctermfg=239
+    hi WhichKeyDesc	ctermfg=239
+    hi WhichKey	ctermfg=red
+
+    " Git gutter and vimdiff
+    hi clear SignColumn
+    hi GitGutterAdd ctermfg=108
+    hi GitGutterChange ctermfg=108
+    hi GitGutterDelete ctermfg=131
+    hi GitGutterChangeDelete ctermfg=108
+    hi ALEErrorSign ctermbg=NONE ctermfg=131
+    hi ALEWarningSign ctermbg=NONE ctermfg=131
+endfunction
+
+" light colors
+function! SetLightColors()
+    " Background and foreground colors
+    hi Normal ctermbg=254 ctermfg=241
+    hi Operator ctermbg=NONE
 
     " Background colors for active vs inactive windows
     hi ActiveWindow ctermbg=254
-    hi InactiveWindow ctermbg=251
+    hi InactiveWindow ctermbg=253
+    hi MsgArea ctermfg=248 ctermbg=253
+    hi WinSeparator ctermfg=253 ctermbg=253
+
+    "invisible characters
+    hi Whitespace ctermbg=NONE ctermfg=253 cterm=bold
+    hi Nontext ctermbg=NONE ctermfg=253 cterm=bold
+    hi Specialkey ctermbg=NONE ctermfg=253 cterm=bold
+    hi Comment cterm=italic ctermfg=247
+
+    "highlight clear cursorline
+    hi cursorlinenr ctermbg=NONE cterm=bold
+    hi cursorline ctermbg=252
+    hi Visual ctermbg=250 cterm=NONE
+    hi Search cterm=inverse ctermfg=NONE
+    hi cursorcolumn ctermbg=252
+    hi Blamer ctermfg=247 ctermbg=NONE cterm=italic
+    hi LineNr ctermfg=252 cterm=bold
+    hi HiCursorWord ctermbg=252
+
+    " Fold
+    hi Folded ctermbg=NONE ctermfg=247
+    hi FoldColumn ctermbg=NONE ctermfg=253
+
+    " FZF colors
+    hi BorderFZF ctermfg=253
+    hi TextFZF ctermfg=245
+
+    " Auto complete menu
+    hi Pmenu ctermfg=240 ctermbg=253
+    hi PmenuSel ctermfg=253 ctermbg=250
+
+    " Windows split
+    hi StatusLineNC ctermfg=253
+    hi StatusLine ctermfg=253
+
+    " Status line components
+    hi AddBardsHighlight ctermfg=106 cterm=italic ctermbg=253   
+    hi RemoveBardsHighlight ctermfg=131 cterm=italic ctermbg=253
+    hi DiffHighlight ctermfg=246 cterm=italic
+    hi FileName ctermfg=249 cterm=italic ctermbg=253
+    hi CurrentMode ctermfg=249 cterm=bold ctermbg=253
+    hi GitBranch ctermfg=249 cterm=italic,bold ctermbg=253
+    
+    " tab styling
+    hi TabLineFill ctermfg=253 ctermbg=253
+    hi TabLine ctermfg=250 ctermbg=253 cterm=NONE
+    hi TabLineSel ctermfg=254 ctermbg=252 cterm=bold
+    hi Title ctermfg=214 cterm=bold
+
+    " command line
+    hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
+    hi PmenuSelCustom ctermbg=253
+    hi PmenuTextCustom ctermfg=240 ctermbg=253
+    
+    " which key
+    hi WhichKeyFloat ctermbg=253 ctermfg=247
+    hi WhichKeyDesc	ctermfg=247
+    hi WhichKey	ctermfg=red
+
+    " Git gutter and vimdiff
+    hi clear SignColumn
+    hi GitGutterAdd ctermfg=108 ctermbg=NONE
+    hi GitGutterChange ctermfg=108 ctermbg=NONE
+    hi GitGutterDelete ctermfg=131 ctermbg=NONE
+    hi GitGutterChangeDelete ctermfg=108 ctermbg=NONE
+    hi ALEErrorSign ctermbg=NONE ctermfg=131
+    hi ALEWarningSign ctermbg=NONE ctermfg=131
+endfunction
+
+if &background ==# 'light'
+    call SetLightColors()
+else
+    call SetDarkColors()
 endif
 
 "========================================
@@ -363,7 +448,7 @@ let g:fzf_layout = { 'up': '~40%' }
 let g:fzf_history_dir = '~/.fzf-history'
 let $FZF_DEFAULT_OPTS = '--inline-info --layout=reverse-list --border=none --no-scrollbar'
 let $FZF_DEFAULT_OPTS .= ' --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
-let $FZF_DEFAULT_OPTS .= ' --preview-window noborder --margin=0 --padding=0 --no-separator'
+let $FZF_DEFAULT_OPTS .= ' --preview-window noborder --margin=0 --padding=0 --no-separator --color dark'
 
 " vindent
 let g:vindent_begin = 0
@@ -998,6 +1083,19 @@ nnoremap # #N
 nnoremap * *N
 
 nnoremap <leader>z :call ToogleZoom()<CR>
+
+" toogle background from dark to light on <leader>l
+nnoremap <leader>l :call ToggleBackground()<CR>
+
+function! ToggleBackground()
+    if &background ==# 'dark'
+        set background=light
+        call SetLightColors()
+    else
+        set background=dark
+        call SetDarkColors()
+    endif
+endfunction
 
 " terminal commands
 tnoremap <Esc> <C-\><C-n>

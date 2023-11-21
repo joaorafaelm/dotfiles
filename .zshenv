@@ -34,6 +34,20 @@ export FZF_DEFAULT_OPTS="
   --no-separator --margin=0 --padding=0
   --inline-info --border=none --no-scrollbar
 "
+# light theme
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' 
+# --color=fg:#4b505b,bg:#fafafa,hl:#5079be 
+# --color=fg+:#4b505b,bg+:#fafafa,hl+:#3a8b84 
+# --color=info:#88909f,prompt:#d05858,pointer:#b05ccc 
+# --color=marker:#608e32,spinner:#d05858,header:#3a8b84'
+
+# dark theme
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' 
+# --color=fg:#c5cdd9,bg:#262729,hl:#6cb6eb 
+# --color=fg+:#c5cdd9,bg+:#262729,hl+:#5dbbc1 
+# --color=info:#88909f,prompt:#ec7279,pointer:#d38aea 
+# --color=marker:#a0c980,spinner:#ec7279,header:#5dbbc1'
+
 alias cat="bat --plain"
 alias gc="gh pr list --state all --limit 1000 | fzf --preview 'gh pr diff --color=always {+1} | delta' | awk '{print \$1}' | xargs gh pr checkout"
 . "$HOME/.cargo/env"
