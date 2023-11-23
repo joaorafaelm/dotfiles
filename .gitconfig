@@ -7,7 +7,6 @@
 	excludesfile = /Users/joaorafael/.gitignore_global
 	pager = delta
     hooksPath = ~/.config/githooks
-
 [delta]
     side-by-side = true
     syntax-theme = gruvbox-dark
@@ -19,7 +18,6 @@
     line-numbers-minus-style = red
     line-numbers-plus-style = green
     line-numbers-zero-style = black
-
 [pull]
 	rebase = true
 	default = current

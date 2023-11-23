@@ -83,7 +83,6 @@ syntax on
 filetype plugin on
 filetype plugin indent off " space as tabs
 set notermguicolors
-" set background=light
 colorscheme gruvbox
 
 "========================================
@@ -107,7 +106,6 @@ hi def link MyTodo Todo
 
 " Quickfix
 hi link QuickFixLine CursorLine
-
 
 function! SetDarkColors()
     " Background and foreground colors
@@ -1028,6 +1026,7 @@ vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
 tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 tnoremap <silent> <S-LEFT> <C-\><C-n><S-LEFT>
+tnoremap <silent> <C-[> <C-\><C-n>
 
 " ai.vim maps
 nnoremap <silent> <leader>f :AIEdit<space>
@@ -1090,9 +1089,11 @@ nnoremap <leader>l :call ToggleBackground()<CR>
 function! ToggleBackground()
     if &background ==# 'dark'
         set background=light
+        colorscheme gruvbox
         call SetLightColors()
     else
         set background=dark
+        colorscheme gruvbox
         call SetDarkColors()
     endif
 endfunction

@@ -443,7 +443,11 @@ _headline_part() { # (name, content, side)
   info_len=$(headline_prompt_len $info 9999)
   _HEADLINE_LEN_SUM=$(( $_HEADLINE_LEN_SUM + $info_len ))
   eval style="\$reset\$HEADLINE_STYLE_${1}_LINE"
-  line="%{$style%}$(headline_repeat_char $HEADLINE_LINE_CHAR $info_len)"
+  if [[ ${1} == JOINT ]]; then
+      line="%{$style%}$(headline_repeat_char ' ' $info_len)"
+  else
+      line="%{$style%}$(headline_repeat_char $HEADLINE_LINE_CHAR $info_len)"
+  fi
   if [[ $3 == 'right' ]]; then
     _HEADLINE_INFO_RIGHT="$info$_HEADLINE_INFO_RIGHT"
     _HEADLINE_LINE_RIGHT="$line$_HEADLINE_LINE_RIGHT"
