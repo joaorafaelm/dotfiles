@@ -24,9 +24,9 @@ font:
   normal:
     family: Menlo
     style: Regular
-    antialias: false
-    rgba: false
-    use_thin_strokes: false
+    antialias: true
+    rgba: true
+    use_thin_strokes: true
 
   bold:
     family: Menlo
@@ -40,7 +40,7 @@ font:
   offset:
     x: 0
     y: 3
-  scale_with_dpi: false
+  scale_with_dpi: true
 
 key_bindings:
   - { key: Slash,   mods: Control,       chars: "\x1f"                 }
