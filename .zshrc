@@ -1,3 +1,11 @@
+if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ]; then
+    # "Skipping tmux command because TERM_PROGRAM is set to vscode."
+else
+    if [ -z "$TMUX" ]; then
+        tmux a -t || tmux new-session \; new-window -n dotfiles -c ~/dotfiles nvim
+    fi
+fi
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export ZSH=$HOME/.oh-my-zsh
@@ -177,13 +185,5 @@ eval "$(github-copilot-cli alias -- "$0")"
 export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
 export OPENAI_API_KEY=`cat ~/.config/openai.token`
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ]; then
-    echo "Skipping tmux command because TERM_PROGRAM is set to vscode."
-else
-    if [ -z "$TMUX" ]; then
-        tmux a -t || tmux
-    fi
-fi
 
 l

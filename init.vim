@@ -75,6 +75,8 @@ EOF
 
 " session config
 let g:prosession_dir = '~/.local/share/nvim/sessions/'
+let g:procession_last_session_dir = '~/.local/share/nvim/sessions/'
+let g:procession_default_session = 0
 let g:obsession_no_bufenter = 0
 let g:prosession_on_startup = 1
 

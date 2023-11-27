@@ -1,3 +1,4 @@
+# vim: set ft=python:
 $FOREIGN_ALIASES_SUPPRESS_SKIP_MESSAGE = True
 source-zsh "echo loading xonsh foreign shell"
 xontrib load pdb
