@@ -35,7 +35,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'madox2/vim-ai'
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'terryma/vim-expand-region'
     Plug 'lukas-reineke/indent-blankline.nvim', {'frozen': 1}
     Plug 'andrewradev/undoquit.vim'
@@ -56,8 +56,8 @@ lua << EOF
     require "term-edit".setup { prompt_end = '%$ ' }
 
     require('nvim-treesitter.configs').setup {
-        ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript" },
-        sync_install = false,
+        ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript", "gitcommit", "terraform", "bash" },
+        sync_install = true,
         auto_install = true,
         highlight = {
             enable = true,

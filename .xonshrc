@@ -1,7 +1,24 @@
 # vim: set ft=python:
 $FOREIGN_ALIASES_SUPPRESS_SKIP_MESSAGE = True
-source-zsh "echo loading xonsh foreign shell"
-xontrib load pdb
-$PROMPT = '{env_name}{BOLD_BLUE}{cwd}{branch_color}{curr_branch: {}}{RESET} {RED}{last_return_code_if_nonzero:[{BOLD_INTENSE_RED}{}{RED}] }{RESET}{BOLD_BLUE}{prompt_end}{RESET} '
-
 $XONSH_SHOW_TRACEBACK = True
+$XONSH_TRACEBACK_LOGFILE = '/tmp/xonsh-traceback.log'
+$XONTRIB_PROMPT_BAR_THEME = {
+    'left': '{hostname}{user}{cwd_abs#accent}',
+    'right': '{long_cmd_duration}{curr_branch#section}{env_name#strip_brackets#section}{date_time_tz}',
+    'bar_bg': '{BACKGROUND_#323232}',
+    'bar_fg': '{#AAA}',
+    'section_bg': '{BACKGROUND_#444}',
+    'section_fg': '{#CCC}',
+    'accent_fg': '{BOLD_#DDD}',
+}
+
+source-zsh "echo loading xonsh foreign shell"
+xontrib load pdb prompt_bar cmd_done
+
+
+def git_diff(args, stdin=None):
+    if args:
+        return $(git @(' '.join(args)))
+    return $(git diff --stat --color)
+
+aliases['g'] = git_diff
