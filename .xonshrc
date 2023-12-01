@@ -2,19 +2,24 @@
 $FOREIGN_ALIASES_SUPPRESS_SKIP_MESSAGE = True
 $XONSH_SHOW_TRACEBACK = True
 $XONSH_TRACEBACK_LOGFILE = '/tmp/xonsh-traceback.log'
+$XONTRIB_CD_TRIGGER_NOTIFICATION = False
+$PROMPT_FIELDS['git_hash'] = lambda: $(git rev-parse --short HEAD 2> /dev/null).strip()
+
 $XONTRIB_PROMPT_BAR_THEME = {
-    'left': '{hostname}{user}{cwd_abs#accent}',
-    'right': '{long_cmd_duration}{curr_branch#section}{env_name#strip_brackets#section}{date_time_tz}',
-    'bar_bg': '{BACKGROUND_#323232}',
+    'left': '{cwd#accent}{env_name#strip_brackets#accent}',
+    'right': '{curr_branch#section}{git_hash#section}',
+    'bar_bg': '',
     'bar_fg': '{#AAA}',
-    'section_bg': '{BACKGROUND_#444}',
-    'section_fg': '{#CCC}',
-    'accent_fg': '{BOLD_#DDD}',
+    'section_bg': '',
+    'section_fg': '{#444}',
+    'accent_fg': '{BOLD_#444}',
 }
 
 source-zsh "echo loading xonsh foreign shell"
 xontrib load pdb prompt_bar cmd_done
+__xonsh__.env['PROMPT_FIELDS']['prompt_end_xonsh'] = ";"
 
+from requests import get, post
 
 def git_diff(args, stdin=None):
     if args:

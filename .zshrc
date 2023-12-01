@@ -86,6 +86,7 @@ function space_to_continue {
 }
 
 #set history size
+HISTFILE=~/.zsh_history
 HISTSIZE=999999999
 #save history after logout
 SAVEHIST=999999999
