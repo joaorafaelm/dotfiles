@@ -1,13 +1,17 @@
 # vim: set ft=python:
+from requests import get, post
+from xonsh.built_ins import XSH as xsh
+
 $FOREIGN_ALIASES_SUPPRESS_SKIP_MESSAGE = True
+source-zsh "echo loading xonsh foreign shell"
+
 $XONSH_SHOW_TRACEBACK = True
 $XONSH_TRACEBACK_LOGFILE = '/tmp/xonsh-traceback.log'
 $XONTRIB_CD_TRIGGER_NOTIFICATION = False
 $PROMPT_FIELDS['git_hash'] = lambda: $(git rev-parse --short HEAD 2> /dev/null).strip()
-
 $XONTRIB_PROMPT_BAR_THEME = {
     'left': '{cwd#accent}{env_name#strip_brackets#accent}',
-    'right': '{curr_branch#section}{git_hash#section}',
+    'right': '{long_cmd_duration#section}{curr_branch#section}{git_hash#section}',
     'bar_bg': '',
     'bar_fg': '{#AAA}',
     'section_bg': '',
@@ -15,11 +19,37 @@ $XONTRIB_PROMPT_BAR_THEME = {
     'accent_fg': '{BOLD_#444}',
 }
 
-source-zsh "echo loading xonsh foreign shell"
-xontrib load pdb prompt_bar cmd_done
-__xonsh__.env['PROMPT_FIELDS']['prompt_end_xonsh'] = ";"
 
-from requests import get, post
+def secs_to_readable(secs: int):
+    """
+    >>> secs_to_readable(100)
+    '1m40s'
+    """
+    # decimals = secs - int(secs)
+    # secs = round(secs)
+    readable = ""
+    hours, remainder = divmod(secs, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if hours:
+        readable += f"{hours}h"
+    if hours or minutes:
+        readable += f"{minutes}m"
+    if hours or minutes or seconds:
+        readable += f"{seconds:.2f}s"
+    return readable
+
+
+def long_cmd_duration():
+    history = xsh.history
+    if not history.tss:
+        return
+
+    start_t, end_t = history.tss[-1]
+    interval = end_t - start_t
+
+    readable = secs_to_readable(interval)
+    return readable
+
 
 def git_diff(args, stdin=None):
     if args:
@@ -27,3 +57,7 @@ def git_diff(args, stdin=None):
     return $(git diff --stat --color)
 
 aliases['g'] = git_diff
+
+xontrib load pdb prompt_bar
+xsh.env["PROMPT_FIELDS"]["long_cmd_duration"] = long_cmd_duration
+__xonsh__.env['PROMPT_FIELDS']['prompt_end_xonsh'] = ";"
