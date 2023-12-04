@@ -10,6 +10,7 @@ export FZF_ALT_C_COMMAND="
     --exclude .gitmodules --exclude .gitkeep --exclude .gitattributes \
     --exclude .DS_Store --exclude .localized --exclude .vs \
     --exclude .venv --exclude .pytest_cache --exclude .mypy_cache \
+    --exclude Documents/Dev --exclude VirtualBox
 "
 export FZF_ALT_C_OPTS="--preview 'tree -C -S -d {}'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
