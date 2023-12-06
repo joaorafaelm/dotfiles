@@ -50,5 +50,3 @@
 [gpg]
 	program = gpg
 	format = ssh
-[filter "gitignore"]
-	clean = sed '1,4d'
