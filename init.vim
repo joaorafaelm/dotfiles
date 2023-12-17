@@ -35,7 +35,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'madox2/vim-ai'
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'terryma/vim-expand-region'
     Plug 'lukas-reineke/indent-blankline.nvim', {'commit': '9637670896b68805430e2f72cf5d16be5b97a22a'}
     Plug 'andrewradev/undoquit.vim'
@@ -56,8 +56,8 @@ lua << EOF
     require "term-edit".setup { prompt_end = '%$ ' }
 
     require('nvim-treesitter.configs').setup {
-        ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript", "gitcommit", "terraform", "bash" },
-        sync_install = true,
+        ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript", "terraform", "bash" },
+        sync_install = false,
         auto_install = true,
         highlight = {
             enable = true,
@@ -895,7 +895,6 @@ augroup update_plug
             let l:contents = readfile(l:filename)
             if index(l:contents, l:this_week) < 0
                 call execute('PlugUpdate')
-                :TSUpdate
                 call writefile([l:this_week], l:filename, 'a')
             endif
         endif
@@ -1021,12 +1020,12 @@ vmap <C-_> gc
 nnoremap <silent> <CR> :let @/ = ""<CR><CR>
 
 " select terminal commands output
-nnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
-nnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
-vnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
-vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
-tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
-tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
+" nnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
+" nnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
+" vnoremap <silent> <S-UP> :call SelectCommand('up')<CR>
+" vnoremap <silent> <S-DOWN> :call SelectCommand('down')<CR>
+" tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
+" tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 tnoremap <silent> <S-LEFT> <C-\><C-n><S-LEFT>
 tnoremap <silent> <C-[> <C-\><C-n>
 
