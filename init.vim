@@ -1,6 +1,6 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
-let g:python3_host_prog = expand('python')
+let g:python3_host_prog = '~/.pyenv/shims/python'
 let mapleader = ','
 set encoding=utf-8
 
@@ -279,7 +279,7 @@ set number
 set relativenumber
 set scrolloff=10
 set backspace=indent,eol,start
-set nowrap
+set wrap
 set linebreak
 set autoindent
 set nohidden
@@ -798,11 +798,12 @@ augroup END
 " tab length per file type
 augroup file_format
     au!
-    au FileType json,ts,tsx,typescript,typescriptreact,jsx,javascript set tabstop=2|set shiftwidth=2|set expandtab|setlocal nowrap
+    au FileType json,ts,tsx,typescript,typescriptreact,jsx,javascript setlocal ts=2 sw=2 expandtab
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab
     au FileType make setlocal noexpandtab
     au FileType zsh setlocal filetype=sh
+    au FileType python setlocal ts=4 sts=4 sw=4 expandtab
 augroup END
 
 "if filename starts with /private/tmp, run bufhidden=wipe
