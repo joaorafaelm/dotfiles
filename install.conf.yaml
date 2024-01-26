@@ -33,3 +33,4 @@
     ~/.config/aichat: aichat/
     ~/.config/githooks: githooks/
     ~/.ignore: .ignore
+    ~/.config/nvim/coc-settings.json: coc-settings.json

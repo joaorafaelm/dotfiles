@@ -4,6 +4,13 @@ let g:python3_host_prog = '~/.pyenv/shims/python'
 let mapleader = ','
 set encoding=utf-8
 
+let g:coc_global_extensions = [
+\ 'coc-pyright',
+\ 'coc-json',
+\ 'coc-html',
+\ 'coc-css',
+\ ]
+
 call plug#begin('~/.vim/plugins')
     function! UpdateRemotePlugins(...)
         " Needed to refresh runtime files
@@ -24,7 +31,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'gcmt/taboo.vim'
     Plug 'sindrets/winshift.nvim', {'branch': 'main'}
     Plug 'ruanyl/vim-gh-line'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }}
     Plug 'github/copilot.vim'
     Plug 'tpope/vim-obsession'
     Plug 'dhruvasagar/vim-prosession'
@@ -147,6 +154,8 @@ function! SetDarkColors()
     " Auto complete menu
     hi Pmenu ctermfg=240 ctermbg=233
     hi PmenuSel ctermfg=233 ctermbg=108
+    hi CocFloating ctermfg=240 ctermbg=233
+    hi CocMenuSel ctermfg=233 ctermbg=108
 
     " Windows split
     hi StatusLineNC ctermfg=16 ctermbg=237
@@ -225,6 +234,8 @@ function! SetLightColors()
     " Auto complete menu
     hi Pmenu ctermfg=240 ctermbg=253
     hi PmenuSel ctermfg=253 ctermbg=250
+    hi CocFloating ctermfg=240 ctermbg=253
+    hi CocMenuSel ctermfg=253 ctermbg=250
 
     " Windows split
     hi StatusLineNC ctermfg=253
@@ -403,6 +414,7 @@ let g:ale_sign_error = '┃'
 let g:ale_sign_warning = '┃'
 let b:ale_javascript_eslint_executable = 'eslint_d'
 let b:ale_javascript_eslint_use_global = 1
+let b:coc_diagnostic_disable = 1
 
 " disable split term default mappins
 let g:disable_key_mappings = 1
@@ -1068,6 +1080,15 @@ map - <Plug>(expand_region_shrink)
 
 " vim coc
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Use K to show documentation in preview window
+nnoremap <silent> L :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('L', 'in')
+  endif
+endfunction
 
 " print current date
 nnoremap <silent> <leader>td o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
