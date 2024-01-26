@@ -26,7 +26,7 @@
     ~/.headline.zsh-theme: headline.zsh-theme 
     ~/.gitignore_global: gitignore
     ~/.config/flake8: flake8
-    ~/.config/alacritty.yml: alacritty.yml
+    ~/.config/alacritty.toml: alacritty.toml
     ~/.config/ranger/rc.conf: rc.conf
     ~/.config/nvim/init.vim: init.vim
     ~/.ipython/profile_default/ipython_config.py: ipython_config.py
