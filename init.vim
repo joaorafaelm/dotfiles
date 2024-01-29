@@ -19,7 +19,6 @@ call plug#begin('~/.vim/plugins')
     endfunction
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
-    Plug 'dense-analysis/ale'
     Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
     Plug 'junegunn/fzf.vim', {'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650'}
     Plug 'vimlab/split-term.vim'
@@ -191,8 +190,6 @@ function! SetDarkColors()
     hi GitGutterChange ctermfg=108
     hi GitGutterDelete ctermfg=131
     hi GitGutterChangeDelete ctermfg=108
-    hi ALEErrorSign ctermbg=NONE ctermfg=131
-    hi ALEWarningSign ctermbg=NONE ctermfg=131
 endfunction
 
 " light colors
@@ -271,8 +268,6 @@ function! SetLightColors()
     hi GitGutterChange ctermfg=108 ctermbg=NONE
     hi GitGutterDelete ctermfg=131 ctermbg=NONE
     hi GitGutterChangeDelete ctermfg=108 ctermbg=NONE
-    hi ALEErrorSign ctermbg=NONE ctermfg=131
-    hi ALEWarningSign ctermbg=NONE ctermfg=131
 endfunction
 
 if &background ==# 'light'
@@ -401,19 +396,6 @@ let g:gitgutter_sign_removed_above_and_below = '┃'
 let g:gitgutter_sign_modified_removed = '┃'
 
 "Linters
-let g:ale_enabled = 0
-let b:ale_fixers = {
-    \   'python': ['black', 'isort'],
-    \   'javascript': ['eslint', 'prettier', 'prisma-lint'],
-    \   'typescript': ['eslint', 'prettier', 'prisma-lint'],
-    \   'typescriptreact': ['eslint', 'prettier'],
-    \}
-let g:ale_fix_on_save = 0
-let g:ale_set_highlights = 1
-let g:ale_sign_error = '┃'
-let g:ale_sign_warning = '┃'
-let b:ale_javascript_eslint_executable = 'eslint_d'
-let b:ale_javascript_eslint_use_global = 1
 let b:coc_diagnostic_disable = 1
 
 " disable split term default mappins
