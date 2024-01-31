@@ -9,6 +9,7 @@ let g:coc_global_extensions = [
 \ 'coc-json',
 \ 'coc-html',
 \ 'coc-css',
+\ 'coc-vimlsp',
 \ ]
 
 call plug#begin('~/.vim/plugins')
@@ -45,6 +46,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'terryma/vim-expand-region'
     Plug 'lukas-reineke/indent-blankline.nvim', {'commit': '9637670896b68805430e2f72cf5d16be5b97a22a'}
     Plug 'andrewradev/undoquit.vim'
+    Plug 'antoinemadec/coc-fzf'
 call plug#end()
 
 " lua scripts
@@ -419,6 +421,8 @@ let g:fzf_action = {
     \ 'ctrl-s': 'split',
     \ 'ctrl-d': 'vsplit'
 \ }
+
+let g:coc_fzf_preview = 'right:50%'
 
 let g:fzf_colors = {
     \ 'fg':      ['fg', 'TextFZF'],
@@ -1178,6 +1182,10 @@ function! GFilesWithFocus()
     let current_dir = getcwd()
     call fzf#vim#gitfiles('?', fzf#vim#with_preview({ "placeholder": "", 'dir': getcwd()}))
 endfunction
+
+" Coc
+nnoremap <silent><leader>o :<C-u>CocFzfList outline<CR>
+nnoremap <silent><leader>a :<C-u>CocFzfList diagnostics --current-buf<CR>
 
 nnoremap <silent><C-s> :call GFilesWithFocus()<CR>
 nnoremap <silent><C-r> :History:<CR>
