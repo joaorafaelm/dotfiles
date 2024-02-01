@@ -802,6 +802,7 @@ augroup file_format
     au FileType make setlocal noexpandtab
     au FileType zsh setlocal filetype=sh
     au FileType python setlocal ts=4 sts=4 sw=4 expandtab
+    au BufNewFile,BufRead requirements.txt setlocal filetype=requirements
 augroup END
 
 "if filename starts with /private/tmp, run bufhidden=wipe
