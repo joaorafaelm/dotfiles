@@ -11,8 +11,6 @@ vim/undodir
 vim/worklist.json
 dotbot
 .vagrant
-selfhosted/*
-!selfhosted/docker-compose.yaml
 .env
 .aider*
 Brewfile.lock.json
