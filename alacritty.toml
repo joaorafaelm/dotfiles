@@ -18,15 +18,15 @@ shape = "Block"
 size = 10
 
 [font.bold]
-family = "Menlo"
+family = "SF Mono"
 style = "Bold"
 
 [font.italic]
-family = "Menlo"
+family = "SF Mono"
 style = "Italic"
 
 [font.normal]
-family = "Menlo"
+family = "SF Mono"
 style = "Regular"
 
 [font.offset]
