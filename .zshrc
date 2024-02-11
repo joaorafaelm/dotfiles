@@ -1,4 +1,4 @@
-if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ]; then
+if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ] || [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "Apple_Terminal" ]; then
     # "Skipping tmux command because TERM_PROGRAM is set to vscode."
 else
     if [ -z "$TMUX" ]; then
