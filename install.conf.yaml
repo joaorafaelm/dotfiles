@@ -1,11 +1,12 @@
 - clean: ['~']
+
 - defaults:
     link:
       force: true
       create: true
       relink: true
-- shell:
 
+- shell:
   - [git submodule update --init --recursive, Installing submodules]
   - ["if cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions; then git pull; else git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions; fi", "Install/Update zsh-autosuggestions"]
   - ["if cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search; then git pull; else git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search; fi", "Install/Update zsh-history-substring-search"]
