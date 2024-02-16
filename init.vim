@@ -3,7 +3,6 @@ let &packpath = &runtimepath
 let g:python3_host_prog = '~/.pyenv/shims/python'
 let mapleader = ','
 set encoding=utf-8
-
 let g:coc_global_extensions = [
 \ 'coc-pyright',
 \ 'coc-json',
@@ -281,7 +280,7 @@ set number
 set relativenumber
 set scrolloff=10
 set backspace=indent,eol,start
-set wrap
+set nowrap
 set linebreak
 set autoindent
 set nohidden
