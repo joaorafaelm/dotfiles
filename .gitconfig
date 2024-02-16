@@ -25,6 +25,8 @@
 	default = current
 [diff]
 	tool = nvimdiff
+	submodule = log
+	algorithm = histogram
 [difftool]
 	prompt = false
 [difftool "nvimdiff"]
@@ -38,6 +40,7 @@
 	default = current
 [commit]
 	gpgSign = true
+	verbose = true
 [init]
 	defaultBranch = main
 [safe]
@@ -52,3 +55,14 @@
 	format = ssh
 [branch]
 	autoSetupMerge = always
+	sort = -committerdate
+[rebase]
+	autoSquash = true
+[rerere]
+	enabled = true
+[help]
+	autocorrect = prompt
+[status]
+	submoduleSummary = true
+[submodule]
+	recurse = true

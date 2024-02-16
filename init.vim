@@ -72,13 +72,7 @@ lua << EOF
         }
     }
 
-    xpcall(
-        function()
-            require "winshift".setup { highlight_moving_win = false }
-        end,
-        function(err)
-        end
-    )
+    require "winshift".setup { highlight_moving_win = false }
 EOF
 
 " session config
@@ -1012,6 +1006,13 @@ inoremap <C-e> <End>
 nnoremap <C-a> <Home>
 nnoremap <C-e> <End>
 
+
+" arrow movement like b/w 
+nnoremap <silent> <LEFT> b
+nnoremap <silent> <RIGHT> w
+nnoremap <silent> <S-LEFT> h
+nnoremap <silent> <S-RIGHT> l
+
 " comments
 nmap <C-_> gcc
 vmap <C-_> gc
@@ -1027,6 +1028,7 @@ nnoremap <silent> <CR> :let @/ = ""<CR><CR>
 " tnoremap <silent> <S-UP> <C-\><C-n>:call SelectCommand('up')<CR>
 " tnoremap <silent> <S-DOWN> <C-\><C-n>:call SelectCommand('down')<CR>
 tnoremap <silent> <S-LEFT> <C-\><C-n><S-LEFT>
+tnoremap <silent> <S-RIGHT> <C-\><C-n><S-RIGHT>
 tnoremap <silent> <C-[> <C-\><C-n>
 
 " ai.vim maps

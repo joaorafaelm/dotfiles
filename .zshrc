@@ -133,6 +133,7 @@ g () {
         g
     fi
 }
+compdef g="git"
 
 
 # make worktree
