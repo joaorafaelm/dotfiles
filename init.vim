@@ -348,6 +348,7 @@ set laststatus=2
 set cmdheight=0
 set noshowcmd
 set noshowmode
+set splitkeep='screen'
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
