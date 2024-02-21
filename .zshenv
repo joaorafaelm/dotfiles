@@ -15,7 +15,8 @@ export FZF_ALT_C_COMMAND="
 export FZF_ALT_C_OPTS="--preview 'tree -C -S -d {}'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_R_OPTS="
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
+  --history-size=999999999
 "
 export FZF_CTRL_T_OPTS="
   --preview-window noborder --margin=0 --padding=0 --no-separator
