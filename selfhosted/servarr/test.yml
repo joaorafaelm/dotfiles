@@ -1,0 +1,246 @@
+version: "3.2" #2.1
+
+services:
+  wireguard:
+    image: ghcr.io/linuxserver/wireguard
+    container_name: wireguard
+    hostname: wireguard
+    networks:
+      wireguard_net:
+        ipv4_address: 10.0.1.100
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    privileged: true
+    volumes:
+      - /opt/docker/servarr/wireguard:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - 8180:8180 #qbittorrent
+      - 6881:6881 #qbittorrent
+      - 6881:6881/udp #qbittorrent
+      - 8280:8280 #sabnzb
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv6.conf.all.disable_ipv6=1
+    restart: "always" # no | always | on-failure | unless-stopped
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    depends_on:
+      - wireguard
+    network_mode: service:wireguard
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - WEBUI_PORT=8180
+    volumes:
+      - /opt/docker/servarr/qbittorrent:/config
+      - /opt/docker/servarr/_downloads:/downloads
+    restart: unless-stopped # no | always | on-failure | unless-stopped
+#  transmission:
+#    #image: ghcr.io/linuxserver/transmission # downloads hang ... trying v3 below from a reddit post
+#    image: linuxserver/transmission:version-3.00-r0
+#    container_name: transmission
+#    #hostname: transmission #produces an error against network-mode
+#    depends_on:
+#      - wireguard
+#    network_mode: service:wireguard
+#    environment:
+#      - PUID=1000
+#     - PGID=1000
+#      - TZ=America/New_York
+#      #- WHITELIST=127.0.0.1,10.*,100.*,localhost,*.local #this breaks the older v3
+#    volumes:
+#      - /opt/docker/servarr/transmission:/config
+#      - /opt/docker/servarr/_downloads:/media/_downloads # /mnt/usb_120gb/downloads | /opt/docker/htpc-tools/downloads
+#     - /opt/docker/servarr/_downloads/_watch:/media/_downloads/_watch # /mnt/usb_120gb/downloads | /opt/docker/htpc-tools/downloads
+#      - /opt/docker/servarr/_downloads/_intermediate:/media/_downloads/_intermediate # /mnt/usb_120gb/downloads | /opt/docker/htpc-tools/downloads
+#    restart: "always" # no | always | on-failure | unless-stopped
+#  nzbget:
+#    image: ghcr.io/linuxserver/nzbget
+#    container_name: nzbget
+    #hostname: nzbget #produces an error against network-mode
+#    depends_on:
+#      - wireguard
+#    network_mode: service:wireguard
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=America/New_York
+#    ports:
+#    volumes:
+#      - /opt/docker/servarr/nzbget:/config
+#      - /opt/docker/servarr/nzbget/logs:/nzb_logs
+#      - /opt/docker/servarr/_downloads:/media/_downloads
+#      - /opt/docker/servarr/_downloads/_watch:/media/_downloads/_watch
+#      - /opt/docker/servarr/_downloads/_intermediate:/media/_downloads/_intermediate
+#    restart: "always" # no | always | on-failure | unless--stopped
+  sabnzb:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzb
+    #hostname: nzbget #produces an error against network-mode
+    depends_on:
+      - wireguard
+    network_mode: service:wireguard
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /opt/docker/servarr/sabnzb:/config
+      - /opt/docker/servarr/_downloads:/downloads #optional
+#      - /opt/docker/servarr/_downloads/_incomplete:/incomplete-downloads #optional
+    restart: "always" # no | always | on-failure | unless--stopped
+#  jackett:
+#    image: ghcr.io/linuxserver/jackett
+#    container_name: jackett
+#    hostname: jackett
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=America/New_York
+#      #- UMASK=002
+#      #- AUTO_UPDATE=true
+#    ports:
+#      - 9117:9117 #jackett
+#    volumes:
+#      - /opt/docker/servarr/jackett:/config
+#    restart: "always" # no | always | on-failure | unless--stopped
+  prowlarr:
+    image: ghcr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    hostname: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    ports:
+      - 9696:9696 #prowlarr
+    volumes:
+      - /opt/docker/servarr/prowlarr:/config
+    restart: "always" # no | always | on-failure | unless--stopped
+  sonarr:
+    image: ghcr.io/linuxserver/sonarr
+    container_name: sonarr
+    hostname: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      #- UMASK=002
+    ports:
+      - 8989:8989 #sonarr
+    volumes:
+      - /opt/docker/servarr/sonarr:/config
+      - /mnt/synology-tv:/media/tv
+      - /opt/docker/servarr/_downloads:/media/_downloads # /mnt/usb_120gb/downloads | /opt/docker/htpc-tools/downloads
+    restart: "always" # no | always | on-failure | unless--stopped
+  radarr:
+    image: ghcr.io/linuxserver/radarr
+    container_name: radarr
+    hostname: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      #- UMASK=002
+    ports:
+      - 7878:7878 #radarr
+    volumes:
+      - /opt/docker/servarr/radarr:/config
+      - /mnt/synology-movies:/media/movies
+      - /opt/docker/servarr/_downloads:/media/_downloads # /mnt/usb_120gb/downloads | /opt/docker/htpc-tools/downloads
+    restart: "always" # no | always | on-failure | unless--stopped
+#  lidarr:
+#    image: ghcr.io/linuxserver/lidarr
+#    container_name: lidarr
+#    hostname: lidarr
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=America/New_York
+#      #- UMASK=002
+#    ports:
+#     - 8686:8686 #lidarr
+#    volumes:
+#     - /opt/docker/servarr/lidarr:/config
+#     - /mnt/synology-music:/media/music
+#     - /opt/docker/servarr/_downloads:/media/_downloads # /mnt/usb_120gb/downloads | /opt/docker/htpc-tools/downloads
+#    restart: "always" # no | always | on-failure | unless--stopped
+#  readarr:
+#    image: lscr.io/linuxserver/readarr:develop
+#    container_name: readarr
+#    hostname: readarr
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=America/New_York
+#      #- UMASK=002
+#    ports:
+#      - 8787:8787 #readarr
+#   volumes:
+#      - /opt/docker/servarr/readarr:/config
+#      - /mnt/synology-audiobooks:/media/audiobooks
+#      - /mnt/synology-ebooks:/media/ebooks
+#      - /opt/docker/servarr/_downloads:/media/_downloads # /mnt/usb_120gb/downloads | /opt/docker/htpc-tools/downloads
+#    restart: "always" # no | always | on-failure | unless--stopped
+#  m4b-tool: # use the alias tool    https://github.com/sandreas/m4b-tool#docker
+#  example:
+#         alias m4b-tool='docker run -it --rm -u $(id -u):$(id -g) -v "$(pwd)/_downloads":/media/_downloads sandreas/m4b-tool:latest'
+#         m4b-tool merge "/media/_downloads/audiobooks/Project Hail Mary (2021)/" --output-file="/media/_downloads/audiobooks/Project Hail Mary.m4b"
+#  
+#  
+#  bazarr:
+#    image: ghcr.io/linuxserver/bazarr
+#    container_name: bazarr
+#    depends_on:
+#      - wireguard
+#    network_mode: service:wireguard
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=America/New_York
+#      #- UMASK=002
+#    ports:
+#      - 6767:6767 #bazarr
+#    volumes:
+#      - /opt/docker/servarr/bazarr:/config
+#      - /mnt/synology-movies:/movies #optional
+#      - /mnt/synology-tv:/tv #optional
+#    restart: "always" # no | always | on-failure | unless--stopped
+#  tubesync: # not supported on ARM / AARCH64 yet
+#    image: ghcr.io/meeb/tubesync:latest # unofficial from https://github.com/BigCheeZ/tubesync/tree/aarch64_support
+#    container_name: tubesync
+#    hostname: tubesync
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=America/New_York
+#      #- UMASK=002
+#    ports:
+#      - 4848:4848 #tubesync
+#    volumes:
+#      - /opt/docker/servarr/tubesync:/config
+#      - /mnt/synology-youtube:/downloads
+#    restart: "no" # no | always | on-failure | unless--stopped
+
+networks:
+  wireguard_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.1.0/24
+
+#volumes:
+#  synology-tv:
+#    driver: local
+#    driver_opts:
+#      type: cifs
+#      o: username=servarr,password=cac3uXpC5WY8UTgiYQS2,uid=1031,gid=100,file_mode=0777,dir_mode=0777
+#      device: "//10.0.0.10/tv"

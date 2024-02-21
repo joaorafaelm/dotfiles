@@ -321,7 +321,8 @@ set cursorline
 set cursorlineopt=number
 
 " status column
-" let &stc='%s %=%#LineNr#%{v:lnum}  %#NonText#%{v:relnum ? v:relnum : v:lnum} %T'
+" let &stc='%s %=%#LineNr#%{v:lnum}  %#NonText#%{v:relnum ? v:relnum : v:lnum} %T %s'
+" let &stc='%= %#NonText#%{v:relnum ? v:relnum : v:lnum} %T %s'
 
 "fold stuff
 set foldnestmax=3
@@ -348,7 +349,6 @@ set laststatus=2
 set cmdheight=0
 set noshowcmd
 set noshowmode
-set splitkeep='screen'
 
 " change cursor for mode
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -970,17 +970,17 @@ augroup CWordHiGroup
 augroup END
 
 " when leaving a buffer, delete all hidden buffers
-augroup DeleteHiddenBuffers
-    au!
-    function DeleteHiddenBuffers()
-        let tpbl=[]
-        call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-        for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1 && bufname(v:val) !~# "^fugitive://"')
-            silent! execute 'bwipeout' buf
-        endfor
-    endfunction
-    au BufWinLeave * silent call DeleteHiddenBuffers()
-augroup END
+" augroup DeleteHiddenBuffers
+"     au!
+"     function DeleteHiddenBuffers()
+"         let tpbl=[]
+"         call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+"         for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1 && bufname(v:val) !~# "^fugitive://"')
+"             silent! execute 'bwipeout' buf
+"         endfor
+"     endfunction
+"     au BufWinLeave * silent call DeleteHiddenBuffers()
+" augroup END
 
 " auto run commands to disable cursorline when exiting a window, enable when entering
 augroup Cursorline
@@ -1222,3 +1222,6 @@ map <silent> <expr> ]c &diff ? ']c' : ':silent! GitGutterNextHunk<CR>'
 " record macro with Shift + q
 nnoremap Q q
 nnoremap q <Nop>
+
+" reopen last window
+nnoremap <S-t> :vs<bar>:b#<CR>
