@@ -1227,4 +1227,4 @@ nmap Q @m
 nmap <leader>q :MacroEdit m<cr>
 
 " reopen last window
-nnoremap <S-t> :vs<bar>:b#<CR>
+nnoremap <silent> <S-t> :vs<bar>:b#<CR>
