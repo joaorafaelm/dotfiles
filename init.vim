@@ -135,7 +135,7 @@ function! SetDarkColors()
     hi Search cterm=inverse ctermfg=NONE
     hi cursorcolumn ctermbg=235
     hi Blamer ctermfg=239 ctermbg=NONE cterm=italic
-    hi LineNr ctermfg=234 cterm=bold
+    hi LineNr ctermfg=235 cterm=bold
     hi HiCursorWord ctermbg=236
 
     " Fold
