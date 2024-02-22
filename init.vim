@@ -46,6 +46,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'lukas-reineke/indent-blankline.nvim', {'commit': '9637670896b68805430e2f72cf5d16be5b97a22a'}
     Plug 'andrewradev/undoquit.vim'
     Plug 'antoinemadec/coc-fzf'
+    Plug 'dohsimpson/vim-macroeditor'
 call plug#end()
 
 " lua scripts
@@ -781,6 +782,12 @@ augroup vimrc_todo
     au Syntax * syn match itemComplete "\[x] .\+"
 augroup END
 
+augroup MacroMessage
+    au!
+    au RecordingEnter * set cmdheight=1
+    au RecordingLeave * set cmdheight=0
+augroup END
+
 augroup Statusline
     au!
     au WinEnter,BufEnter * setlocal statusline=%!SetStatusLine(1)
@@ -852,7 +859,6 @@ augroup END
 augroup QuickFixCmds
     au!
     au FileType qf map  <buffer> <silent> dd :call RemoveFromQuickFix()<cr>
-    au FileType qf map <buffer> <silent> <leader>q :call CloseQuickFix()<cr>
     au FileType qf :resize 8
 augroup END
 
@@ -1113,7 +1119,6 @@ endfunction
 " terminal commands
 tnoremap <Esc> <C-\><C-n>
 tnoremap <silent><C-f> <C-\><C-n>:Rg<CR>
-tnoremap <silent><leader>q <C-\><C-n>:silent! :call OpenQuickFix()<cr>
 tnoremap <silent><leader>x <C-\><C-n>:call AddToQuickFix()<cr>
 tnoremap <silent><leader>e <C-\><C-n>:WinResizerStartResize<CR>
 tnoremap <silent><leader>s <C-\><C-n>:Term<CR>
@@ -1198,8 +1203,6 @@ nnoremap <silent>K :call SearchWordWithRg()<CR>
 vnoremap <silent>K :call SearchVisualSelectionWithRg()<CR>
 nnoremap <silent><c-]> :SessionPicker<cr>
 
-" Open quick fix list
-nnoremap <silent><leader>q :silent! :call OpenQuickFix()<cr>
 " Add current line to quick fix list
 nnoremap <silent><leader>x :call AddToQuickFix()<cr>
 
@@ -1218,10 +1221,10 @@ vnoremap <silent><leader>h :BCommits<CR>
 map <silent> <expr> [c &diff ? '[c' : ':silent! GitGutterPrevHunk<CR>'
 map <silent> <expr> ]c &diff ? ']c' : ':silent! GitGutterNextHunk<CR>'
 
-" disable command line window
-" record macro with Shift + q
-nnoremap Q q
-nnoremap q <Nop>
+" macros
+nmap q qm
+nmap Q @m
+nmap <leader>q :MacroEdit m<cr>
 
 " reopen last window
 nnoremap <S-t> :vs<bar>:b#<CR>
