@@ -319,7 +319,7 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
 
 set cursorline
-set cursorlineopt=number
+set cursorlineopt=number,line
 
 " status column
 " let &stc='%s %=%#LineNr#%{v:lnum}  %#NonText#%{v:relnum ? v:relnum : v:lnum} %T %s'
@@ -1067,7 +1067,7 @@ nnoremap <leader>y :let @+ = expand('%') . '\|' . line('.') . ' col ' . col('.')
 
 " expand on click
 map + <Plug>(expand_region_expand)
-map - <Plug>(expand_region_shrink)
+map _ <Plug>(expand_region_shrink)
 "map <LeftMouse> <LeftMouse><Plug>(expand_region_expand)
 "map <2-LeftMouse> <Plug>(expand_region_expand)
 "map <3-LeftMouse> <Plug>(expand_region_expand)
