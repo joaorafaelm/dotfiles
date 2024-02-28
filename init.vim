@@ -186,6 +186,10 @@ function! SetDarkColors()
     hi GitGutterChange ctermfg=108
     hi GitGutterDelete ctermfg=131
     hi GitGutterChangeDelete ctermfg=108
+    hi GitGutterAddLineNr ctermfg=108 cterm=bold
+    hi GitGutterChangeLineNr ctermfg=108 cterm=bold
+    hi GitGutterDeleteLineNr ctermfg=131 cterm=bold
+    hi GitGutterChangeDeleteLineNr ctermfg=108 cterm=bold
 endfunction
 
 " light colors
@@ -264,6 +268,10 @@ function! SetLightColors()
     hi GitGutterChange ctermfg=108 ctermbg=NONE
     hi GitGutterDelete ctermfg=131 ctermbg=NONE
     hi GitGutterChangeDelete ctermfg=108 ctermbg=NONE
+    hi GitGutterAddLineNr ctermfg=108 cterm=bold
+    hi GitGutterChangeLineNr ctermfg=108 cterm=bold
+    hi GitGutterDeleteLineNr ctermfg=131 cterm=bold
+    hi GitGutterChangeDeleteLineNr ctermfg=108 cterm=bold
 endfunction
 
 if &background ==# 'light'
@@ -386,12 +394,14 @@ let g:gh_open_command = 'fn() { echo "$@" | pbcopy; }; fn '
 
 " git gutter
 let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_sign_added = '┃'
-let g:gitgutter_sign_modified = '┃'
-let g:gitgutter_sign_removed = '┃'
-let g:gitgutter_sign_removed_first_line = '┃'
-let g:gitgutter_sign_removed_above_and_below = '┃'
-let g:gitgutter_sign_modified_removed = '┃'
+let g:gitgutter_sign_added = ''
+let g:gitgutter_sign_modified = ''
+let g:gitgutter_sign_removed = ''
+let g:gitgutter_sign_removed_first_line = ''
+let g:gitgutter_sign_removed_above_and_below = ''
+let g:gitgutter_sign_modified_removed = ''
+let g:gitgutter_signs=0
+let g:gitgutter_highlight_linenrs=1
 
 "Linters
 let b:coc_diagnostic_disable = 1
@@ -1223,17 +1233,9 @@ map <silent> <expr> [c &diff ? '[c' : ':silent! GitGutterPrevHunk<CR>'
 map <silent> <expr> ]c &diff ? ']c' : ':silent! GitGutterNextHunk<CR>'
 
 " macros
-nmap q qm
+nmap gq qm
 nmap Q @m
 nmap <leader>q :MacroEdit m<cr>
 
 " reopen last window
 nnoremap <silent> <S-t> :vs<bar>:b#<CR>
-
-
-
-
-
-
-
-
