@@ -342,6 +342,7 @@ set undofile
 " split styling
 set fillchars+=vert:\ 
 set fillchars+=fold:\ 
+set fillchars+=eob:\ 
 set splitbelow
 set splitright
 
@@ -1228,3 +1229,11 @@ nmap <leader>q :MacroEdit m<cr>
 
 " reopen last window
 nnoremap <silent> <S-t> :vs<bar>:b#<CR>
+
+
+
+
+
+
+
+
