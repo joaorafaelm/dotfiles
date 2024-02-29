@@ -26,7 +26,7 @@ export PATH="$HOME/.luarocks/bin:$PATH"
 export PIPENV_VENV_IN_PROJECT=1
 export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
-export PYTEST_ADDOPTS="--no-cov-on-fail -p no:warnings --ff -s --pdb --pdbcls=IPython.terminal.debugger:Pdb -x"
+export PYTEST_ADDOPTS="--no-cov-on-fail -p no:warnings --ff --nf --pdb -x"
 export PYTHONBREAKPOINT=ipdb.set_trace
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export ENABLE_TTY="true"

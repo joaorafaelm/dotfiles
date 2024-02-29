@@ -256,7 +256,7 @@ function! SetLightColors()
     hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
     hi PmenuSelCustom ctermbg=253
     hi PmenuTextCustom ctermfg=240 ctermbg=253
-    
+
     " which key
     hi WhichKeyFloat ctermbg=253 ctermfg=247
     hi WhichKeyDesc	ctermfg=247
@@ -295,7 +295,6 @@ set autoindent
 set nohidden
 set winminheight=0
 set winminwidth=0
-set numberwidth=4
 set signcolumn=yes
 set updatetime=50
 set timeout
@@ -305,6 +304,7 @@ set mouse=a
 set viminfo='100,f1
 set noswapfile
 set lazyredraw
+set iskeyword-=_
 
 " session config
 set sessionoptions+=winpos
