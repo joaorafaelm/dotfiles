@@ -58,6 +58,7 @@
 	sort = -committerdate
 [rebase]
 	autoSquash = true
+    autoStash = true
 [rerere]
 	enabled = true
 [help]
