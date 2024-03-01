@@ -47,6 +47,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'andrewradev/undoquit.vim'
     Plug 'antoinemadec/coc-fzf'
     Plug 'dohsimpson/vim-macroeditor'
+    Plug 'bkad/CamelCaseMotion'
 call plug#end()
 
 " lua scripts
@@ -304,7 +305,6 @@ set mouse=a
 set viminfo='100,f1
 set noswapfile
 set lazyredraw
-set iskeyword-=_
 
 " session config
 set sessionoptions+=winpos
@@ -470,6 +470,8 @@ let g:vindent_object_XX_ii     = 'ii' " select current block.
 let g:vindent_object_XX_ai     = 'ai' " select current block + one extra line  at beginning.
 let g:vindent_object_XX_aI     = 'aI' " select current block + two extra lines at beginning and end.
 let g:vindent_jumps            = 1    " make vindent motion count as a |jump-motion| (works with |jumplist|).
+
+let g:camelcasemotion_key = '<leader>'
 
 " expand region definition
 " 'i]' Support nesting of square brackets
@@ -1025,8 +1027,8 @@ nnoremap <C-e> <End>
 
 
 " arrow movement like b/w 
-nnoremap <silent> <LEFT> b
-nnoremap <silent> <RIGHT> w
+nnoremap <silent> <LEFT> <Plug>CamelCaseMotion_b
+nnoremap <silent> <RIGHT> <Plug>CamelCaseMotion_w
 nnoremap <silent> <S-LEFT> h
 nnoremap <silent> <S-RIGHT> l
 
