@@ -48,6 +48,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'antoinemadec/coc-fzf'
     Plug 'dohsimpson/vim-macroeditor'
     Plug 'bkad/CamelCaseMotion'
+    Plug 'sindrets/diffview.nvim'
 call plug#end()
 
 " lua scripts
@@ -191,6 +192,10 @@ function! SetDarkColors()
     hi GitGutterChangeLineNr ctermfg=108 cterm=bold
     hi GitGutterDeleteLineNr ctermfg=131 cterm=bold
     hi GitGutterChangeDeleteLineNr ctermfg=108 cterm=bold
+    hi DiffAdd ctermfg=NONE ctermbg=17 cterm=NONE
+    hi DiffChange ctermfg=NONE ctermbg=NONE cterm=NONE
+    hi DiffDelete ctermfg=NONE ctermbg=52 cterm=NONE
+    hi DiffText ctermfg=NONE ctermbg=17 cterm=NONE
 endfunction
 
 " light colors
@@ -327,7 +332,7 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
 
 set cursorline
-set cursorlineopt=number,line
+set cursorlineopt=number
 
 " status column
 " let &stc='%s %=%#LineNr#%{v:lnum}  %#NonText#%{v:relnum ? v:relnum : v:lnum} %T %s'
@@ -351,6 +356,7 @@ set undofile
 set fillchars+=vert:\ 
 set fillchars+=fold:\ 
 set fillchars+=eob:\ 
+set fillchars+=diff:\ 
 set splitbelow
 set splitright
 
