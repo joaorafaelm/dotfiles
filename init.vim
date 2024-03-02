@@ -88,7 +88,11 @@ let g:prosession_on_startup = 1
 syntax on
 filetype plugin on
 filetype plugin indent off " space as tabs
-set notermguicolors
+set termguicolors
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+endif
 colorscheme gruvbox
 
 "========================================
@@ -96,13 +100,13 @@ colorscheme gruvbox
 "========================================
 
 " Background and foreground colors
-hi Operator ctermbg=NONE
+hi Operator ctermbg=NONE guibg=NONE
 
 " FZF colors
-hi FZFBG ctermbg=NONE ctermfg=NONE
+hi FZFBG ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
 " Windows split
-hi VertSplit ctermfg=None ctermbg=None
+hi VertSplit ctermfg=None ctermbg=None guifg=NONE guibg=NONE
 
 " ai.vim
 hi link AIHighlight Visual
@@ -115,169 +119,175 @@ hi link QuickFixLine CursorLine
 
 function! SetDarkColors()
     " Background and foreground colors
-    hi Normal ctermbg=16 ctermfg=247
-    hi Operator ctermbg=NONE
+    hi Normal ctermbg=16 ctermfg=247 guibg=#000000 guifg=#9e9e9e
+    hi Operator ctermbg=NONE guibg=NONE
 
     " Background colors for active vs inactive windows
-    hi ActiveWindow ctermbg=233
-    hi InactiveWindow ctermbg=16
-    hi MsgArea ctermfg=239
-    hi WinSeparator ctermfg=16 ctermbg=16
+    hi ActiveWindow ctermbg=233 guibg=#121212
+    hi InactiveWindow ctermbg=16 guibg=#000000
+    hi MsgArea ctermfg=239 guifg=#4e4e4e
+    hi WinSeparator ctermfg=16 ctermbg=16 guifg=#000000 guibg=#000000
 
-    "invisible characters
-    hi Whitespace ctermbg=NONE ctermfg=234 cterm=bold
-    hi Nontext ctermbg=NONE ctermfg=234 cterm=bold
-    hi Specialkey ctermbg=NONE ctermfg=234 cterm=bold
-    hi Comment cterm=italic ctermfg=239
+    " invisible characters
+    hi Whitespace ctermbg=NONE ctermfg=234 cterm=bold guibg=NONE guifg=#1c1c1c gui=bold
+    hi Nontext ctermbg=NONE ctermfg=234 cterm=bold guibg=NONE guifg=#1c1c1c gui=bold
+    hi Specialkey ctermbg=NONE ctermfg=234 cterm=bold guibg=NONE guifg=#1c1c1c gui=bold
+    hi Comment ctermfg=239 guifg=#4e4e4e gui=italic
 
     "highlight clear cursorline
-    hi cursorlinenr ctermbg=NONE cterm=bold
-    hi cursorline ctermbg=235
-    hi Visual ctermbg=237 cterm=NONE
-    hi Search cterm=inverse ctermfg=NONE
-    hi cursorcolumn ctermbg=235
-    hi Blamer ctermfg=239 ctermbg=NONE cterm=italic
-    hi LineNr ctermfg=235 cterm=bold
-    hi HiCursorWord ctermbg=236
+    hi cursorlinenr ctermbg=NONE cterm=bold guibg=NONE gui=bold
+    hi cursorline ctermbg=235 guibg=#262626
+    hi Visual ctermbg=237 cterm=NONE guibg=#3a3a3a gui=NONE
+    hi Search cterm=inverse ctermfg=NONE guifg=NONE gui=inverse
+    hi cursorcolumn ctermbg=235 guibg=#262626
+    hi Blamer ctermfg=239 ctermbg=NONE guifg=#4e4e4e gui=italic
+    hi LineNr ctermfg=235 cterm=bold guifg=#262626 gui=bold
+    hi HiCursorWord ctermbg=236 guibg=#303030
 
     " Fold
-    hi Folded ctermbg=NONE ctermfg=239
-    hi FoldColumn ctermbg=NONE ctermfg=235
+    hi Folded ctermbg=NONE ctermfg=239 guibg=NONE guifg=#4e4e4e
+    hi FoldColumn ctermbg=NONE ctermfg=235 guibg=NONE guifg=#3a3a3a
 
     " FZF colors
-    hi BorderFZF ctermfg=233
-    hi TextFZF ctermfg=245
+    hi BorderFZF ctermfg=233 guifg=#4e4e4e
+    hi TextFZF ctermfg=245 guifg=#8a8a8a
 
     " Auto complete menu
-    hi Pmenu ctermfg=240 ctermbg=233
-    hi PmenuSel ctermfg=233 ctermbg=108
-    hi CocFloating ctermfg=240 ctermbg=233
-    hi CocMenuSel ctermfg=233 ctermbg=108
+    hi Pmenu ctermfg=240 ctermbg=233 guifg=#585858 guibg=#121212
+    hi PmenuSel ctermfg=233 ctermbg=108 guifg=#121212 guibg=#87af87
+    hi CocFloating ctermfg=240 ctermbg=233 guifg=#585858 guibg=#121212
+    hi CocMenuSel ctermfg=233 ctermbg=108 guifg=#121212 guibg=#87af87
 
     " Windows split
-    hi StatusLineNC ctermfg=16 ctermbg=237
-    hi StatusLine ctermfg=16 ctermbg=241
+    hi StatusLineNC ctermfg=16 ctermbg=237 guifg=#000000 guibg=#3a3a3a
+    hi StatusLine ctermfg=16 ctermbg=241 guifg=#000000 guibg=#626262
 
     " Status line components
-    hi AddBardsHighlight ctermfg=106 cterm=italic
-    hi RemoveBardsHighlight ctermfg=131 cterm=italic
-    hi DiffHighlight ctermfg=246 cterm=italic
-    hi FileName ctermfg=236 cterm=italic
-    hi CurrentMode ctermfg=236 cterm=bold
-    hi GitBranch ctermfg=236 cterm=italic,bold
+    hi AddBardsHighlight ctermfg=106 cterm=italic guifg=#87af01 gui=italic
+    hi RemoveBardsHighlight ctermfg=131 cterm=italic guifg=#d75f5f gui=italic
+    hi DiffHighlight ctermfg=246 cterm=italic guifg=#d7af5f gui=italic
+    hi FileName ctermfg=236 cterm=italic guifg=#303030 gui=italic
+    hi CurrentMode ctermfg=236 cterm=bold guifg=#303030 gui=bold
+    hi GitBranch ctermfg=236 cterm=italic,bold guifg=#303030 gui=italic,bold
 
     " tab styling
-    hi TabLineFill ctermfg=235 ctermbg=16
-    hi TabLine ctermfg=237 ctermbg=16 cterm=NONE
-    hi TabLineSel ctermfg=241 ctermbg=233
-    hi Title ctermfg=214 cterm=bold
+    hi TabLineFill ctermfg=235 ctermbg=16 guifg=#3a3a3a guibg=#000000
+    hi TabLine ctermfg=237 ctermbg=16 cterm=NONE guifg=#3a3a3a guibg=#000000 gui=NONE
+    hi TabLineSel ctermfg=241 ctermbg=233 cterm=bold guifg=#626262 guibg=#121212 gui=bold
+    hi Title ctermfg=214 cterm=bold guifg=#ffaf01 gui=bold
 
     " command line
-    hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
-    hi PmenuSelCustom ctermbg=233
-    hi PmenuTextCustom ctermfg=240 ctermbg=16
+    hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE guifg=#d75f5f guibg=NONE gui=bold
+    hi PmenuSelCustom ctermbg=233 guibg=#121212
+    hi PmenuTextCustom ctermfg=240 ctermbg=16 guifg=#585858 guibg=#000000
 
     " which key
-    hi WhichKeyFloat ctermbg=16 ctermfg=239
-    hi WhichKeyDesc	ctermfg=239
-    hi WhichKey	ctermfg=red
+    hi WhichKeyFloat ctermbg=16 ctermfg=239 guibg=#000000 guifg=#4e4e4e
+    hi WhichKeyDesc	ctermfg=239 guifg=#4e4e4e
+    hi WhichKey	ctermfg=red guifg=#d75f5f
 
     " Git gutter and vimdiff
     hi clear SignColumn
-    hi GitGutterAdd ctermfg=108
-    hi GitGutterChange ctermfg=108
-    hi GitGutterDelete ctermfg=131
-    hi GitGutterChangeDelete ctermfg=108
-    hi GitGutterAddLineNr ctermfg=108 cterm=bold
-    hi GitGutterChangeLineNr ctermfg=108 cterm=bold
-    hi GitGutterDeleteLineNr ctermfg=131 cterm=bold
-    hi GitGutterChangeDeleteLineNr ctermfg=108 cterm=bold
-    hi DiffAdd ctermfg=NONE ctermbg=17 cterm=NONE
-    hi DiffChange ctermfg=NONE ctermbg=NONE cterm=NONE
-    hi DiffDelete ctermfg=NONE ctermbg=52 cterm=NONE
-    hi DiffText ctermfg=NONE ctermbg=17 cterm=NONE
+    hi GitGutterAdd ctermfg=108 guifg=#87af87
+    hi GitGutterChange ctermfg=108 guifg=#87af87
+    hi GitGutterDelete ctermfg=131 guifg=#d75f5f
+    hi GitGutterChangeDelete ctermfg=108 guifg=#87af87
+    hi GitGutterAddLineNr ctermfg=108 cterm=bold guifg=#87af87 gui=bold
+    hi GitGutterChangeLineNr ctermfg=108 cterm=bold guifg=#87af87 gui=bold
+    hi GitGutterDeleteLineNr ctermfg=131 cterm=bold guifg=#d75f5f gui=bold
+    hi GitGutterChangeDeleteLineNr ctermfg=108 cterm=bold guifg=#87af87 gui=bold
+    hi DiffAdd ctermfg=NONE ctermbg=17 cterm=NONE guifg=NONE guibg=#033904 gui=NONE
+    hi DiffChange ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+    hi DiffDelete ctermfg=NONE ctermbg=52 cterm=NONE guifg=NONE guibg=#5f0000 gui=NONE
+    hi DiffText ctermfg=NONE ctermbg=17 cterm=NONE guifg=NONE guibg=#033904 gui=NONE
+    hi DiffviewFilePanelFileName ctermfg=247 guifg=#9e9e9e
 endfunction
 
 " light colors
 function! SetLightColors()
     " Background and foreground colors
-    hi Normal ctermbg=254 ctermfg=241
-    hi Operator ctermbg=NONE
+    hi Normal ctermbg=254 ctermfg=241 guibg=#f2f2f2 guifg=#303030
+    hi Operator ctermbg=NONE guibg=NONE
 
     " Background colors for active vs inactive windows
-    hi ActiveWindow ctermbg=254
-    hi InactiveWindow ctermbg=253
-    hi MsgArea ctermfg=248 ctermbg=253
-    hi WinSeparator ctermfg=253 ctermbg=253
+    hi ActiveWindow ctermbg=254 guibg=#f2f2f2
+    hi InactiveWindow ctermbg=253 guibg=#e5e5e5
+    hi MsgArea ctermfg=248 ctermbg=253 guifg=#7f7f7f guibg=#e5e5e5
+    hi WinSeparator ctermfg=253 ctermbg=253 guifg=#e5e5e5 guibg=#e5e5e5
 
     "invisible characters
-    hi Whitespace ctermbg=NONE ctermfg=253 cterm=bold
-    hi Nontext ctermbg=NONE ctermfg=253 cterm=bold
-    hi Specialkey ctermbg=NONE ctermfg=253 cterm=bold
-    hi Comment cterm=italic ctermfg=247
+    hi Whitespace ctermbg=NONE ctermfg=253 cterm=bold guibg=NONE guifg=#b3b3b3 gui=bold
+    hi Nontext ctermbg=NONE ctermfg=253 cterm=bold guibg=NONE guifg=#b3b3b3 gui=bold
+    hi Specialkey ctermbg=NONE ctermfg=253 cterm=bold guibg=NONE guifg=#b3b3b3 gui=bold
+    hi Comment cterm=italic ctermfg=247 guifg=#9e9e9e gui=italic
 
     "highlight clear cursorline
-    hi cursorlinenr ctermbg=NONE cterm=bold
-    hi cursorline ctermbg=252
-    hi Visual ctermbg=250 cterm=NONE
-    hi Search cterm=inverse ctermfg=NONE
-    hi cursorcolumn ctermbg=252
-    hi Blamer ctermfg=247 ctermbg=NONE cterm=italic
-    hi LineNr ctermfg=252 cterm=bold
-    hi HiCursorWord ctermbg=252
+    hi cursorlinenr ctermbg=NONE cterm=bold guibg=NONE gui=bold
+    hi cursorline ctermbg=252 guibg=#f0f0f0
+    hi Visual ctermbg=250 cterm=NONE guibg=#f0f0f0 gui=NONE
+    hi Search cterm=inverse ctermfg=NONE guifg=NONE gui=inverse
+    hi cursorcolumn ctermbg=252 guibg=#f0f0f0
+    hi Blamer ctermfg=247 ctermbg=NONE cterm=italic guifg=#9e9e9e gui=italic
+    hi LineNr ctermfg=252 cterm=bold guifg=#f0f0f0 gui=bold
+    hi HiCursorWord ctermbg=252 guibg=#f0f0f0
 
     " Fold
-    hi Folded ctermbg=NONE ctermfg=247
-    hi FoldColumn ctermbg=NONE ctermfg=253
+    hi Folded ctermbg=NONE ctermfg=247 guibg=NONE guifg=#9e9e9e
+    hi FoldColumn ctermbg=NONE ctermfg=253 guibg=NONE guifg=#e5e5e5
 
     " FZF colors
-    hi BorderFZF ctermfg=253
-    hi TextFZF ctermfg=245
+    hi BorderFZF ctermfg=253 guifg=#e5e5e5
+    hi TextFZF ctermfg=245 guifg=#7f7f7f
 
     " Auto complete menu
-    hi Pmenu ctermfg=240 ctermbg=253
-    hi PmenuSel ctermfg=253 ctermbg=250
-    hi CocFloating ctermfg=240 ctermbg=253
-    hi CocMenuSel ctermfg=253 ctermbg=250
+    hi Pmenu ctermfg=240 ctermbg=253 guifg=#585858 guibg=#e5e5e5
+    hi PmenuSel ctermfg=253 ctermbg=250 guifg=#e5e5e5 guibg=#f2f2f2
+    hi CocFloating ctermfg=240 ctermbg=253 guifg=#585858 guibg=#e5e5e5
+    hi CocMenuSel ctermfg=253 ctermbg=250 guifg=#e5e5e5 guibg=#f2f2f2
 
     " Windows split
-    hi StatusLineNC ctermfg=253
-    hi StatusLine ctermfg=253
+    hi StatusLineNC ctermfg=253 guifg=#e5e5e5
+    hi StatusLine ctermfg=253 guifg=#e5e5e5
 
     " Status line components
-    hi AddBardsHighlight ctermfg=106 cterm=italic ctermbg=253   
-    hi RemoveBardsHighlight ctermfg=131 cterm=italic ctermbg=253
-    hi DiffHighlight ctermfg=246 cterm=italic
-    hi FileName ctermfg=249 cterm=italic ctermbg=253
-    hi CurrentMode ctermfg=249 cterm=bold ctermbg=253
-    hi GitBranch ctermfg=249 cterm=italic,bold ctermbg=253
-    
+    hi AddBardsHighlight ctermfg=106 cterm=italic ctermbg=253 guifg=#87af01 gui=italic guibg=#f2f2f2
+    hi RemoveBardsHighlight ctermfg=131 cterm=italic ctermbg=253 guifg=#d75f5f gui=italic guibg=#f2f2f2
+    hi DiffHighlight ctermfg=246 cterm=italic guifg=#d7af5f gui=italic
+    hi FileName ctermfg=249 cterm=italic ctermbg=253 guifg=#7f7f7f gui=italic guibg=#e5e5e5
+    hi CurrentMode ctermfg=249 cterm=bold ctermbg=253 guifg=#7f7f7f gui=bold guibg=#e5e5e5
+    hi GitBranch ctermfg=249 cterm=italic,bold ctermbg=253 guifg=#7f7f7f gui=italic,bold guibg=#e5e5e5
+
     " tab styling
-    hi TabLineFill ctermfg=253 ctermbg=253
-    hi TabLine ctermfg=250 ctermbg=253 cterm=NONE
-    hi TabLineSel ctermfg=254 ctermbg=252 cterm=bold
-    hi Title ctermfg=214 cterm=bold
+    hi TabLineFill ctermfg=253 ctermbg=253 guifg=#e5e5e5 guibg=#e5e5e5
+    hi TabLine ctermfg=250 ctermbg=253 cterm=NONE guifg=#f0f0f0 guibg=#e5e5e5 gui=NONE
+    hi TabLineSel ctermfg=254 ctermbg=252 cterm=bold guifg=#303030 guibg=#f0f0f0 gui=bold
+    hi Title ctermfg=214 cterm=bold guifg=#ffaf01 gui=bold
 
     " command line
-    hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE
-    hi PmenuSelCustom ctermbg=253
-    hi PmenuTextCustom ctermfg=240 ctermbg=253
+    hi PmenuCustom cterm=bold ctermfg=red ctermbg=NONE guifg=#d75f5f guibg=NONE gui=bold
+    hi PmenuSelCustom ctermbg=253 guibg=#e5e5e5
+    hi PmenuTextCustom ctermfg=240 ctermbg=253 guifg=#585858 guibg=#e5e5e5
 
     " which key
-    hi WhichKeyFloat ctermbg=253 ctermfg=247
-    hi WhichKeyDesc	ctermfg=247
-    hi WhichKey	ctermfg=red
+    hi WhichKeyFloat ctermbg=253 ctermfg=247 guibg=#e5e5e5 guifg=#9e9e9e
+    hi WhichKeyDesc	ctermfg=247 guifg=#9e9e9e
+    hi WhichKey	ctermfg=red guifg=#d75f5f
 
     " Git gutter and vimdiff
     hi clear SignColumn
-    hi GitGutterAdd ctermfg=108 ctermbg=NONE
-    hi GitGutterChange ctermfg=108 ctermbg=NONE
-    hi GitGutterDelete ctermfg=131 ctermbg=NONE
-    hi GitGutterChangeDelete ctermfg=108 ctermbg=NONE
-    hi GitGutterAddLineNr ctermfg=108 cterm=bold
-    hi GitGutterChangeLineNr ctermfg=108 cterm=bold
-    hi GitGutterDeleteLineNr ctermfg=131 cterm=bold
-    hi GitGutterChangeDeleteLineNr ctermfg=108 cterm=bold
+    hi GitGutterAdd ctermfg=108 ctermbg=NONE guifg=#87af87
+    hi GitGutterChange ctermfg=108 ctermbg=NONE guifg=#87af87
+    hi GitGutterDelete ctermfg=131 ctermbg=NONE guifg=#d75f5f
+    hi GitGutterChangeDelete ctermfg=108 ctermbg=NONE guifg=#87af87 guibg=NONE
+    hi GitGutterAddLineNr ctermfg=108 cterm=bold guifg=#87af87 gui=bold
+    hi GitGutterChangeLineNr ctermfg=108 cterm=bold guifg=#87af87 gui=bold
+    hi GitGutterDeleteLineNr ctermfg=131 cterm=bold guifg=#d75f5f gui=bold
+    hi GitGutterChangeDeleteLineNr ctermfg=108 cterm=bold guifg=#87af87 gui=bold
+    hi DiffAdd ctermfg=NONE ctermbg=108 cterm=NONE guifg=NONE guibg=#87af87 gui=NONE
+    hi DiffChange ctermfg=NONE ctermbg=108 cterm=NONE guifg=NONE guibg=#87af87 gui=NONE
+    hi DiffDelete ctermfg=NONE ctermbg=131 cterm=NONE guifg=NONE guibg=#d75f5f gui=NONE
+    hi DiffText ctermfg=NONE ctermbg=108 cterm=NONE guifg=NONE guibg=#87af87 gui=NONE
+    hi DiffviewFilePanelFileName ctermfg=241 guifg=#626262
 endfunction
 
 if &background ==# 'light'
