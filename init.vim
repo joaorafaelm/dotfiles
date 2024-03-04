@@ -53,6 +53,21 @@ call plug#end()
 
 " lua scripts
 lua << EOF
+    require("diffview").setup({
+        use_icons = false,
+        file_panel = {
+            win_config = {
+                position = "top",
+                height = 16,
+            },
+        },
+        file_history_panel = {
+            win_config = {
+                position = "top",
+                height = 16,
+            },
+         },
+    })
     require("indent_blankline").setup {
         show_current_context = true,
         show_current_context_start = false,
@@ -67,7 +82,7 @@ lua << EOF
 
     require('nvim-treesitter.configs').setup {
         ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript", "terraform", "bash" },
-        sync_install = false,
+        sync_install = true,
         auto_install = true,
         highlight = {
             enable = true,
@@ -197,9 +212,9 @@ function! SetDarkColors()
     hi GitGutterDeleteLineNr ctermfg=131 cterm=bold guifg=#d75f5f gui=bold
     hi GitGutterChangeDeleteLineNr ctermfg=108 cterm=bold guifg=#87af87 gui=bold
     hi DiffAdd ctermfg=NONE ctermbg=17 cterm=NONE guifg=NONE guibg=#033904 gui=NONE
-    hi DiffChange ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+    hi DiffChange ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=#042505 gui=NONE
     hi DiffDelete ctermfg=NONE ctermbg=52 cterm=NONE guifg=NONE guibg=#5f0000 gui=NONE
-    hi DiffText ctermfg=NONE ctermbg=17 cterm=NONE guifg=NONE guibg=#033904 gui=NONE
+    hi DiffText ctermfg=NONE ctermbg=17 cterm=NONE guifg=NONE guibg=#033904 gui=bold
     hi DiffviewFilePanelFileName ctermfg=247 guifg=#9e9e9e
 endfunction
 
@@ -311,7 +326,7 @@ set autoindent
 set nohidden
 set winminheight=0
 set winminwidth=0
-set signcolumn=yes
+set signcolumn=no
 set updatetime=50
 set timeout
 set ttimeout
@@ -429,9 +444,7 @@ let g:disable_key_mappings = 1
 let g:blamer_enabled = 1
 
 " tab rename
-let g:taboo_renamed_tab_format = ' %N:%l%m '
-let g:taboo_tab_format = ' %N:%f%m '
-let g:taboo_modified_tab_flag = ' ~ '
+let g:taboo_tab_format = ' %N '
 
 " resize window key
 let g:winresizer_start_key	= '<leader>e'
@@ -645,6 +658,18 @@ command! SessionPicker call fzf#run(fzf#wrap({
     \ 'source': 'cd $HOME; zsh -c $FZF_ALT_C_COMMAND',
     \ 'sink*': { lines -> s:source_session(lines) },
     \ 'options': "--expect=ctrl-x"
+\ }))
+
+function! s:open_pr_diff(lines) abort
+    let pr = a:lines[0]
+    let pr = matchstr(pr, '\d\+')
+    exec '!gh pr checkout ' . pr
+    :DiffviewFileHistory
+endfunction
+
+command! ListPRs call fzf#run(fzf#wrap({
+    \ 'source': "gh pr list --state all --limit 1000",
+    \ 'sink*': { lines -> s:open_pr_diff(lines) },
 \ }))
 
 function! SearchWordWithRg()
@@ -1190,7 +1215,6 @@ nnoremap <Leader>6 6gt
 nnoremap <Leader>7 7gt
 nnoremap <Leader>8 8gt
 nnoremap <Leader>9 9gt
-nnoremap <c-w>n :TabooRename
 
 " Dont copy to clipboard deleted text
 nnoremap d "_d
@@ -1231,14 +1255,13 @@ nnoremap <silent><c-h> :Helptags<CR>
 nnoremap <silent>K :call SearchWordWithRg()<CR>
 vnoremap <silent>K :call SearchVisualSelectionWithRg()<CR>
 nnoremap <silent><c-]> :SessionPicker<cr>
+nnoremap <silent><c-l> :ListPRs<cr>
 
 " Add current line to quick fix list
 nnoremap <silent><leader>x :call AddToQuickFix()<cr>
 
-" custom mapping in fugitive window (:Git)
-nnoremap <silent><leader>g :G<CR>
-nnoremap <silent><leader>h :BCommits<CR>
-vnoremap <silent><leader>h :BCommits<CR>
+nnoremap <silent><leader>g :DiffviewOpen<CR>
+nnoremap <silent><leader>h :DiffviewFileHistory<CR>
 
 " open git blame in a new tab
 " nnoremap <silent><leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>
