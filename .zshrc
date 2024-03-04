@@ -164,6 +164,16 @@ gw () {
     done;
 }
 
+# function to receive a command and run it forever until it executes successfully
+loop () {
+    while true; do
+        $@
+        if [ $? -eq 0 ]; then
+            break
+        fi
+    done
+}
+
 if [ -n "$NVIM" ]; then
   export VISUAL="nvr -cc split --remote-wait-silent --servername ${NVIM}"
 else

@@ -491,8 +491,8 @@ let g:vindent_motion_more_prev = '[+' " jump to prev line with more indent.
 let g:vindent_motion_more_next = ']+' " jump to next line with more indent.
 let g:vindent_motion_less_prev = '[-' " jump to prev line with less indent.
 let g:vindent_motion_less_next = ']-' " jump to next line with less indent.
-let g:vindent_motion_diff_prev = '<UP>' " jump to prev line with different indent.
-let g:vindent_motion_diff_next = '<DOWN>' " jump to next line with different indent.
+let g:vindent_motion_diff_prev = '<S-UP>' " jump to prev line with different indent.
+let g:vindent_motion_diff_next = '<S-DOWN>' " jump to next line with different indent.
 let g:vindent_motion_XX_ss     = '[[' " jump to start of the current block scope.
 let g:vindent_motion_XX_se     = ']]' " jump to end   of the current block scope.
 let g:vindent_object_XX_ii     = 'ii' " select current block.
@@ -1072,8 +1072,6 @@ nnoremap <silent> <LEFT> <Plug>CamelCaseMotion_b
 nnoremap <silent> <RIGHT> <Plug>CamelCaseMotion_w
 nnoremap <silent> <S-LEFT> h
 nnoremap <silent> <S-RIGHT> l
-nnoremap <silent> <S-UP> k
-nnoremap <silent> <S-DOWN> j
 
 " comments
 nmap <C-_> gcc
