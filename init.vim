@@ -152,7 +152,7 @@ function! SetDarkColors()
     "highlight clear cursorline
     hi cursorlinenr ctermbg=NONE cterm=bold guibg=NONE gui=bold
     hi cursorline ctermbg=235 guibg=#262626
-    hi Visual ctermbg=237 cterm=NONE guibg=#3a3a3a gui=NONE
+    hi Visual ctermbg=237 cterm=NONE guibg=#303030 gui=NONE
     hi Search cterm=inverse ctermfg=NONE guifg=NONE gui=inverse
     hi cursorcolumn ctermbg=235 guibg=#262626
     hi Blamer ctermfg=239 ctermbg=NONE guifg=#4e4e4e gui=italic
