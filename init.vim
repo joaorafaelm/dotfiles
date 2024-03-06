@@ -669,6 +669,7 @@ endfunction
 
 command! ListPRs call fzf#run(fzf#wrap({
     \ 'source': "gh pr list --state all --limit 1000",
+    \ 'options': "--preview 'gh pr diff --color=always {1} | delta --width $(expr $(tput cols) / 2)' --preview-window=right,50%",
     \ 'sink*': { lines -> s:open_pr_diff(lines) },
 \ }))
 
