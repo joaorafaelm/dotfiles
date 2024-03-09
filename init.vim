@@ -1067,12 +1067,11 @@ inoremap <C-e> <End>
 nnoremap <C-a> <Home>
 nnoremap <C-e> <End>
 
-
 " arrow movement like b/w 
-nnoremap <silent> <LEFT> <Plug>CamelCaseMotion_b
-nnoremap <silent> <RIGHT> <Plug>CamelCaseMotion_w
-nnoremap <silent> <S-LEFT> h
-nnoremap <silent> <S-RIGHT> l
+nnoremap <silent> <S-LEFT> <Plug>CamelCaseMotion_b
+nnoremap <silent> <S-RIGHT> <Plug>CamelCaseMotion_w
+nnoremap <silent> <LEFT> h
+nnoremap <silent> <RIGHT> l
 
 " comments
 nmap <C-_> gcc
@@ -1263,12 +1262,6 @@ nnoremap <silent><leader>x :call AddToQuickFix()<cr>
 
 nnoremap <silent><leader>g :DiffviewOpen<CR>
 nnoremap <silent><leader>h :DiffviewFileHistory<CR>
-
-" open git blame in a new tab
-" nnoremap <silent><leader>h :tabedit %<CR>:0Gclog<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>
-"After <leader>h, navigate through the git history
-" map <silent> <expr> <C-j> &diff ? ':q<CR>:cn<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-j>'
-" map <silent> <expr> <C-k> &diff ? ':q<CR>:cp<CR>:Gdiffsplit<CR>:setlocal nolist<CR>:setlocal signcolumn=no<CR>' : '<C-k>'
 
 " silent maps for [c and ]c for git gutter and vimdiff
 map <silent> <expr> [c &diff ? '[c' : ':silent! GitGutterPrevHunk<CR>'
