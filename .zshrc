@@ -57,8 +57,6 @@ ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-bindkey "ç" fzf-cd-widget
-
 # vim mode fzf
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh;
@@ -202,7 +200,10 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 function GFilesWithFocus() {
     nvr --remote-send "<esc>:call GFilesWithFocus()<CR>" --servername $NVIM
 }
+
 zle -N GFilesWithFocus GFilesWithFocus
 bindkey '^S' GFilesWithFocus
+bindkey '^V' fzf-cd-widget
+bindkey "ç" fzf-cd-widget
 
 l
