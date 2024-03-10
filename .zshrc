@@ -199,6 +199,10 @@ export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
 export OPENAI_API_KEY=`cat ~/.config/openai.token`
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-bindkey -s '^S' '\C-a nvr --remote-send "<esc>" --servername $NVIM -c ":call GFilesWithFocus()" \C-j'
+function GFilesWithFocus() {
+    nvr --remote-send "<esc>:call GFilesWithFocus()<CR>" --servername $NVIM
+}
+zle -N GFilesWithFocus GFilesWithFocus
+bindkey '^S' GFilesWithFocus
 
 l
