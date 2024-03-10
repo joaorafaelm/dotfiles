@@ -206,4 +206,24 @@ bindkey '^S' GFilesWithFocus
 bindkey '^V' fzf-cd-widget
 bindkey "ç" fzf-cd-widget
 
+sudo () {
+    unset -f sudo
+    if [[ "$(uname)" == 'Darwin' ]]
+    then
+        if ! command grep 'pam_tid.so' /etc/pam.d/sudo --silent
+        then
+            command sudo sed -i -e '1s;^;auth       sufficient     pam_tid.so\n;' /etc/pam.d/sudo
+        fi
+        if ! command grep 'pam_reattach.so' /etc/pam.d/sudo --silent
+        then
+            command sudo sed -i -e '1s;^;auth     optional     /opt/homebrew/lib/pam/pam_reattach.so\n;' /etc/pam.d/sudo
+        fi
+    fi
+    command sudo "$@"
+}
+
+if [ $SHLVL -eq 2 ]; then
+    reattach-to-session-namespace -u $(id -u) zsh
+fi
+
 l
