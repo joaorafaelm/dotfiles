@@ -4,6 +4,9 @@ else
     if [ -z "$TMUX" ]; then
         tmux a -t || tmux new-session \; new-window -n dotfiles -c ~/dev/dotfiles nvim
     fi
+    if [ $SHLVL -eq 2 ]; then
+        reattach-to-session-namespace -u $(id -u) $SHELL
+    fi
 fi
 
 export LC_ALL=en_US.UTF-8
@@ -221,9 +224,5 @@ sudo () {
     fi
     command sudo "$@"
 }
-
-if [ $SHLVL -eq 2 ]; then
-    reattach-to-session-namespace -u $(id -u) zsh
-fi
 
 l
