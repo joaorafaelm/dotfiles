@@ -956,6 +956,8 @@ augroup update_plug
     endfunction
     au VimEnter * call OnVimEnter()
     au BufLeave * if &filetype == 'vim-plug' | silent! PlugSnapshot! ~/dev/dotfiles/plug.snapshot.vim | endif
+    au BufLeave * if expand('%:t') == 'plug.snapshot.vim' | silent! %s/^\(silent!.*\|PlugUpdate\)\@!.*\n//g | silent w | endif
+
 augroup END
 
 " auto resize windows
