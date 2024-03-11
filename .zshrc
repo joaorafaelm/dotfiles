@@ -3,9 +3,10 @@ if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ] || [ -n "$TERM_PROGR
 else
     if [ -z "$TMUX" ]; then
         tmux a -t || tmux new-session \; new-window -n dotfiles -c ~/dev/dotfiles nvim
-    fi
-    if [ $SHLVL -eq 2 ]; then
-        reattach-to-session-namespace -u $(id -u) $SHELL
+    else
+        if [ $SHLVL -eq 2 ]; then
+            reattach-to-session-namespace -u $(id -u) $SHELL
+        fi
     fi
 fi
 
@@ -200,7 +201,7 @@ export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
 export OPENAI_API_KEY=`cat ~/.config/openai.token`
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-function GFilesWithFocus() {
+GFilesWithFocus() {
     nvr --remote-send "<esc>:call GFilesWithFocus()<CR>" --servername $NVIM
 }
 
@@ -209,7 +210,7 @@ bindkey '^S' GFilesWithFocus
 bindkey '^V' fzf-cd-widget
 bindkey "ç" fzf-cd-widget
 
-sudo () {
+function sudo () {
     unset -f sudo
     if [[ "$(uname)" == 'Darwin' ]]
     then
@@ -223,6 +224,14 @@ sudo () {
         fi
     fi
     command sudo "$@"
+}
+
+function exit() {
+    if [ $SHLVL -eq 3 ]; then
+        kill -9 $PPID
+    else
+        builtin exit
+    fi
 }
 
 l
