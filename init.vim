@@ -940,6 +940,10 @@ augroup END
 augroup update_plug
     au!
     function! OnVimEnter() abort
+        if filereadable(expand('~/dev/dotfiles/plug.snapshot.vim'))
+            silent! source ~/dev/dotfiles/plug.snapshot.vim
+        endif
+
         " Run PlugUpdate every week automatically when entering Vim.
         if exists('g:plug_home')
             let l:filename = printf('%s/.vim_plug_update', g:plug_home)
