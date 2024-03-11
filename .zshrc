@@ -233,5 +233,3 @@ function exit() {
         builtin exit
     fi
 }
-
-l
