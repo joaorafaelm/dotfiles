@@ -664,11 +664,10 @@ function! s:open_pr_diff(lines) abort
     let pr = a:lines[0]
     let pr = matchstr(pr, '\d\+')
     exec '!gh pr checkout ' . pr
-    :DiffviewFileHistory
 endfunction
 
 command! ListPRs call fzf#run(fzf#wrap({
-    \ 'source': "gh pr list --state all --limit 1000",
+    \ 'source': "gh pr list",
     \ 'options': "--preview 'gh pr diff --color=always {1} | delta --width $(expr $(tput cols) / 2)' --preview-window=right,50%",
     \ 'sink*': { lines -> s:open_pr_diff(lines) },
 \ }))
@@ -940,9 +939,8 @@ augroup END
 augroup update_plug
     au!
     function! OnVimEnter() abort
-        if filereadable(expand('~/dev/dotfiles/plug.snapshot.vim'))
-            silent! source ~/dev/dotfiles/plug.snapshot.vim
-        endif
+        " rollback
+        " silent! source ~/dev/dotfiles/plug.snapshot.vim
 
         " Run PlugUpdate every week automatically when entering Vim.
         if exists('g:plug_home')
@@ -1267,7 +1265,8 @@ nnoremap <silent><c-l> :ListPRs<cr>
 nnoremap <silent><leader>x :call AddToQuickFix()<cr>
 
 nnoremap <silent><leader>g :DiffviewOpen<CR>
-nnoremap <silent><leader>h :DiffviewFileHistory<CR>
+nnoremap <silent><leader>h :BCommits<CR>
+vnoremap <silent><leader>h :BCommits<CR>
 
 " silent maps for [c and ]c for git gutter and vimdiff
 map <silent> <expr> [c &diff ? '[c' : ':silent! GitGutterPrevHunk<CR>'
