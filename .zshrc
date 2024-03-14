@@ -69,7 +69,7 @@ alias v="nvim"
 alias l="exa"
 alias ls="exa -lha"
 alias ll="exa -lha --git"
-alias :q="exit"
+alias :q="kill -9 $PPID"
 alias ai="aichat"
 function f() { 
     # cd $(mktemp -d)
@@ -139,7 +139,6 @@ compdef g="git"
 
 
 # make worktree
-# TODO: use .feature from $HOME, prepend the new branch with the project name + $1
 gg () {
     cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ");
     if [ ! -d ".features" ]; then
@@ -224,12 +223,4 @@ function sudo () {
         fi
     fi
     command sudo "$@"
-}
-
-function exit() {
-    if [ $SHLVL -eq 3 ]; then
-        kill -9 $PPID
-    else
-        builtin exit
-    fi
 }

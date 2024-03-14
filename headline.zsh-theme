@@ -222,7 +222,7 @@ headline_git_hash() {
   ref=$(headline_git symbolic-ref --quiet HEAD 2> /dev/null)
   local ret=$?
   if [[ $ret == 0 ]]; then
-    rev=$(headline_git rev-parse --short HEAD 2> /dev/null) || return
+    rev=$(headline_git rev-parse HEAD | cut -c1-11 2> /dev/null) || return
     echo $rev # remove "refs/heads/" to get branch
   else # not on a branch
     [[ $ret == 128 ]] && return  # not a git repo
