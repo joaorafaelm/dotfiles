@@ -89,15 +89,18 @@ function space_to_continue {
 
 #set history size
 HISTFILE=~/.zsh_history
-HISTSIZE=999999999
-#save history after logout
-SAVEHIST=999999999
-#append into history file
+HISTSIZE=99999
+SAVEHIST=$HISTSIZE
 setopt INC_APPEND_HISTORY
-#save only one command if 2 common are same and consistent
-setopt HIST_IGNORE_DUPS
-#add timestamp for each entry
-setopt EXTENDED_HISTORY
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 
 export GPG_TTY=$(tty)
 # git abstraction, install gawk
