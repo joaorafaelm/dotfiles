@@ -20,6 +20,7 @@
     line-numbers-minus-style = red
     line-numbers-plus-style = green
     line-numbers-zero-style = black
+    navigate = true
 [pull]
 	rebase = true
 	default = current
@@ -33,8 +34,8 @@
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [alias]
     fixup = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
-    c = "!git commit && git push"
-    p = "!git add . && git commit && git push"
+    c = "!git commit && git push origin $(git branch --show-current)"
+    p = "!git add . && git commit && git push origin $(git branch --show-current)"
     pr = "!git add . && git commit && git push origin $(git branch --show-current) && gh pr create --base $(basename $(git symbolic-ref --short refs/remotes/origin/HEAD)) --head $(git branch --show-current) --fill-first $1"
     a = add
     squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"

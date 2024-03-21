@@ -35,6 +35,7 @@ export PYTHONBREAKPOINT=ipdb.set_trace
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export ENABLE_TTY="true"
 export NODE_OPTIONS="--no-warnings"
+export HOMEBREW_NO_ENV_HINTS=1
 alias kubectl="minikube kubectl --"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
