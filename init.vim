@@ -38,7 +38,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'chomosuke/term-edit.nvim', {'tag': 'v1.*'}
     Plug 'jessekelighine/vindent.vim'
     Plug 'vim-scripts/argtextobj.vim', {'for': 'python'}
-    Plug 'madox2/vim-ai'
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}
     Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     Plug 'nvim-treesitter/nvim-treesitter'
@@ -49,10 +48,18 @@ call plug#begin('~/.vim/plugins')
     Plug 'dohsimpson/vim-macroeditor'
     Plug 'bkad/CamelCaseMotion'
     Plug 'sindrets/diffview.nvim'
+    Plug 'zbirenbaum/copilot.lua'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
 call plug#end()
 
 " lua scripts
 lua << EOF
+    require("CopilotChat").setup {
+        debug = false,
+        separator = '>>>',
+        show_folds = false,
+    }
     require("diffview").setup({
         use_icons = false,
         file_panel = {
@@ -122,9 +129,6 @@ hi FZFBG ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
 " Windows split
 hi VertSplit ctermfg=None ctermbg=None guifg=NONE guibg=NONE
-
-" ai.vim
-hi link AIHighlight Visual
 
 " todo highlight
 hi def link MyTodo Todo
@@ -1097,13 +1101,12 @@ tnoremap <silent> <S-RIGHT> <C-\><C-n><S-RIGHT>
 tnoremap <silent> <C-[> <C-\><C-n>
 
 " ai.vim maps
-nnoremap <silent> <leader>f :AIEdit<space>
-vnoremap <silent> <leader>f :AIEdit<space>
+nnoremap <silent> <leader>f :CopilotChatFix<space>
+vnoremap <silent> <leader>f :CopilotChatFix<space>
 
 " trigger chat
-xnoremap <leader>c :AIChat<CR>
-inoremap <leader>c <esc>:AIChat<CR>
-nnoremap <leader>c :AIChat<CR>
+xnoremap <leader>c :CopilotChat<CR>
+nnoremap <leader>c :CopilotChat<CR>
 
 " vim copilot maps
 inoremap ‘ <Cmd>call copilot#Next()<CR>
