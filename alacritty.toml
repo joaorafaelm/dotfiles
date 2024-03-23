@@ -18,7 +18,7 @@ blinking = "Always"
 shape = "Block"
 
 [font]
-size = 10
+size = 9
 
 [font.bold]
 family = "SF Mono"
