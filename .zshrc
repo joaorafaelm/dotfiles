@@ -70,7 +70,6 @@ alias v="nvim"
 alias l="exa"
 alias ls="exa -lha"
 alias ll="exa -lha --git"
-alias :q="kill -9 $PPID"
 alias ai="aichat"
 function f() { 
     # cd $(mktemp -d)
