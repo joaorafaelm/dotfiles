@@ -70,6 +70,7 @@ alias v="nvim"
 alias l="exa"
 alias ls="exa -lha"
 alias ll="exa -lha --git"
+alias :q='if [ "$SHLVL" -ge 3 ]; then kill -9 $PPID; else exit; fi'
 alias ai="aichat"
 function f() { 
     # cd $(mktemp -d)
