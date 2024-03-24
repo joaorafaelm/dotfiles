@@ -144,6 +144,9 @@ compdef g="git"
 
 # make worktree
 gg () {
+    if [ -z "$1" ]; then
+        return;
+    fi
     cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ");
     if [ ! -d ".features" ]; then
         mkdir .features;
@@ -227,4 +230,12 @@ function sudo () {
         fi
     fi
     command sudo "$@"
+}
+
+exit () {
+    if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "tmux" ] && [ -n "$NVIM" ] && [ "$SHLVL" -ge 3 ]; then
+        kill -9 $PPID
+    else
+        builtin exit
+    fi
 }
