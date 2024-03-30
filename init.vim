@@ -479,7 +479,7 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment']
 \ }
 
-let g:fzf_layout = { 'up': '~40%' }
+let g:fzf_layout = { 'up': '~50%' }
 
 " ctrl-e/y to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'
