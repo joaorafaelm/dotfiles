@@ -3,6 +3,7 @@ if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ] || [ -n "$TERM_PROGR
 else
     if [ -z "$TMUX" ]; then
         tmux a -t || tmux new-session \; new-window -n dotfiles -c ~/dev/dotfiles nvim
+        exit
     else
         if [ $SHLVL -eq 2 ]; then
             reattach-to-session-namespace -u $(id -u) $SHELL
@@ -32,7 +33,7 @@ export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS="--no-cov-on-fail -p no:warnings --ff --nf --pdb -x"
 export PYTHONBREAKPOINT=ipdb.set_trace
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
+export DOCKER_DEFAULT_PLATFORM=linux/arm64/v8
 export ENABLE_TTY="true"
 export NODE_OPTIONS="--no-warnings"
 export HOMEBREW_NO_ENV_HINTS=1

@@ -1005,6 +1005,12 @@ augroup custom_fugitive_mappings
     au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<CR>
 augroup END
 
+augroup line_numbers_toggle
+    au!
+    au InsertEnter * :set norelativenumber
+    au InsertLeave * :set relativenumber 
+augroup END
+
 " markdown fold
 augroup fold_formats
     au!
