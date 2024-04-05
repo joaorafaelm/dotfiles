@@ -1287,5 +1287,8 @@ nmap gq qm
 nmap Q @m
 nmap <leader>q :MacroEdit m<cr>
 
+" ctrl-c maps to esc for insertleave
+ino <C-C> <Esc>
+
 " reopen last window
 nnoremap <silent> <S-t> :vs<bar>:b#<CR>

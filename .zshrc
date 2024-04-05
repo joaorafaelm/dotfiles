@@ -175,6 +175,7 @@ gw () {
 
 # function to receive a command and run it forever until it executes successfully
 loop () {
+
     while true; do
         $@
         if [ $? -eq 0 ]; then
@@ -251,6 +252,7 @@ ghcs () {
 	Supports executing suggested commands if applicable.
 
 	USAGE
+
 	  $FUNCNAME [flags] <prompt>
 
 	FLAGS
