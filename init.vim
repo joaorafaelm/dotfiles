@@ -59,6 +59,22 @@ lua << EOF
         debug = false,
         separator = '>>>',
         show_folds = false,
+        show_help = false,
+        auto_insert_mode = true,
+        mappings = {
+            complete = {
+                detail = 'Use <C-p>',
+                insert ='<C-p>',
+            },
+            submit_prompt = {
+                normal = '<CR>',
+                insert = '<leader>c',
+            },
+            close = {
+                normal = '<leader>c',
+                insert = '<C-c>'
+            },
+        }
     }
     require("diffview").setup({
         use_icons = false,
@@ -1113,6 +1129,7 @@ vnoremap <silent> <leader>f :CopilotChatFix<space>
 " trigger chat
 xnoremap <leader>c :CopilotChat<CR>
 nnoremap <leader>c :CopilotChat<CR>
+inoremap <leader>c <Esc>:CopilotChat<CR>
 
 " vim copilot maps
 inoremap ‘ <Cmd>call copilot#Next()<CR>
