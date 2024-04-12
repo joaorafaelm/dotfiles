@@ -93,6 +93,7 @@ function space_to_continue {
 HISTFILE=~/.zsh_history
 HISTSIZE=99999
 SAVEHIST=$HISTSIZE
+HISTORY_IGNORE="(ls|cd|pwd|exit)*"
 setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
