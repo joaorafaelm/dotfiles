@@ -1,2 +1,7 @@
 !.env
 .git/*
+.orbstack/
+.ollama/
+.composer/
+.oh-my-zsh/
+.huggingface/

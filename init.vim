@@ -55,6 +55,8 @@ call plug#end()
 
 " lua scripts
 lua << EOF
+    require "term-edit".setup { prompt_end = '%$ ' }
+    require "winshift".setup { highlight_moving_win = false }
     require("CopilotChat").setup {
         debug = false,
         separator = '>>>',
@@ -100,9 +102,6 @@ lua << EOF
         char = '',
         context_char = '┃',
     }
-
-    require "term-edit".setup { prompt_end = '%$ ' }
-
     require('nvim-treesitter.configs').setup {
         ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript", "terraform", "bash" },
         sync_install = true,
@@ -111,8 +110,6 @@ lua << EOF
             enable = true,
         }
     }
-
-    require "winshift".setup { highlight_moving_win = false }
 EOF
 
 " session config
@@ -377,7 +374,7 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 set list
 
 set cursorline
-set cursorlineopt=number
+set cursorlineopt=number,line
 
 " status column
 " let &stc='%s %=%#LineNr#%{v:lnum}  %#NonText#%{v:relnum ? v:relnum : v:lnum} %T %s'
@@ -1158,8 +1155,6 @@ map _ <Plug>(expand_region_shrink)
 "map <3-LeftMouse> <Plug>(expand_region_expand)
 "map <4-LeftMouse> <Plug>(expand_region_expand)
 
-" vim coc
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Use K to show documentation in preview window
 nnoremap <silent> L :call ShowDocumentation()<CR>
 function! ShowDocumentation()
@@ -1302,6 +1297,7 @@ map <silent> <expr> ]c &diff ? ']c' : ':silent! GitGutterNextHunk<CR>'
 " macros
 nmap gq qm
 nmap Q @m
+" nnoremap q <Nop>
 nmap <leader>q :MacroEdit m<cr>
 
 " ctrl-c maps to esc for insertleave
