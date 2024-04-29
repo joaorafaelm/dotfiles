@@ -34,7 +34,7 @@ style = "Regular"
 
 [font.offset]
 x = 0
-y = 3
+y = 0
 
 [[keyboard.bindings]]
 chars = "\u001F"
@@ -44,7 +44,8 @@ mods = "Control"
 [window]
 decorations = "buttonless"
 dynamic_padding = true
-startup_mode = "Fullscreen"
+# startup_mode = "Fullscreen"
+startup_mode = "SimpleFullscreen"
 
 [window.padding]
 x = 0

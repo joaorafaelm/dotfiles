@@ -492,13 +492,14 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment']
 \ }
 
-let g:fzf_layout = { 'up': '~50%' }
+let g:fzf_layout = { 'up': '~40%' }
+" let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'relative': v:true, 'yoffset': 0 } }
 
 " ctrl-e/y to navigate cmd history
 let g:fzf_history_dir = '~/.fzf-history'
 let $FZF_DEFAULT_OPTS = '--inline-info --layout=reverse-list --border=none --no-scrollbar'
 let $FZF_DEFAULT_OPTS .= ' --bind ctrl-a:select-all --bind ctrl-y:preview-up,ctrl-e:preview-down'
-let $FZF_DEFAULT_OPTS .= ' --preview-window noborder --margin=0 --padding=0 --no-separator --color dark'
+let $FZF_DEFAULT_OPTS .= ' --preview-window 45%,noborder --margin=0 --padding=0 --no-separator --color dark'
 
 " vindent
 let g:vindent_begin = 0
