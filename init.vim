@@ -60,6 +60,7 @@ lua << EOF
     require("CopilotChat").setup {
         debug = false,
         separator = '>>>',
+        model = 'gpt-4o',
         show_folds = false,
         show_help = false,
         auto_insert_mode = true,

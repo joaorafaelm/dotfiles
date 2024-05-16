@@ -13,5 +13,4 @@ dotbot
 .vagrant
 .env
 .aider*
-Brewfile.lock.json
 vim/session/
