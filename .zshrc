@@ -37,6 +37,7 @@ export DOCKER_DEFAULT_PLATFORM=linux/arm64/v8
 export ENABLE_TTY="true"
 export NODE_OPTIONS="--no-warnings"
 export HOMEBREW_NO_ENV_HINTS=1
+export AIDER_AUTO_COMMITS=true
 alias kubectl="minikube kubectl --"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
@@ -215,10 +216,17 @@ GFilesWithFocus() {
     nvr --remote-send "<esc>:call GFilesWithFocus()<CR>" --servername $NVIM
 }
 
+FilesWithFocus() {
+    nvr --remote-send "<esc>:Files<CR>" --servername $NVIM
+}
+
+
 zle -N GFilesWithFocus GFilesWithFocus
+zle -N FilesWithFocus FilesWithFocus
 bindkey '^S' GFilesWithFocus
 bindkey '^V' fzf-cd-widget
 bindkey "ç" fzf-cd-widget
+bindkey ", " FilesWithFocus
 
 function sudo () {
     unset -f sudo

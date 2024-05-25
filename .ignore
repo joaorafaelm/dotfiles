@@ -8,3 +8,8 @@
 Library
 *.sav
 Downloads/*
+Documents/*
+OrbStack
+**/__pycache__
+Music/*
+Pictures

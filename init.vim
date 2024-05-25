@@ -20,7 +20,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
     Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-    Plug 'junegunn/fzf.vim', {'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650'}
+    Plug 'junegunn/fzf.vim',
     Plug 'vimlab/split-term.vim'
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
@@ -60,7 +60,6 @@ lua << EOF
     require("CopilotChat").setup {
         debug = false,
         separator = '>>>',
-        model = 'gpt-4o',
         show_folds = false,
         show_help = false,
         auto_insert_mode = true,
@@ -674,7 +673,7 @@ function! s:source_session(lines) abort
 endfunction
 
 command! SessionPicker call fzf#run(fzf#wrap({
-    \ 'source': 'cd $HOME; zsh -c $FZF_ALT_C_COMMAND',
+    \ 'source': 'fd . $HOME --type d --max-depth=3 --exec-batch ls -ltd -1 | sed "s|$HOME/||"',
     \ 'sink*': { lines -> s:source_session(lines) },
     \ 'options': "--expect=ctrl-x"
 \ }))
