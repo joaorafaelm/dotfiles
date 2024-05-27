@@ -37,7 +37,11 @@ export DOCKER_DEFAULT_PLATFORM=linux/arm64/v8
 export ENABLE_TTY="true"
 export NODE_OPTIONS="--no-warnings"
 export HOMEBREW_NO_ENV_HINTS=1
-export AIDER_AUTO_COMMITS=true
+export AIDER_AUTO_COMMITS=false
+export AIDER_YES=true
+export AIDER_TEST_CMD="make test"
+export AIDER_CODE_THEME="solarized-dark"
+AiDER_DARK_MODE="true"
 alias kubectl="minikube kubectl --"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
@@ -226,7 +230,8 @@ zle -N FilesWithFocus FilesWithFocus
 bindkey '^S' GFilesWithFocus
 bindkey '^V' fzf-cd-widget
 bindkey "ç" fzf-cd-widget
-bindkey ", " FilesWithFocus
+# disabled as it is falsely triggered by any comma and space
+# bindkey ", " FilesWithFocus
 
 function sudo () {
     unset -f sudo
