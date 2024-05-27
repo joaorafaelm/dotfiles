@@ -37,10 +37,10 @@ export DOCKER_DEFAULT_PLATFORM=linux/arm64/v8
 export ENABLE_TTY="true"
 export NODE_OPTIONS="--no-warnings"
 export HOMEBREW_NO_ENV_HINTS=1
-export AIDER_AUTO_COMMITS=false
-export AIDER_YES=true
+export AIDER_AUTO_COMMITS="false"
+export AIDER_YES="true"
 export AIDER_TEST_CMD="make test"
-export AIDER_CODE_THEME="solarized-dark"
+export AIDER_DARK_MODE="true"
 AiDER_DARK_MODE="true"
 alias kubectl="minikube kubectl --"
 if command -v pyenv 1>/dev/null 2>&1; then
