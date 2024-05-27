@@ -1,8 +1,0 @@
-leash: false
-llm_api_key: null
-llm_base_url: null
-llm_custom_provider: null
-llm_model: gpt-4-turbo-preview
-llm_temperature: 1.0
-pip_model: null
-retries: 2

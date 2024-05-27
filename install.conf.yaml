@@ -35,4 +35,4 @@
     ~/.config/githooks: githooks/
     ~/.ignore: .ignore
     ~/.config/nvim/coc-settings.json: coc-settings.json
-    ~/.rawdog/config.yaml: rawdog.yaml
+    ~/.hushlogin: hushlogin
