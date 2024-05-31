@@ -20,7 +20,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
     Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-    Plug 'junegunn/fzf.vim',
+    Plug 'junegunn/fzf.vim', {'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650'}
     Plug 'vimlab/split-term.vim'
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
@@ -906,6 +906,7 @@ augroup CommentsGroup
     au FileType awk setlocal commentstring=#\ %s
     au FileType haskell,hs setlocal commentstring=--\ %s
     au FileType tsx,ts,typescriptreact,jsx,javascript setlocal commentstring=//\ %s
+    au FileType tf,terraform setlocal commentstring=#\ %s
 augroup END
 
 " autorelaod files

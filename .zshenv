@@ -1,7 +1,7 @@
 export BAT_THEME="gruvbox-dark"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --ignore-file ~/.ignore'
 export FZF_ALT_C_COMMAND="
-    fd --min-depth 1 --max-depth 3 --type d \
+    fd --min-depth 1 --max-depth 6 --type d \
     --hidden --follow --exclude .git --exclude node_modules \
     --exclude target --exclude .cache --exclude .stack-work \
     --exclude .ccls-cache --exclude .clangd \
