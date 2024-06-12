@@ -214,6 +214,7 @@ eval "$(github-copilot-cli alias -- "$0")"
 export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
 export AICHAT_CONFIG_DIR="$HOME/.config/aichat"
 export OPENAI_API_KEY=`cat ~/.config/openai.token`
+export JIRA_API_TOKEN=`cat ~/.config/jira.token`
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 GFilesWithFocus() {
