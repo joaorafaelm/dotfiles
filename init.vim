@@ -1,6 +1,6 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
-let g:python3_host_prog = '~/.pyenv/shims/python'
+let g:python3_host_prog = '~/.pyenv/shims/python3.11'
 let mapleader = ','
 set encoding=utf-8
 let g:coc_global_extensions = [
@@ -543,8 +543,7 @@ let g:expand_region_text_objects = {
 call expand_region#custom_text_objects({ 'ia' :1 })
 
 " wilder config
-call wilder#setup({'modes': [':']})
-call wilder#set_option('use_python_remote_plugin', 0)
+call wilder#setup({'modes': [':', '/']})
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
     \ 'highlighter': wilder#basic_highlighter(),
     \ 'highlights': {

@@ -29,6 +29,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:/Users/joaorafael/.local/bin"
 export PATH="$HOME/.luarocks/bin:$PATH"
 export PIPENV_VENV_IN_PROJECT=1
+export PYENV_VERSION="3.11"
 export PYTHONWARNINGS="ignore"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS="--no-cov-on-fail -p no:warnings --ff --nf --pdb -x"
