@@ -43,7 +43,6 @@
 	default = current
 [commit]
 	gpgSign = true
-	verbose = true
 [init]
 	defaultBranch = main
 [safe]
