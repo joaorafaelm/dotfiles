@@ -3,3 +3,6 @@ lock:
 
 clean:
 	brew bundle cleanup
+
+install:
+	brew bundle install
