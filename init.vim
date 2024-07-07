@@ -59,10 +59,14 @@ lua << EOF
     require "winshift".setup { highlight_moving_win = false }
     require("CopilotChat").setup {
         debug = false,
-        separator = '>>>',
+        separator = '---',
         show_folds = false,
         show_help = false,
         auto_insert_mode = true,
+        window = {
+           layout = 'horizontal',
+           height = 0.3,
+        },
         mappings = {
             complete = {
                 detail = 'Use <C-p>',
