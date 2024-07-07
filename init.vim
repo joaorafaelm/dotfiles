@@ -108,10 +108,11 @@ lua << EOF
     }
     require('nvim-treesitter.configs').setup {
         ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript", "terraform", "bash" },
-        sync_install = true,
+        sync_install = false,
         auto_install = true,
         highlight = {
             enable = true,
+            -- disable = { "json" },
         }
     }
 EOF
