@@ -1027,6 +1027,8 @@ augroup line_numbers_toggle
     au!
     au InsertEnter * :set norelativenumber
     au InsertLeave * :set relativenumber 
+    au BufEnter * :set relativenumber
+    au BufLeave * :set norelativenumber
 augroup END
 
 " markdown fold
