@@ -51,6 +51,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'zbirenbaum/copilot.lua'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
+    Plug 'tani/dmacro.vim'
 call plug#end()
 
 " lua scripts
@@ -1323,3 +1324,6 @@ ino <C-C> <Esc>
 
 " reopen last window
 nnoremap <silent> <S-t> :vs<bar>:b#<CR>
+
+inoremap <C-k> <Plug>(dmacro-play-macro)
+nnoremap <C-k> <Plug>(dmacro-play-macro)

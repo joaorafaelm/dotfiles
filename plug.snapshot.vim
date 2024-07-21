@@ -7,6 +7,7 @@ silent! let g:plugs['coc.nvim'].commit = 'ebe2a2058ed85d3884f8010a53bac25edbf967
 silent! let g:plugs['copilot.lua'].commit = '86537b286f18783f8b67bccd78a4ef4345679625'
 silent! let g:plugs['copilot.vim'].commit = '25f73977033c597d530c7ab0e211d99b60927d2d'
 silent! let g:plugs['diffview.nvim'].commit = '4516612fe98ff56ae0415a259ff6361a89419b0a'
+silent! let g:plugs['dmacro.vim'].commit = '9d1b8fa12df49520849824ea57b06182b6eb1c43'
 silent! let g:plugs['fzf'].commit = 'c50812518e8651fc681db3c26f37e4d143b75873'
 silent! let g:plugs['fzf.vim'].commit = '5ab282c2f4a597fa655f39f36e7ee8e97bf51650'
 silent! let g:plugs['gruvbox'].commit = 'f1ecde848f0cdba877acb0c740320568252cc482'
