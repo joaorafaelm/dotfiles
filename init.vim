@@ -56,7 +56,6 @@ call plug#end()
 " lua scripts
 lua << EOF
     require "term-edit".setup { prompt_end = '%$ ' }
-    require "winshift".setup { highlight_moving_win = false }
     require("CopilotChat").setup {
         debug = false,
         separator = '---',
@@ -113,6 +112,13 @@ lua << EOF
         highlight = {
             enable = true,
             -- disable = { "json" },
+            additional_vim_regex_highlighting = false,
+            use_languagetree = false,
+            disable = function(_, bufnr)
+                local buf_name = vim.api.nvim_buf_get_name(bufnr)
+                local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
+                return file_size > 256 * 1024
+            end,
         }
     }
 EOF
@@ -157,7 +163,11 @@ hi link QuickFixLine CursorLine
 function! SetDarkColors()
     " Background and foreground colors
     hi Normal ctermbg=16 ctermfg=247 guibg=#000000 guifg=#9e9e9e
+    hi @variable ctermbg=16 ctermfg=247 guibg=#000000 guifg=#9e9e9e
     hi Operator ctermbg=NONE guibg=NONE
+    hi @operator ctermbg=NONE guibg=NONE
+    hi Delimiter ctermbg=NONE guibg=NONE
+    hi @punctuation ctermbg=NONE guibg=NONE
 
     " Background colors for active vs inactive windows
     hi ActiveWindow ctermbg=233 guibg=#121212
