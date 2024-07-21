@@ -163,11 +163,7 @@ hi link QuickFixLine CursorLine
 function! SetDarkColors()
     " Background and foreground colors
     hi Normal ctermbg=16 ctermfg=247 guibg=#000000 guifg=#9e9e9e
-    hi @variable ctermbg=16 ctermfg=247 guibg=#000000 guifg=#9e9e9e
     hi Operator ctermbg=NONE guibg=NONE
-    hi @operator ctermbg=NONE guibg=NONE
-    hi Delimiter ctermbg=NONE guibg=NONE
-    hi @punctuation ctermbg=NONE guibg=NONE
 
     " Background colors for active vs inactive windows
     hi ActiveWindow ctermbg=233 guibg=#121212
