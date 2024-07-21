@@ -364,6 +364,7 @@ set timeout
 set ttimeout
 set timeoutlen=250
 set mouse=a
+set mousescroll=ver:1
 set viminfo='100,f1
 set noswapfile
 set lazyredraw
