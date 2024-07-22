@@ -16,7 +16,6 @@ silent! let g:plugs['plenary.nvim'].commit = 'a3e3bc82a3f95c5ed0d7201546d5d2c19b
 silent! let g:plugs['split-term.vim'].commit = 'a4e28cab77ad07fc8a0ebb62a982768c02eb287c'
 silent! let g:plugs['taboo.vim'].commit = 'caf948187694d3f1374913d36f947b3f9fa1c22f'
 silent! let g:plugs['term-edit.nvim'].commit = 'e04f69d5828c6e6a4d81c34f75f18762fad50372'
-silent! let g:plugs['undoquit.vim'].commit = '96935cae0c04ab9c7384afe1d2537ce883672e8c'
 silent! let g:plugs['vim-checkbox'].commit = '1000afeda19c989c13ebdc2640c4d49f77cd0143'
 silent! let g:plugs['vim-commentary'].commit = 'c4b8f52cbb7142ec239494e5a2c4a512f92c4d07'
 silent! let g:plugs['vim-expand-region'].commit = '966513543de0ddc2d673b5528a056269e7917276'
@@ -30,7 +29,6 @@ silent! let g:plugs['vim-prosession'].commit = '4b8323d4e9b74afe9132a34b2d7ea6cf
 silent! let g:plugs['vim-visual-multi'].commit = '38b0e8d94a5499ccc17d6159763d32c79f53417b'
 silent! let g:plugs['vindent.vim'].commit = 'f8433c1ab0852943f0dfcb0c500b6fb06ac13ad1'
 silent! let g:plugs['wilder.nvim'].commit = '679f348dc90d80ff9ba0e7c470c40a4d038dcecf'
-silent! let g:plugs['winresizer'].commit = '9bd559a03ccec98a458e60c705547119eb5350f3'
 silent! let g:plugs['winshift.nvim'].commit = '37468ed6f385dfb50402368669766504c0e15583'
 PlugUpdate!
 

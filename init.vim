@@ -25,7 +25,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
     Plug 'jkramer/vim-checkbox'
-    Plug 'simeji/winresizer'
     Plug 'tpope/vim-commentary'
     Plug 'gcmt/taboo.vim'
     Plug 'sindrets/winshift.nvim', {'branch': 'main'}
@@ -43,7 +42,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'terryma/vim-expand-region'
     Plug 'lukas-reineke/indent-blankline.nvim', {'commit': '9637670896b68805430e2f72cf5d16be5b97a22a'}
-    Plug 'andrewradev/undoquit.vim'
     Plug 'antoinemadec/coc-fzf'
     Plug 'dohsimpson/vim-macroeditor'
     Plug 'bkad/CamelCaseMotion'
@@ -474,9 +472,6 @@ let g:blamer_enabled = 1
 
 " tab rename
 let g:taboo_tab_format = ' %N '
-
-" resize window key
-let g:winresizer_start_key	= '<leader>e'
 
 " fzf config
 let g:fzf_buffers_jump = 1
@@ -1215,7 +1210,6 @@ endfunction
 tnoremap <Esc> <C-\><C-n>
 tnoremap <silent><C-f> <C-\><C-n>:Rg<CR>
 tnoremap <silent><leader>x <C-\><C-n>:call AddToQuickFix()<cr>
-tnoremap <silent><leader>e <C-\><C-n>:WinResizerStartResize<CR>
 tnoremap <silent><leader>s <C-\><C-n>:Term<CR>
 tnoremap <silent><leader>r <C-\><C-n>:q<CR>:Term<CR>
 tnoremap <silent><leader>z <C-\><C-n><C-W>\|<C-W>_
@@ -1269,9 +1263,6 @@ nnoremap <silent> ZZ :wqa!<CR>
 
 " paste in next line
 nmap p :pu<CR>
-
-" window resize
-nnoremap <silent> <leader>e :WinResizerStartResize<CR>
 
 " Redo with U instead of Ctrl+R
 nnoremap U <C-R>
