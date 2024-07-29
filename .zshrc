@@ -2,7 +2,7 @@ if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ] || [ -n "$TERM_PROGR
     # "Skipping tmux command because TERM_PROGRAM is set to vscode."
 else
     if [ -z "$TMUX" ]; then
-        tmux a -t || tmux new-session \; new-window -n dotfiles -c ~/dev/dotfiles nvim
+        tmux a -t 0 || tmux new-session \; new-window -n dotfiles -c ~/dev/dotfiles nvim
         exit
     else
         if [ $SHLVL -eq 2 ]; then

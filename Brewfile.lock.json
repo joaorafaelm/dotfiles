@@ -14,7 +14,7 @@
         "revision": "9d91c144845764fc10c8714378f9aecc617dd75d"
       },
       "hashicorp/tap": {
-        "revision": "868df5f1192f6cd0d89c6edb2ec039401a35fdc0"
+        "revision": "0ac4d02886f9287cc34244c703f01cbff8ac2501"
       },
       "homebrew/bundle": {
         "revision": "160fe4627b8916fcb48e4c46de723f5f0c6074cc"
@@ -4323,7 +4323,7 @@
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.3.10",
+        "HOMEBREW_VERSION": "4.3.9-357-g6b4e7bb",
         "HOMEBREW_PREFIX": "/usr/local",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",
