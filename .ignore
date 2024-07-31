@@ -13,3 +13,4 @@ OrbStack
 **/__pycache__
 Music/*
 Pictures
+!.features

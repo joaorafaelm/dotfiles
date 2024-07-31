@@ -153,22 +153,21 @@ compdef g="git"
 # make worktree
 gg () {
     if [ -z "$1" ]; then
-        return;
+        return
     fi
-    cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ");
-    if [ ! -d ".features" ]; then
-        mkdir .features;
+    mkdir -p .features;
+    if [ -d ".features/$1" ]; then
+        cd .features/$1
+        return
     fi
-    git worktree add .features/$1;
-    cd .features/$1;
+    cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ")
+    git worktree add .features/$1
 }
 
 # clean worktree
 gw () {
     cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ");
-    if [ ! -d ".features" ]; then
-        mkdir .features;
-    fi
+    mkdir -p .features;
     for i in $(l .features);
     do cd .features/$i;
         if [ "$1" = "--dry-run" ]; then

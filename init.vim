@@ -679,7 +679,7 @@ function! s:source_session(lines) abort
 endfunction
 
 command! SessionPicker call fzf#run(fzf#wrap({
-    \ 'source': 'fd . $HOME --type d --max-depth=3 --exec-batch ls -ltd -1 | sed "s|$HOME/||"',
+    \ 'source': 'fd . $HOME --type d --max-depth=4 --exec-batch ls -ltd -1 | sed "s|$HOME/||"',
     \ 'sink*': { lines -> s:source_session(lines) },
     \ 'options': "--expect=ctrl-x"
 \ }))
