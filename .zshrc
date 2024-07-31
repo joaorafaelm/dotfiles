@@ -161,7 +161,8 @@ gg () {
         return
     fi
     cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ")
-    git worktree add .features/$1
+    git worktree add -f .features/$1
+    cd .features/$1
 }
 
 # clean worktree
