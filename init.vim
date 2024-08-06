@@ -1142,6 +1142,7 @@ inoremap <leader>c <Esc>:CopilotChat<CR>
 inoremap ‘ <Cmd>call copilot#Next()<CR>
 inoremap “ <Cmd>call copilot#Previous()<CR>
 inoremap « <Cmd>call copilot#Suggest()<CR>
+inoremap <S-RIGHT> <Plug>(copilot-accept-word)
 
 " window shift
 nnoremap <C-W>m <Cmd>WinShift<CR>
