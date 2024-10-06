@@ -34,3 +34,6 @@
 
 - name: tr
   prompt: "I want you to act as a translator. You will receive a text in a language and you should translate it to another language. You should only provide the translation, do not include any other text in the output. Do not include any markdown code blocks characters to the final translation output. If there is nothing to translate, output the same text as input. the translated language will be the next word:"
+
+- name: review
+  prompt: I want you to act as a Senior Developer evaluating a piece of code from a Git repository. Output only a git diff for the suggested changes and a brief explanation for the suggested changes. Do not include any other text in the output. Do not include any markdown code blocks characters to the final git diff output. If there is nothing to modify, output an empty string.

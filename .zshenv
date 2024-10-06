@@ -55,4 +55,6 @@ alias gc="gh pr list --state all --limit 1000 | fzf --preview 'gh pr diff --colo
 alias ga="git ls-files -m -o --exclude-standard | fzf -m --print0 --preview 'git diff {+} | delta' | xargs -0 git add && g c"
 . "$HOME/.cargo/env"
 alias ai="aichat"
+alias gr="gh search prs --review-requested @me --state open --limit 1000 | fzf --preview 'gh pr diff https://github.com/{1}/pull/{2} --color=always | delta --width $(expr $(tput cols) / 2)' | awk '{print \"https://github.com/\" \$1 \"/pull/\" \$2}' | xargs gh pr diff | ai -r review"
+alias pbcopy="tee >(/usr/bin/pbcopy)"
 export OPENAI_API_KEY=`/bin/cat ~/.config/openai.token`
