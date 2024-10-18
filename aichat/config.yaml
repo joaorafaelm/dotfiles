@@ -2,3 +2,5 @@ model: openai:gpt-4o
 
 clients:
   - type: openai
+    models:
+      - name: gpt-4o
