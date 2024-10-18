@@ -1,0 +1,1 @@
+Generate a short (one line only) git commit message based on the diff, using conventional commits. Remove from the message any Jira-like ticket number. Do not add ` to the final message, replace with an empty char. Everything should be lowercased. Limit to 72 characters.
