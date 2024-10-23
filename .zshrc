@@ -42,7 +42,7 @@ export AIDER_AUTO_COMMITS="false"
 export AIDER_YES="true"
 export AIDER_TEST_CMD="make test"
 export AIDER_DARK_MODE="true"
-AiDER_DARK_MODE="true"
+AIDER_DARK_MODE="true"
 alias kubectl="minikube kubectl --"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
