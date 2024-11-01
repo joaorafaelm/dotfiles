@@ -19,7 +19,7 @@ call plug#begin('~/.vim/plugins')
     endfunction
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
-    Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
+    Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim', {'commit': '5ab282c2f4a597fa655f39f36e7ee8e97bf51650'}
     Plug 'vimlab/split-term.vim'
     Plug 'APZelos/blamer.nvim'
@@ -1154,6 +1154,46 @@ nnoremap <C-W><RIGHT> <Cmd>WinShift right<CR>
 " notes
 map <leader>nn :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/<C-R>=substitute(getcwd(), '^.*/', '', '')<CR>.md<CR>
 map <leader>n :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/index.md<CR>
+nnoremap <silent> <leader>td :call UpdateTodoList()<CR>
+
+function! UpdateTodoList()
+  let l:filename = expand('%:p')
+  let l:current_date = strftime("%d-%m-%Y")
+  let l:lines = readfile(l:filename)
+  let l:new_lines = []
+  let l:incomplete_tasks = []
+  let l:date_exists = 0
+  let l:date_index = -1
+
+  " Iterate through the lines to find incomplete tasks and check if the current date exists
+  for l:i in range(len(l:lines))
+    let l:line = l:lines[l:i]
+    if l:line =~ '^# \d\{2}-\d\{2}-\d\{4}$'
+      call add(l:new_lines, l:line)
+      if l:line == '# ' . l:current_date
+        let l:date_exists = 1
+        let l:date_index = l:i
+      endif
+    elseif l:line =~ '^\[ \] '
+      call add(l:incomplete_tasks, l:line)
+    else
+      call add(l:new_lines, l:line)
+    endif
+  endfor
+
+  " Add the new date and incomplete tasks if the date doesn't exist
+  if !l:date_exists
+    call add(l:new_lines, '')
+    call add(l:new_lines, '# ' . l:current_date)
+    call extend(l:new_lines, l:incomplete_tasks)
+  else
+    " Insert incomplete tasks under the current date section
+    call extend(l:new_lines, l:incomplete_tasks, l:date_index + 1)
+  endif
+
+  " Write the updated lines back to the file
+  call writefile(l:new_lines, l:filename)
+endfunction
 
 " yank line with column and line number, and line content
 nnoremap <leader>y :let @+ = expand('%') . '\|' . line('.') . ' col ' . col('.') . '\|' . substitute(getline('.'), '^\s\+', '', '')<CR>
@@ -1175,9 +1215,6 @@ function! ShowDocumentation()
     call feedkeys('L', 'in')
   endif
 endfunction
-
-" print current date
-nnoremap <silent> <leader>td o<CR><C-D><C-R>="# " . strftime("%d-%m-%Y")<CR><CR><Esc>
 
 " y behaves as other capital letters
 nnoremap Y y$
