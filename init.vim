@@ -1028,29 +1028,29 @@ augroup line_numbers_toggle
     au BufLeave * :set norelativenumber
 augroup END
 
-" " markdown fold
-" augroup fold_formats
-"     au!
-"     function! MarkdownLevel()
-"         let l:line = getline(v:lnum)
-"         if l:line =~? '^# .*$'
-"             return '>1'
-"         elseif l:line =~? '^## .*$'
-"             return '>2'
-"         elseif l:line =~? '^### .*$'
-"             return '>3'
-"         elseif l:line =~? '^#### .*$'
-"             return '>4'
-"         elseif l:line =~? '^##### .*$'
-"             return '>5'
-"         elseif l:line =~? '^###### .*$'
-"             return '>6'
-"         endif
-"         return '='
-"     endfunction
-"     au BufEnter *.md setlocal foldexpr=MarkdownLevel()
-"     au BufEnter *.md setlocal foldmethod=expr
-" augroup END
+" markdown fold
+augroup fold_formats
+    au!
+    function! MarkdownLevel()
+        let l:line = getline(v:lnum)
+        if l:line =~? '^# .*$'
+            return '>1'
+        elseif l:line =~? '^## .*$'
+            return '>2'
+        elseif l:line =~? '^### .*$'
+            return '>3'
+        elseif l:line =~? '^#### .*$'
+            return '>4'
+        elseif l:line =~? '^##### .*$'
+            return '>5'
+        elseif l:line =~? '^###### .*$'
+            return '>6'
+        endif
+        return '='
+    endfunction
+    au BufEnter *.md setlocal foldexpr=MarkdownLevel()
+    au BufEnter *.md setlocal foldmethod=expr
+augroup END
 
 " highlight the word under cursor (CursorMoved is inperformant)
 augroup CWordHiGroup
@@ -1168,7 +1168,7 @@ function! UpdateTodoList()
         let l:date_exists = 1
         let l:date_index = l:i
       endif
-    elseif l:line =~ '^\[ \] '
+    elseif l:line =~ '^\s\{2,}\[ \] '
       call add(l:incomplete_tasks, l:line)
     else
       call add(l:new_lines, l:line)
