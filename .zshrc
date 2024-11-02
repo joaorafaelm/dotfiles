@@ -156,6 +156,11 @@ gg () {
         return
     fi
 
+    if [ $# -gt 1 ]; then
+        git $@
+        return
+    fi
+
     if [ ! -d "../.features" ]; then
         mkdir -p .features
     fi
