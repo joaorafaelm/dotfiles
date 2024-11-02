@@ -155,14 +155,18 @@ gg () {
     if [ -z "$1" ]; then
         return
     fi
-    mkdir -p .features;
-    if [ -d ".features/$1" ]; then
-        cd .features/$1
-        return
+
+    if [ ! -d "../.features" ]; then
+        mkdir -p .features
     fi
-    cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ")
-    git worktree add -f .features/$1
-    cd .features/$1
+
+    if [ ! -d ".features/$1" ]; then
+        cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ")
+        git worktree add -f .features/$1
+    fi
+    feature_dir=$(cd .features/$1 && pwd)
+    tmux select-window -t $1 > /dev/null 2>&1 || tmux new-window -n $1 -c $feature_dir nvim
+
 }
 
 # clean worktree
