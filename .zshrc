@@ -163,6 +163,8 @@ gg () {
 
     if [ ! -d "../.features" ]; then
         mkdir -p .features
+    else
+        cd ..
     fi
 
     if [ ! -d ".features/$1" ]; then
