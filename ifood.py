@@ -26,7 +26,7 @@ def depaginate_orders():
             break
         orders.extend(response)
         page += 1
-    with open("all_orders.json", "w") as f:
+    with open("all_orders_2.json", "w") as f:
         json.dump(orders, f, indent=2)
 
 
@@ -44,10 +44,12 @@ def get_all_items(orders):
             name = item["name"]
             price = item["unitPrice"]
             quantity = item["quantity"]
-            if name not in items:
-                items[name] = {"price": price, "quantity": quantity}
-            else:
-                items[name]["quantity"] += quantity
+            import pdb; pdb.set_trace()
+            if price > 0:
+                if name not in items:
+                    items[name] = {"price": price, "quantity": quantity}
+                else:
+                    items[name]["quantity"] += quantity
 
     for item, info in items.items():
         info["total"] = info["price"] * info["quantity"] / 100
@@ -56,24 +58,26 @@ def get_all_items(orders):
     return items
 
 
-def get_total_per_merchant(orders):
+def get_total_per_merchant(orders, date=None):
     merchants = get_all_merchants(orders)
     orders_per_merchant = []
     for merchant in merchants:
-        total = calculate_total(orders, merchant=merchant)
+        total = calculate_total(orders, date=date, merchant=merchant)
+        if total["total"] == 0:
+            continue
         orders_per_merchant.append((merchant, total))
 
     orders_per_merchant.sort(key=lambda x: x[1]["total"], reverse=True)
     return orders_per_merchant
 
 
-def calculate_total(orders, year=None, merchant=None):
+def calculate_total(orders, date=None, merchant=None):
     total = 0
     num_orders = 0
     for order in orders:
         if order["lastStatus"] != "CONCLUDED":
             continue
-        if year and year not in order["createdAt"]:
+        if date and date not in order["createdAt"]:
             continue
         if merchant and merchant != order["merchant"]["name"]:
             continue
@@ -86,19 +90,30 @@ def calculate_total(orders, year=None, merchant=None):
 def main():
     # depaginate_orders()
     orders = json.load(open("all_orders.json"))
-    merchants = get_all_merchants(orders)
-    orders_per_merchant = get_total_per_merchant(orders)
-    #for merchant, total in orders_per_merchant:
-    #    print(f"{merchant}: {total}")
+    orders_2 = json.load(open("all_orders_2.json"))
+    orders.extend(orders_2)
 
+    # merchants = get_all_merchants(orders)
+    date = "2024"
+    total = calculate_total(orders, date=date)
+    print(total)
+
+    print("MERCHANTS")
+    orders_per_merchant = get_total_per_merchant(orders, date=date)
+    count = 1
+    for merchant, total in orders_per_merchant:
+        print(f"{count} {merchant}: {total}")
+        count += 1
+
+    # print("\n\n\nITEMS")
     all_items = get_all_items(orders)
-    #for item, info in all_items:
-    #    print(f"{item}: {info}")
-    
+    for item, info in all_items:
+       print(f"{item}: {info}")
+
     # randomly select an item
-    import random
-    index = random.randint(0, len(all_items))
-    print(all_items[index])
+    # import random
+    # index = random.randint(0, len(all_items))
+    # print(all_items[index])
 
 
 if __name__ == "__main__":

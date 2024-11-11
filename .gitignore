@@ -14,3 +14,4 @@ dotbot
 .env
 .aider*
 vim/session/
+all_orders*.json
