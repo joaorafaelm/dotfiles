@@ -550,7 +550,7 @@ let g:expand_region_text_objects = {
 call expand_region#custom_text_objects({ 'ia' :1 })
 
 " wilder config
-call wilder#setup({'modes': [':', '/']})
+call wilder#setup({'modes': [':']})
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
     \ 'highlighter': wilder#basic_highlighter(),
     \ 'highlights': {
