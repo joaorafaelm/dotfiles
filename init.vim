@@ -417,7 +417,7 @@ set splitright
 if exists('g:started_by_firenvim') && g:started_by_firenvim
     set laststatus=0
 else
-    set laststatus=1
+    set laststatus=2
 endif
 set cmdheight=0
 set noshowcmd
