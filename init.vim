@@ -49,6 +49,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'zbirenbaum/copilot.lua'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'main' }
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 call plug#end()
 
 " lua scripts
@@ -413,7 +414,11 @@ set splitbelow
 set splitright
 
 " statusline
-set laststatus=2
+if exists('g:started_by_firenvim') && g:started_by_firenvim
+    set laststatus=0
+else
+    set laststatus=1
+endif
 set cmdheight=0
 set noshowcmd
 set noshowmode
@@ -468,7 +473,11 @@ let b:coc_diagnostic_disable = 1
 let g:disable_key_mappings = 1
 
 " git blamer
-let g:blamer_enabled = 1
+if exists('g:started_by_firenvim') && g:started_by_firenvim
+    let g:blamer_enabled = 0
+else
+    let g:blamer_enabled = 1
+endif
 
 " tab rename
 let g:taboo_tab_format = ' %N '
