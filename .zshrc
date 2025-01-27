@@ -55,6 +55,7 @@ export ZSH_DOTENV_PROMPT=false
 plugins=(
     docker
     zsh-autosuggestions
+    zsh-autocomplete
     dotenv
     docker-compose
     gh
