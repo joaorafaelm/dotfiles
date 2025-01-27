@@ -46,7 +46,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'dohsimpson/vim-macroeditor'
     Plug 'bkad/CamelCaseMotion'
     Plug 'sindrets/diffview.nvim'
-    Plug 'zbirenbaum/copilot.lua'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'main' }
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -447,9 +446,7 @@ let g:ai_context_after = 20
 
 " vim copilot config
 let g:copilot_filetypes = {
-    \ 'markdown': v:true,
-    \ 'terraform': v:true,
-    \ 'tf': v:true,
+    \ '*': v:true,
 \ }
 
 " Copy github link
