@@ -247,6 +247,9 @@ bindkey "ç" fzf-cd-widget
 # disabled as it is falsely triggered by any comma and space
 # bindkey ", " FilesWithFocus
 
+bindkey              '^I'  vi-forward-blank-word
+bindkey "$terminfo[kcbt]" vi-backward-blank-word
+
 function sudo () {
     unset -f sudo
     if [[ "$(uname)" == 'Darwin' ]]
