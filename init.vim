@@ -1156,9 +1156,9 @@ nnoremap <silent> <leader>f :CopilotChatFix<space>
 vnoremap <silent> <leader>f :CopilotChatFix<space>
 
 " trigger chat
-xnoremap <leader>c :CopilotChat<CR>
-nnoremap <leader>c :CopilotChat<CR>
-inoremap <leader>c <Esc>:CopilotChat<CR>
+xnoremap <leader>c :CopilotChat<CR><Esc><C-w>=gi
+nnoremap <leader>c :CopilotChat<CR><Esc><C-w>=gi
+inoremap <leader>c <Esc>:CopilotChat<CR><Esc><C-w>=gi
 
 " vim copilot maps
 inoremap ‘ <Cmd>call copilot#Next()<CR>
