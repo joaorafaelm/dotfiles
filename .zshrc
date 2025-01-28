@@ -244,7 +244,7 @@ zle -N FilesWithFocus FilesWithFocus
 bindkey '^S' GFilesWithFocus
 bindkey '^V' fzf-cd-widget
 bindkey "ç" fzf-cd-widget
-bindkey              '^I'  vi-forward-blank-word
+bindkey              '^I' menu-complete
 bindkey "$terminfo[kcbt]" vi-backward-blank-word
 bindkey "${key[Up]}" fzf-history-widget
 
