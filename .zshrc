@@ -244,11 +244,9 @@ zle -N FilesWithFocus FilesWithFocus
 bindkey '^S' GFilesWithFocus
 bindkey '^V' fzf-cd-widget
 bindkey "ç" fzf-cd-widget
-# disabled as it is falsely triggered by any comma and space
-# bindkey ", " FilesWithFocus
-
 bindkey              '^I'  vi-forward-blank-word
 bindkey "$terminfo[kcbt]" vi-backward-blank-word
+bindkey "${key[Up]}" fzf-history-widget
 
 function sudo () {
     unset -f sudo
