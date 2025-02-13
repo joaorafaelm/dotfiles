@@ -63,11 +63,14 @@ zstyle ':omz:update' mode auto
 
 source $ZSH/oh-my-zsh.sh
 source ~/.headline.zsh-theme
+source ~/.fzf.zsh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
 
 # vim mode fzf
+zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh;
 alias vim="nvim"
 alias v="nvim"
 # alias l="exa"
