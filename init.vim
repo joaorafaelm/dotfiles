@@ -1118,7 +1118,29 @@ augroup END
 map <C-t> :tabe term://zsh<CR>
 
 " fold and indent navigation
-nnoremap <space> za
+function! ToggleFold()
+    if !exists('w:fold_state')
+        let w:fold_state = 0
+    endif
+    try
+        if w:fold_state == 0
+            execute 'normal! za'
+        else
+            execute 'normal! zA'
+        endif
+        let w:fold_state = 0
+    catch
+        if w:fold_state == 0
+            execute 'normal! zM'
+            let w:fold_state = 1
+        else
+            execute 'normal! zR'
+            let w:fold_state = 0
+        endif
+    endtry
+endfunction
+
+nnoremap <space> :call ToggleFold()<CR>
 vnoremap <space> zf
 
 " Map Ctrl-A -> Start of line, Ctrl-E -> End of line
@@ -1179,16 +1201,16 @@ map <leader>n :sp ~/Library/Mobile Documents/com~apple~CloudDocs/notes/index.md<
 nnoremap <silent> <leader>td :call UpdateTodoList()<CR>
 
 function! UpdateTodoList()
-  let l:filename = expand('%:p')
-  let l:current_date = strftime("%d-%m-%Y")
-  let l:lines = readfile(l:filename)
-  let l:new_lines = []
-  let l:incomplete_tasks = []
-  let l:date_exists = 0
-  let l:date_index = -1
+    let l:filename = expand('%:p')
+    let l:current_date = strftime("%d-%m-%Y")
+    let l:lines = readfile(l:filename)
+    let l:new_lines = []
+    let l:incomplete_tasks = []
+    let l:date_exists = 0
+    let l:date_index = -1
 
-  " Iterate through the lines to find incomplete tasks and check if the current date exists
-  for l:i in range(len(l:lines))
+    " Iterate through the lines to find incomplete tasks and check if the current date exists
+    for l:i in range(len(l:lines))
     let l:line = l:lines[l:i]
     if l:line =~ '^# \d\{2}-\d\{2}-\d\{4}$'
       call add(l:new_lines, l:line)
@@ -1201,20 +1223,20 @@ function! UpdateTodoList()
     else
       call add(l:new_lines, l:line)
     endif
-  endfor
+    endfor
 
-  " Add the new date and incomplete tasks if the date doesn't exist
-  if !l:date_exists
+    " Add the new date and incomplete tasks if the date doesn't exist
+    if !l:date_exists
     call add(l:new_lines, '')
     call add(l:new_lines, '# ' . l:current_date)
     call extend(l:new_lines, l:incomplete_tasks)
-  else
+    else
     " Insert incomplete tasks under the current date section
     call extend(l:new_lines, l:incomplete_tasks, l:date_index + 1)
-  endif
+    endif
 
-  " Write the updated lines back to the file
-  call writefile(l:new_lines, l:filename)
+    " Write the updated lines back to the file
+    call writefile(l:new_lines, l:filename)
 endfunction
 
 " yank line with column and line number, and line content
