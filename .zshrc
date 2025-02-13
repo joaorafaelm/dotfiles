@@ -1,3 +1,4 @@
+# zmodload zsh/zprof # debug
 if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ] || [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "Apple_Terminal" ]; then
     # "Skipping tmux command because TERM_PROGRAM is set to vscode."
 else
@@ -44,23 +45,21 @@ export AIDER_TEST_CMD="make test"
 export AIDER_DARK_MODE="true"
 AIDER_DARK_MODE="true"
 alias kubectl="minikube kubectl --"
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
-fi
 source ~/.zshenv
 
 export ZSH_DOTENV_PROMPT=false
 
 # Zsh cmd
 plugins=(
-    docker
     zsh-autosuggestions
     zsh-autocomplete
-    dotenv
-    docker-compose
     gh
-    git-auto-fetch
 )
+
+zstyle ':omz:plugins:gh' lazy yes
+zstyle ':omz:plugins:zsh-autocomplete' lazy yes
+zstyle ':omz:plugins:zsh-autosuggestions' lazy yes
+zstyle ':omz:update' mode auto
 
 source $ZSH/oh-my-zsh.sh
 source ~/.headline.zsh-theme
@@ -68,11 +67,7 @@ source ~/.headline.zsh-theme
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # vim mode fzf
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh;
 alias vim="nvim"
 alias v="nvim"
 # alias l="exa"
@@ -245,7 +240,7 @@ bindkey '^S' GFilesWithFocus
 bindkey '^V' fzf-cd-widget
 bindkey "ç" fzf-cd-widget
 bindkey              '^I' menu-complete
-bindkey "$terminfo[kcbt]" vi-backward-blank-word
+bindkey "$terminfo[kcbt]" reverse-menu-complete
 bindkey "${key[Up]}" fzf-history-widget
 
 function sudo () {
@@ -356,3 +351,4 @@ ghcs () {
 
 alias "??"="ghcs"
 alias explain='gh copilot explain "$(fc -ln -1)"'
+# zprof # debug
