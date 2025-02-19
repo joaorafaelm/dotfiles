@@ -1,4 +1,3 @@
-# zmodload zsh/zprof # debug
 if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ] || [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "Apple_Terminal" ]; then
     # "Skipping tmux command because TERM_PROGRAM is set to vscode."
 else
@@ -242,9 +241,8 @@ zle -N FilesWithFocus FilesWithFocus
 bindkey '^S' GFilesWithFocus
 bindkey '^V' fzf-cd-widget
 bindkey "ç" fzf-cd-widget
-bindkey              '^I' menu-complete
+bindkey '^I' menu-expand-or-complete
 bindkey "$terminfo[kcbt]" reverse-menu-complete
-bindkey "${key[Up]}" fzf-history-widget
 
 function sudo () {
     unset -f sudo
@@ -354,4 +352,5 @@ ghcs () {
 
 alias "??"="ghcs"
 alias explain='gh copilot explain "$(fc -ln -1)"'
-# zprof # debug
+zstyle ':autocomplete:*' default-context history-incremental-search-backward
+zstyle ':completion:*' completer _complete _complete:-fuzzy _correct _approximate _ignored
