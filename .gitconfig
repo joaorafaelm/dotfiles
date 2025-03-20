@@ -1,10 +1,10 @@
 [user]
 	name = João Rafael
 	email = joaoraf@me.com
-	signingkey = /Users/joaorafael/.ssh/work.pub
+	signingkey = ~/.ssh/work.pub
 [core]
 	editor = nvr -cc split --remote-wait +'set bufhidden=wipe' --servername $NVIM
-	excludesfile = /Users/joaorafael/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	pager = delta
     hooksPath = ~/.config/githooks
 [interactive]
@@ -46,7 +46,7 @@
 [init]
 	defaultBranch = main
 [safe]
-	directory = /Users/joaorafael/dotfiles/vim/plugins/vim-gh-line
+	directory = ~/dev/dotfiles/vim/plugins/vim-gh-line
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

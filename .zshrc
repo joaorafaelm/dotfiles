@@ -6,7 +6,9 @@ else
         exit
     else
         if [ $SHLVL -eq 2 ]; then
-            reattach-to-session-namespace -u $(id -u) $SHELL
+            if command -v reattach-to-session-namespace &> /dev/null; then
+                reattach-to-session-namespace -u $(id -u) $SHELL
+            fi
         fi
     fi
 fi
@@ -217,15 +219,12 @@ if command -v keychain 1>/dev/null 2>&1; then
     eval `keychain --quiet --eval --agents ssh id_rsa`
 fi
 
-source /Users/joaorafael/.docker/init-zsh.sh || true
-eval "$(github-copilot-cli alias -- "$0")"
-
 # aichat
 export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
 export AICHAT_CONFIG_DIR="$HOME/.config/aichat"
 export OPENAI_API_KEY=`cat ~/.config/openai.token`
-export JIRA_API_TOKEN=`cat ~/.config/jira.token`
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#export JIRA_API_TOKEN=`cat ~/.config/jira.token`
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 GFilesWithFocus() {
     nvr --remote-send "<esc>:call GFilesWithFocus()<CR>" --servername $NVIM
