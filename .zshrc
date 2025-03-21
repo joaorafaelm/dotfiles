@@ -1,13 +1,15 @@
 if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ] || [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "Apple_Terminal" ]; then
     # "Skipping tmux command because TERM_PROGRAM is set to vscode."
 else
-    if [ -z "$TMUX" ]; then
-        tmux a -t 0 || tmux new-session \; new-window -n dotfiles -c ~/dev/dotfiles nvim
-        exit
-    else
-        if [ $SHLVL -eq 2 ]; then
-            if command -v reattach-to-session-namespace &> /dev/null; then
-                reattach-to-session-namespace -u $(id -u) $SHELL
+    if [ -n "$ALACRITTY_WINDOW_ID" ] || [ -n "$ALACRITTY_SOCKET" ]; then
+        if [ -z "$TMUX" ]; then
+            tmux a -t 0 || tmux new-session \; new-window -n dotfiles -c ~/dev/dotfiles nvim
+            exit
+        else
+            if [ $SHLVL -eq 2 ]; then
+                if command -v reattach-to-session-namespace &> /dev/null; then
+                    reattach-to-session-namespace -u $(id -u) $SHELL
+                fi
             fi
         fi
     fi
@@ -353,3 +355,7 @@ alias "??"="ghcs"
 alias explain='gh copilot explain "$(fc -ln -1)"'
 zstyle ':autocomplete:*' default-context history-incremental-search-backward
 zstyle ':completion:*' completer _complete _complete:-fuzzy _correct _approximate _ignored
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
