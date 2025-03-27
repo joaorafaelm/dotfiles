@@ -46,7 +46,9 @@ export AIDER_AUTO_COMMITS="false"
 export AIDER_YES="true"
 export AIDER_TEST_CMD="make test"
 export AIDER_DARK_MODE="true"
-AIDER_DARK_MODE="true"
+export AIDER_GIT="true"
+export AIDER_DARK_MODE="true"
+export AIDER_WATCH_FILES="true"
 alias kubectl="minikube kubectl --"
 source ~/.zshenv
 
