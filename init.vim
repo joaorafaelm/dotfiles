@@ -966,8 +966,13 @@ augroup END
 augroup update_plug
     au!
     function! OnVimEnter() abort
-        " rollback
-        " silent! source ~/dev/dotfiles/plug.snapshot.vim
+        let l:project_name = expand('%:p:h:t')
+        if l:project_name !~# 'dotfiles'
+            return
+
+        " rollback:
+        " !git checkout -- plug.snapshot.vim
+        " silent! source plug.snapshot.vim
 
         " Run PlugUpdate every week automatically when entering Vim.
         if exists('g:plug_home')
