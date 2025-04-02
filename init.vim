@@ -29,7 +29,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'gcmt/taboo.vim'
     Plug 'sindrets/winshift.nvim', {'branch': 'main'}
     Plug 'ruanyl/vim-gh-line'
-    Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }}
+    Plug 'neoclide/coc.nvim', {'branch': 'release' }
     Plug 'github/copilot.vim'
     Plug 'tpope/vim-obsession'
     Plug 'dhruvasagar/vim-prosession'
