@@ -969,6 +969,7 @@ augroup update_plug
         let l:project_name = expand('%:p:h:t')
         if l:project_name !~# 'dotfiles'
             return
+        endif
 
         " rollback:
         " !git checkout -- plug.snapshot.vim

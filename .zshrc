@@ -49,7 +49,6 @@ export AIDER_DARK_MODE="true"
 export AIDER_GIT="true"
 export AIDER_DARK_MODE="true"
 export AIDER_WATCH_FILES="true"
-alias kubectl="minikube kubectl --"
 source ~/.zshenv
 
 export ZSH_DOTENV_PROMPT=false
@@ -226,8 +225,9 @@ fi
 # aichat
 export AICHAT_ROLES_FILE="$HOME/.config/aichat/roles.yaml"
 export AICHAT_CONFIG_DIR="$HOME/.config/aichat"
-export OPENAI_API_KEY=`cat ~/.config/openai.token`
-#export JIRA_API_TOKEN=`cat ~/.config/jira.token`
+export OPENAI_API_KEY=$(cat ~/.config/openai.token 2>/dev/null || echo "")
+export GEMINI_API_KEY=$(cat ~/.config/gemini.token 2>/dev/null || echo "")
+export JIRA_API_TOKEN=$(cat ~/.config/jira.token 2>/dev/null || echo "")
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 GFilesWithFocus() {
