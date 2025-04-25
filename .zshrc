@@ -358,6 +358,5 @@ alias explain='gh copilot explain "$(fc -ln -1)"'
 zstyle ':autocomplete:*' default-context history-incremental-search-backward
 zstyle ':completion:*' completer _complete _complete:-fuzzy _correct _approximate _ignored
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
