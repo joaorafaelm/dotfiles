@@ -1087,6 +1087,16 @@ augroup fold_formats
     au BufEnter *.md setlocal foldmethod=expr
 augroup END
 
+" set spell for markdown files only
+" use [s and ]s to jump to misspelled words
+" use z= to pull up suggested words
+" zg to add to dictionary.
+augroup markdown_spell
+    au!
+    au BufEnter *.md setlocal spell spelllang=en_us
+    au BufLeave *.md setlocal nospell
+augroup END
+
 " highlight the word under cursor (CursorMoved is inperformant)
 augroup CWordHiGroup
     au!
