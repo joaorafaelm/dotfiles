@@ -1,2 +1,5 @@
 read: CONVENTIONS.md
 model: gpt-4.1
+git: false
+auto-commits: false
+watch-files: true
