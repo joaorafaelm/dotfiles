@@ -1,0 +1,2 @@
+- Minimal and elegant code is preferred.
+- Use descriptive variable and function names, avoid comments that state the obvious (only implicit comments).

@@ -36,3 +36,5 @@
     ~/.ignore: .ignore
     ~/.config/nvim/coc-settings.json: coc-settings.json
     ~/.hushlogin: hushlogin
+    ~/.aider.conf.yml: aider.conf.yml
+    ~/CONVENTIONS.md: CONVENTIONS.md
