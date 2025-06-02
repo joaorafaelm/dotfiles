@@ -912,7 +912,7 @@ augroup CommentsGroup
     au FileType sh setlocal commentstring=#\ %s
     au FileType awk setlocal commentstring=#\ %s
     au FileType haskell,hs setlocal commentstring=--\ %s
-    au FileType tsx,ts,typescriptreact,jsx,javascript setlocal commentstring=//\ %s
+    au FileType tsx,ts,typescriptreact,jsx,javascript,kotlin,kt setlocal commentstring=//\ %s
     au FileType tf,terraform setlocal commentstring=#\ %s
 augroup END
 
