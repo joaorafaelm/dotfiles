@@ -42,13 +42,6 @@ export DOCKER_DEFAULT_PLATFORM=linux/arm64/v8
 export ENABLE_TTY="true"
 export NODE_OPTIONS="--no-warnings"
 export HOMEBREW_NO_ENV_HINTS=1
-export AIDER_AUTO_COMMITS="false"
-export AIDER_YES="true"
-export AIDER_TEST_CMD="make test"
-export AIDER_DARK_MODE="true"
-export AIDER_GIT="true"
-export AIDER_DARK_MODE="true"
-export AIDER_WATCH_FILES="true"
 source ~/.zshenv
 
 export ZSH_DOTENV_PROMPT=false
