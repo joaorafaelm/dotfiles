@@ -75,6 +75,7 @@ alias v="nvim"
 # alias ll="exa -lha --git"
 alias :q='if [ "$SHLVL" -ge 3 ]; then kill -9 $PPID; else exit; fi'
 alias ai="aichat"
+alias clone="~/dev/xapo/clone.sh"
 function f() { 
     # cd $(mktemp -d)
     folder=${2:-.}
