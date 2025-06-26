@@ -39,6 +39,7 @@ export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS="-p no:warnings --ff --nf --pdb -x"
 export PYTHONBREAKPOINT=pdb.set_trace
 export DOCKER_DEFAULT_PLATFORM=linux/arm64/v8
+export PIP_BREAK_SYSTEM_PACKAGES=1
 export ENABLE_TTY="true"
 export NODE_OPTIONS="--no-warnings"
 export HOMEBREW_NO_ENV_HINTS=1
