@@ -43,6 +43,10 @@ export PIP_BREAK_SYSTEM_PACKAGES=1
 export ENABLE_TTY="true"
 export NODE_OPTIONS="--no-warnings"
 export HOMEBREW_NO_ENV_HINTS=1
+export DISABLE_AUTO_UPDATE="true"
+export DISABLE_MAGIC_FUNCTIONS="true"
+export DISABLE_COMPFIX="true"
+
 source ~/.zshenv
 
 export ZSH_DOTENV_PROMPT=false
@@ -65,6 +69,14 @@ source ~/.fzf.zsh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
+
+# Smarter completion initialization
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
+fi
 
 # vim mode fzf
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
