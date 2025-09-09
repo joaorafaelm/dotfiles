@@ -50,7 +50,7 @@ export FZF_DEFAULT_OPTS="
 # --color=info:#88909f,prompt:#ec7279,pointer:#d38aea 
 # --color=marker:#a0c980,spinner:#ec7279,header:#5dbbc1'
 
-alias cat="bat --plain"
+# alias cat="bat --plain"
 alias gc="gh pr list --state all --limit 1000 | fzf --preview 'gh pr diff --color=always {+1} | delta' | awk '{print \$1}' | xargs gh pr checkout"
 alias ga="git ls-files -m -o --exclude-standard | fzf -m --print0 --preview 'git diff {+} | delta' | xargs -0 git add && g c"
 . "$HOME/.cargo/env"
