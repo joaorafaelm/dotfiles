@@ -1410,3 +1410,6 @@ ino <C-C> <Esc>
 
 " reopen last window
 nnoremap <silent> <S-t> :vs<bar>:b#<CR>
+
+" map the first spell check suggestion to z= (1z=)
+nnoremap <silent> z= 1z=
