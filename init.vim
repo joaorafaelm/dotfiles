@@ -887,6 +887,7 @@ augroup file_format
     au FileType make setlocal noexpandtab
     au FileType zsh setlocal filetype=sh
     au FileType python setlocal ts=4 sts=4 sw=4 expandtab
+    au FileType terraform setlocal ts=2 sts=2 sw=2 expandtab
     au Filetype kotlin setlocal ts=4 sts=4 sw=4 expandtab
     au BufNewFile,BufRead requirements.txt setlocal filetype=requirements
     au BufNewFile,BufRead Brewfile setlocal filetype=python

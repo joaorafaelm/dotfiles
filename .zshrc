@@ -362,6 +362,7 @@ ghcs () {
 
 alias "??"="ghcs"
 alias explain='gh copilot explain "$(fc -ln -1)"'
+alias dive="docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock docker.io/wagoodman/dive"
 zstyle ':autocomplete:*' default-context history-incremental-search-backward
 zstyle ':completion:*' completer _complete _complete:-fuzzy _correct _approximate _ignored
 
