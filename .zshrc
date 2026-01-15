@@ -89,6 +89,7 @@ alias v="nvim"
 alias :q='if [ "$SHLVL" -ge 3 ]; then kill -9 $PPID; else exit; fi'
 alias ai="aichat"
 alias clone="~/dev/xapo/clone.sh"
+alias python="python3"
 function f() { 
     # cd $(mktemp -d)
     folder=${2:-.}
