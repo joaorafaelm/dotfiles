@@ -827,7 +827,7 @@ endfunction
 function SetStatusLine(active)
     let l:statusline = ''
     if a:active
-        let l:statusline .= ' %#CurrentMode#'
+        let l:statusline .= '%#CurrentMode#'
         let l:statusline .= '%{ModeCurrent()} '
         let l:statusline .= '%#GitBranch#'
         let l:statusline .= '%{FugitiveHead()} '
@@ -843,7 +843,7 @@ function SetStatusLine(active)
     let l:statusline .= '%=' " Right Side
     if a:active
         let l:statusline .= '%#FileName#'
-        let l:statusline .= '%l:%c '
+        let l:statusline .= '%l:%c'
     endif
     if &filetype ==# 'fzf'
         let l:statusline = ''
