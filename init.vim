@@ -200,8 +200,8 @@ function! SetDarkColors()
     hi CocMenuSel ctermfg=233 ctermbg=108 guifg=#121212 guibg=#87af87
 
     " Windows split
-    hi StatusLineNC ctermfg=16 ctermbg=237 guifg=#000000 guibg=#3a3a3a
-    hi StatusLine ctermfg=16 ctermbg=241 guifg=#000000 guibg=#626262
+    hi StatusLineNC ctermfg=16 ctermbg=237 guibg=#000000 guifg=#3a3a3a gui=NONE
+    hi StatusLine ctermfg=16 ctermbg=241 guibg=#000000 guifg=#626262 gui=NONE
 
     " Status line components
     hi AddBardsHighlight ctermfg=106 cterm=italic guifg=#87af01 gui=italic
