@@ -343,7 +343,7 @@ endif
 
 set shell=$SHELL
 set number
-set relativenumber
+set norelativenumber
 set scrolloff=10
 set backspace=indent,eol,start
 set nowrap
@@ -1005,6 +1005,7 @@ augroup END
 " quit vim window on term exit
 augroup terminal_settings
     au!
+    au TermOpen * setlocal nospell number norelativenumber
     au BufWinEnter,WinEnter,BufLeave,BufNew quickfix stopinsert
     au BufWinEnter,WinEnter,BufLeave term://* setlocal nolist
     au BufWinEnter,WinEnter,BufLeave fugitive://* setlocal nolist
@@ -1034,13 +1035,13 @@ augroup custom_fugitive_mappings
     au User FugitiveIndex nnoremap <buffer> dt :call GdiffsplitTab(GStatusGetFilenameUnderCursor())<CR>
 augroup END
 
-augroup line_numbers_toggle
-    au!
-    au InsertEnter * :set norelativenumber
-    au InsertLeave * :set relativenumber 
-    au BufEnter * :set relativenumber
-    au BufLeave * :set norelativenumber
-augroup END
+" augroup line_numbers_toggle
+"     au!
+"     au InsertEnter * :set norelativenumber
+"     au InsertLeave * :set relativenumber 
+"     au BufEnter * :set relativenumber
+"     au BufLeave * :set norelativenumber
+" augroup END
 
 augroup slack_filetype
     au!
