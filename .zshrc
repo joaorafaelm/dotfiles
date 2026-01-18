@@ -369,3 +369,6 @@ zstyle ':completion:*' completer _complete _complete:-fuzzy _correct _approximat
 
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# opencode
+export PATH=/Users/joaorafael/.opencode/bin:$PATH
