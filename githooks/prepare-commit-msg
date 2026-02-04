@@ -3,21 +3,9 @@
 branchPath=$(git symbolic-ref -q HEAD)
 branchName=${branchPath##*/}
 firstLine=$(head -n1 $1)
-
-# Generate commit message with title and description
-fullMessage=$(aichat -r git $(git diff --staged))
-title=$(echo "$fullMessage" | head -n1 | tr -d '`' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
-description=$(echo "$fullMessage" | tail -n +2 | tr -d '`' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed '/^$/d')
-
+message=$(aichat -r git $(git diff --staged) | tr -d '\n' | tr -d '`')
 branchName=$(echo $branchName | sed -E 's/([A-Z]+-[0-9]+)-.*/\1/')
-commitTitle="[$branchName] $title"
-commitTitle=$(echo $commitTitle | sed -e 's/\[master\] //g' -e 's/\[main\] //g')
+commitMessage="[$branchName] $message"
+commitMessage=$(echo $commitMessage | sed -e 's/\[master\] //g' -e 's/\[main\] //g')
 
-# Format: title, blank line, description
-if [ -z "$firstLine" ]; then
-    echo "$commitTitle" > $1
-    if [ -n "$description" ]; then
-        echo "" >> $1
-        echo "$description" >> $1
-    fi
-fi
+if [ -z "$firstLine"  ] ;then sed -i '.bak' "1s/^/$commitMessage/" $1 ;fi
