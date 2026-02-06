@@ -2,10 +2,29 @@
 
 branchPath=$(git symbolic-ref -q HEAD)
 branchName=${branchPath##*/}
-firstLine=$(head -n1 $1)
-message=$(aichat -r git $(git diff --staged) | tr -d '\n' | tr -d '`')
-branchName=$(echo $branchName | sed -E 's/([A-Z]+-[0-9]+)-.*/\1/')
-commitMessage="[$branchName] $message"
-commitMessage=$(echo $commitMessage | sed -e 's/\[master\] //g' -e 's/\[main\] //g')
+firstLine=$(head -n1 "$1")
+# Preserve existing context (e.g. diff) starting from the second line
+existing_body=$(tail -n +2 "$1" 2>/dev/null)
 
-if [ -z "$firstLine"  ] ;then sed -i '.bak' "1s/^/$commitMessage/" $1 ;fi
+# Generate full commit message (title + optional description) from staged diff
+message=$(git diff --staged | aichat -r git | tr -d '\`')
+
+# Extract title (first line) and description (remaining lines), trimming leading blank lines in description
+title=$(printf '%s
+' "$message" | head -n1)
+description=$(printf '%s
+' "$message" | tail -n +2 | sed '/./,$!d')
+
+# Prefix title with branch name (e.g. [ABC-123])
+branchName=$(echo "$branchName" | sed -E 's/([A-Z]+-[0-9]+)-.*/\1/')
+commitTitle="[$branchName] $title"
+commitTitle=$(echo "$commitTitle" | sed -e 's/\[master\] //g' -e 's/\[main\] //g')
+
+if [ -z "$firstLine" ]; then
+  {
+    printf '%s\n' "$commitTitle"
+    [ -n "$description" ] && printf '\n%s\n' "$description"
+    # Re-append original body (e.g. diff context) starting from the second line
+    [ -n "$existing_body" ] && printf '%s\n' "$existing_body"
+  } > "$1"
+fi
