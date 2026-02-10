@@ -191,7 +191,7 @@ gg () {
 gw () {
     cd $(git worktree list | grep -E "main|master" | cut -f1 -d " ");
     mkdir -p .features;
-    for i in $(l .features);
+    for i in $(ls .features);
     do cd .features/$i;
         if [ "$1" = "--dry-run" ]; then
             gh pr status | grep -i "${i}.*merged" && echo "git worktree remove $i";
@@ -369,6 +369,3 @@ zstyle ':completion:*' completer _complete _complete:-fuzzy _correct _approximat
 
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-# opencode
-export PATH=/Users/joaorafael/.opencode/bin:$PATH
