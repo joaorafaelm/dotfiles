@@ -1,6 +1,6 @@
 [user]
 	name = João Rafael
-	email = joaoraf@me.com
+	email = joao.martins@xapo.com
 	signingkey = ~/.ssh/work.pub
 [core]
 	editor = nvr -cc split --remote-wait +'set bufhidden=wipe' --servername $NVIM
