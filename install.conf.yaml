@@ -18,6 +18,7 @@
     ~/.vim: vim/
     ~/.tmux: tmux/
     ~/.gitconfig: .gitconfig
+    ~/.gitconfig-work: .gitconfig-work
     ~/.yabairc: yabairc
     ~/.skhdrc: skhdrc
     ~/.zshrc: .zshrc 

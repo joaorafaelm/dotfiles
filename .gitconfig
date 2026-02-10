@@ -1,7 +1,9 @@
 [user]
 	name = João Rafael
-	email = joao.martins@xapo.com
+	email = joaoraf@me.com
 	signingkey = ~/.ssh/work.pub
+[includeIf "gitdir:~/dev/xapo/"]
+    path = ~/.gitconfig-work
 [core]
 	editor = nvr -cc split --remote-wait +'set bufhidden=wipe' --servername $NVIM
 	excludesfile = ~/.gitignore_global
