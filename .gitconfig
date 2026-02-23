@@ -44,6 +44,7 @@
     a = add
     squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
     sync = "!git pull --rebase origin $(git rev-parse --abbrev-ref HEAD) && git push origin $(git rev-parse --abbrev-ref HEAD)"
+    main = "!f(){ if git show-ref --verify --quiet refs/heads/main; then git checkout main; elif git show-ref --verify --quiet refs/heads/master; then git checkout master; else echo 'Neither main nor master branch exists.' >&2; return 1; fi; git sync; }; f"
 [push]
 	default = current
 [commit]
