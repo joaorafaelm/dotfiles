@@ -37,12 +37,11 @@
 [difftool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [alias]
-    fixup = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
+    a = add
     c = "!git commit && git push origin $(git branch --show-current)"
     p = "!git add . && git commit && git push origin $(git branch --show-current)"
     pr = "!git add . && git commit && git push origin $(git branch --show-current) && gh pr create --base $(basename $(git symbolic-ref --short refs/remotes/origin/HEAD)) --head $(git branch --show-current) --fill-first --draft $1"
     pr-update = "!f(){ base=$(basename $(git symbolic-ref --short refs/remotes/origin/HEAD)); diff=$(git diff origin/$base...HEAD); if [ -z \"$diff\" ]; then echo 'No diff found'; exit 1; fi; body=$(echo \"$diff\" | aichat -r pr | tr -d '\\`'); gh pr edit --body \"$body\"; }; f"
-    a = add
     squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
     sync = "!git pull --rebase origin $(git rev-parse --abbrev-ref HEAD) && git push origin $(git rev-parse --abbrev-ref HEAD)"
     main = "!f(){ if git show-ref --verify --quiet refs/heads/main; then git checkout main; elif git show-ref --verify --quiet refs/heads/master; then git checkout master; else echo 'Neither main nor master branch exists.' >&2; return 1; fi; git sync; }; f"
