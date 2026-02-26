@@ -80,8 +80,11 @@ Commit all changes, push the branch, and create a draft PR with a proper title a
    Use these prompts to understand the intent behind the changes.
 
 10. **Generate the PR title** using conventional commits format:
-    - Lowercase, concise, ≤72 characters
-    - e.g. `feat: add copilot skill for pr creation`
+    - Extract a ticket number from the branch name using the pattern `[A-Z]+-[0-9]+`
+      (e.g. branch `ABC-123-add-feature` → ticket `ABC-123`)
+    - If a ticket is found, prefix the title: `[ABC-123] feat: add feature`
+    - If the branch is `main` or `master`, or has no ticket, omit the prefix
+    - Lowercase after the prefix, concise, ≤72 characters
     - Derive from the overall set of changes, not just the last commit
 
 11. **Generate the PR description** using all gathered context with this format:
