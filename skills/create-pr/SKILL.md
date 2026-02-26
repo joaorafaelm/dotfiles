@@ -112,6 +112,12 @@ Commit all changes, push the branch, and create a draft PR with a proper title a
     If a PR already exists for this branch, inform the user and suggest using
     the `/update-pr-description` skill instead.
 
+13. **Request Copilot as a reviewer:**
+
+    ```bash
+    gh pr edit --add-reviewer "copilot"
+    ```
+
 ## Guidelines
 
 - Keep the PR title and description concise but informative
