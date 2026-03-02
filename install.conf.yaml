@@ -37,5 +37,6 @@
     ~/.config/nvim/coc-settings.json: coc-settings.json
     ~/.hushlogin: hushlogin
     ~/.copilot/skills: skills
+    ~/.agents/skills: skills
     ~/.aider.conf.yml: aider.conf.yml
     ~/CONVENTIONS.md: CONVENTIONS.md
