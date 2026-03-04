@@ -24,12 +24,12 @@ Handle both PR flows with `gh cli`:
 
 2. **Check whether a PR already exists for the current branch:**
 
-   ```bash
-   gh pr view --json number --jq .number
-   ```
+   Extract the repository owner and name from the git remote, and the current branch name.
+   Then use the `github-mcp-server-list_pull_requests` tool with `head: "<owner>:<branch>"`
+   and `state: "open"` to check for an existing PR.
 
-   - If this succeeds, an open PR exists for this branch.
-   - If this fails, no PR is open yet.
+   - If a PR is returned, an open PR exists for this branch.
+   - If no results, no PR is open yet.
 
 3. **Determine the flow from user intent:**
    - If asked to update/refresh/generate PR description, use **Update flow**.

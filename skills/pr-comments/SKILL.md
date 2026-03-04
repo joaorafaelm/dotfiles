@@ -15,11 +15,11 @@ Tracks already-fixed comments across multiple invocations using the session data
 
 1. **Get the current PR number:**
 
-   ```bash
-   gh pr view --json number --jq '.number'
-   ```
+   Extract the repository owner and name from the git remote, and the current branch name.
+   Then use the `github-mcp-server-list_pull_requests` tool with `head: "<owner>:<branch>"`
+   and `state: "open"` to find the PR for the current branch.
 
-   If no PR exists for the current branch, inform the user and stop.
+   If no open PR is found, inform the user and stop.
 
 2. **Set up tracking table (if not already created):**
 
