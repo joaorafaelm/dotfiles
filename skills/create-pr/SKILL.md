@@ -115,7 +115,7 @@ Commit all changes, push the branch, and create a draft PR with a proper title a
 13. **Request Copilot as a reviewer:**
 
     ```bash
-    gh pr edit --add-reviewer "copilot"
+    gh pr edit --add-reviewer "@copilot"
     ```
 
 ## Guidelines
