@@ -40,3 +40,4 @@
     ~/.agents/skills: skills
     ~/.aider.conf.yml: aider.conf.yml
     ~/CONVENTIONS.md: CONVENTIONS.md
+    ~/.copilot/copilot-instructions.md: .copilot-instructions.md
