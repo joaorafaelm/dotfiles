@@ -1,10 +1,54 @@
-- clean: ['~']
-
 - defaults:
     link:
       force: true
       create: true
       relink: true
+
+- clean: ['~']
+
+- link:
+    # Shell
+    ~/.bashrc: .bashrc
+    ~/.zshenv: .zshenv
+    ~/.zshrc: .zshrc
+    ~/.xonshrc: .xonshrc
+    ~/.headline.zsh-theme: headline.zsh-theme
+    ~/.hushlogin: hushlogin
+
+    # Git
+    ~/.gitconfig: .gitconfig
+    ~/.gitignore_global: gitignore
+    ~/.config/githooks: githooks/
+
+    # Editors
+    ~/.vim: vim/
+    ~/.config/nvim/init.vim: init.vim
+    ~/.config/nvim/coc-settings.json: coc-settings.json
+
+    # Terminal & Multiplexers
+    ~/.tmux.conf: tmux.conf
+    ~/.tmux: tmux/
+    ~/.config/alacritty.toml: alacritty.toml
+    ~/.config/ranger/rc.conf: rc.conf
+
+    # System / Window Manager
+    ~/.yabairc: yabairc
+    ~/.skhdrc: skhdrc
+
+    # Language / REPL
+    ~/.config/flake8: flake8
+    ~/.ipython/profile_default/ipython_config.py: ipython_config.py
+
+    # AI / Agents
+    ~/.aider.conf.yml: aider.conf.yml
+    ~/.config/aichat: aichat/
+    ~/.agents/skills: skills
+    ~/.copilot/skills: skills
+    ~/.copilot/copilot-instructions.md: .copilot-instructions.md
+
+    # Misc
+    ~/.ignore: .ignore
+    ~/CONVENTIONS.md: CONVENTIONS.md
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
@@ -12,32 +56,3 @@
   - ["if cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search; then git pull; else git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search; fi", "Install/Update zsh-history-substring-search"]
   - ["if cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting; then git pull; else git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting; fi", "Install/Update zsh-syntax-highlighting"]
   - ["if cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions; then git pull; else git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions; fi", "Install/Update zsh-completions"]
-
-- link:
-    ~/.tmux.conf: tmux.conf
-    ~/.vim: vim/
-    ~/.tmux: tmux/
-    ~/.gitconfig: .gitconfig
-    ~/.yabairc: yabairc
-    ~/.skhdrc: skhdrc
-    ~/.zshrc: .zshrc 
-    ~/.bashrc: .bashrc 
-    ~/.zshenv: .zshenv 
-    ~/.xonshrc: .xonshrc 
-    ~/.headline.zsh-theme: headline.zsh-theme 
-    ~/.gitignore_global: gitignore
-    ~/.config/flake8: flake8
-    ~/.config/alacritty.toml: alacritty.toml
-    ~/.config/ranger/rc.conf: rc.conf
-    ~/.config/nvim/init.vim: init.vim
-    ~/.ipython/profile_default/ipython_config.py: ipython_config.py
-    ~/.config/aichat: aichat/
-    ~/.config/githooks: githooks/
-    ~/.ignore: .ignore
-    ~/.config/nvim/coc-settings.json: coc-settings.json
-    ~/.hushlogin: hushlogin
-    ~/.copilot/skills: skills
-    ~/.agents/skills: skills
-    ~/.aider.conf.yml: aider.conf.yml
-    ~/CONVENTIONS.md: CONVENTIONS.md
-    ~/.copilot/copilot-instructions.md: .copilot-instructions.md
