@@ -47,7 +47,13 @@ Generate a comprehensive PR description and update the current branch's open PR 
 
    Use these prompts to understand the intent behind the changes.
 
-5. **Generate the PR description** using all gathered context with this format:
+5. **Get the current PR title:**
+
+   ```bash
+   gh pr view --json title --jq .title
+   ```
+
+6. **Generate the PR description** using all gathered context with this format:
 
    ```markdown
    ## Summary
@@ -63,7 +69,27 @@ Generate a comprehensive PR description and update the current branch's open PR 
 
    Omit the **Notes** section if there's nothing noteworthy.
 
-6. **Update the PR:**
+7. **Evaluate the current PR title:**
+
+   Compare the current title against the commits, diff, and session context.
+   If the title no longer accurately represents the PR's changes, generate a new
+   title using conventional commits format:
+   - Extract a ticket number from the branch name using the pattern `[A-Z]+-[0-9]+`
+     (e.g. branch `ABC-123-add-feature` → ticket `ABC-123`)
+   - If a ticket is found, prefix the title: `[ABC-123] feat: add feature`
+   - If the branch is `main` or `master`, or has no ticket, omit the prefix
+   - Lowercase after the prefix, concise, ≤72 characters
+   - Derive from the overall set of changes, not just the last commit
+
+8. **Update the PR:**
+
+   If the title needs updating:
+
+   ```bash
+   gh pr edit --title "<new title>" --body "<generated description>"
+   ```
+
+   Otherwise:
 
    ```bash
    gh pr edit --body "<generated description>"
