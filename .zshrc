@@ -369,3 +369,21 @@ zstyle ':completion:*' completer _complete _complete:-fuzzy _correct _approximat
 
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Resume the most recent copilot session for the current directory
+pilot() {
+  local id
+  id=$(for f in ~/.copilot/session-state/*/workspace.yaml; do
+    if grep -q "^cwd: $PWD\$" "$f"; then
+      awk '/^updated_at:/{print $2}' "$f"
+      awk '/^id:/{print $2}' "$f"
+    fi
+  done | paste - - | sort -rn | head -1 | awk '{print $2}')
+
+  if [ -n "$id" ]; then
+    copilot --resume "$id"
+  else
+    echo "No session found for $PWD"
+    copilot
+  fi
+}
