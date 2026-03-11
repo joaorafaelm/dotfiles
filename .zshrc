@@ -389,7 +389,7 @@ pilot() {
 }
 
 # Search copilot session plans with fzf
-copilot-plans() {
+plans() {
   local session_dir=~/.copilot/session-state
   local selected
   selected=$(for f in "$session_dir"/*/plan.md; do
