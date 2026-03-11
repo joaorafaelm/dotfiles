@@ -401,7 +401,7 @@ plans() {
     local date=$(awk '/^updated_at:/{print $2}' "$ws")
     local summary=$(awk '/^summary:/{$1=""; print substr($0,2)}' "$ws")
     echo "$id|$repo|${date%T*}|$summary"
-  done | sort -t'|' -k3 -rn | fzf --delimiter='|' \
+  done | sort -t'|' -k3 -r | fzf --delimiter='|' \
     --with-nth=2.. \
     --preview "cat $session_dir/{1}/plan.md" \
     --preview-window=right:60%:wrap \
