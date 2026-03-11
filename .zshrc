@@ -387,3 +387,27 @@ pilot() {
     copilot
   fi
 }
+
+# Search copilot session plans with fzf
+copilot-plans() {
+  local session_dir=~/.copilot/session-state
+  local selected
+  selected=$(for f in "$session_dir"/*/plan.md; do
+    local dir=$(dirname "$f")
+    local ws="$dir/workspace.yaml"
+    [ -f "$ws" ] || continue
+    local id=$(awk '/^id:/{print $2}' "$ws")
+    local repo=$(awk '/^repository:/{print $2}' "$ws")
+    local date=$(awk '/^updated_at:/{print $2}' "$ws")
+    local summary=$(awk '/^summary:/{$1=""; print substr($0,2)}' "$ws")
+    echo "$id|$repo|${date%T*}|$summary"
+  done | sort -t'|' -k3 -rn | fzf --delimiter='|' \
+    --with-nth=2.. \
+    --preview "cat $session_dir/{1}/plan.md" \
+    --preview-window=right:60%:wrap \
+    --header="repo | date | summary")
+
+  [ -n "$selected" ] || return
+  local id=$(echo "$selected" | cut -d'|' -f1)
+  copilot --resume "$id"
+}
