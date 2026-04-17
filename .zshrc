@@ -89,7 +89,6 @@ alias v="nvim"
 alias :q='if [ "$SHLVL" -ge 3 ]; then kill -9 $PPID; else exit; fi'
 alias ai="aichat"
 alias clone="~/dev/xapo/clone.sh"
-alias python="python3"
 function f() { 
     # cd $(mktemp -d)
     folder=${2:-.}
@@ -411,3 +410,5 @@ plans() {
   local id=$(echo "$selected" | cut -d'|' -f1)
   copilot --resume "$id"
 }
+source ~/.safe-chain/scripts/init-posix.sh 2>/dev/null || true # Safe-chain Zsh initialization script
+export SAFE_CHAIN_MINIMUM_PACKAGE_AGE_HOURS=48

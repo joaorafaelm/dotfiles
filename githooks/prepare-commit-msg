@@ -7,7 +7,11 @@ firstLine=$(head -n1 "$1")
 existing_body=$(tail -n +2 "$1" 2>/dev/null)
 
 # Generate full commit message (title + optional description) from staged diff
-message=$(git diff --staged | aichat -r git | tr -d '\`')
+if [ -f "$HOME/.gitconfig-work" ]; then
+  message=$(git diff --staged | copilot -p 'Generate a single-line conventional commit message for this diff. Output only the commit message, nothing else.' -s --no-ask-user | tr -d '\`')
+else
+  message=$(git diff --staged | aichat -r git | tr -d '\`')
+fi
 
 # Extract title (first line) and description (remaining lines), trimming leading blank lines in description
 title=$(printf '%s
