@@ -42,6 +42,11 @@ chars = "\u001F"
 key = "Slash"
 mods = "Control"
 
+[[keyboard.bindings]]
+key = "T"
+mods = "Command"
+action = "None"
+
 [window]
 decorations = "buttonless"
 dynamic_padding = true
