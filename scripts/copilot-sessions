@@ -1,0 +1,173 @@
+#!/usr/bin/env bash
+# copilot-sessions — browse, search, and resume Copilot CLI sessions
+#
+# Usage:
+#   copilot-sessions              Browse recent sessions (fzf)
+#   copilot-sessions <query>      Fuzzy search sessions, then browse matches
+#   copilot-sessions -l [n]       List recent sessions (no fzf, default 20)
+#   copilot-sessions -h           Show help
+
+set -euo pipefail
+
+DB="$HOME/.copilot/session-store.db"
+LIST_LIMIT=20
+# Field separator — must not appear in session content
+SEP="§"
+
+if [[ ! -f "$DB" ]]; then
+  echo "error: session-store.db not found at $DB" >&2
+  echo "hint: install the Copilot CLI and run at least one session first" >&2
+  exit 1
+fi
+
+if ! command -v fzf &>/dev/null; then
+  echo "error: fzf is required — brew install fzf" >&2
+  exit 1
+fi
+
+usage() {
+  cat <<'EOF'
+copilot-sessions — browse, search, and resume Copilot CLI sessions
+
+Usage:
+  copilot-sessions              Browse recent sessions
+  copilot-sessions <query>      Fuzzy search sessions, then browse matches
+  copilot-sessions -l [n]       List recent sessions without fzf (default: 20)
+  copilot-sessions -h           Show this help
+
+Keys (in fzf):
+  Enter           Resume selected session in this terminal
+  Ctrl-Y          Copy session ID to clipboard
+  Esc             Cancel
+
+Search matches against session summaries, all user messages, and
+repository names using fzf fuzzy matching (typo-tolerant, substring).
+
+Tip: alias cs=copilot-sessions for quick access.
+EOF
+}
+
+# All formatting is done in SQLite to avoid slow bash loops.
+# REL_TIME_EXPR: converts updated_at to relative time like "2h ago"
+# Defined as a function to stamp the column name into the expression.
+_diff_expr() { echo "(strftime('%s','now') - strftime('%s', REPLACE(REPLACE(substr($1, 1, 19), 'Z', ''), 'T', ' ')))"; }
+
+# Build fzf input entirely in SQLite — no bash loop.
+# Each line: display_and_search_content\tid
+# The display portion is formatted with printf; search content (all user
+# messages) is appended after the visible columns so it scrolls off-screen
+# but remains searchable by fzf. The session ID is in the last tab-field.
+build_session_lines() {
+  local d
+  d=$(_diff_expr "s.updated_at")
+
+  sqlite3 -separator $'\t' "$DB" "
+    SELECT
+      printf('%-7s  %-15s  %-50s ',
+        CASE
+          WHEN ${d} < 60 THEN 'now'
+          WHEN ${d} < 3600 THEN CAST(${d} / 60 AS TEXT) || 'm ago'
+          WHEN ${d} < 86400 THEN CAST(${d} / 3600 AS TEXT) || 'h ago'
+          WHEN ${d} < 604800 THEN CAST(${d} / 86400 AS TEXT) || 'd ago'
+          ELSE CAST(${d} / 604800 AS TEXT) || 'w ago'
+        END,
+        CASE WHEN INSTR(COALESCE(s.repository, ''), '/') > 0
+          THEN substr(s.repository, INSTR(s.repository, '/') + 1, 15)
+          ELSE COALESCE(substr(s.repository, 1, 15), '')
+        END,
+        REPLACE(REPLACE(COALESCE(s.summary, substr(first_turn.user_message, 1, 80), '(no summary)'), CHAR(10), ' '), CHAR(13), ' ')
+      )
+      || REPLACE(REPLACE(REPLACE(COALESCE(GROUP_CONCAT(substr(t.user_message, 1, 100), ' '), ''), CHAR(10), ' '), CHAR(13), ' '), CHAR(9), ' ')
+      || ' '
+      || COALESCE(s.repository, ''),
+      s.id
+    FROM sessions s
+    LEFT JOIN turns first_turn ON first_turn.session_id = s.id AND first_turn.turn_index = 0
+    LEFT JOIN turns t ON t.session_id = s.id
+    GROUP BY s.id
+    ORDER BY s.updated_at DESC
+  " 2>/dev/null
+}
+
+# List mode — no fzf, just display
+format_sessions_list() {
+  local limit="$1"
+  local d
+  d=$(_diff_expr "s.updated_at")
+
+  sqlite3 "$DB" "
+    SELECT printf('%-7s  %-15s  %s',
+      CASE
+        WHEN ${d} < 60 THEN 'now'
+        WHEN ${d} < 3600 THEN CAST(${d} / 60 AS TEXT) || 'm ago'
+        WHEN ${d} < 86400 THEN CAST(${d} / 3600 AS TEXT) || 'h ago'
+        WHEN ${d} < 604800 THEN CAST(${d} / 86400 AS TEXT) || 'd ago'
+        ELSE CAST(${d} / 604800 AS TEXT) || 'w ago'
+      END,
+      CASE WHEN INSTR(COALESCE(s.repository, ''), '/') > 0
+        THEN substr(s.repository, INSTR(s.repository, '/') + 1, 15)
+        ELSE COALESCE(substr(s.repository, 1, 15), '')
+      END,
+      REPLACE(REPLACE(COALESCE(s.summary, substr(t.user_message, 1, 80), '(no summary)'), CHAR(10), ' '), CHAR(13), ' ')
+    )
+    FROM sessions s
+    LEFT JOIN turns t ON t.session_id = s.id AND t.turn_index = 0
+    ORDER BY s.updated_at DESC
+    LIMIT ${limit}
+  " 2>/dev/null
+}
+
+# --- Main ---
+
+case "${1:-}" in
+  -h|--help)
+    usage
+    exit 0
+    ;;
+  -l|--list)
+    limit="${2:-$LIST_LIMIT}"
+    format_sessions_list "$limit"
+    exit 0
+    ;;
+esac
+
+search_query="${*:-}"
+
+session_lines=$(build_session_lines)
+
+if [[ -z "$session_lines" ]]; then
+  echo "No sessions found." >&2
+  exit 1
+fi
+
+# fzf displays each line truncated to terminal width — the search content
+# appended after the visible columns stays off-screen but remains searchable.
+# --no-hscroll prevents the view from scrolling right to reveal search content.
+# --accept-nth=2 ensures only the session ID (last field) is output on selection.
+fzf_args=(
+  --delimiter=$'\t'
+  --accept-nth=2
+  --no-hscroll
+  --header="  TIME     REPO             SESSION"
+  --header-first
+  --no-info
+  --reverse
+  --bind="ctrl-y:execute-silent(echo -n {2} | pbcopy)+abort"
+  --prompt="session> "
+  --preview-window=hidden
+)
+
+if [[ -n "$search_query" ]]; then
+  fzf_args+=(--query="$search_query")
+fi
+
+selected=$(echo "$session_lines" | fzf "${fzf_args[@]}") || exit 0
+
+session_id="$selected"
+
+if [[ -z "$session_id" ]]; then
+  echo "error: could not extract session ID" >&2
+  exit 1
+fi
+
+exec copilot --resume="$session_id"
