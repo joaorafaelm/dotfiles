@@ -8,7 +8,7 @@ existing_body=$(tail -n +2 "$1" 2>/dev/null)
 
 # Generate full commit message (title + optional description) from staged diff
 if [ -f "$HOME/.gitconfig-work" ]; then
-  message=$(git diff --staged | copilot -p 'Generate a single-line conventional commit message for this diff. Output only the commit message, nothing else.' -s --no-ask-user | tr -d '\`')
+  message=$(copilot -p "Generate a single-line conventional commit message for this diff. Output only the commit message, nothing else: $(git diff --staged)" --no-ask-user -s --output-format json | grep '"type":"assistant.message"' | jq -r '.data.content' | tr -d '\`')
 else
   message=$(git diff --staged | aichat -r git | tr -d '\`')
 fi

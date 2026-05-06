@@ -16,7 +16,6 @@ SEP="§"
 
 if [[ ! -f "$DB" ]]; then
   echo "error: session-store.db not found at $DB" >&2
-  echo "hint: install the Copilot CLI and run at least one session first" >&2
   exit 1
 fi
 
