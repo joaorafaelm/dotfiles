@@ -346,7 +346,7 @@ set number
 set norelativenumber
 set scrolloff=10
 set backspace=indent,eol,start
-set nowrap
+set wrap
 set linebreak
 set autoindent
 set nohidden
