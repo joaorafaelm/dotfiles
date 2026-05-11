@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Remove Co-authored-by: Copilot lines from commit messages
+sed -i '' '/^Co-authored-by: Copilot/d' "$1"
