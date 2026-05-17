@@ -32,6 +32,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:/Users/joaorafael/.local/bin"
 export PATH="$HOME/.luarocks/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export PIPENV_VENV_IN_PROJECT=1
 export PYENV_VERSION="3.11"
 export PYTHONWARNINGS="ignore"
