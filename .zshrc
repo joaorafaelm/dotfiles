@@ -3,7 +3,7 @@ if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" = "vscode" ] || [ -n "$TERM_PROGR
 else
     if [ -n "$ALACRITTY_WINDOW_ID" ] || [ -n "$ALACRITTY_SOCKET" ]; then
         if [ -z "$TMUX" ]; then
-            tmux a -t 0 || tmux new-session \; new-window -n dotfiles -c ~/dev/dotfiles nvim
+            tmux a -t 0 || tmux new-session -c ~/dev/dotfiles -n dotfiles nvim
             exit
         else
             if [ $SHLVL -eq 2 ]; then
